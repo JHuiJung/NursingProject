@@ -1,0 +1,9 @@
+pip install 
+langchain langchain-core 
+langchain-community 
+langchain-text-splitters 
+langchain-openai 
+langchain-pinecone 
+docx2txt
+langchain-openai
+python-dotenv
