@@ -6,6 +6,9 @@ using TMPro;
 
 public class Simulation_Choice : SimulationBase
 {
+    [Header("Canvas Obj & Stuff"), Space(10), SerializeField]
+    GameObject Obj_CanvasChoice;
+
 
     [TextArea] //질문
     [Header("질문(필수로 입력)"), Space(10)]
@@ -27,10 +30,14 @@ public class Simulation_Choice : SimulationBase
     // 시뮬레이션 끝 bool
     bool isSimulationEnd = false;
 
+    ScenarioManager _sm;
+
     public override void Enter(ScenarioManager SM)
     {
         print($"{name} : 객관식 문제 시작");
-        
+
+        Obj_CanvasChoice.SetActive(true);
+        _sm = SM;
 
         Setup();
     }
@@ -38,12 +45,13 @@ public class Simulation_Choice : SimulationBase
     public override void Excute(ScenarioManager SM)
     {
         if (isSimulationEnd) return;
-
     }
 
     public override void Exit(ScenarioManager SM)
     {
         print($"{name} : 객관식 문제 끝");
+        ResetSimulation();
+        Obj_CanvasChoice.SetActive(false);
     }
     public override void ResetSimulation()
     {
@@ -87,7 +95,7 @@ public class Simulation_Choice : SimulationBase
 
         if(answer == text_Answer)
         {
-            // 정답
+            // 정답 
             print($"{answer} : 은 정답 맞죠!"); 
 
         }
@@ -98,6 +106,8 @@ public class Simulation_Choice : SimulationBase
 
         }
 
+        // 다음 시뮬레이션으로 이동
+        _sm.NextSimulation();
         
     }
 

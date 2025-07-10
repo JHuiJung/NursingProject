@@ -2155,6 +2155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a773a4f28962294d84d21a1a2fc2aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Obj_CanvasChoice: {fileID: 268137989}
   text_Question: "Q1. \uC57D\uBB3C \uC774\uB984\uC740 \uBB34\uC5C7\uC778\uAC00\uC694?"
   Tmp_Question: {fileID: 927415252}
   text_Answer: Cefotaxime 0.5g Vial
