@@ -21,6 +21,7 @@ public class ScenarioManager : MonoBehaviour
     {
         // 기초 초기화
         Setup();
+        StartScenario();
     }
 
     private void Update()
