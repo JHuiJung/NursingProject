@@ -6,8 +6,8 @@ using TMPro;
 
 public class Simulation_Choice : SimulationBase
 {
-    [Header("Canvas Obj & Stuff"), Space(10), SerializeField]
-    GameObject Obj_CanvasChoice;
+    [Header("Canvas Obj & Stuff"), Space(10)]
+    public GameObject Obj_CanvasChoice;
 
 
     [TextArea] //질문
@@ -16,7 +16,7 @@ public class Simulation_Choice : SimulationBase
     public TMP_Text Tmp_Question;
 
     // 정답
-    [Header("정답(필수로 입력)"), Space(10)]
+    [Header("정답(필수로 입력 RandImg 제외)"), Space(10)]
     public string text_Answer = "";
 
     // 오답 뭉치
@@ -28,9 +28,10 @@ public class Simulation_Choice : SimulationBase
     public List<BTN_Choice> BTN_Choices = new List<BTN_Choice>();
 
     // 시뮬레이션 끝 bool
-    bool isSimulationEnd = false;
-
-    ScenarioManager _sm;
+    [NonReorderable]
+    private bool isSimulationEnd = false;
+    [NonReorderable]
+    private ScenarioManager _sm;
 
     public override void Enter(ScenarioManager SM)
     {
@@ -87,7 +88,7 @@ public class Simulation_Choice : SimulationBase
         }
     }
 
-    public void SubmitAnswer(string answer, int choosedNum)
+    public virtual void SubmitAnswer(string answer, int choosedNum)
     {
         isSimulationEnd=true;
 

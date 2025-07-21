@@ -29,6 +29,7 @@ public class SimulationTextInput : SimulationBase
     [TextArea]
     public string text_TimeInput_Question = "";
     public TMP_Text Tmp_TimeInput_Question;
+    public List<string> list_TimeAnswer = new List<string>();
 
 
     [Header("정답 시간 텀(필수로 입력)"), Space(10)]
@@ -105,11 +106,16 @@ public class SimulationTextInput : SimulationBase
         // 현재 시간 가져오기
         DateTime now = DateTime.Now;
 
+
+
+        //리스트의 시간중 하나 선택
+        string slectedAnswer = list_TimeAnswer[UnityEngine.Random.Range(0, list_TimeAnswer.Count)];
+
         // 질문 텍스트 수정
-        Tmp_TimeInput_Question.text = text_TimeInput_Question + $"\n[ 현재 시간 : {GetTimeWithMinutesAdded(now, 0)} ]";
+        Tmp_TimeInput_Question.text = text_TimeInput_Question + $"\n[ 현재 시간 : {GetTimeWithMinutesAdded(slectedAnswer, -20)} ]";
         
-        // 정답 설정
-        timeInput_Answer = GetTimeWithMinutesAdded(now,timeInput_Offset);
+        // 정답 설정 ( 정답 시간 + Offset )
+        timeInput_Answer = slectedAnswer;
 
         print(timeInput_Answer);
 
@@ -153,28 +159,49 @@ public class SimulationTextInput : SimulationBase
 
     }
 
-    string GetTimeWithMinutesAdded(DateTime now,int m)
+    string GetTimeWithMinutesAdded(string timeString, int minutesToAdd)
     {
-        // m분 추가
-        DateTime futureTime = now.AddMinutes(m);
+        // 입력 문자열 파싱: "6am", "6am 15m" 등
+        string[] parts = timeString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        string timePart = parts[0]; // "6am" 또는 "7pm"
+        int minutePart = 0;
 
-        // 시간과 분 추출
-        int hour = futureTime.Hour;
-        int minute = futureTime.Minute;
-
-        // AM/PM 처리
-        string period = hour >= 12 ? "pm" : "am";
-        int displayHour = hour % 12;
-        if (displayHour == 0) displayHour = 12; // 0시는 12로 표시
-
-        // 분이 0이면 "6am", 아니면 "6am 15m"
-        if (minute == 0)
+        // 분 정보가 있는 경우 파싱
+        if (parts.Length > 1 && parts[1].EndsWith("m"))
         {
-            return $"{displayHour}{period}";
+            minutePart = int.Parse(parts[1].TrimEnd('m'));
+        }
+
+        // 시간과 AM/PM 분리
+        int hour = int.Parse(new string(timePart.Where(char.IsDigit).ToArray()));
+        string period = timePart.EndsWith("pm") ? "pm" : "am";
+
+        // 12시간제 -> 24시간제 변환
+        if (period == "pm" && hour != 12)
+            hour += 12;
+        if (period == "am" && hour == 12)
+            hour = 0;
+
+        // 기준 DateTime 생성
+        DateTime baseTime = new DateTime(1, 1, 1, hour, minutePart, 0);
+
+        // 분 추가
+        DateTime resultTime = baseTime.AddMinutes(minutesToAdd);
+
+        // 24시간제 -> 12시간제 변환
+        string resultPeriod = resultTime.Hour >= 12 ? "pm" : "am";
+        int resultHour = resultTime.Hour % 12;
+        if (resultHour == 0) resultHour = 12;
+        int resultMinute = resultTime.Minute;
+
+        // 결과 문자열 생성
+        if (resultMinute == 0)
+        {
+            return $"{resultHour}{resultPeriod}";
         }
         else
         {
-            return $"{displayHour}{period} {minute}m";
+            return $"{resultHour}{resultPeriod} {resultMinute}m";
         }
     }
 
