@@ -107,6 +107,9 @@ public class Simulation_Choice : SimulationBase
 
         }
 
+        //정답 스택에 추가
+        _sm.str_Answers.Push($"{text_Question} / User Answer : {answer}");
+
         // 다음 시뮬레이션으로 이동
         _sm.NextSimulation();
         

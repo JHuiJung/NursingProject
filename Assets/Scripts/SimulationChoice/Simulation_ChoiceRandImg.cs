@@ -58,7 +58,7 @@ public class Simulation_ChoiceRandImg : Simulation_Choice
     void Setup()
     {
         // 질문 텍스트 수정
-        Tmp_Question.text = text_Question;
+        SetTitle(text_Question);
 
         // 정답이 할당될 번호 가져오기
         int randBTN_Num = Random.Range(0, BTN_Choices.Count);
@@ -82,6 +82,11 @@ public class Simulation_ChoiceRandImg : Simulation_Choice
         }
     }
 
+    public void SetTitle(string str)
+    {
+        Tmp_Question.text = str;
+    }
+
     public override void SubmitAnswer(string answer, int choosedNum)
     {
         isSimulationEnd2 = true;
@@ -101,9 +106,18 @@ public class Simulation_ChoiceRandImg : Simulation_Choice
 
         }
 
+
+        // 이미지 타입(Opend, Crack 등), 선택한 문장, 선택한 번호, 정답 문장을 추가
+        AddAnswerStack(selectedAnswer.text_Answer);
+
         // 다음 시뮬레이션으로 이동
         _sm2.NextSimulation();
 
+    }
+
+    public void AddAnswerStack(string ans)
+    {
+        _sm2.str_Answers.Push($"{Tmp_Question.text} / User Answer : {ans}");
     }
 
     // 중복 없이 랜덤으로 count개 선택하는 함수

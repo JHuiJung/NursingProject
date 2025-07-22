@@ -7,7 +7,8 @@ public class ScenarioManager : MonoBehaviour
 {
     // 시뮬레이션
     public List<SimulationBase> simulationBases = new List<SimulationBase>();
-
+    
+    public Stack<string> str_Answers = new Stack<string>();
 
     SimulationBase currentSimulation = null;
 

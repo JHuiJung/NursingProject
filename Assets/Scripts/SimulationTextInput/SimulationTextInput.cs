@@ -139,6 +139,9 @@ public class SimulationTextInput : SimulationBase
                 print($"텍스트 입력 : TimeInputMode {timeInput_Answer} 은 정답아님");
             }
 
+            // 정답 스택에 추가
+            _sm.str_Answers.Push($"{text_TimeInput_Question} / User Answer : {timeInput_Answer}");
+
         }
         else
         {
@@ -150,10 +153,13 @@ public class SimulationTextInput : SimulationBase
             {
                 print($"텍스트 입력 : NormalMode {text_Answer} 은 정답아님");
             }
+
+            // 정답 스택에 추가
+            _sm.str_Answers.Push($"{text_Question} / User Answer : {text_Answer}");
         }
 
-        
 
+        
         // 다음 시뮬레이션으로 이동
         _sm.NextSimulation();
 
