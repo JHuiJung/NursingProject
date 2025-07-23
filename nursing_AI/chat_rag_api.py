@@ -16,6 +16,5 @@ class ChatResponse(BaseModel):
 @app.post("/chat", response_model=ChatResponse)
 def chat_endpoint(request: ChatRequest):
     # nursing-llm.py의 get_ai_response를 사용
-    # session_id를 활용하려면 nursing-llm.py의 get_ai_response 함수도 session_id를 받을 수 있도록 수정 필요
     answer = get_ai_response(request.question)
     return {"answer": answer}
