@@ -15,7 +15,10 @@ from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.output_parsers import StrOutputParser
 
-from .config import answer_examples 
+try:
+    from .config import answer_examples
+except ImportError:
+    from config import answer_examples 
 
 load_dotenv()
 
@@ -102,18 +105,19 @@ def get_ai_response(user_message):
     )
     return response
 
-# if __name__ == "__main__":
-#     test_message = """
-#     Q10. "체중 9.2kg, 50mg/kg/day q 8hr 처방 시, 1회 용량은 얼마인가요?"  
-#     사용자 선택: 500mg
+if __name__ == "__main__":
+    test_message = """
+    Q10. "체중 9.2kg, 50mg/kg/day q 8hr 처방 시, 1회 용량은 얼마인가요?"  
+    사용자 선택: 500mg
 
-#     Q11. 처방을 참고하여 "Cefotaxime은 어떤 용액에 희석해야 하나요?"  
-#     사용자 선택: 1) 증류수 (Water for Injection)
+    Q11. 처방을 참고하여 "Cefotaxime은 어떤 용액에 희석해야 하나요?"  
+    사용자 선택: 1) 증류수 (Water for Injection)
 
-#     Q12. "희석 시 필요한 용량은?"  
-#     사용자 선택: 2) 2.5ml
+    Q12. "희석 시 필요한 용량은?"  
+    사용자 선택: 2) 2.5ml
 
-#     Q13. "Cefotaxime 500mg에 N/S 2cc 희석 후 처방된 1회 주입 용량을 계산하면?"  
-#     사용자 선택: 1.84ml    """
-#     answer = get_ai_response(test_message)
-#     print("AI 답변:", answer)
+    Q13. "Cefotaxime 500mg에 N/S 2cc 희석 후 처방된 1회 주입 용량을 계산하면?"  
+    사용자 선택: 1.84ml    
+    """
+    answer = get_ai_response(test_message)
+    print("AI 답변:\n", answer)
