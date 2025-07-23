@@ -37,9 +37,10 @@ public class ImgComb_AnswerSpace : MonoBehaviour
 
     public void CheckFind()
     {
-        ImgComb_Entity closestEntity = null;
+
         List<ImgComb_Entity> dummy = new List<ImgComb_Entity>();
-        float closestDistance = float.MaxValue;
+
+        int cnt = 0;
 
         // 가장 가까운 엔티티 찾기
         foreach (ImgComb_Entity entity in imgComb_Entities)
@@ -51,32 +52,12 @@ public class ImgComb_AnswerSpace : MonoBehaviour
 
             if (distance <= findingRange)
             {
-                dummy.Add(entity);
-
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestEntity = entity;
-                }
-
+                entity.OnNumber(number);
+                cnt++;
             }
         }
 
-        // 각 엔티티마다 On/Off 처리
-        foreach (ImgComb_Entity entity in dummy)
-        {
-            if (entity == closestEntity)
-            {
-                entity.OnNumber(number); // 가장 가까운 애만 On
-            }
-            else
-            {
-                entity.OffNumber(); // 나머지는 Off
-            }
-        }
-
-        if (closestEntity != null)
-        {
+        if (cnt > 0) {
             isFilled = true;
         }
         else

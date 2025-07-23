@@ -16,12 +16,17 @@ public class Simulation_ImgComb : SimulationBase
     public TMP_Text Tmp_Question;
 
     public List<ImgComb_AnswerSpace> answerSpaces = new List<ImgComb_AnswerSpace>();
+    public List<ImgComb_Entity> imgComb_Entities = new List<ImgComb_Entity>();
+
+    [SerializeField] GameObject Obj_Button;
 
     // 시뮬레이션 끝 bool
     [NonReorderable]
     private bool isSimulationEnd = false;
     [NonReorderable]
     private ScenarioManager _sm;
+
+    string userAnswer = "";
 
     public override void Enter(ScenarioManager SM)
     {
@@ -45,18 +50,57 @@ public class Simulation_ImgComb : SimulationBase
         // 전부다 채워짐
         if(CheckIsAllFilled())
         {
-            EndSimulation();
+            Obj_Button.SetActive(true);
+        }
+        else
+        {
+            Obj_Button.SetActive(false);
         }
 
         
     }
 
-    void EndSimulation()
+    public void Submit()
     {
         isSimulationEnd = true;
 
+        imgComb_Entities.Sort((a, b) =>
+        {
+            int numA = int.TryParse(a.number, out var nA) ? nA : int.MaxValue;
+            int numB = int.TryParse(b.number, out var nB) ? nB : int.MaxValue;
+            return numA.CompareTo(numB);
+        });
+
+
+        userAnswer += text_Question + "/ User Answer : ";
+
+
+        for (int i = 0; i < imgComb_Entities.Count; i++) {
+
+            ImgComb_Entity e = imgComb_Entities[i];
+
+            userAnswer += $"[ {e.number}번 : {e.entity_Title}]";
+
+            if(i != imgComb_Entities.Count - 1)
+            {
+                userAnswer += " -> ";
+            }
+            else
+            {
+                userAnswer += "\n";
+            }
+
+
+        }
+
+        print($"{name} : {userAnswer}");
+
+        _sm.str_Answers.Push(userAnswer);
+
         _sm.NextSimulation();
+
     }
+
 
     bool CheckIsAllFilled()
     {
@@ -74,6 +118,7 @@ public class Simulation_ImgComb : SimulationBase
         print($"{name} : 객관식 문제 끝");
         ResetSimulation();
         Obj_CanvasChoice.SetActive(false);
+        userAnswer = "";
     }
     public override void ResetSimulation()
     {

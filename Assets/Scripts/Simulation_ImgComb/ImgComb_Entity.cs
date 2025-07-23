@@ -8,6 +8,10 @@ using TMPro;
 
 public class ImgComb_Entity : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler
 {
+    public string entity_Title = "";
+
+    public string number = "none";
+
     // ¥Â∆Æ¿© Ω√∞£
     [SerializeField] float DG_Time = 0.125f;
 
@@ -22,7 +26,6 @@ public class ImgComb_Entity : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private RectTransform rect;
     private Canvas canvas;
-    public bool isNumberOn = false;
 
     private void Start()
     {
@@ -33,15 +36,15 @@ public class ImgComb_Entity : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnNumber(string num)
     {
         Obj_Num.SetActive(true);
-        txt_Num.text = num;
-        isNumberOn = true;
+        number = num;
+        txt_Num.text = number;
     }
 
     public void OffNumber()
     {
         Obj_Num.SetActive(false);
-        txt_Num.text = "";
-        isNumberOn = false;
+        number = "";
+        txt_Num.text = number;
     }
     
     public void OnPointerEnter(PointerEventData eventData)
