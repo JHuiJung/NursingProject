@@ -5,6 +5,7 @@ using TMPro;
 
 public class NursingChatClient : MonoBehaviour
 {
+
     [Header("🩺 UI 연결")]
     public TMP_InputField questionInput;   // Unity Inspector에 Drag & Drop
     public TMP_Text answerOutput;          // Unity Inspector에 Drag & Drop
@@ -36,7 +37,7 @@ public class NursingChatClient : MonoBehaviour
         StartCoroutine(SendQuestionToAPI(questionInput.text));
     }
 
-    IEnumerator SendQuestionToAPI(string question)
+    public IEnumerator SendQuestionToAPI(string question)
     {
         ChatRequest requestData = new ChatRequest
         {
@@ -68,6 +69,41 @@ public class NursingChatClient : MonoBehaviour
             }
         }
     }
+
+    
+    public IEnumerator SendQuestionToAPIUsing(string question)
+    {
+        ChatRequest requestData = new ChatRequest
+        {
+            session_id = "unity-session-001", // 나중에 사용자 고유 ID로 대체 가능
+            question = question
+        };
+
+        string jsonData = JsonUtility.ToJson(requestData);
+        byte[] postData = System.Text.Encoding.UTF8.GetBytes(jsonData);
+
+        using (UnityWebRequest www = new UnityWebRequest(apiUrl, "POST"))
+        {
+            www.uploadHandler = new UploadHandlerRaw(postData);
+            www.downloadHandler = new DownloadHandlerBuffer();
+            www.SetRequestHeader("Content-Type", "application/json");
+
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                ChatResponse response = JsonUtility.FromJson<ChatResponse>(www.downloadHandler.text);
+                answerOutput.text = response.answer;
+                Debug.Log("✅ 응답 수신:\n" + response.answer);
+            }
+            else
+            {
+                Debug.LogError("❌ 요청 실패: " + www.error);
+                answerOutput.text = "서버 오류: " + www.error;
+            }
+        }
+    }
+
 
     // 선택적으로 Start에 초기화 메시지 넣을 수 있음
     void Start()

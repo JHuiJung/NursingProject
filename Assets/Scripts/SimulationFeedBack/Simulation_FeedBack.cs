@@ -6,6 +6,8 @@ using TMPro;
 
 public class Simulation_FeedBack : SimulationBase
 {
+    public NursingChatClient NursingChatClient; 
+
     [Header("Canvas Obj & Stuff"), Space(10),SerializeField]
     GameObject Obj_CanvasChoice;
 
@@ -18,10 +20,10 @@ public class Simulation_FeedBack : SimulationBase
     {
         _sm = SM;
 
-        // È­¸é Å°±â
+        // È­ï¿½ï¿½ Å°ï¿½ï¿½
         Obj_CanvasChoice.SetActive(true);
 
-        // È­¸é¿¡ À¯Àú°¡ ¼±ÅÃÇÑ ÅØ½ºÆ® Ãâ·Â
+        // È­ï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½
         PrintUserAnswers();
     }
 
@@ -32,11 +34,11 @@ public class Simulation_FeedBack : SimulationBase
     public override void Exit(ScenarioManager SM)
     {
 
-        // È­¸é ²ô±â
+        // È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Obj_CanvasChoice.SetActive(false);
         ResetSimulation();
 
-        //%%%%%%%%%%%%%%%%%%%% ÀÓ½Ã·Î ÇÇµå¹é Á¾·á½Ã ½ºÅÃ ºñ¿ì±â %%%%%%%%%%%%%%%%%%%%%%
+        //%%%%%%%%%%%%%%%%%%%% ï¿½Ó½Ã·ï¿½ ï¿½Çµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ %%%%%%%%%%%%%%%%%%%%%%
         _sm.str_Answers.Clear();
     }
 
@@ -62,7 +64,7 @@ public class Simulation_FeedBack : SimulationBase
 
         tmp_Content.text = _result;
 
-
+        StartCoroutine(NursingChatClient.SendQuestionToAPIUsing(_result));
 
 
     }
