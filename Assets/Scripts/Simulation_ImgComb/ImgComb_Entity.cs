@@ -8,9 +8,13 @@ using TMPro;
 
 public class ImgComb_Entity : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler
 {
+    public static ImgComb_Entity inst;
+
     public string entity_Title = "";
 
-    public string number = "none";
+    public int number = -1;
+
+    public bool isBTNOn = false;
 
     // ¥Â∆Æ¿© Ω√∞£
     [SerializeField] float DG_Time = 0.125f;
@@ -33,18 +37,20 @@ public class ImgComb_Entity : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         canvas = GetComponentInParent<Canvas>();
     }
 
-    public void OnNumber(string num)
+    public void OnNumber(int num)
     {
         Obj_Num.SetActive(true);
         number = num;
-        txt_Num.text = number;
+        txt_Num.text = number.ToString();
+        isBTNOn = true;
     }
 
     public void OffNumber()
     {
         Obj_Num.SetActive(false);
-        number = "";
-        txt_Num.text = number;
+        number = -1;
+        txt_Num.text = number.ToString();
+        isBTNOn = false;
     }
     
     public void OnPointerEnter(PointerEventData eventData)
@@ -60,6 +66,7 @@ public class ImgComb_Entity : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnDrag(PointerEventData eventData)
     {
+        inst = this;
         rect.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 }

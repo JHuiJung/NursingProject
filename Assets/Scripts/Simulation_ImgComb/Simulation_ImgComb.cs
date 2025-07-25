@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,11 @@ public class Simulation_ImgComb : SimulationBase
     public string text_Question = "";
     public TMP_Text Tmp_Question;
 
-    public List<ImgComb_AnswerSpace> answerSpaces = new List<ImgComb_AnswerSpace>();
+    public List<GameObject> answerSpaces = new List<GameObject>();
     public List<ImgComb_Entity> imgComb_Entities = new List<ImgComb_Entity>();
 
     [SerializeField] GameObject Obj_Button;
+    public float findingRange = 120;
 
     // 시뮬레이션 끝 bool
     [NonReorderable]
@@ -42,13 +44,56 @@ public class Simulation_ImgComb : SimulationBase
     {
         if (isSimulationEnd) return;
 
-        foreach(ImgComb_AnswerSpace imgComb_Answer in answerSpaces)
+
+
+        /*
+           answerSpace 보다 안에 있는 것들은 숫자를 표기하고 셋에 추가
+
+           마지막에 셋에 없는 것들은 번호 꺼버리기
+         */
+
+        HashSet<int> collectedEntityIndices = new HashSet<int>();
+
+        for (int i = 0; i < answerSpaces.Count; i++)
         {
-            imgComb_Answer.CheckFind();
+            RectTransform answerRect = answerSpaces[i].GetComponent<RectTransform>();
+
+            float closestSqrDistance = float.MaxValue;
+            int closestEntityIndex = -1;
+
+            for (int j = 0; j < imgComb_Entities.Count; j++)
+            {
+                if (collectedEntityIndices.Contains(j)) continue; // 이미 연결된 Entity는 제외
+
+                RectTransform entityRect = imgComb_Entities[j].GetComponent<RectTransform>();
+                float sqrDistance = (answerRect.position - entityRect.position).sqrMagnitude;
+
+                if (sqrDistance <= findingRange * findingRange && sqrDistance < closestSqrDistance)
+                {
+                    closestSqrDistance = sqrDistance;
+                    closestEntityIndex = j;
+                }
+            }
+
+            if (closestEntityIndex != -1)
+            {
+                collectedEntityIndices.Add(closestEntityIndex);
+                imgComb_Entities[closestEntityIndex].OnNumber(i + 1);
+            }
         }
 
+        // 연결되지 않은 Entity는 번호 꺼버리기
+        for (int i = 0; i < imgComb_Entities.Count; ++i)
+        {
+            if (!collectedEntityIndices.Contains(i))
+            {
+                imgComb_Entities[i].OffNumber();
+            }
+        }
+
+
         // 전부다 채워짐
-        if(CheckIsAllFilled())
+        if (CheckIsAllBTNOn())
         {
             Obj_Button.SetActive(true);
         }
@@ -66,8 +111,8 @@ public class Simulation_ImgComb : SimulationBase
 
         imgComb_Entities.Sort((a, b) =>
         {
-            int numA = int.TryParse(a.number, out var nA) ? nA : int.MaxValue;
-            int numB = int.TryParse(b.number, out var nB) ? nB : int.MaxValue;
+            int numA = a.number;
+            int numB = b.number;
             return numA.CompareTo(numB);
         });
 
@@ -102,11 +147,11 @@ public class Simulation_ImgComb : SimulationBase
     }
 
 
-    bool CheckIsAllFilled()
+    bool CheckIsAllBTNOn()
     {
-        foreach (ImgComb_AnswerSpace imgComb_Answer in answerSpaces)
+        foreach (ImgComb_Entity entity in imgComb_Entities)
         {
-            if (!imgComb_Answer.isFilled)
+            if (!entity.isBTNOn)
                 return false;
         }
 
