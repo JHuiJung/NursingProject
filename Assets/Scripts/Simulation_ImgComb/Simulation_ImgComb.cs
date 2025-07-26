@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,10 +23,14 @@ public class Simulation_ImgComb : SimulationBase
     [SerializeField] GameObject Obj_Button;
     public float findingRange = 120;
 
+    [Header("Dotween"), Space(10)]
+    public float DG_Time = 0.75f;
+    public Ease DG_Ease = Ease.InOutQuad;
+
+    public List<Vector2> answerSpaceTargets = new List<Vector2>();
+
     // 시뮬레이션 끝 bool
-    [NonReorderable]
     private bool isSimulationEnd = false;
-    [NonReorderable]
     private ScenarioManager _sm;
 
     string userAnswer = "";
@@ -38,6 +43,7 @@ public class Simulation_ImgComb : SimulationBase
         _sm = SM;
 
         Setup();
+        StartCoroutine(AllUiOn());
     }
 
     public override void Excute(ScenarioManager SM)
@@ -172,6 +178,83 @@ public class Simulation_ImgComb : SimulationBase
 
     //------------------------------------------------------------------------------------------
 
+    IEnumerator AllUiOn()
+    {
+        // 타이틀 DG
+        RectTransform rect_title = Tmp_Question.gameObject.transform.parent
+            .GetComponent<RectTransform>();
+
+
+        rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
+            0f), DG_Time).SetEase(DG_Ease);
+
+        // 정답란 닷트윈
+        for (int i = 0; i < answerSpaceTargets.Count; i++) 
+        {
+            answerSpaces[i].GetComponent<RectTransform>().DOAnchorPos(
+                answerSpaceTargets[i], 0.15f*(i+1)).SetEase(DG_Ease);
+        }
+
+        // 엔티티 카드 섞기
+        for (int i = 0; i < imgComb_Entities.Count; i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(i, imgComb_Entities.Count);
+            ImgComb_Entity temp = imgComb_Entities[i];
+            imgComb_Entities[i] = imgComb_Entities[randomIndex];
+            imgComb_Entities[randomIndex] = temp;
+        }
+
+        // 엔티티 카드 닷트윈
+        for (int i = 0; i < imgComb_Entities.Count / 2; i++)
+        {
+            Vector2 pos = new Vector2(UnityEngine.Random.Range(-600, -700), UnityEngine.Random.Range(-200, 200));
+
+            imgComb_Entities[i].GetComponent<RectTransform>().DOAnchorPos(
+                pos, 0.15f * (i + 1)).SetEase(DG_Ease);
+        }
+
+        for (int i = imgComb_Entities.Count / 2; i < imgComb_Entities.Count ; i++)
+        {
+            Vector2 pos = new Vector2(UnityEngine.Random.Range(600, 700), UnityEngine.Random.Range(-200, 200));
+
+            imgComb_Entities[i].GetComponent<RectTransform>().DOAnchorPos(
+                pos, 0.15f * (i + 1)).SetEase(DG_Ease);
+        }
+
+        yield return new WaitForSeconds(DG_Time);
+    }
+
+    IEnumerator AllUiOff()
+    {
+        // 타이틀 DG
+        RectTransform rect_title = Tmp_Question.gameObject.transform.parent
+            .GetComponent<RectTransform>();
+
+
+        rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
+            200f), DG_Time).SetEase(DG_Ease);
+
+        // 정답란 닷트윈
+        for (int i = 0; i < answerSpaceTargets.Count; i++)
+        {
+            answerSpaces[i].GetComponent<RectTransform>().DOAnchorPos(
+                new Vector2(0, -800f), 0.15f * (i + 1)).SetEase(DG_Ease);
+        }
+
+        // 엔티티 카드 닷트윈
+        for (int i = 0; i < imgComb_Entities.Count; i++)
+        {
+            imgComb_Entities[i].GetComponent<RectTransform>().DOAnchorPos(
+                new Vector2(0, -800f), 0.15f * (i + 1)).SetEase(DG_Ease);
+        }
+
+
+        yield return new WaitForSeconds(DG_Time);
+
+        // 다음 시뮬레이션으로 이동
+        _sm.NextSimulation();
+    }
+
     void Setup()
     {
         // 질문 텍스트 수정
@@ -188,7 +271,7 @@ public class Simulation_ImgComb : SimulationBase
         _sm.str_Answers.Push($"{text_Question} / User Answer : {answer}");
 
         // 다음 시뮬레이션으로 이동
-        _sm.NextSimulation();
+        StartCoroutine(AllUiOff());
 
     }
 }
