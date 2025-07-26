@@ -8,7 +8,6 @@ using TMPro;
 
 public class ImgComb_Entity : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler
 {
-    public static ImgComb_Entity inst;
 
     public string entity_Title = "";
 
@@ -66,7 +65,6 @@ public class ImgComb_Entity : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnDrag(PointerEventData eventData)
     {
-        inst = this;
         rect.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 }
