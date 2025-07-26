@@ -1,17 +1,22 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using static UnityEngine.Rendering.DebugUI;
 
 public class SimulationTextInput : SimulationBase
 {
     [Header("Canvas Obj & Stuff"), Space(10), SerializeField]
     GameObject Obj_CanvasChoice;
+    [SerializeField]
+    GameObject Obj_AreaTextInput;
+    [SerializeField]
+    GameObject Obj_BTN_Submit;
 
 
     [TextArea] //질문
@@ -38,7 +43,12 @@ public class SimulationTextInput : SimulationBase
     // -------------텍스트 입력-------------
     [Header("---------- 텍스트 입력 ----------"), Space(10)]
     public TMP_InputField textInputField;
-    public UnityEngine.UI.Button BTN_Submit;
+
+    [Header("Dotween"), Space(10)]
+    public float DG_Time = 0.75f;
+    public float DG_Area_EndY = -20f;
+    public float DG_Area_StartY = -450f;
+    public Ease DG_Ease = Ease.Linear;
 
     //
     string timeInput_Answer = "";
@@ -63,6 +73,8 @@ public class SimulationTextInput : SimulationBase
         {
             Setup_Normal();
         }
+
+        StartCoroutine(AllUiOn());
     }
 
     public override void Excute(ScenarioManager SM)
@@ -72,10 +84,11 @@ public class SimulationTextInput : SimulationBase
         //버튼 활성화 or 비활성화
         if(string.IsNullOrWhiteSpace(textInputField.text))
         {
-            BTN_Submit.interactable = false;
+            Obj_BTN_Submit.SetActive(false);
         }
-        else {
-            BTN_Submit.interactable = true;
+        else
+        {
+            Obj_BTN_Submit.SetActive(true);
         }
     }
 
@@ -123,8 +136,10 @@ public class SimulationTextInput : SimulationBase
 
     public void SubmitAnswer()
     {
+        if (isSimulationEnd) return;
+
         isSimulationEnd = true;
-        BTN_Submit.interactable = false;
+
         string answer = textInputField.text;
 
         if (isTimeInputMode)
@@ -132,37 +147,78 @@ public class SimulationTextInput : SimulationBase
 
             if (answer == timeInput_Answer)
             {
-                print($"텍스트 입력 : TimeInputMode {timeInput_Answer} 은 정답!");
+                print($"텍스트 입력 : TimeInputMode {answer} 은 정답!");
             }
             else
             {
-                print($"텍스트 입력 : TimeInputMode {timeInput_Answer} 은 정답아님");
+                print($"텍스트 입력 : TimeInputMode {answer} 은 정답아님");
             }
 
             // 정답 스택에 추가
-            _sm.str_Answers.Push($"{text_TimeInput_Question} / User Answer : {timeInput_Answer}");
+            _sm.str_Answers.Push($"{text_TimeInput_Question} / Answer :  {timeInput_Offset} 만큼 지난 시간인 {timeInput_Answer} 이 정답 / User Answer : {answer}");
+
 
         }
         else
         {
             if (answer == text_Answer)
             {
-                print($"텍스트 입력 : NormalMode {text_Answer} 은 정답!");
+                print($"텍스트 입력 : NormalMode {answer} 은 정답!");
             }
             else
             {
-                print($"텍스트 입력 : NormalMode {text_Answer} 은 정답아님");
+                print($"텍스트 입력 : NormalMode {answer} 은 정답아님");
             }
 
             // 정답 스택에 추가
-            _sm.str_Answers.Push($"{text_Question} / User Answer : {text_Answer}");
+            _sm.str_Answers.Push($"{text_Question} / Answer :  {timeInput_Answer} / User Answer : {answer}");
         }
 
 
-        
+
+
+        StartCoroutine(AllUiOff());
+    }
+
+    IEnumerator AllUiOn()
+    {
+        // 타이틀 DG
+        RectTransform rect_title = Tmp_Question.gameObject.transform.parent
+            .GetComponent<RectTransform>();
+
+
+        rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
+            0f), DG_Time).SetEase(DG_Ease);
+
+        // 텍스트 입력 DG
+        RectTransform rect_AreaTI = Obj_AreaTextInput.GetComponent<RectTransform>();
+
+        rect_AreaTI.DOAnchorPos(new Vector2(rect_AreaTI.anchoredPosition.x ,DG_Area_EndY), DG_Time
+            ).SetEase(DG_Ease);
+
+        yield return new WaitForSeconds(DG_Time);
+    }
+
+    IEnumerator AllUiOff()
+    {
+        // 타이틀 DG
+        RectTransform rect_title = Tmp_Question.gameObject.transform.parent
+            .GetComponent<RectTransform>();
+
+
+        rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
+            200f), DG_Time).SetEase(DG_Ease);
+
+        // 텍스트 입력 DG
+        RectTransform rect_AreaTI = Obj_AreaTextInput.GetComponent<RectTransform>();
+
+        rect_AreaTI.DOAnchorPos(new Vector2(rect_AreaTI.anchoredPosition.x, DG_Area_StartY), DG_Time
+            ).SetEase(DG_Ease);
+
+        yield return new WaitForSeconds(DG_Time);
+
         // 다음 시뮬레이션으로 이동
         _sm.NextSimulation();
-
     }
 
     string GetTimeWithMinutesAdded(string timeString, int minutesToAdd)

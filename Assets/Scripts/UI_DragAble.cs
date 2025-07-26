@@ -5,10 +5,12 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 
-public class UI_Prescription : MonoBehaviour, IDragHandler
+public class UI_DragAble : MonoBehaviour, IDragHandler
 {
-    public Vector3 targetVec = Vector3.one;
-    public float DG_Time = 0.25f;
+    [Header("Dotween ¿É¼Ç"),Space(10)]
+    public bool useDotweenFX = false;
+    public Vector3 targetVec = new Vector3(0.1f,0.1f,0.1f);
+    public float DG_Time = 0.12f;
     public Ease DG_Ease = Ease.InOutQuad;
 
     RectTransform rect;
@@ -19,7 +21,8 @@ public class UI_Prescription : MonoBehaviour, IDragHandler
         rect = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
 
-        rect.DOPunchScale(targetVec, DG_Time).SetEase(Ease.InOutQuad);
+        if(useDotweenFX)
+            rect.DOPunchScale(targetVec, DG_Time).SetEase(Ease.InOutQuad);
     }
     public void OnDrag(PointerEventData eventData)
     {
@@ -28,7 +31,8 @@ public class UI_Prescription : MonoBehaviour, IDragHandler
 
     private void OnEnable()
     {
-        rect.DOPunchScale(targetVec, DG_Time).SetEase(Ease.InOutQuad);
+        if (useDotweenFX)
+            rect.DOPunchScale(targetVec, DG_Time).SetEase(Ease.InOutQuad);
     }
 
 }
