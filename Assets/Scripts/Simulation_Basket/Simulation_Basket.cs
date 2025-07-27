@@ -123,6 +123,24 @@ public class Simulation_Basket : SimulationBase
         if (isSimulationEnd) return;
         isSimulationEnd = true;
 
+        // check 된 엔티티 만 답에 추가
+
+        userAnswer += text_Question + "/ User Answer :  담은 물품 [ ";
+
+        foreach (GameObject be in Obj_BasketEntites)
+        { 
+            BasketEntity bee = be.GetComponent<BasketEntity>();
+
+            if (bee.isCheck)
+            {
+                userAnswer += $"{bee.entity_Title} ,";
+            }
+
+        }
+
+        userAnswer += " ] ";
+
+        _sm.str_Answers.Push(userAnswer);
 
         StartCoroutine(AllUiOff());
 

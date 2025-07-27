@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class BasketEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler
 {
-    public string tmp_entity_Title = "";
+    public string entity_Title = "";
 
     public bool isCheck = false;
 
