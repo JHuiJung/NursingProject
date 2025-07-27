@@ -26,12 +26,14 @@ public class Simulation_ImgComb : SimulationBase
     [Header("Dotween"), Space(10)]
     public float DG_Time = 0.75f;
     public Ease DG_Ease = Ease.InOutQuad;
+    public float DG_deltaTime = 0.15f;
 
     public List<Vector2> answerSpaceTargets = new List<Vector2>();
 
     // 시뮬레이션 끝 bool
     private bool isSimulationEnd = false;
     private ScenarioManager _sm;
+    
 
     string userAnswer = "";
 
@@ -148,7 +150,7 @@ public class Simulation_ImgComb : SimulationBase
 
         _sm.str_Answers.Push(userAnswer);
 
-        _sm.NextSimulation();
+        StartCoroutine(AllUiOff());
 
     }
 
@@ -192,7 +194,7 @@ public class Simulation_ImgComb : SimulationBase
         for (int i = 0; i < answerSpaceTargets.Count; i++) 
         {
             answerSpaces[i].GetComponent<RectTransform>().DOAnchorPos(
-                answerSpaceTargets[i], 0.15f*(i+1)).SetEase(DG_Ease);
+                answerSpaceTargets[i], DG_deltaTime * (i+1)).SetEase(DG_Ease);
         }
 
         // 엔티티 카드 섞기
@@ -210,7 +212,7 @@ public class Simulation_ImgComb : SimulationBase
             Vector2 pos = new Vector2(UnityEngine.Random.Range(-600, -700), UnityEngine.Random.Range(-200, 200));
 
             imgComb_Entities[i].GetComponent<RectTransform>().DOAnchorPos(
-                pos, 0.15f * (i + 1)).SetEase(DG_Ease);
+                pos, DG_deltaTime * (i + 1)).SetEase(DG_Ease);
         }
 
         for (int i = imgComb_Entities.Count / 2; i < imgComb_Entities.Count ; i++)
@@ -218,10 +220,10 @@ public class Simulation_ImgComb : SimulationBase
             Vector2 pos = new Vector2(UnityEngine.Random.Range(600, 700), UnityEngine.Random.Range(-200, 200));
 
             imgComb_Entities[i].GetComponent<RectTransform>().DOAnchorPos(
-                pos, 0.15f * (i + 1)).SetEase(DG_Ease);
+                pos, DG_deltaTime * (i + 1)).SetEase(DG_Ease);
         }
 
-        yield return new WaitForSeconds(DG_Time);
+        yield return new WaitForSeconds(DG_deltaTime * imgComb_Entities.Count);
     }
 
     IEnumerator AllUiOff()
@@ -238,18 +240,18 @@ public class Simulation_ImgComb : SimulationBase
         for (int i = 0; i < answerSpaceTargets.Count; i++)
         {
             answerSpaces[i].GetComponent<RectTransform>().DOAnchorPos(
-                new Vector2(0, -800f), 0.15f * (i + 1)).SetEase(DG_Ease);
+                new Vector2(0, -800f), DG_deltaTime * (i + 1)).SetEase(DG_Ease);
         }
 
         // 엔티티 카드 닷트윈
         for (int i = 0; i < imgComb_Entities.Count; i++)
         {
             imgComb_Entities[i].GetComponent<RectTransform>().DOAnchorPos(
-                new Vector2(0, -800f), 0.15f * (i + 1)).SetEase(DG_Ease);
+                new Vector2(0, 800f), DG_deltaTime * (i + 1)).SetEase(DG_Ease);
         }
 
 
-        yield return new WaitForSeconds(DG_Time);
+        yield return new WaitForSeconds(DG_deltaTime * imgComb_Entities.Count);
 
         // 다음 시뮬레이션으로 이동
         _sm.NextSimulation();
