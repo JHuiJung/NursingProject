@@ -132,6 +132,8 @@ public class Simulation_ImgComb : SimulationBase
 
             ImgComb_Entity e = imgComb_Entities[i];
 
+            if (!e.isBTNOn) continue;
+
             userAnswer += $"[ {e.number}¹ø : {e.entity_Title}]";
 
             if(i != imgComb_Entities.Count - 1)
@@ -157,13 +159,18 @@ public class Simulation_ImgComb : SimulationBase
 
     bool CheckIsAllBTNOn()
     {
+        int cnt = 0;
+
         foreach (ImgComb_Entity entity in imgComb_Entities)
         {
-            if (!entity.isBTNOn)
-                return false;
+            if (entity.isBTNOn)
+                cnt++;
         }
-
-        return true;
+        
+        if (cnt == answerSpaces.Count)
+            return true;
+        else
+            return false;
     }
 
     public override void Exit(ScenarioManager SM)

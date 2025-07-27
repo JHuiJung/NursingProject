@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class SpriteAndTextAnswer
 {
     public Sprite sprite;
+    public bool isNormal = false;
     public string text_Content;
     public string text_Answer;
 }
