@@ -264,16 +264,4 @@ public class Simulation_ImgComb : SimulationBase
 
         
     }
-
-    public virtual void SubmitAnswer(string answer, int choosedNum)
-    {
-        isSimulationEnd = true;
-
-        //정답 스택에 추가
-        _sm.str_Answers.Push($"{text_Question} / User Answer : {answer}");
-
-        // 다음 시뮬레이션으로 이동
-        StartCoroutine(AllUiOff());
-
-    }
 }
