@@ -23,6 +23,10 @@ public class NursingChatClient : MonoBehaviour
     public class ChatResponse
     {
         public string answer;
+        public int correct_count;
+        public int incorrect_count;
+        public int total_questions;
+        public float score_percentage;
     }
 
     // 버튼에서 호출될 함수
@@ -59,8 +63,17 @@ public class NursingChatClient : MonoBehaviour
             if (www.result == UnityWebRequest.Result.Success)
             {
                 ChatResponse response = JsonUtility.FromJson<ChatResponse>(www.downloadHandler.text);
-                answerOutput.text = response.answer;
-                Debug.Log("✅ 응답 수신:\n" + response.answer);
+                
+                // 답변과 점수 정보를 함께 표시
+                string displayText = response.answer;
+                if (response.total_questions > 0)
+                {
+                    displayText += $"\n\n📊 점수: {response.correct_count}개 정답, {response.incorrect_count}개 오답";
+                    displayText += $"\n🎯 정답률: {response.score_percentage}%";
+                }
+                
+                answerOutput.text = displayText;
+                Debug.Log($"✅ 응답 수신:\n{response.answer}\n📊 정답: {response.correct_count}개, 오답: {response.incorrect_count}개, 점수: {response.score_percentage}%");
             }
             else
             {
@@ -93,8 +106,17 @@ public class NursingChatClient : MonoBehaviour
             if (www.result == UnityWebRequest.Result.Success)
             {
                 ChatResponse response = JsonUtility.FromJson<ChatResponse>(www.downloadHandler.text);
-                answerOutput.text = response.answer;
-                Debug.Log("✅ 응답 수신:\n" + response.answer);
+                
+                // 답변과 점수 정보를 함께 표시
+                string displayText = response.answer;
+                if (response.total_questions > 0)
+                {
+                    displayText += $"\n\n📊 점수: {response.correct_count}개 정답, {response.incorrect_count}개 오답";
+                    displayText += $"\n🎯 정답률: {response.score_percentage}%";
+                }
+                
+                answerOutput.text = displayText;
+                Debug.Log($"✅ 응답 수신:\n{response.answer}\n📊 정답: {response.correct_count}개, 오답: {response.incorrect_count}개, 점수: {response.score_percentage}%");
             }
             else
             {

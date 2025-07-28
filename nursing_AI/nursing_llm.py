@@ -103,7 +103,25 @@ def get_ai_response(user_message):
         {"input": user_message},
         config={"configurable": {"session_id": "nursing-session"}}
     )
-    return response
+    
+    # 정답과 오답 개수 계산
+    correct_count = response.count("✅")
+    incorrect_count = response.count("❌")
+    total_questions = correct_count + incorrect_count
+    
+    # 점수 계산
+    score_percentage = round((correct_count / total_questions * 100) if total_questions > 0 else 0, 1)
+    
+    # 결과를 딕셔너리로 반환
+    result = {
+        "answer": response,
+        "correct_count": correct_count,
+        "incorrect_count": incorrect_count,
+        "total_questions": total_questions,
+        "score_percentage": score_percentage
+    }
+    
+    return result
 
 if __name__ == "__main__":
     test_message = """
@@ -119,5 +137,30 @@ if __name__ == "__main__":
     Q13. "Cefotaxime 500mg에 N/S 2cc 희석 후 처방된 1회 주입 용량을 계산하면?"  
     사용자 선택: 1.84ml    
     """
-    answer = get_ai_response(test_message)
-    print("AI 답변:\n", answer)
+    result = get_ai_response(test_message)
+    print("AI 답변:\n", result["answer"])
+    print(f"📊 정답: {result['correct_count']}개, 오답: {result['incorrect_count']}개, 총 문제: {result['total_questions']}개")
+    print(f"🎯 점수: {result['score_percentage']}%")
+    
+    # 객관식 문제 테스트
+    print("\n" + "="*50)
+    print("객관식 문제 테스트")
+    print("="*50)
+    
+    objective_test = """
+    Q1. "약물 이름은 무엇인가요?"
+    선택지: 1) Cefotaxime 2) Cefazolin 3) Gentamicin 4) Ampicillin
+    사용자 선택: 1) Cefotaxime
+    
+    Q2. "투약 경로는 무엇인가요?"
+    선택지: 1) 근육주사 2) 정맥투여 3) 피하주사 4) 경구투여
+    사용자 선택: 2) 정맥투여
+    
+    Q3. "1회 용량은 얼마인가요?"
+    선택지: 1) 50mg 2) 100mg 3) 500mg 4) 1000mg
+    사용자 선택: 3) 500mg
+    """
+    result2 = get_ai_response(objective_test)
+    print("객관식 AI 답변:\n", result2["answer"])
+    print(f"📊 정답: {result2['correct_count']}개, 오답: {result2['incorrect_count']}개, 총 문제: {result2['total_questions']}개")
+    print(f"🎯 점수: {result2['score_percentage']}%")
