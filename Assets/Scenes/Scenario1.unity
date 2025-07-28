@@ -9126,7 +9126,7 @@ MonoBehaviour:
   findingRange: 120
   DG_Time: 0.75
   DG_Ease: 7
-  DG_deltaTime: 0.15
+  DG_deltaTime: 0.25
   answerSpaceTargets:
   - {x: -425, y: 130}
   - {x: -135, y: 130}
@@ -14494,7 +14494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &352554725
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14810,6 +14810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbe7d22ecbfda14a92afaafc6a0f609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NursingChatClient: {fileID: 834485428}
   Obj_CanvasChoice: {fileID: 1562053087}
   tmp_Content: {fileID: 1765398173}
 --- !u!4 &361605249
@@ -14826,6 +14827,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1562053088}
+  - {fileID: 834485427}
   m_Father: {fileID: 911994546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &362171352
@@ -20329,7 +20331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d7d0420e6af6b845a426a5234d8e8a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity_Title: "\uC190\uAE4D\uC9C0"
+  entity_Title: "\uC190\uAC00\uB77D \uC0AC\uC774"
   number: -1
   isBTNOn: 0
   DG_Time: 0.125
@@ -23644,6 +23646,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 546032692}
   m_CullTransparentMesh: 1
+--- !u!1 &548139911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 548139912}
+  - component: {fileID: 548139913}
+  m_Layer: 0
+  m_Name: AI_NursingChat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &548139912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548139911}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 654862093}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &548139913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548139911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb866e8f1df849cfa112fa6b5bfdfe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionInput: {fileID: 0}
+  answerOutput: {fileID: 30836556}
 --- !u!1 &549776751
 GameObject:
   m_ObjectHideFlags: 0
@@ -26780,6 +26828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbe7d22ecbfda14a92afaafc6a0f609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NursingChatClient: {fileID: 709911936}
   Obj_CanvasChoice: {fileID: 450888361}
   tmp_Content: {fileID: 1064683089}
 --- !u!4 &607047901
@@ -26796,6 +26845,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 450888362}
+  - {fileID: 709911935}
   m_Father: {fileID: 911994546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &607364596
@@ -27728,7 +27778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d7d0420e6af6b845a426a5234d8e8a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity_Title: "\uC190\uAC00\uB77D"
+  entity_Title: "\uB450 \uC190 \uBAA8\uC544"
   number: -1
   isBTNOn: 0
   DG_Time: 0.125
@@ -28058,6 +28108,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1988604870}
+  - {fileID: 1588701788}
   m_Father: {fileID: 911994546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &629214597
@@ -28072,6 +28123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbe7d22ecbfda14a92afaafc6a0f609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NursingChatClient: {fileID: 1588701789}
   Obj_CanvasChoice: {fileID: 1988604869}
   tmp_Content: {fileID: 1658133422}
 --- !u!1 &632294233
@@ -28866,6 +28918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbe7d22ecbfda14a92afaafc6a0f609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NursingChatClient: {fileID: 548139913}
   Obj_CanvasChoice: {fileID: 2018709917}
   tmp_Content: {fileID: 30836556}
 --- !u!4 &654862093
@@ -28882,6 +28935,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2018709918}
+  - {fileID: 548139912}
   m_Father: {fileID: 911994546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &656634954
@@ -31734,6 +31788,52 @@ RectTransform:
   m_AnchoredPosition: {x: -35, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0, y: 1}
+--- !u!1 &709911934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 709911935}
+  - component: {fileID: 709911936}
+  m_Layer: 0
+  m_Name: AI_NursingChat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &709911935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709911934}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 607047901}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &709911936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709911934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb866e8f1df849cfa112fa6b5bfdfe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionInput: {fileID: 0}
+  answerOutput: {fileID: 1064683089}
 --- !u!1 &710498619
 GameObject:
   m_ObjectHideFlags: 0
@@ -37206,6 +37306,52 @@ RectTransform:
   m_AnchoredPosition: {x: 900, y: -270}
   m_SizeDelta: {x: 800, y: 80}
   m_Pivot: {x: 1, y: 0.5}
+--- !u!1 &834485426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 834485427}
+  - component: {fileID: 834485428}
+  m_Layer: 0
+  m_Name: AI_NursingChat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &834485427
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834485426}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 361605249}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &834485428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834485426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb866e8f1df849cfa112fa6b5bfdfe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionInput: {fileID: 0}
+  answerOutput: {fileID: 1765398173}
 --- !u!1 &834670770
 GameObject:
   m_ObjectHideFlags: 0
@@ -57788,7 +57934,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC190\uAE4D\uC9C0"
+  m_text: "\uC190\uAC00\uB77D \uC0AC\uC774"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed21f0a27c3c7114783de72406ce063e, type: 2}
   m_sharedMaterial: {fileID: 2226096250028548758, guid: ed21f0a27c3c7114783de72406ce063e,
@@ -67337,6 +67483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbe7d22ecbfda14a92afaafc6a0f609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NursingChatClient: {fileID: 1806710158}
   Obj_CanvasChoice: {fileID: 494429894}
   tmp_Content: {fileID: 412146317}
 --- !u!4 &1453735227
@@ -67353,6 +67500,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 494429895}
+  - {fileID: 1806710157}
   m_Father: {fileID: 911994546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1458762559
@@ -72182,7 +72330,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC190\uAC00\uB77D\n"
+  m_text: "\uB450 \uC190 \uBAA8\uC544"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed21f0a27c3c7114783de72406ce063e, type: 2}
   m_sharedMaterial: {fileID: 2226096250028548758, guid: ed21f0a27c3c7114783de72406ce063e,
@@ -73201,6 +73349,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588034035}
   m_CullTransparentMesh: 1
+--- !u!1 &1588701787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1588701788}
+  - component: {fileID: 1588701789}
+  m_Layer: 0
+  m_Name: AI_NursingChat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1588701788
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588701787}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 629214596}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1588701789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588701787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb866e8f1df849cfa112fa6b5bfdfe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionInput: {fileID: 0}
+  answerOutput: {fileID: 1658133422}
 --- !u!1 &1590220713
 GameObject:
   m_ObjectHideFlags: 0
@@ -81986,6 +82180,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1795655573}
   m_CullTransparentMesh: 1
+--- !u!1 &1806710156
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1806710157}
+  - component: {fileID: 1806710158}
+  m_Layer: 0
+  m_Name: AI_NursingChat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1806710157
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806710156}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1453735227}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1806710158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806710156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb866e8f1df849cfa112fa6b5bfdfe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionInput: {fileID: 0}
+  answerOutput: {fileID: 412146317}
 --- !u!1 &1808088350
 GameObject:
   m_ObjectHideFlags: 0
