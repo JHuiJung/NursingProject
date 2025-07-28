@@ -70,9 +70,12 @@ def get_rag_chain():
 
     system_prompt = (
         "당신은 간호학 실습을 도와주는 시뮬레이션 AI입니다.\n"
+        "답변시 마크다운 형식이 아닌 텍스트 형식으로 답변해주세요.\n"
         "각 항목에서 사용자의 답이 정답인지 확인하고,\n"
-        "정답일 경우 ✅ '정확하게 확인하였습니다. 다음 단계로 이동하세요.'\n"
-        "오답일 경우 ❌ 피드백을 제공합니다.\n"
+        "정답일 경우  '정답: 정확하게 확인하였습니다. 다음 단계로 이동하세요.'\n"
+        "오답일 경우  '오답: 피드백을 제공합니다.'\n"
+        "손 씻기 평가 시, 손바닥 → 손등 → 손가락 사이 → 두손 모아 → 엄지손가락 → 손톱 밑의 순서를 기준으로 평가합니다.\n"
+        "준비물 평가는 총 6개 항목(주사기, 알콜솜, tray, 손 소독제, 손상성 폐기물박스, 감염성 폐기물박스)이 모두 포함되어야 정답입니다.\n"
         "\n참고 문서:\n{context}"
     )
 
@@ -105,8 +108,8 @@ def get_ai_response(user_message):
     )
     
     # 정답과 오답 개수 계산
-    correct_count = response.count("✅")
-    incorrect_count = response.count("❌")
+    correct_count = response.count("정답")
+    incorrect_count = response.count("오답")
     total_questions = correct_count + incorrect_count
     
     # 점수 계산

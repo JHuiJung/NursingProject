@@ -73,7 +73,7 @@ public class NursingChatClient : MonoBehaviour
                 }
                 
                 answerOutput.text = displayText;
-                Debug.Log($"✅ 응답 수신:\n{response.answer}\n📊 정답: {response.correct_count}개, 오답: {response.incorrect_count}개, 점수: {response.score_percentage}%");
+                Debug.Log($"✅ 응답 수신:\n{response.answer}\n📊 정답: {response.correct_count}개, 오답: {response.incorrect_count}개, 총: {response.total_questions}%");
             }
             else
             {
