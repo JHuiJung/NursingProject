@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using DG.Tweening;
 using TMPro;
 
 public class Simulation_Choice : SimulationBase
@@ -27,9 +28,15 @@ public class Simulation_Choice : SimulationBase
     [Header("선택 버튼들"), Space(10)]
     public List<BTN_Choice> BTN_Choices = new List<BTN_Choice>();
 
+    [Header("Dotween"), Space(10)]
+    public float DG_Time = 0.25f;
+    public float DG_BTN_EndX = 150f;
+    public float DG_BTN_StartX = 900f;
+    public Ease DG_Ease = Ease.Linear;
+
     // 시뮬레이션 끝 bool
     [NonReorderable]
-    private bool isSimulationEnd = false;
+    public bool isSimulationEnd = false;
     [NonReorderable]
     private ScenarioManager _sm;
 
@@ -41,6 +48,7 @@ public class Simulation_Choice : SimulationBase
         _sm = SM;
 
         Setup();
+        StartCoroutine(AllUiOn());
     }
 
     public override void Excute(ScenarioManager SM)
@@ -88,6 +96,56 @@ public class Simulation_Choice : SimulationBase
         }
     }
 
+    IEnumerator AllUiOn()
+    {
+        // 타이틀 DG
+        RectTransform rect_title = Tmp_Question.gameObject.transform.parent
+            .GetComponent<RectTransform>();
+
+
+        rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x, 
+            0f), DG_Time).SetEase(DG_Ease);
+
+
+        // 버튼 DG
+        for (int i = 0; i < BTN_Choices.Count;++i)
+        {
+            RectTransform rect = BTN_Choices[i].GetComponent<RectTransform>();
+
+            rect.DOAnchorPos(new Vector2(DG_BTN_EndX, rect.anchoredPosition.y), DG_Time - i*0.1f)
+                .SetEase(DG_Ease);
+        }
+
+        yield return new WaitForSeconds(DG_Time);
+    }
+
+    IEnumerator AllUiOff()
+    {
+        // 타이틀 DG
+        RectTransform rect_title = Tmp_Question.gameObject.transform.parent
+            .GetComponent<RectTransform>();
+
+
+        rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
+            200f), DG_Time).SetEase(DG_Ease);
+
+
+        // 버튼 DG
+        for (int i = 0; i < BTN_Choices.Count; ++i)
+        {
+            RectTransform rect = BTN_Choices[i].GetComponent<RectTransform>();
+
+            rect.DOAnchorPos(new Vector2(DG_BTN_StartX, rect.anchoredPosition.y), DG_Time - i * 0.1f)
+                .SetEase(DG_Ease);
+        }
+
+        yield return new WaitForSeconds(DG_Time);
+
+        // 다음 시뮬레이션으로 이동
+        _sm.NextSimulation();
+    }
+
+
     public virtual void SubmitAnswer(string answer, int choosedNum)
     {
         isSimulationEnd=true;
@@ -110,9 +168,9 @@ public class Simulation_Choice : SimulationBase
         //정답 스택에 추가
         _sm.str_Answers.Push($"{text_Question} / User Answer : {answer}");
 
-        // 다음 시뮬레이션으로 이동
-        _sm.NextSimulation();
-        
+
+        // DG UI OFF
+        StartCoroutine(AllUiOff());
     }
 
     // 중복 없이 랜덤으로 count개 선택하는 함수

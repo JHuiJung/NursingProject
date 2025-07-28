@@ -1,3 +1,5 @@
+using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +17,23 @@ public class Simulation_ImgComb : SimulationBase
     public string text_Question = "";
     public TMP_Text Tmp_Question;
 
-    public List<ImgComb_AnswerSpace> answerSpaces = new List<ImgComb_AnswerSpace>();
+    public List<GameObject> answerSpaces = new List<GameObject>();
     public List<ImgComb_Entity> imgComb_Entities = new List<ImgComb_Entity>();
 
     [SerializeField] GameObject Obj_Button;
+    public float findingRange = 120;
+
+    [Header("Dotween"), Space(10)]
+    public float DG_Time = 0.75f;
+    public Ease DG_Ease = Ease.InOutQuad;
+    public float DG_deltaTime = 0.15f;
+
+    public List<Vector2> answerSpaceTargets = new List<Vector2>();
 
     // 시뮬레이션 끝 bool
-    [NonReorderable]
     private bool isSimulationEnd = false;
-    [NonReorderable]
     private ScenarioManager _sm;
+    
 
     string userAnswer = "";
 
@@ -36,19 +45,63 @@ public class Simulation_ImgComb : SimulationBase
         _sm = SM;
 
         Setup();
+        StartCoroutine(AllUiOn());
     }
 
     public override void Excute(ScenarioManager SM)
     {
         if (isSimulationEnd) return;
 
-        foreach(ImgComb_AnswerSpace imgComb_Answer in answerSpaces)
+
+
+        /*
+           answerSpace 보다 안에 있는 것들은 숫자를 표기하고 셋에 추가
+
+           마지막에 셋에 없는 것들은 번호 꺼버리기
+         */
+
+        HashSet<int> collectedEntityIndices = new HashSet<int>();
+
+        for (int i = 0; i < answerSpaces.Count; i++)
         {
-            imgComb_Answer.CheckFind();
+            RectTransform answerRect = answerSpaces[i].GetComponent<RectTransform>();
+
+            float closestSqrDistance = float.MaxValue;
+            int closestEntityIndex = -1;
+
+            for (int j = 0; j < imgComb_Entities.Count; j++)
+            {
+                if (collectedEntityIndices.Contains(j)) continue; // 이미 연결된 Entity는 제외
+
+                RectTransform entityRect = imgComb_Entities[j].GetComponent<RectTransform>();
+                float sqrDistance = (answerRect.position - entityRect.position).sqrMagnitude;
+
+                if (sqrDistance <= findingRange * findingRange && sqrDistance < closestSqrDistance)
+                {
+                    closestSqrDistance = sqrDistance;
+                    closestEntityIndex = j;
+                }
+            }
+
+            if (closestEntityIndex != -1)
+            {
+                collectedEntityIndices.Add(closestEntityIndex);
+                imgComb_Entities[closestEntityIndex].OnNumber(i + 1);
+            }
         }
 
+        // 연결되지 않은 Entity는 번호 꺼버리기
+        for (int i = 0; i < imgComb_Entities.Count; ++i)
+        {
+            if (!collectedEntityIndices.Contains(i))
+            {
+                imgComb_Entities[i].OffNumber();
+            }
+        }
+
+
         // 전부다 채워짐
-        if(CheckIsAllFilled())
+        if (CheckIsAllBTNOn())
         {
             Obj_Button.SetActive(true);
         }
@@ -66,8 +119,8 @@ public class Simulation_ImgComb : SimulationBase
 
         imgComb_Entities.Sort((a, b) =>
         {
-            int numA = int.TryParse(a.number, out var nA) ? nA : int.MaxValue;
-            int numB = int.TryParse(b.number, out var nB) ? nB : int.MaxValue;
+            int numA = a.number;
+            int numB = b.number;
             return numA.CompareTo(numB);
         });
 
@@ -78,6 +131,8 @@ public class Simulation_ImgComb : SimulationBase
         for (int i = 0; i < imgComb_Entities.Count; i++) {
 
             ImgComb_Entity e = imgComb_Entities[i];
+
+            if (!e.isBTNOn) continue;
 
             userAnswer += $"[ {e.number}번 : {e.entity_Title}]";
 
@@ -97,20 +152,25 @@ public class Simulation_ImgComb : SimulationBase
 
         _sm.str_Answers.Push(userAnswer);
 
-        _sm.NextSimulation();
+        StartCoroutine(AllUiOff());
 
     }
 
 
-    bool CheckIsAllFilled()
+    bool CheckIsAllBTNOn()
     {
-        foreach (ImgComb_AnswerSpace imgComb_Answer in answerSpaces)
-        {
-            if (!imgComb_Answer.isFilled)
-                return false;
-        }
+        int cnt = 0;
 
-        return true;
+        foreach (ImgComb_Entity entity in imgComb_Entities)
+        {
+            if (entity.isBTNOn)
+                cnt++;
+        }
+        
+        if (cnt == answerSpaces.Count)
+            return true;
+        else
+            return false;
     }
 
     public override void Exit(ScenarioManager SM)
@@ -127,23 +187,88 @@ public class Simulation_ImgComb : SimulationBase
 
     //------------------------------------------------------------------------------------------
 
+    IEnumerator AllUiOn()
+    {
+        // 타이틀 DG
+        RectTransform rect_title = Tmp_Question.gameObject.transform.parent
+            .GetComponent<RectTransform>();
+
+
+        rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
+            0f), DG_Time).SetEase(DG_Ease);
+
+        // 정답란 닷트윈
+        for (int i = 0; i < answerSpaceTargets.Count; i++) 
+        {
+            answerSpaces[i].GetComponent<RectTransform>().DOAnchorPos(
+                answerSpaceTargets[i], DG_deltaTime * (i+1)).SetEase(DG_Ease);
+        }
+
+        // 엔티티 카드 섞기
+        for (int i = 0; i < imgComb_Entities.Count; i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(i, imgComb_Entities.Count);
+            ImgComb_Entity temp = imgComb_Entities[i];
+            imgComb_Entities[i] = imgComb_Entities[randomIndex];
+            imgComb_Entities[randomIndex] = temp;
+        }
+
+        // 엔티티 카드 닷트윈
+        for (int i = 0; i < imgComb_Entities.Count / 2; i++)
+        {
+            Vector2 pos = new Vector2(UnityEngine.Random.Range(-600, -700), UnityEngine.Random.Range(-200, 200));
+
+            imgComb_Entities[i].GetComponent<RectTransform>().DOAnchorPos(
+                pos, DG_deltaTime * (i + 1)).SetEase(DG_Ease);
+        }
+
+        for (int i = imgComb_Entities.Count / 2; i < imgComb_Entities.Count ; i++)
+        {
+            Vector2 pos = new Vector2(UnityEngine.Random.Range(600, 700), UnityEngine.Random.Range(-200, 200));
+
+            imgComb_Entities[i].GetComponent<RectTransform>().DOAnchorPos(
+                pos, DG_deltaTime * (i + 1)).SetEase(DG_Ease);
+        }
+
+        yield return new WaitForSeconds(DG_deltaTime * imgComb_Entities.Count);
+    }
+
+    IEnumerator AllUiOff()
+    {
+        // 타이틀 DG
+        RectTransform rect_title = Tmp_Question.gameObject.transform.parent
+            .GetComponent<RectTransform>();
+
+
+        rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
+            200f), DG_Time).SetEase(DG_Ease);
+
+        // 정답란 닷트윈
+        for (int i = 0; i < answerSpaceTargets.Count; i++)
+        {
+            answerSpaces[i].GetComponent<RectTransform>().DOAnchorPos(
+                new Vector2(0, -800f), DG_deltaTime * (i + 1)).SetEase(DG_Ease);
+        }
+
+        // 엔티티 카드 닷트윈
+        for (int i = 0; i < imgComb_Entities.Count; i++)
+        {
+            imgComb_Entities[i].GetComponent<RectTransform>().DOAnchorPos(
+                new Vector2(0, 800f), DG_deltaTime * (i + 1)).SetEase(DG_Ease);
+        }
+
+
+        yield return new WaitForSeconds(DG_deltaTime * imgComb_Entities.Count);
+
+        // 다음 시뮬레이션으로 이동
+        _sm.NextSimulation();
+    }
+
     void Setup()
     {
         // 질문 텍스트 수정
         Tmp_Question.text = text_Question;
 
         
-    }
-
-    public virtual void SubmitAnswer(string answer, int choosedNum)
-    {
-        isSimulationEnd = true;
-
-        //정답 스택에 추가
-        _sm.str_Answers.Push($"{text_Question} / User Answer : {answer}");
-
-        // 다음 시뮬레이션으로 이동
-        _sm.NextSimulation();
-
     }
 }
