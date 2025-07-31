@@ -15,6 +15,7 @@ public class Simulation_ChoiceRandImg : SimulationBase
     public GameObject Obj_CanvasChoice;
     public Simulation_RandImg simulation_RandImg;
     public bool useButtonSetup = true;
+    public int answerNumber = 0;
 
     [TextArea] //질문
     [Header("질문(필수로 입력)"), Space(10)]
@@ -83,12 +84,12 @@ public class Simulation_ChoiceRandImg : SimulationBase
         // 정답 정보 가져오기
         selectedAnswer = simulation_RandImg.selectedTA;
 
-        print($"{name} 의 정답 : {selectedAnswer.text_Answer}");
+        print($"{name} 의 정답 : {selectedAnswer.ls_Answers[answerNumber]}");
 
         // 버튼 초기화
         for (int i = 0; i < BTN_Choices.Count; i++)
         {
-            BTN_Choices[i].SetBTN_RandImg(dummies[i].text_Content, i + 1, this);
+            BTN_Choices[i].SetBTN_RandImg(dummies[i].ls_Answers[answerNumber], i + 1, this);
         }
     }
 
@@ -117,7 +118,7 @@ public class Simulation_ChoiceRandImg : SimulationBase
 
         print($"제출된 문항 : {answer} / 선택 번호 : {choosedNum}");
 
-        if (answer == selectedAnswer.text_Content)
+        if (answer == selectedAnswer.ls_Answers[answerNumber])
         {
             // 정답 
             print($"{answer} : 은 정답 맞죠!");
@@ -126,11 +127,11 @@ public class Simulation_ChoiceRandImg : SimulationBase
         else
         {
             // 오답
-            print($"{answer} 은 오답 {selectedAnswer.text_Answer} 이 정답");
+            print($"{answer} 은 오답 {selectedAnswer.ls_Answers[answerNumber]} 이 정답");
 
         }
         
-        _sm.str_Answers.Push($"{Tmp_Question.text} / Answer : {selectedAnswer.text_Answer}  / User Answer : {answer}");
+        _sm.str_Answers.Push($"{Tmp_Question.text} / Answer : {selectedAnswer.ls_Answers[answerNumber]}  / User Answer : {answer}");
 
 
         StartCoroutine(AllUiOff());
