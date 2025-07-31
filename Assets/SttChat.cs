@@ -13,7 +13,7 @@ public class STTChat : MonoBehaviour
     public TMP_Text questionText;
     public AudioSource audioSource;
 
-    private const string apiUrl = "http://127.0.0.1:8000/stt"; // FastAPI /stt 엔드포인트
+    private const string apiUrl = "http://127.0.0.1:8000/clova_stt"; // FastAPI /stt 엔드포인트
     private AudioClip recordedClip;
     private bool isRecording = false;
     private const int sampleRate = 16000;
@@ -127,5 +127,6 @@ public class STTChat : MonoBehaviour
     {
         public string transcript;
         public string feedback;
+        public string question; 
     }
 }
