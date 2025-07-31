@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using TMPro;
+using DG.Tweening;
 
 public class Simulation_FeedBack : SimulationBase
 {
@@ -10,9 +11,16 @@ public class Simulation_FeedBack : SimulationBase
 
     [Header("Canvas Obj & Stuff"), Space(10),SerializeField]
     GameObject Obj_CanvasChoice;
-
     [SerializeField]
-    TMP_Text tmp_Content;
+    GameObject Obj_Title;
+    [SerializeField]
+    GameObject Obj_Content;
+    [SerializeField]
+    GameObject Obj_Wait;
+
+    [Header("Dotween"), Space(10)]
+    public float DG_Time = 0.75f;
+    public Ease DG_Ease = Ease.InOutQuad;
 
     bool isSimulationEnd = false;
     ScenarioManager _sm;
@@ -20,15 +28,14 @@ public class Simulation_FeedBack : SimulationBase
     {
         _sm = SM;
 
-        // ȭ�� Ű��
         Obj_CanvasChoice.SetActive(true);
 
-        // ȭ�鿡 ������ ������ �ؽ�Ʈ ���
-        PrintUserAnswers();
+        StartCoroutine(Setup());
     }
 
     public override void Excute(ScenarioManager SM)
     {
+
     }
 
     public override void Exit(ScenarioManager SM)
@@ -38,22 +45,29 @@ public class Simulation_FeedBack : SimulationBase
         Obj_CanvasChoice.SetActive(false);
         ResetSimulation();
 
+        StartCoroutine(AllUIOff());
+
         //%%%%%%%%%%%%%%%%%%%% �ӽ÷� �ǵ�� ����� ���� ���� %%%%%%%%%%%%%%%%%%%%%%
         _sm.str_Answers.Clear();
     }
+
+    
 
     public override void ResetSimulation()
     {
         isSimulationEnd = false;
     }
 
-    void PrintUserAnswers()
+    IEnumerator Setup()
     {
+        Obj_Wait.SetActive(true);
+        Obj_CanvasChoice.SetActive(true);
+
         string _result = "";
 
         Stack<string> userStack = new Stack<string>(_sm.str_Answers.ToArray());
 
-        while(userStack.Count > 0)
+        while (userStack.Count > 0)
         {
             string back = userStack.Pop();
 
@@ -62,10 +76,52 @@ public class Simulation_FeedBack : SimulationBase
             _result += "\n--------------------------------";
         }
 
-        tmp_Content.text = _result;
+        yield return StartCoroutine(NursingChatClient.SendQuestionToAPIUsing(_result));
 
-        StartCoroutine(NursingChatClient.SendQuestionToAPIUsing(_result));
+        Obj_Wait.SetActive(false);
 
+        RectTransform rectContent = Obj_Content.GetComponent<RectTransform>();
+
+        rectContent.DOAnchorPos(new Vector2(0f, 0f), DG_Time).SetEase(DG_Ease);
+
+        RectTransform rect_title = Obj_Title.transform.GetComponent<RectTransform>();
+
+        rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
+            0f), DG_Time).SetEase(DG_Ease);
+
+        print(rect_title.name);
+
+        yield return new WaitForSeconds(DG_Time);
+
+
+    }
+
+    IEnumerator AllUIOn()
+    {
+        RectTransform rect_title = Obj_Title.transform.parent.GetComponent<RectTransform>();
+
+        rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
+            0f), DG_Time).SetEase(DG_Ease);
+
+        yield return new WaitForSeconds(DG_Time);
+    }
+
+    IEnumerator AllUIOff()
+    {
+
+
+        RectTransform rect_title = Obj_Title.transform.GetComponent<RectTransform>();
+
+        rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
+            200f), DG_Time).SetEase(DG_Ease);
+
+        RectTransform rectContent = Obj_Content.GetComponent<RectTransform>();
+
+        yield return rectContent.DOAnchorPos(new Vector2(0f, -900f), DG_Time).SetEase(DG_Ease).WaitForCompletion();
+
+        yield return new WaitForSeconds(DG_Time);
+
+        Obj_CanvasChoice.SetActive(false);
 
     }
 }

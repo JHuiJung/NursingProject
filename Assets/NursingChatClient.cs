@@ -92,14 +92,18 @@ public class NursingChatClient : MonoBehaviour
             question = question
         };
 
+
+
         string jsonData = JsonUtility.ToJson(requestData);
         byte[] postData = System.Text.Encoding.UTF8.GetBytes(jsonData);
+
 
         using (UnityWebRequest www = new UnityWebRequest(apiUrl, "POST"))
         {
             www.uploadHandler = new UploadHandlerRaw(postData);
             www.downloadHandler = new DownloadHandlerBuffer();
             www.SetRequestHeader("Content-Type", "application/json");
+
 
             yield return www.SendWebRequest();
 
@@ -123,6 +127,9 @@ public class NursingChatClient : MonoBehaviour
                 Debug.LogError("❌ 요청 실패: " + www.error);
                 answerOutput.text = "서버 오류: " + www.error;
             }
+
+            yield return new WaitForSeconds(0f);
+            Debug.Log("API 응답 처리 완료");
         }
     }
 
