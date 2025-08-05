@@ -150,7 +150,12 @@ public class Simulation_ImgComb : SimulationBase
 
         print($"{name} : {userAnswer}");
 
-        _sm.str_Answers.Push(userAnswer);
+        SubmitForm submitForm = new SubmitForm();
+        submitForm.txt_Question = text_Question;
+        submitForm.txt_QuestionAnswer = "미리 제공된 답변 참고";
+        submitForm.txt_userAnswer = userAnswer;
+
+        _sm.str_Answers.Push(submitForm);
 
         StartCoroutine(AllUiOff());
 

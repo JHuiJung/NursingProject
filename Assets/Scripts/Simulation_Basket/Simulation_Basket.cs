@@ -125,7 +125,7 @@ public class Simulation_Basket : SimulationBase
 
         // check 된 엔티티 만 답에 추가
 
-        userAnswer += text_Question + "/ User Answer :  담은 물품 [ ";
+        userAnswer += "담은 물품 [ ";
 
         foreach (GameObject be in Obj_BasketEntites)
         { 
@@ -139,8 +139,11 @@ public class Simulation_Basket : SimulationBase
         }
 
         userAnswer += " ] ";
-
-        _sm.str_Answers.Push(userAnswer);
+        SubmitForm submitForm = new SubmitForm();
+        submitForm.txt_Question = text_Question;
+        submitForm.txt_QuestionAnswer = "미리 제공된 답변 참고";
+        submitForm.txt_userAnswer = userAnswer;
+        _sm.str_Answers.Push(submitForm);
 
         StartCoroutine(AllUiOff());
 

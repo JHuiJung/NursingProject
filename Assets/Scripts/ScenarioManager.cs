@@ -15,7 +15,7 @@ public class ScenarioManager : MonoBehaviour
     // ½Ã¹Ä·¹ÀÌ¼Ç
     public List<SimulationBase> simulationBases = new List<SimulationBase>();
     
-    public Stack<string> str_Answers = new Stack<string>();
+    public Stack<SubmitForm> str_Answers = new Stack<SubmitForm>();
 
     SimulationBase currentSimulation = null;
 

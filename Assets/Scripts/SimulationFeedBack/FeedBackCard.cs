@@ -5,10 +5,16 @@ using TMPro;
 
 public class FeedBackCard : MonoBehaviour
 {
+    public GameObject Area_Cover;
     public TMP_Text txt_Title;
     public TMP_Text txt_UserAnswer;
     public TMP_Text txt_AiAnswer;
 
+
+    public void CoverOnOff(bool isCoverOn)
+    {
+        Area_Cover.SetActive(isCoverOn);
+    }
 
     public void Setup(string title, string userAnswer, string aiAnswer)
     {

@@ -20,15 +20,20 @@ public class Simulation_FeedBack : SimulationBase
     GameObject Obj_Content;
     [SerializeField]
     GameObject Obj_Wait;
+    
 
     [Header("Answer Cards"), Space(10)]
     public GameObject obj_Area_Cards;
+    public GameObject obj_Area_BTns;
     public GameObject pf_FeedbackCard;
     public List<GameObject> list_FeedbackCards = new List<GameObject>();
-
+    public int currentCardNum = 0;
+    [SerializeField]
+    TMP_Text txt_PageNum;
 
     [Header("Dotween"), Space(10)]
     public float DG_Time = 0.75f;
+    public float DG_TimeDelta = 0.2f;
     public Ease DG_Ease = Ease.InOutQuad;
 
     bool isSimulationEnd = false;
@@ -70,18 +75,20 @@ public class Simulation_FeedBack : SimulationBase
     IEnumerator Setup()
     {
         Obj_Wait.SetActive(true);
+        obj_Area_BTns.SetActive(false);
         Obj_CanvasChoice.SetActive(true);
 
         string _result = "";
 
-        Stack<string> userStack = new Stack<string>(_sm.str_Answers.ToArray());
+        Stack<SubmitForm> userStack = new Stack<SubmitForm>(_sm.str_Answers.ToArray());
+        Stack<SubmitForm> tmpUserStack = new Stack<SubmitForm>(_sm.str_Answers);
 
         while (userStack.Count > 0)
         {
-            string back = userStack.Pop();
+            SubmitForm back = userStack.Pop();
 
             _result += "\n";
-            _result += back;
+            _result += $"{back.txt_Question} / QuestionAnswer : {back.txt_QuestionAnswer} / UserAnswer : {back.txt_userAnswer} ";
             _result += "\n--------------------------------";
         }
         // ai를 통해 정보 가져오기
@@ -91,14 +98,15 @@ public class Simulation_FeedBack : SimulationBase
         List<string> qSentences = GetQList(aiResponse.answer);
 
         // 답변 카드 생성
-        DisplayAnswerCards(qSentences, userStack);
+        DisplayAnswerCards(qSentences, tmpUserStack);
 
         Obj_Wait.SetActive(false);
+        obj_Area_BTns.SetActive(true);
 
         // dotween
-        RectTransform rectContent = Obj_Content.GetComponent<RectTransform>();
+        //RectTransform rectContent = Obj_Content.GetComponent<RectTransform>();
 
-        rectContent.DOAnchorPos(new Vector2(0f, 0f), DG_Time).SetEase(DG_Ease);
+        //rectContent.DOAnchorPos(new Vector2(0f, 0f), DG_Time).SetEase(DG_Ease);
 
         RectTransform rect_title = Obj_Title.transform.GetComponent<RectTransform>();
 
@@ -112,17 +120,84 @@ public class Simulation_FeedBack : SimulationBase
 
     }
 
-    void DisplayAnswerCards(List<string> aiAnswers, Stack<string> userAnswersStack)
+    public void CardLeftCurl()
     {
-        List<string> userAnswers = new List<string>(userAnswersStack);
-
-        for (int i = 0; i < userAnswers.Count; i++)
+        if(currentCardNum - 1 >= 0)
         {
-            string aiAnswer = aiAnswers[i];
-            string userAnswer = userAnswers[i];
+            currentCardNum--;
+        }
+
+        for (int i = 0; i < list_FeedbackCards.Count; i++)
+        {
+            if(i == currentCardNum)
+            {
+                list_FeedbackCards[i].SetActive(true);
+            }
+            else
+            {
+                list_FeedbackCards[i].SetActive(false);
+            }
+
+                
+        }
+
+        txt_PageNum.text = $"{currentCardNum + 1} / {list_FeedbackCards.Count}";
+    }
+
+    public void CardRightCurl()
+    {
+        if (currentCardNum + 1 < list_FeedbackCards.Count)
+        {
+            currentCardNum++;
+        }
+
+        for (int i = 0; i < list_FeedbackCards.Count; i++)
+        {
+            if (i == currentCardNum)
+            {
+                list_FeedbackCards[i].SetActive(true);
+            }
+            else
+            {
+                list_FeedbackCards[i].SetActive(false);
+            }
 
 
         }
+
+        txt_PageNum.text = $"{currentCardNum + 1} / {list_FeedbackCards.Count}";
+    }
+
+    void DisplayAnswerCards(List<string> aiAnswers, Stack<SubmitForm> userAnswersStack)
+    {
+        List<SubmitForm> userAnswers = new List<SubmitForm>(userAnswersStack);
+
+        // 카드 생성
+        for (int i = 0; i < userAnswers.Count; i++)
+        {
+            string aiAnswer = aiAnswers[i];
+            SubmitForm userAnswer = userAnswers[i];
+
+            var np = Instantiate(pf_FeedbackCard, obj_Area_Cards.transform);
+            np.name = $"pf_FeedBackCard_{i + 1}";
+            FeedBackCard feedBackCard = np.GetComponent<FeedBackCard>();
+
+            feedBackCard.Setup(userAnswer.txt_Question, userAnswer.txt_userAnswer, aiAnswer);
+
+            list_FeedbackCards.Add(np);
+
+
+        }
+
+        for (int i = 1; i < list_FeedbackCards.Count; i++)
+        {
+            list_FeedbackCards[i].SetActive(false);
+        }
+
+        
+        currentCardNum = 0;
+        txt_PageNum.text = $"{currentCardNum + 1} / {list_FeedbackCards.Count}";
+
     }
 
     List<string> GetQList(string rawText)
