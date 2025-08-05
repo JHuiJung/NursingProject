@@ -7,6 +7,7 @@ public class NursingChatClient : MonoBehaviour
 {
 
     [Header("🩺 UI 연결")]
+    public Simulation_FeedBack simulation_FeedBack;
     public TMP_InputField questionInput;   // Unity Inspector에 Drag & Drop
     public TMP_Text answerOutput;          // Unity Inspector에 Drag & Drop
 
@@ -64,6 +65,7 @@ public class NursingChatClient : MonoBehaviour
             {
                 ChatResponse response = JsonUtility.FromJson<ChatResponse>(www.downloadHandler.text);
                 
+                /*
                 // 답변과 점수 정보를 함께 표시
                 string displayText = response.answer;
                 if (response.total_questions > 0)
@@ -73,7 +75,10 @@ public class NursingChatClient : MonoBehaviour
                 }
                 
                 answerOutput.text = displayText;
+                */
+                simulation_FeedBack.aiResponse = response;
                 Debug.Log($"✅ 응답 수신:\n{response.answer}\n📊 정답: {response.correct_count}개, 오답: {response.incorrect_count}개, 총: {response.total_questions}%");
+            
             }
             else
             {

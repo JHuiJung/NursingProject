@@ -1,13 +1,16 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using System.Text.RegularExpressions;
 using TMPro;
-using DG.Tweening;
+using UnityEngine;
+using static NursingChatClient;
 
 public class Simulation_FeedBack : SimulationBase
 {
-    public NursingChatClient NursingChatClient; 
+    public NursingChatClient NursingChatClient;
+    public ChatResponse aiResponse = null;
 
     [Header("Canvas Obj & Stuff"), Space(10),SerializeField]
     GameObject Obj_CanvasChoice;
@@ -17,6 +20,12 @@ public class Simulation_FeedBack : SimulationBase
     GameObject Obj_Content;
     [SerializeField]
     GameObject Obj_Wait;
+
+    [Header("Answer Cards"), Space(10)]
+    public GameObject obj_Area_Cards;
+    public GameObject pf_FeedbackCard;
+    public List<GameObject> list_FeedbackCards = new List<GameObject>();
+
 
     [Header("Dotween"), Space(10)]
     public float DG_Time = 0.75f;
@@ -75,11 +84,18 @@ public class Simulation_FeedBack : SimulationBase
             _result += back;
             _result += "\n--------------------------------";
         }
-
+        // ai를 통해 정보 가져오기
         yield return StartCoroutine(NursingChatClient.SendQuestionToAPIUsing(_result));
+
+        // 답변 리스트 반환
+        List<string> qSentences = GetQList(aiResponse.answer);
+
+        // 답변 카드 생성
+        DisplayAnswerCards(qSentences, userStack);
 
         Obj_Wait.SetActive(false);
 
+        // dotween
         RectTransform rectContent = Obj_Content.GetComponent<RectTransform>();
 
         rectContent.DOAnchorPos(new Vector2(0f, 0f), DG_Time).SetEase(DG_Ease);
@@ -88,12 +104,41 @@ public class Simulation_FeedBack : SimulationBase
 
         rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
             0f), DG_Time).SetEase(DG_Ease);
+        //------
 
-        print(rect_title.name);
 
         yield return new WaitForSeconds(DG_Time);
 
 
+    }
+
+    void DisplayAnswerCards(List<string> aiAnswers, Stack<string> userAnswersStack)
+    {
+        List<string> userAnswers = new List<string>(userAnswersStack);
+
+        for (int i = 0; i < userAnswers.Count; i++)
+        {
+            string aiAnswer = aiAnswers[i];
+            string userAnswer = userAnswers[i];
+
+
+        }
+    }
+
+    List<string> GetQList(string rawText)
+    {
+        // 정규식으로 "Q숫자."로 시작해서 다음 Q숫자. 또는 📊, 🎯, 끝까지 추출
+        string pattern = @"Q\d+\..*?(?=Q\d+\.|📊|🎯|$)";
+        MatchCollection matches = Regex.Matches(rawText, pattern, RegexOptions.Singleline);
+
+        List<string> qSentences = new List<string>();
+
+        foreach (Match match in matches)
+        {
+            qSentences.Add(match.Value.Trim());
+        }
+
+        return qSentences;
     }
 
     IEnumerator AllUIOn()

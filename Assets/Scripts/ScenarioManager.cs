@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
+public class SubmitForm
+{
+    public string txt_Question;
+    public string txt_userAnswer;
+    public string txt_QuestionAnswer;
+}
 public class ScenarioManager : MonoBehaviour
 {
     // ½Ã¹Ä·¹ÀÌ¼Ç

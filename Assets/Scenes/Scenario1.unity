@@ -4858,10 +4858,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NursingChatClient: {fileID: 759986717}
+  aiResponse:
+    answer: 
+    correct_count: 0
+    incorrect_count: 0
+    total_questions: 0
+    score_percentage: 0
   Obj_CanvasChoice: {fileID: 1701428994}
   Obj_Title: {fileID: 169425235}
   Obj_Content: {fileID: 2123883592}
   Obj_Wait: {fileID: 1274342480}
+  obj_Area_Cards: {fileID: 0}
+  pf_FeedbackCard: {fileID: 0}
+  list_FeedbackCards: []
   DG_Time: 0.75
   DG_Ease: 7
 --- !u!4 &121461894
@@ -11990,10 +11999,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NursingChatClient: {fileID: 1313801722}
+  aiResponse:
+    answer: 
+    correct_count: 0
+    incorrect_count: 0
+    total_questions: 0
+    score_percentage: 0
   Obj_CanvasChoice: {fileID: 1412329209}
   Obj_Title: {fileID: 1324283006}
   Obj_Content: {fileID: 1858639212}
   Obj_Wait: {fileID: 147996931}
+  obj_Area_Cards: {fileID: 0}
+  pf_FeedbackCard: {fileID: 0}
+  list_FeedbackCards: []
   DG_Time: 0.75
   DG_Ease: 7
 --- !u!1 &275214986
@@ -27988,10 +28006,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NursingChatClient: {fileID: 1815641691}
+  aiResponse:
+    answer: 
+    correct_count: 0
+    incorrect_count: 0
+    total_questions: 0
+    score_percentage: 0
   Obj_CanvasChoice: {fileID: 161952052}
   Obj_Title: {fileID: 527562317}
   Obj_Content: {fileID: 1315235663}
   Obj_Wait: {fileID: 841260179}
+  obj_Area_Cards: {fileID: 0}
+  pf_FeedbackCard: {fileID: 0}
+  list_FeedbackCards: []
   DG_Time: 0.75
   DG_Ease: 7
 --- !u!1 &617833803
@@ -28945,10 +28972,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NursingChatClient: {fileID: 1588701789}
+  aiResponse:
+    answer: 
+    correct_count: 0
+    incorrect_count: 0
+    total_questions: 0
+    score_percentage: 0
   Obj_CanvasChoice: {fileID: 1988604869}
   Obj_Title: {fileID: 257195640}
   Obj_Content: {fileID: 363135633}
   Obj_Wait: {fileID: 677944149}
+  obj_Area_Cards: {fileID: 854323004}
+  pf_FeedbackCard: {fileID: 0}
+  list_FeedbackCards: []
   DG_Time: 0.75
   DG_Ease: 7
 --- !u!1 &632294233
@@ -32000,10 +32036,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NursingChatClient: {fileID: 1088170641}
+  aiResponse:
+    answer: 
+    correct_count: 0
+    incorrect_count: 0
+    total_questions: 0
+    score_percentage: 0
   Obj_CanvasChoice: {fileID: 1464200661}
   Obj_Title: {fileID: 843944396}
   Obj_Content: {fileID: 891795041}
   Obj_Wait: {fileID: 2081636311}
+  obj_Area_Cards: {fileID: 0}
+  pf_FeedbackCard: {fileID: 0}
+  list_FeedbackCards: []
   DG_Time: 0.75
   DG_Ease: 7
 --- !u!1 &700803594
@@ -34750,6 +34795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb866e8f1df849cfa112fa6b5bfdfe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_FeedBack: {fileID: 0}
   questionInput: {fileID: 0}
   answerOutput: {fileID: 1301412210}
 --- !u!4 &759986718
@@ -39280,6 +39326,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 848444912}
   m_CullTransparentMesh: 1
+--- !u!1 &854323004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 854323005}
+  m_Layer: 5
+  m_Name: Area_Cards
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &854323005
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854323004}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1988604870}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &857113087
 GameObject:
   m_ObjectHideFlags: 0
@@ -50828,6 +50909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb866e8f1df849cfa112fa6b5bfdfe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_FeedBack: {fileID: 0}
   questionInput: {fileID: 0}
   answerOutput: {fileID: 235876086}
 --- !u!1 &1089481763
@@ -62629,6 +62711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb866e8f1df849cfa112fa6b5bfdfe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_FeedBack: {fileID: 0}
   questionInput: {fileID: 0}
   answerOutput: {fileID: 1682022084}
 --- !u!1 &1315235663
@@ -75624,6 +75707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb866e8f1df849cfa112fa6b5bfdfe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_FeedBack: {fileID: 629214597}
   questionInput: {fileID: 0}
   answerOutput: {fileID: 1658133422}
 --- !u!1 &1590220713
@@ -85089,6 +85173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb866e8f1df849cfa112fa6b5bfdfe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_FeedBack: {fileID: 0}
   questionInput: {fileID: 0}
   answerOutput: {fileID: 799539501}
 --- !u!1 &1817106421
@@ -94282,7 +94367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1988604870
 RectTransform:
   m_ObjectHideFlags: 0
@@ -94297,6 +94382,7 @@ RectTransform:
   m_Children:
   - {fileID: 257195641}
   - {fileID: 363135634}
+  - {fileID: 854323005}
   - {fileID: 677944150}
   m_Father: {fileID: 629214596}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
