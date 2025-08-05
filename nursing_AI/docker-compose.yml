@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  nursing-api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PINECONE_API_KEY=${PINECONE_API_KEY}
+      - PINECONE_INDEX=${PINECONE_INDEX}
+      - CLOVA_SPEECH_SECRET=${CLOVA_SPEECH_SECRET}
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/google-credentials.json
+    volumes:
+      - ./credentials:/app/credentials:ro  # Google Cloud 인증 파일 마운트
+      - ./logs:/app/logs  # 로그 파일 저장
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # 개발 환경용 (선택사항)
+  nursing-api-dev:
+    build: .
+    ports:
+      - "8001:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PINECONE_API_KEY=${PINECONE_API_KEY}
+      - PINECONE_INDEX=${PINECONE_INDEX}
+      - CLOVA_SPEECH_SECRET=${CLOVA_SPEECH_SECRET}
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/google-credentials.json
+    volumes:
+      - ./credentials:/app/credentials:ro
+      - ./logs:/app/logs
+      - .:/app  # 개발 시 코드 변경사항 반영
+    command: ["uvicorn", "unified_nursing_api:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    profiles:
+      - dev 

@@ -46,15 +46,7 @@ def synthesize_text(text: str) -> str:
     """Google Text-to-Speech API를 사용하여 텍스트를 음성으로 변환"""
     client = texttospeech.TextToSpeechClient()
 
-    ssml_text = f"""
-    <speak>
-      <prosody rate="slow" pitch="-1st" volume="loud">
-        {text}
-      </prosody>
-    </speak>
-    """
-
-    synthesis_input = texttospeech.SynthesisInput(ssml=ssml_text)
+    synthesis_input = texttospeech.SynthesisInput(text=text)
 
     voice = texttospeech.VoiceSelectionParams(
         language_code="ko-KR",
@@ -64,7 +56,9 @@ def synthesize_text(text: str) -> str:
 
     audio_config = texttospeech.AudioConfig(
         audio_encoding=texttospeech.AudioEncoding.MP3,
-        sample_rate_hertz=24000
+        sample_rate_hertz=24000,
+        speaking_rate=1.5,  # 더 빠른 속도로 날카로운 느낌
+        pitch=5.0           # 높은 톤으로 날카로운 목소리
     )
 
     response = client.synthesize_speech(
@@ -73,9 +67,60 @@ def synthesize_text(text: str) -> str:
 
     return base64.b64encode(response.audio_content).decode("utf-8")
 
+def preprocess_speech_text(text: str) -> dict:
+    """
+    음성 인식 텍스트를 전처리하여 띄어쓰기 문제를 해결합니다.
+    """
+    # 원본 텍스트
+    original = text.strip()
+    
+    # 띄어쓰기 제거
+    no_spaces = original.replace(" ", "")
+    
+    # 일반적인 음성 인식 오류 패턴 수정
+    common_errors = {
+        "항생제": ["항생재", "항성제", "항생제"],
+        "정맥": ["정맥", "정명", "정맥"],
+        "주사": ["주사", "주사기", "주사"],
+        "감염": ["감염", "감염증", "감염"],
+        "염증": ["염증", "염증상", "염증"],
+        "이해": ["이해", "이해", "이해"],
+        "발진": ["발진", "발진", "발진"],
+        "설사": ["설사", "설사", "설사"],
+        "알레르기": ["알레르기", "알레르기", "알레르기"],
+        "호출밸": ["호출밸", "호출벨", "호출밸"],
+        "응급조치": ["응급조치", "응급조치", "응급조치"]
+    }
+    
+    corrected = original
+    for correct, variations in common_errors.items():
+        for variation in variations:
+            if variation in corrected:
+                corrected = corrected.replace(variation, correct)
+    
+    return {
+        "original": original,
+        "no_spaces": no_spaces,
+        "corrected": corrected,
+        "all_versions": [original, no_spaces, corrected]
+    }
+
 def check_required_keywords(text: str, required_keywords: list[str]) -> list[str]:
-    """필수 키워드 누락 확인"""
-    return [kw for kw in required_keywords if kw not in text]
+    """필수 키워드 누락 확인 (전처리된 텍스트 사용)"""
+    processed = preprocess_speech_text(text)
+    
+    # 모든 버전에서 키워드 확인
+    missing_keywords = []
+    for keyword in required_keywords:
+        found = False
+        for version in processed["all_versions"]:
+            if keyword in version:
+                found = True
+                break
+        if not found:
+            missing_keywords.append(keyword)
+    
+    return missing_keywords
 
 # ========================================
 # 🔹 부모 채팅 관련 설정
@@ -152,18 +197,25 @@ async def clova_stt(
     result = resp.json()
     transcript = result.get("text", "")
 
+    # 음성 인식 텍스트 전처리
+    processed = preprocess_speech_text(transcript)
+    
     # LangChain 평가 구성
     full_input = (
         f"질문: {question}\n\n"
-        f"응답: {transcript}\n\n"
-        "이 응답이 적절한지 평가하고, 피드백을 주세요."
+        f"사용자 음성 응답 텍스트 (원본): {processed['original']}\n"
+        f"사용자 음성 응답 텍스트 (띄어쓰기 제거): {processed['no_spaces']}\n"
+        f"사용자 음성 응답 텍스트 (오류 수정): {processed['corrected']}\n\n"
+        "음성 인식 시 띄어쓰기나 발음 오류가 발생할 수 있으므로, 모든 버전을 고려하여 평가해주세요.\n"
+        "핵심 키워드가 포함되어 있다면 정답으로 처리하세요. 정답일 경우 ✅로 시작하고, 오답일 경우 ❌로 시작해주세요."
     )
 
     ai_response = get_ai_response(full_input)
     feedback = ai_response.get("answer", "")
 
     return JSONResponse({
-        "transcript": transcript,
+        "transcript": processed['original'],
+        "processed_versions": processed,
         "feedback": feedback,
         "is_correct": feedback,
         "question": question

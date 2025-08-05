@@ -45,16 +45,7 @@ def clova_speech_to_text(audio_file: UploadFile) -> str:
 def synthesize_text(text: str) -> str:
     client = texttospeech.TextToSpeechClient()
 
-    # 감정을 표현하는 SSML 태그 적용
-    ssml_text = f"""
-    <speak>
-      <prosody rate="slow" pitch="-1st" volume="loud">
-        {text}
-      </prosody>
-    </speak>
-    """
-
-    synthesis_input = texttospeech.SynthesisInput(ssml=ssml_text)
+    synthesis_input = texttospeech.SynthesisInput(text=text)
 
     voice = texttospeech.VoiceSelectionParams(
         language_code="ko-KR",
@@ -64,7 +55,9 @@ def synthesize_text(text: str) -> str:
 
     audio_config = texttospeech.AudioConfig(
         audio_encoding=texttospeech.AudioEncoding.MP3,
-        sample_rate_hertz=24000
+        sample_rate_hertz=24000,
+        speaking_rate=1.5,  # 더 빠른 속도로 날카로운 느낌
+        pitch=5.0           # 높은 톤으로 날카로운 목소리
     )
 
     response = client.synthesize_speech(
@@ -105,7 +98,7 @@ QUESTIONS = [
     },
     {
         "id": "Q5",
-        "text": "혹시라도 방금 애기해준 가벼운 부작용나 아니면 심각한 알레르기 증상이 나타나면 어떻 처치를 해주나요?",
+        "text": "혹시라도 방금 애기해준 가벼운 부작용나 아니면 심각한 알레르기 증상이 나타나면 어떻게 처치를 해주나요?",
         "required_keywords": ["호출밸", "응급조치", "약물 투여", "호전"]
     }
 ]
