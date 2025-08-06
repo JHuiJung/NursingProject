@@ -64,6 +64,13 @@ public class Simulation_Choice : SimulationBase
     }
     public override void ResetSimulation()
     {
+        
+
+        foreach(BTN_Choice button in BTN_Choices)
+        {
+            button.BtnOff();
+        }
+
         isSimulationEnd = false;
     }
 

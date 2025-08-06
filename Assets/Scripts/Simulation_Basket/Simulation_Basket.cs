@@ -58,7 +58,6 @@ public class Simulation_Basket : SimulationBase
 
     public override void Exit(ScenarioManager SM)
     {
-        userAnswer = "";
         ResetSimulation();
         Obj_CanvasChoice.SetActive(false);
     }
@@ -66,6 +65,8 @@ public class Simulation_Basket : SimulationBase
     public override void ResetSimulation()
     {
         isSimulationEnd = false;
+
+        userAnswer = "";
 
         // 엔티티 원위치
         for (int i = 0; i < Obj_BasketEntites.Count; i++)

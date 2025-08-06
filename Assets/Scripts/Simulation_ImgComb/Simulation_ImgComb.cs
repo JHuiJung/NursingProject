@@ -125,9 +125,6 @@ public class Simulation_ImgComb : SimulationBase
         });
 
 
-        userAnswer += text_Question + "/ User Answer : ";
-
-
         for (int i = 0; i < imgComb_Entities.Count; i++) {
 
             ImgComb_Entity e = imgComb_Entities[i];
@@ -183,10 +180,11 @@ public class Simulation_ImgComb : SimulationBase
         print($"{name} : 按包侥 巩力 场");
         ResetSimulation();
         Obj_CanvasChoice.SetActive(false);
-        userAnswer = "";
+        
     }
     public override void ResetSimulation()
     {
+        userAnswer = "";
         isSimulationEnd = false;
     }
 

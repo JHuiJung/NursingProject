@@ -101,6 +101,8 @@ public class SimulationTextInput : SimulationBase
     public override void ResetSimulation()
     {
         isSimulationEnd = false;
+
+        textInputField.text = string.Empty;
     }
 
     //------------------------------------------------------------------------------------------

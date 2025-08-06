@@ -26,10 +26,15 @@ public class Simulation_FeedBack : SimulationBase
     public GameObject obj_Area_Cards;
     public GameObject obj_Area_BTns;
     public GameObject pf_FeedbackCard;
+    public GameObject pf_FeedbackResultCard;
     public List<GameObject> list_FeedbackCards = new List<GameObject>();
     public int currentCardNum = 0;
     [SerializeField]
     TMP_Text txt_PageNum;
+
+    [Header("Pass or NonPass"), Space(10)]
+    public float pass_Threshold = 80f;
+    public int pass_MoveSimulationIndex = 1;
 
     [Header("Dotween"), Space(10)]
     public float DG_Time = 0.75f;
@@ -57,19 +62,34 @@ public class Simulation_FeedBack : SimulationBase
 
         // ȭ�� ����
         Obj_CanvasChoice.SetActive(false);
-        ResetSimulation();
-
         StartCoroutine(AllUIOff());
-
-        //%%%%%%%%%%%%%%%%%%%% �ӽ÷� �ǵ�� ����� ���� ���� %%%%%%%%%%%%%%%%%%%%%%
-        _sm.str_Answers.Clear();
+        ResetSimulation();
     }
 
-    
+    public void Pass()
+    {
+        _sm.NextSimulation();
+    }
+
+    public void NonPass()
+    {
+        _sm.MoveSimulation(pass_MoveSimulationIndex);
+    }
 
     public override void ResetSimulation()
     {
         isSimulationEnd = false;
+
+        // 카드 역순으로 삭제해야 안전
+        list_FeedbackCards.Clear();
+
+        for (int i = obj_Area_Cards.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(obj_Area_Cards.transform.GetChild(i).gameObject);
+        }
+
+        //%%%%%%%%%%%%%%%%%%%% �ӽ÷� �ǵ�� ����� ���� ���� %%%%%%%%%%%%%%%%%%%%%%
+        _sm.str_Answers.Clear();
     }
 
     IEnumerator Setup()
@@ -103,11 +123,6 @@ public class Simulation_FeedBack : SimulationBase
         Obj_Wait.SetActive(false);
         obj_Area_BTns.SetActive(true);
 
-        // dotween
-        //RectTransform rectContent = Obj_Content.GetComponent<RectTransform>();
-
-        //rectContent.DOAnchorPos(new Vector2(0f, 0f), DG_Time).SetEase(DG_Ease);
-
         RectTransform rect_title = Obj_Title.transform.GetComponent<RectTransform>();
 
         rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
@@ -122,23 +137,27 @@ public class Simulation_FeedBack : SimulationBase
 
     public void CardLeftCurl()
     {
-        if(currentCardNum - 1 >= 0)
+        if(currentCardNum - 1 < 0)
         {
-            currentCardNum--;
+            currentCardNum = list_FeedbackCards.Count -1;
+        }
+        else
+        {
+            currentCardNum = (currentCardNum - 1) % list_FeedbackCards.Count;
         }
 
         for (int i = 0; i < list_FeedbackCards.Count; i++)
         {
-            if(i == currentCardNum)
-            {
-                list_FeedbackCards[i].SetActive(true);
-            }
-            else
-            {
-                list_FeedbackCards[i].SetActive(false);
-            }
+                if (i == currentCardNum)
+                {
+                    list_FeedbackCards[i].SetActive(true);
+                }
+                else
+                {
+                    list_FeedbackCards[i].SetActive(false);
+                }
 
-                
+
         }
 
         txt_PageNum.text = $"{currentCardNum + 1} / {list_FeedbackCards.Count}";
@@ -146,10 +165,8 @@ public class Simulation_FeedBack : SimulationBase
 
     public void CardRightCurl()
     {
-        if (currentCardNum + 1 < list_FeedbackCards.Count)
-        {
-            currentCardNum++;
-        }
+
+        currentCardNum = (currentCardNum + 1) % list_FeedbackCards.Count;
 
         for (int i = 0; i < list_FeedbackCards.Count; i++)
         {
@@ -188,6 +205,16 @@ public class Simulation_FeedBack : SimulationBase
 
 
         }
+
+        // 결과 카드 추가
+        var np2 = Instantiate(pf_FeedbackResultCard, obj_Area_Cards.transform);
+        np2.name = $"pf_FeedBackResultCard";
+        FeedBackResultCard feedBackResultCard = np2.GetComponent<FeedBackResultCard>();
+
+        feedBackResultCard.Setup(pass_Threshold, aiResponse, pass_MoveSimulationIndex);
+
+        list_FeedbackCards.Add(np2);
+
 
         for (int i = 1; i < list_FeedbackCards.Count; i++)
         {
