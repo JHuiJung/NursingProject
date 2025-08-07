@@ -17,6 +17,16 @@ app = FastAPI()
 CLOVA_URL = "https://clovaspeech-gw.ncloud.com/recog/v1/stt"
 CLOVA_API_KEY = os.getenv("CLOVA_SPEECH_SECRET")
 
+@app.get("/health")
+async def health_check():
+    """헬스 체크 엔드포인트"""
+    return {"status": "healthy", "message": "Nursing API is running"}
+
+@app.get("/")
+async def root():
+    """루트 엔드포인트"""
+    return {"message": "Nursing API Server", "docs": "/docs"}
+
 def clova_speech_to_text(audio_file: UploadFile) -> str:
     """Clova Speech-to-Text API를 사용하여 음성을 텍스트로 변환"""
     # 오디오 파일을 임시 저장
