@@ -1,30 +1,30 @@
 # FastAPI 및 웹 서버
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-python-multipart==0.0.6
+fastapi==0.115.9
+uvicorn[standard]==0.34.2
+python-multipart==0.0.20
 
 # AI 및 머신러닝
-langchain==0.1.0
-langchain-openai==0.0.5
-langchain-community==0.0.10
-langchain-text-splitters==0.0.1
-langchain-upstage==0.0.1
-langchain-pinecone==0.0.1
+langchain==0.3.25
+langchain-openai==0.3.27
+langchain-community==0.3.23
+langchain-text-splitters==0.3.8
+langchain-upstage==0.6.0
+langchain-pinecone==0.2.6
 
 # 벡터 데이터베이스
-pinecone-client==2.2.4
+pinecone-client==6.0.0
 
 # 텍스트 처리
-docx2txt==0.8
+docx2txt==0.9
 
 # HTTP 요청
-requests==2.31.0
+requests==2.32.3
 
 # 환경 변수 관리
-python-dotenv==1.0.0
+python-dotenv==1.1.0
 
 # Google Cloud TTS
-google-cloud-texttospeech==2.16.3
+google-cloud-texttospeech==2.27.0
 
 # 기타 유틸리티
-pydantic==2.5.0 
+pydantic==2.9.2 

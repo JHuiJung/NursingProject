@@ -72,4 +72,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 .env
-*.json
+*.pem
+.json
+nursing_AI/appc-sc-jimin-59424c1ed192.json
