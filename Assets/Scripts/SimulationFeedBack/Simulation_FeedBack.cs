@@ -189,6 +189,8 @@ public class Simulation_FeedBack : SimulationBase
     {
         List<SubmitForm> userAnswers = new List<SubmitForm>(userAnswersStack);
 
+        print($"{name} : aiAsnwers Cnt :  {aiAnswers.Count} / userAnswer Cnt : {userAnswers.Count}");
+
         // 카드 생성
         for (int i = 0; i < userAnswers.Count; i++)
         {
@@ -229,8 +231,8 @@ public class Simulation_FeedBack : SimulationBase
 
     List<string> GetQList(string rawText)
     {
-        // 정규식으로 "Q숫자."로 시작해서 다음 Q숫자. 또는 📊, 🎯, 끝까지 추출
-        string pattern = @"Q\d+\..*?(?=Q\d+\.|📊|🎯|$)";
+        // "Q숫자:" 또는 "Q숫자." 로 시작해서 다음 Q숫자: 또는 Q숫자. 또는 📊, 🎯 또는 끝까지 추출
+        string pattern = @"Q\d+[:.].*?(?=Q\d+[:.]|📊|🎯|$)";
         MatchCollection matches = Regex.Matches(rawText, pattern, RegexOptions.Singleline);
 
         List<string> qSentences = new List<string>();
@@ -242,6 +244,7 @@ public class Simulation_FeedBack : SimulationBase
 
         return qSentences;
     }
+
 
     IEnumerator AllUIOn()
     {
