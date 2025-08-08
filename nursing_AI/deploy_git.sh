@@ -79,30 +79,43 @@ ssh -i "$KEYPAIR_FILE" "$INSTANCE_USER@$INSTANCE_IP" << EOF
     echo "📁 nursing_AI 폴더로 이동합니다..."
     cd nursing_AI
     
-    echo "🔧 환경 변수 파일을 생성합니다..."
-    cat > .env << 'ENVFILE'
+    echo "🔧 환경 변수 파일을 설정합니다..."
+    if [ -f .env ]; then
+        echo "✅ 기존 .env 파일이 존재합니다. 덮어쓰지 않습니다."
+        echo "📝 현재 .env 파일 내용:"
+        cat .env
+    else
+        echo "🆕 .env 파일이 없어 기본 템플릿을 생성합니다."
+        cat > .env << 'ENVFILE'
 # ========================================
-# 🔑 API 키 설정 (실제 값으로 변경 필요)
+# 🔑 Nursing API 환경 변수 설정
 # ========================================
-OPENAI_API_KEY=your_openai_api_key_here          # ← OpenAI API 키로 변경
-PINECONE_API_KEY=pcsk_1Dnrt_8cN7ScPLWBX2B4ZknoYRKrsgN1WhXVUfngX4diQ8WdkNRCGV16w3iFoWgKJGFZB      # ← Pinecone API 키로 변경
-PINECONE_INDEX=your_pinecone_index_name          # ← Pinecone 인덱스 이름으로 변경
-CLOVA_SPEECH_SECRET=ee2534865b0b48d69443359eb9ea525f # ← Clova Speech Secret으로 변경
+# OpenAI API 키 (필수)
+OPENAI_API_KEY=your_openai_api_key_here
+
+# Pinecone 벡터 데이터베이스 설정 (필수)
+PINECONE_API_KEY=your_pinecone_api_key_here
+PINECONE_INDEX=your_pinecone_index_name
+
+# Naver Clova Speech API (필수)
+CLOVA_SPEECH_SECRET=your_clova_secret_key
+
+# Google Cloud 인증 파일 경로 (필수)
 GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/google-credentials.json
 ENVFILE
+        echo "⚠️  .env 파일이 생성되었습니다. 반드시 실제 값으로 수정해주세요!"
+    fi    
     
     echo "📁 credentials 디렉토리를 생성합니다..."
     mkdir -p credentials
     
-    echo "⚠️  🔑 필수 설정 파일들:"
-    echo "  1. .env 파일의 API 키들을 실제 값으로 수정"
-    echo "  2. credentials/google-credentials.json 파일 업로드"
-    echo ""
-    echo "📝 설정 방법:"
-    echo "  ssh -i $KEYPAIR_FILE $INSTANCE_USER@$INSTANCE_IP"
-    echo "  cd ~/nursing-project/nursing_AI"
-    echo "  nano .env  # API 키 수정"
-    echo "  # Google Cloud 인증 파일을 credentials/ 폴더에 업로드"
+    echo "🔍 credentials 디렉토리 확인..."
+    if [ -f "credentials/google-credentials.json" ]; then
+        echo "✅ Google Cloud 인증 파일이 이미 존재합니다."
+    else
+        echo "⚠️  Google Cloud 인증 파일이 없습니다."
+        echo "   credentials/google-credentials.json 파일을 업로드해주세요."
+    fi
     
     echo "🔄 기존 컨테이너를 정리합니다..."
     docker-compose down --remove-orphans || true
@@ -138,7 +151,34 @@ echo "🎉 Git 배포가 완료되었습니다!"
 echo "🌐 서버 주소: http://$INSTANCE_IP:8000"
 echo "📖 API 문서: http://$INSTANCE_IP:8000/docs"
 echo ""
-echo "⚠️  다음 단계:"
-echo "1. SSH로 인스턴스에 접속하여 .env 파일 수정"
-echo "2. Google Cloud 인증 파일 업로드"
-echo "3. 컨테이너 재시작: docker-compose restart" 
+echo "📋 ========================================"
+echo "🔧 필수 설정 파일 및 환경 변수"
+echo "=========================================="
+echo ""
+echo "1️⃣ .env 파일 설정 (SSH 접속 후 수정):"
+echo "   ssh -i $KEYPAIR_FILE $INSTANCE_USER@$INSTANCE_IP"
+echo "   cd ~/nursing-project/nursing_AI"
+echo "   nano .env"
+echo ""
+echo "   📝 필요한 환경 변수들:"
+echo "   - OPENAI_API_KEY: OpenAI API 키"
+echo "   - PINECONE_API_KEY: Pinecone API 키"
+echo "   - PINECONE_INDEX: Pinecone 인덱스 이름"
+echo "   - CLOVA_SPEECH_SECRET: Naver Clova Speech Secret"
+echo "   - GOOGLE_APPLICATION_CREDENTIALS: Google Cloud 인증 파일 경로"
+echo ""
+echo "2️⃣ Google Cloud 인증 파일 업로드:"
+echo "   scp -i $KEYPAIR_FILE appc-sc-jimin-59424c1ed192.json $INSTANCE_USER@$INSTANCE_IP:~/nursing-project/nursing_AI/credentials/google-credentials.json"
+echo ""
+echo "3️⃣ 설정 완료 후 컨테이너 재시작:"
+echo "   ssh -i $KEYPAIR_FILE $INSTANCE_USER@$INSTANCE_IP"
+echo "   cd ~/nursing-project/nursing_AI"
+echo "   docker-compose restart"
+echo ""
+echo "4️⃣ 서비스 상태 확인:"
+echo "   docker-compose logs -f"
+echo ""
+echo "⚠️  주의사항:"
+echo "- .env 파일과 credentials 파일은 덮어씌워지지 않습니다"
+echo "- API 키들은 반드시 실제 값으로 수정해야 합니다"
+echo "- Google Cloud 인증 파일은 credentials/ 폴더에 google-credentials.json 이름으로 저장해야 합니다" 

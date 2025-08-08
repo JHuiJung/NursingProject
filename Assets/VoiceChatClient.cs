@@ -10,7 +10,7 @@ public class VoiceChatClient : MonoBehaviour
     public TMP_Text statusText;
     public AudioSource audioSource;
 
-    private const string apiUrl = "http://127.0.0.1:8000/voice_chat";
+    // API URL은 APIConfig에서 관리
     private AudioClip recordedClip;
     private bool isRecording = false;
     private const int sampleRate = 16000;
@@ -45,7 +45,7 @@ public class VoiceChatClient : MonoBehaviour
         form.AddField("session_id", "unity-session-001");
         form.AddBinaryData("audio", audioData, "voice.wav", "audio/wav");
 
-        UnityWebRequest www = UnityWebRequest.Post(apiUrl, form);
+        UnityWebRequest www = UnityWebRequest.Post(APIConfig.Instance.VoiceChatUrl, form);
         www.downloadHandler = new DownloadHandlerBuffer();
 
         yield return www.SendWebRequest();

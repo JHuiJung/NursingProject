@@ -13,7 +13,7 @@ public class STTChat : MonoBehaviour
     public TMP_Text questionText;
     public AudioSource audioSource;
 
-    private const string apiUrl = "http://127.0.0.1:8000/clova_stt"; // FastAPI /stt 엔드포인트
+    // API URL은 APIConfig에서 관리
     private AudioClip recordedClip;
     private bool isRecording = false;
     private const int sampleRate = 16000;
@@ -70,7 +70,7 @@ public class STTChat : MonoBehaviour
             new MultipartFormFileSection("audio", audioData, "recorded.wav", "audio/wav")
         };
 
-        UnityWebRequest request = UnityWebRequest.Post(apiUrl, formData);
+        UnityWebRequest request = UnityWebRequest.Post(APIConfig.Instance.ClovaSttUrl, formData);
         request.downloadHandler = new DownloadHandlerBuffer();
 
         yield return request.SendWebRequest();

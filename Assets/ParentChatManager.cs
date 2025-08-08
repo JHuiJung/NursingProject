@@ -125,7 +125,8 @@ public class ParentChatManager : MonoBehaviour
         form.AddField("question_id", questionIds[questionIndex]);
         form.AddBinaryData("audio", wavData, "audio.wav", "audio/wav");
 
-        string url = "http://localhost:8000/parent_chat";
+        string url = APIConfig.Instance.ParentChatUrl;
+
         UnityWebRequest request = UnityWebRequest.Post(url, form);
         yield return request.SendWebRequest();
 
@@ -175,7 +176,7 @@ public class ParentChatManager : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("session_id", sessionId);
 
-        string url = "http://localhost:8000/parent_chat/summary";
+        string url = APIConfig.Instance.ParentChatSummaryUrl;
         UnityWebRequest request = UnityWebRequest.Post(url, form);
         yield return request.SendWebRequest();
 
@@ -232,7 +233,7 @@ public class ParentChatManager : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("text", questionText);
 
-        string url = "http://localhost:8000/tts";
+        string url = APIConfig.Instance.TtsUrl;
         UnityWebRequest request = UnityWebRequest.Post(url, form);
         yield return request.SendWebRequest();
 
@@ -265,7 +266,7 @@ public class ParentChatManager : MonoBehaviour
         form.AddField("question_id", questionIds[questionIndex]);
         form.AddBinaryData("audio", wavData, "followup.wav", "audio/wav");
         
-        string url = "http://localhost:8000/parent_chat/followup";
+        string url = APIConfig.Instance.ParentChatFollowupUrl;
         UnityWebRequest request = UnityWebRequest.Post(url, form);
         yield return request.SendWebRequest();
 

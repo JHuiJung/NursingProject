@@ -10,7 +10,7 @@ public class NursingChatClient : MonoBehaviour
     public TMP_InputField questionInput;   // Unity Inspector에 Drag & Drop
     public TMP_Text answerOutput;          // Unity Inspector에 Drag & Drop
 
-    private const string apiUrl = "http://127.0.0.1:8000/chat"; // FastAPI 서버 주소
+    // API URL은 APIConfig에서 관리
 
     [System.Serializable]
     public class ChatRequest
@@ -52,7 +52,7 @@ public class NursingChatClient : MonoBehaviour
         string jsonData = JsonUtility.ToJson(requestData);
         byte[] postData = System.Text.Encoding.UTF8.GetBytes(jsonData);
 
-        using (UnityWebRequest www = new UnityWebRequest(apiUrl, "POST"))
+        using (UnityWebRequest www = new UnityWebRequest(APIConfig.Instance.ChatUrl, "POST"))
         {
             www.uploadHandler = new UploadHandlerRaw(postData);
             www.downloadHandler = new DownloadHandlerBuffer();
@@ -95,7 +95,7 @@ public class NursingChatClient : MonoBehaviour
         string jsonData = JsonUtility.ToJson(requestData);
         byte[] postData = System.Text.Encoding.UTF8.GetBytes(jsonData);
 
-        using (UnityWebRequest www = new UnityWebRequest(apiUrl, "POST"))
+        using (UnityWebRequest www = new UnityWebRequest(APIConfig.Instance.ChatUrl, "POST"))
         {
             www.uploadHandler = new UploadHandlerRaw(postData);
             www.downloadHandler = new DownloadHandlerBuffer();
