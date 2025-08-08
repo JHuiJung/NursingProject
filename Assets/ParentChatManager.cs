@@ -21,6 +21,7 @@ public class ParentChatManager : MonoBehaviour
     public TextMeshProUGUI questionText, transcriptText, feedbackText, keywordText;
     public Button recordBtn, stopBtn, sendBtn, nextBtn, summaryBtn;
     private bool isFollowupMode = false;
+    public TextMeshProUGUI followupGuideText; // 새로 추가
 
     private AudioClip recordedClip;
     private string sessionId;
@@ -90,6 +91,8 @@ public class ParentChatManager : MonoBehaviour
             questionText.text = questions[questionIndex];
             transcriptText.text = "";
             keywordText.text = "";
+            followupGuideText.text = "";
+            followupGuideText.gameObject.SetActive(false);  // 🔸 초기화
             sendBtn.interactable = false;
             recordBtn.interactable = true;
             nextBtn.interactable = false;
@@ -147,23 +150,28 @@ public class ParentChatManager : MonoBehaviour
 
                 // 텍스트 가이드가 함께 오면 표시
                 string followupGuide = result.HasKey("followup_text") ? result["followup_text"] : "";
+                keywordText.text = $"누락 키워드: {result["missing_keywords"]}";
+
                 if (!string.IsNullOrEmpty(followupGuide))
                 {
-                    keywordText.text = $"누락 키워드: {result["missing_keywords"]}\n가이드: {followupGuide}";
+                    Debug.Log("✅ followup_text 수신됨: " + followupGuide);
+                    followupGuideText.text = "💬 가이드: " + followupGuide;
+                    followupGuideText.gameObject.SetActive(true);
                 }
                 else
                 {
-                    keywordText.text = $"누락 키워드: {result["missing_keywords"]}";
+                    Debug.LogWarning("⚠️ followup_text가 비어 있음");
+                    followupGuideText.text = "";
+                    followupGuideText.gameObject.SetActive(false);
                 }
 
-                isFollowupMode = true; // ✅ 후속 모드 진입
+                isFollowupMode = true;
 
-                // 버튼들 활성화
                 recordBtn.interactable = true;
                 stopBtn.interactable = true;
                 sendBtn.interactable = true;
-            }
-            else
+            }           
+             else
             {
                 // 키워드 모두 포함됨: 서버가 이해 확인용 TTS/텍스트를 내려줄 수 있음
                 if (result.HasKey("ack_audio_base64"))

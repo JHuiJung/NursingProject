@@ -136,11 +136,14 @@ def generate_followup_prompt(user_answer: str, missing_keywords: list[str]) -> s
     return persona_description + "\n" + context + "\n" + instruction
 def get_followup_question(user_answer: str, missing_keywords: list[str]):
     prompt_text = generate_followup_prompt(user_answer, missing_keywords)
-    llm = get_llm()  # 기존 GPT-4.1 LLM 그대로 사용
+    llm = get_llm()  # 기존 LLM
     prompt = ChatPromptTemplate.from_template(prompt_text)
     chain = prompt | llm | StrOutputParser()
-    return chain.invoke({})
-
+    
+    return chain.invoke({
+        "user_answer": user_answer,
+        "missing_keywords": ", ".join(missing_keywords)
+    })
 # def get_ai_response(user_message):
 #     rag_chain = get_rag_chain()
 #     response = rag_chain.invoke(
