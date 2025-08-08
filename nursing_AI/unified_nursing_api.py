@@ -272,7 +272,30 @@ async def parent_chat(
         response.update({
             "followup_needed": True,
             "followup_audio_base64": tts_audio,
-            "missing_keywords": missing_keywords
+            "missing_keywords": missing_keywords,
+            "followup_text": followup_text  # Unity에서 텍스트도 함께 표시할 수 있도록 추가
+        })
+    else:
+        # 키워드 모두 만족: 보호자 답변을 바탕으로 간호사 톤의 맞춤형 이해 확인 멘트를 AI로 생성
+        try:
+            ack_prompt = (
+                "역할: 당신은 환아의 보호자(부모)입니다.\n"
+                "상황: 간호사가 아래 질문에 대해 충분히 설명했고, 당신(보호자)은 그 내용을 이해했습니다.\n"
+                f"질문: {current_q['text']}\n"
+                f"간호사 설명 요지(STT): {transcript}\n\n"
+                "요청: 간호사의 설명을 이해했다는 뜻을 짧게 인정하고, 다음 질문으로 넘어가자는 자연스러운 보호자 톤의 멘트를 1~2문장으로 작성하세요.\n"
+                "스타일: 존댓말, 공감/안도/감사의 뉘앙스, 과도한 의학적 조언 없이 간단한 반응 위주.\n"
+                "제한: 12~30자 내외의 짧은 문장 1~2개. 이모지는 사용하지 않습니다."
+            )
+            ai_ack = get_ai_response(ack_prompt)
+            ack_text = ai_ack.get("answer", "좋습니다. 내용을 잘 이해하셨습니다. 다음 질문으로 넘어갈게요.")
+        except Exception:
+            ack_text = "좋습니다. 내용을 잘 이해하셨습니다. 다음 질문으로 넘어갈게요."
+
+        ack_audio = synthesize_text(ack_text)
+        response.update({
+            "ack_text": ack_text,
+            "ack_audio_base64": ack_audio
         })
 
     return JSONResponse(content=response)

@@ -145,7 +145,16 @@ public class ParentChatManager : MonoBehaviour
                 byte[] audioBytes = Convert.FromBase64String(base64Audio);
                 PlayAudioFromBytes(audioBytes);
 
-                keywordText.text = $"누락 키워드: {result["missing_keywords"]}";
+                // 텍스트 가이드가 함께 오면 표시
+                string followupGuide = result.HasKey("followup_text") ? result["followup_text"] : "";
+                if (!string.IsNullOrEmpty(followupGuide))
+                {
+                    keywordText.text = $"누락 키워드: {result["missing_keywords"]}\n가이드: {followupGuide}";
+                }
+                else
+                {
+                    keywordText.text = $"누락 키워드: {result["missing_keywords"]}";
+                }
 
                 isFollowupMode = true; // ✅ 후속 모드 진입
 
@@ -156,7 +165,21 @@ public class ParentChatManager : MonoBehaviour
             }
             else
             {
-                keywordText.text = "키워드 모두 포함됨!";
+                // 키워드 모두 포함됨: 서버가 이해 확인용 TTS/텍스트를 내려줄 수 있음
+                if (result.HasKey("ack_audio_base64"))
+                {
+                    byte[] ackBytes = Convert.FromBase64String(result["ack_audio_base64"]);
+                    PlayAudioFromBytes(ackBytes);
+                }
+                if (result.HasKey("ack_text"))
+                {
+                    keywordText.text = result["ack_text"];
+                }
+                else
+                {
+                    keywordText.text = "키워드 모두 포함됨!";
+                }
+
                 isFollowupMode = false; // ✅ 기본 질문 모드
                 nextBtn.interactable = true;
 
