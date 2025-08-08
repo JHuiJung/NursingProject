@@ -95,7 +95,9 @@ public class Simulation_Paper : SimulationBase
     {
         isSimulationEnd = true;
 
-        _sm.str_Answers.Push($"{text_Question} / User Answer : {answer}");
+        
+
+        //_sm.str_Answers.Push($"{text_Question} / User Answer : {answer}");
 
 
         // DG UI OFF

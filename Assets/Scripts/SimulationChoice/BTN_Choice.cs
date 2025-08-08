@@ -31,6 +31,11 @@ public class BTN_Choice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         rect = GetComponent<RectTransform>();
     }
 
+    public void BtnOff()
+    {
+        imgNumber.color = Color.white;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if(simulation_Choice != null)

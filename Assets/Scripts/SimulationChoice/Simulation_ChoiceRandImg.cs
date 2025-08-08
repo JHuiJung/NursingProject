@@ -67,6 +67,11 @@ public class Simulation_ChoiceRandImg : SimulationBase
     }
     public override void ResetSimulation()
     {
+        foreach (BTN_Choice button in BTN_Choices)
+        {
+            button.BtnOff();
+        }
+
         isSimulationEnd = false;
     }
 
@@ -130,8 +135,12 @@ public class Simulation_ChoiceRandImg : SimulationBase
             print($"{answer} 은 오답 {selectedAnswer.ls_Answers[answerNumber]} 이 정답");
 
         }
-        
-        _sm.str_Answers.Push($"{Tmp_Question.text} / Answer : {selectedAnswer.ls_Answers[answerNumber]}  / User Answer : {answer}");
+
+        SubmitForm submitForm = new SubmitForm();
+        submitForm.txt_Question = Tmp_Question.text;
+        submitForm.txt_QuestionAnswer = selectedAnswer.ls_Answers[answerNumber];
+        submitForm.txt_userAnswer = answer;
+        _sm.str_Answers.Push(submitForm);
 
 
         StartCoroutine(AllUiOff());

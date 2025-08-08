@@ -125,9 +125,6 @@ public class Simulation_ImgComb : SimulationBase
         });
 
 
-        userAnswer += text_Question + "/ User Answer : ";
-
-
         for (int i = 0; i < imgComb_Entities.Count; i++) {
 
             ImgComb_Entity e = imgComb_Entities[i];
@@ -150,7 +147,12 @@ public class Simulation_ImgComb : SimulationBase
 
         print($"{name} : {userAnswer}");
 
-        _sm.str_Answers.Push(userAnswer);
+        SubmitForm submitForm = new SubmitForm();
+        submitForm.txt_Question = text_Question;
+        submitForm.txt_QuestionAnswer = "미리 제공된 답변 참고";
+        submitForm.txt_userAnswer = userAnswer;
+
+        _sm.str_Answers.Push(submitForm);
 
         StartCoroutine(AllUiOff());
 
@@ -178,10 +180,11 @@ public class Simulation_ImgComb : SimulationBase
         print($"{name} : 객관식 문제 끝");
         ResetSimulation();
         Obj_CanvasChoice.SetActive(false);
-        userAnswer = "";
+        
     }
     public override void ResetSimulation()
     {
+        userAnswer = "";
         isSimulationEnd = false;
     }
 

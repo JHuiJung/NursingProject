@@ -7,6 +7,7 @@ public class NursingChatClient : MonoBehaviour
 {
 
     [Header("🩺 UI 연결")]
+    public Simulation_FeedBack simulation_FeedBack;
     public TMP_InputField questionInput;   // Unity Inspector에 Drag & Drop
     public TMP_Text answerOutput;          // Unity Inspector에 Drag & Drop
 
@@ -64,6 +65,7 @@ public class NursingChatClient : MonoBehaviour
             {
                 ChatResponse response = JsonUtility.FromJson<ChatResponse>(www.downloadHandler.text);
                 
+                /*
                 // 답변과 점수 정보를 함께 표시
                 string displayText = response.answer;
                 if (response.total_questions > 0)
@@ -73,7 +75,10 @@ public class NursingChatClient : MonoBehaviour
                 }
                 
                 answerOutput.text = displayText;
+                */
+                simulation_FeedBack.aiResponse = response;
                 Debug.Log($"✅ 응답 수신:\n{response.answer}\n📊 정답: {response.correct_count}개, 오답: {response.incorrect_count}개, 총: {response.total_questions}%");
+            
             }
             else
             {
@@ -92,6 +97,8 @@ public class NursingChatClient : MonoBehaviour
             question = question
         };
 
+
+
         string jsonData = JsonUtility.ToJson(requestData);
         byte[] postData = System.Text.Encoding.UTF8.GetBytes(jsonData);
 
@@ -101,21 +108,24 @@ public class NursingChatClient : MonoBehaviour
             www.downloadHandler = new DownloadHandlerBuffer();
             www.SetRequestHeader("Content-Type", "application/json");
 
+
             yield return www.SendWebRequest();
 
             if (www.result == UnityWebRequest.Result.Success)
             {
                 ChatResponse response = JsonUtility.FromJson<ChatResponse>(www.downloadHandler.text);
                 
-                // 답변과 점수 정보를 함께 표시
-                string displayText = response.answer;
-                if (response.total_questions > 0)
-                {
-                    displayText += $"\n\n📊 점수: {response.correct_count}개 정답, {response.incorrect_count}개 오답";
-                    displayText += $"\n🎯 정답률: {response.score_percentage}%";
-                }
+                //// 답변과 점수 정보를 함께 표시
+                //string displayText = response.answer;
+                //if (response.total_questions > 0)
+                //{
+                //    displayText += $"\n\n📊 점수: {response.correct_count}개 정답, {response.incorrect_count}개 오답";
+                //    displayText += $"\n🎯 정답률: {response.score_percentage}%";
+                //}
                 
-                answerOutput.text = displayText;
+                //answerOutput.text = displayText;
+
+                simulation_FeedBack.aiResponse = response;
                 Debug.Log($"✅ 응답 수신:\n{response.answer}\n📊 정답: {response.correct_count}개, 오답: {response.incorrect_count}개, 점수: {response.score_percentage}%");
             }
             else
@@ -123,6 +133,9 @@ public class NursingChatClient : MonoBehaviour
                 Debug.LogError("❌ 요청 실패: " + www.error);
                 answerOutput.text = "서버 오류: " + www.error;
             }
+
+            yield return new WaitForSeconds(0f);
+            Debug.Log("API 응답 처리 완료");
         }
     }
 

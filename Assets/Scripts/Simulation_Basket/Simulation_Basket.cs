@@ -58,7 +58,6 @@ public class Simulation_Basket : SimulationBase
 
     public override void Exit(ScenarioManager SM)
     {
-        userAnswer = "";
         ResetSimulation();
         Obj_CanvasChoice.SetActive(false);
     }
@@ -66,6 +65,8 @@ public class Simulation_Basket : SimulationBase
     public override void ResetSimulation()
     {
         isSimulationEnd = false;
+
+        userAnswer = "";
 
         // 엔티티 원위치
         for (int i = 0; i < Obj_BasketEntites.Count; i++)
@@ -125,7 +126,7 @@ public class Simulation_Basket : SimulationBase
 
         // check 된 엔티티 만 답에 추가
 
-        userAnswer += text_Question + "/ User Answer :  담은 물품 [ ";
+        userAnswer += "담은 물품 [ ";
 
         foreach (GameObject be in Obj_BasketEntites)
         { 
@@ -139,8 +140,11 @@ public class Simulation_Basket : SimulationBase
         }
 
         userAnswer += " ] ";
-
-        _sm.str_Answers.Push(userAnswer);
+        SubmitForm submitForm = new SubmitForm();
+        submitForm.txt_Question = text_Question;
+        submitForm.txt_QuestionAnswer = "미리 제공된 답변 참고";
+        submitForm.txt_userAnswer = userAnswer;
+        _sm.str_Answers.Push(submitForm);
 
         StartCoroutine(AllUiOff());
 

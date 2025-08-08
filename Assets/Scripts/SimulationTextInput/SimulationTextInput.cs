@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
@@ -101,6 +100,8 @@ public class SimulationTextInput : SimulationBase
     public override void ResetSimulation()
     {
         isSimulationEnd = false;
+
+        textInputField.text = string.Empty;
     }
 
     //------------------------------------------------------------------------------------------
@@ -155,7 +156,11 @@ public class SimulationTextInput : SimulationBase
             }
 
             // 정답 스택에 추가
-            _sm.str_Answers.Push($"{text_TimeInput_Question} / Answer :  {timeInput_Offset} 만큼 지난 시간인 {timeInput_Answer} 이 정답 / User Answer : {answer}");
+            SubmitForm submitForm = new SubmitForm();
+            submitForm.txt_Question = text_TimeInput_Question;
+            submitForm.txt_QuestionAnswer = $"Answer :  {timeInput_Offset} 만큼 지난 시간인 {timeInput_Answer} 이 정답";
+            submitForm.txt_userAnswer = answer;
+            _sm.str_Answers.Push(submitForm);
 
 
         }
@@ -171,7 +176,10 @@ public class SimulationTextInput : SimulationBase
             }
 
             // 정답 스택에 추가
-            _sm.str_Answers.Push($"{text_Question} / Answer :  {timeInput_Answer} / User Answer : {answer}");
+            SubmitForm submitForm = new SubmitForm();
+            submitForm.txt_Question = text_Question;
+            submitForm.txt_QuestionAnswer = timeInput_Answer;
+            submitForm.txt_userAnswer = answer;
         }
 
 

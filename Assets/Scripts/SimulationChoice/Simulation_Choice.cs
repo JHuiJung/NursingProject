@@ -64,6 +64,13 @@ public class Simulation_Choice : SimulationBase
     }
     public override void ResetSimulation()
     {
+        
+
+        foreach(BTN_Choice button in BTN_Choices)
+        {
+            button.BtnOff();
+        }
+
         isSimulationEnd = false;
     }
 
@@ -150,23 +157,27 @@ public class Simulation_Choice : SimulationBase
     {
         isSimulationEnd=true;
 
-        print($"제출된 문항 : {answer} / 선택 번호 : {choosedNum}");
+        //print($"제출된 문항 : {answer} / 선택 번호 : {choosedNum}");
 
-        if(answer == text_Answer)
-        {
-            // 정답 
-            print($"{answer} : 은 정답 맞죠!"); 
+        //if(answer == text_Answer)
+        //{
+        //    // 정답 
+        //    print($"{answer} : 은 정답 맞죠!"); 
 
-        }
-        else
-        {
-            // 오답
-            print($"{answer} 은 오답 {text_Answer} 이 정답");
+        //}
+        //else
+        //{
+        //    // 오답
+        //    print($"{answer} 은 오답 {text_Answer} 이 정답");
 
-        }
+        //}
 
         //정답 스택에 추가
-        _sm.str_Answers.Push($"{text_Question} / User Answer : {answer}");
+        SubmitForm submitForm = new SubmitForm();
+        submitForm.txt_Question = text_Question;
+        submitForm.txt_QuestionAnswer = "미리 제공된 답변 참고";
+        submitForm.txt_userAnswer = answer;
+        _sm.str_Answers.Push(submitForm);
 
 
         // DG UI OFF
