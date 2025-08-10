@@ -125,6 +125,12 @@ public class Simulation_Conversation : SimulationBase
         txt_VoiceUserInput = userConvbox.GetComponent<ConvBox>().txt_Content;
     }
 
+    IEnumerator End_Simulation()
+    {
+
+        yield return null;
+    }
+
     IEnumerator AllConvBoxMoveUp()
     {
         int cnt = Obj_Area_ConvBox.transform.childCount;
@@ -145,7 +151,9 @@ public class Simulation_Conversation : SimulationBase
     public void StartRecord()
     {
         if (isRecording) return;
-
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
         //text 비우기
         txt_VoiceUserInput.text = "";
 
@@ -158,12 +166,16 @@ public class Simulation_Conversation : SimulationBase
 
         // 코루틴 실행 후 참조 저장
         autoStopCoroutine = StartCoroutine(AutoStopRecordingAfterDelay(maxRecordingTime));
+#endif
     }
 
     public void StopRecord()
     {
         if (!isRecording) return;
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
         Obj_Btn_StartRecord.SetActive(true);
         Obj_Btn_StopRecord.SetActive(false);
 
@@ -176,6 +188,7 @@ public class Simulation_Conversation : SimulationBase
             autoStopCoroutine = null;
         }
         StartCoroutine(SendWavToServer(recordedClip, text_Question));
+#endif
     }
 
     IEnumerator SendWavToServer(AudioClip clip, string question)

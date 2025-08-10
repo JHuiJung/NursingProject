@@ -34,11 +34,14 @@ public class STTChat : MonoBehaviour
     public void StartRecording()
     {
         if (isRecording) return;
-
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
         statusText.text = "🎙️ 녹음 시작...";
         recordedClip = Microphone.Start(null, false, maxRecordingTime, sampleRate);
         isRecording = true;
         StartCoroutine(AutoStopRecordingAfterDelay(maxRecordingTime));
+#endif
     }
 
     private IEnumerator AutoStopRecordingAfterDelay(int seconds)
@@ -50,12 +53,15 @@ public class STTChat : MonoBehaviour
     public void StopRecordingAndSend()
     {
         if (!isRecording) return;
-
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
         Microphone.End(null);
         isRecording = false;
         statusText.text = "⏱️ 녹음 완료, 서버로 전송 중...";
 
         StartCoroutine(SendWavToServer(recordedClip, questions[currentQuestionIndex]));
+#endif
     }
 
     IEnumerator SendWavToServer(AudioClip clip, string question)

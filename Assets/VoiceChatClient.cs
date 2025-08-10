@@ -18,14 +18,20 @@ public class VoiceChatClient : MonoBehaviour
     public void StartRecording()
     {
         if (isRecording) return;
-
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
         statusText.text = "🎙️ 녹음 시작...";
         recordedClip = Microphone.Start(null, false, 5, sampleRate);
         isRecording = true;
+#endif
     }
 
     public void StopRecordingAndSend()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
         if (!isRecording) return;
 
         Microphone.End(null);
@@ -33,6 +39,7 @@ public class VoiceChatClient : MonoBehaviour
         statusText.text = "⏱️ 녹음 완료, 전송 중...";
 
         StartCoroutine(SendWavToServer(recordedClip));
+#endif
     }
 
     IEnumerator SendWavToServer(AudioClip clip)

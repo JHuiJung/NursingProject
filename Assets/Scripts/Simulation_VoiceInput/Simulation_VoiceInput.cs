@@ -103,6 +103,9 @@ public class Simulation_VoiceInput : SimulationBase
     {
         if (isRecording) return;
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
         //text 비우기
         txt_VoiceUserInput.text = "";
 
@@ -115,12 +118,15 @@ public class Simulation_VoiceInput : SimulationBase
 
         // 코루틴 실행 후 참조 저장
         autoStopCoroutine = StartCoroutine(AutoStopRecordingAfterDelay(maxRecordingTime));
+#endif
     }
 
     public void StopRecord()
     {
         if (!isRecording) return;
-
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
         Obj_Btn_StartRecord.SetActive(true);
         Obj_Btn_StopRecord.SetActive(false);
 
@@ -133,6 +139,7 @@ public class Simulation_VoiceInput : SimulationBase
             autoStopCoroutine = null;
         }
         StartCoroutine(SendWavToServer(recordedClip, text_Question));
+#endif
     }
 
     IEnumerator SendWavToServer(AudioClip clip, string question)

@@ -1,7 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
+[System.Serializable]
+public class GoogleData
+{
+    public string order, result, msg;
+    public string _id;
+    public string _name;
+    public string _scenario;
+    public string _date;
+    public string _score;
+    public string _totalTime;
+}
 public class DataManager : MonoBehaviour
 {
     public static DataManager inst;
@@ -11,6 +25,10 @@ public class DataManager : MonoBehaviour
 
     public string time = "9am";
     public string patient_Information = "";
+
+    //---- google sheet ----
+    const string URL = "https://script.google.com/macros/s/AKfycbziS_bkMyK_13Bx64g5fP44dIQn3kPTreQYNB-OgtTIBNV-ukvlPSnef7pbmia9R5XD/exec";
+    public GoogleData GD;
 
     private void Awake()
     {
@@ -30,5 +48,58 @@ public class DataManager : MonoBehaviour
     {
         userName = _name;
         userID = _id;
+    }
+
+    [ContextMenu("Save")]
+    public void Save()
+    {
+        StartCoroutine(CoSave());
+    }
+
+    public IEnumerator CoSave()
+    {
+        string id = DataManager.inst.userID;
+        string name = DataManager.inst.userName;
+
+        WWWForm form = new WWWForm();
+        form.AddField("order", "save");
+        form.AddField("id", id);
+        form.AddField("name", name);
+        form.AddField("scenario", SceneManager.GetActiveScene().name);
+        form.AddField("date", DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss"));
+        form.AddField("score", ScenarioManager.inst.score);
+        form.AddField("totalTime", ScenarioManager.inst.totalTime);
+        
+
+        yield return StartCoroutine(Post(form));
+    }
+
+    IEnumerator Post(WWWForm form)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Post(URL, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.isDone) Response(www.downloadHandler.text);
+            else print("웹 응답 없음");
+        }
+    }
+
+    void Response(string json)
+    {
+        if (string.IsNullOrEmpty(json)) return;
+
+        GD = JsonUtility.FromJson<GoogleData>(json);
+
+        if (GD.result == "ERROR")
+        {
+            print(GD.order + " 을 실행할 수 없습니다. 에러 메세지 : " + GD.msg);
+            return;
+        }
+
+        if (GD.result == "OK")
+        {
+            print(GD.order + " 을 실행했습니다. 메세지 : " + GD.msg);
+        }
     }
 }

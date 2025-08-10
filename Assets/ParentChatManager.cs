@@ -47,6 +47,9 @@ public class ParentChatManager : MonoBehaviour
 
     public void OnRecordButton()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
         Debug.Log("▶ Record button pressed");
         recordedClip = Microphone.Start(null, false, 60, 44100);
 
@@ -58,13 +61,18 @@ public class ParentChatManager : MonoBehaviour
 
         recordBtn.interactable = false;
         stopBtn.interactable = true;
+#endif
     }
 
     public void OnStopButton()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
         Microphone.End(null);
         stopBtn.interactable = false;
         sendBtn.interactable = true;
+#endif
     }
 
     public void OnSendButton()

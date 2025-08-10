@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,15 @@ public class ScenarioManager : MonoBehaviour
 
     [SerializeField]
     bool isScenarioEnd = false;
+
+
+    //---- 점수 계산 ----
+    public string score="None";
+
+    //--- 시간 측정
+    public string totalTime = "None";
+    private DateTime startTime;
+    private DateTime endTime;
 
     private void Awake()
     {
@@ -87,6 +97,9 @@ public class ScenarioManager : MonoBehaviour
 
         // isScenarioEnd false 로 수정
         isScenarioEnd = false;
+
+        //--- 전체 시간 측정 시작 ----
+        TimeCntStart();
     }
 
     public void MoveSimulation(int index)
@@ -126,5 +139,24 @@ public class ScenarioManager : MonoBehaviour
         }
 
         
+    }
+
+    // 타이머 시작
+    public void TimeCntStart()
+    {
+        startTime = DateTime.Now;
+        Debug.Log("타이머 시작: " + startTime.ToString("yyyy.MM.dd HH:mm:ss"));
+    }
+
+    // 타이머 종료
+    public void TimeCntEnd()
+    {
+        endTime = DateTime.Now;
+        Debug.Log("타이머 종료: " + endTime.ToString("yyyy.MM.dd HH:mm:ss"));
+
+        TimeSpan duration = endTime - startTime;
+        Debug.Log("총 경과 시간: " + duration.ToString(@"hh\:mm\:ss"));
+
+        totalTime = duration.ToString(@"hh\:mm\:ss");
     }
 }
