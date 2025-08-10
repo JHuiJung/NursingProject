@@ -23,6 +23,10 @@ public class Simulation_RandImg : MonoBehaviour
 
     public SpriteAndTextAnswer selectedTA;
 
+    [Header("환자 상태 갱신"), Space(10)]
+    public bool isUpdatePatientInfo = false;
+    public int targetIndex = 0;
+
     private void OnEnable()
     {
         Setup();
@@ -32,6 +36,11 @@ public class Simulation_RandImg : MonoBehaviour
     {
         selectedTA = spriteAndTextAnswer_Dummies[Random.Range(0, spriteAndTextAnswer_Dummies.Count)];
         Obj_targetImg.sprite = selectedTA.sprite;
+
+        if(isUpdatePatientInfo)
+        {
+            DataManager.inst.patient_Information = $"{selectedTA.ls_Answers[targetIndex]}";
+        }
     }
 
     public void ResetRI()

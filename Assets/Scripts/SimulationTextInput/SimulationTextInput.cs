@@ -125,6 +125,8 @@ public class SimulationTextInput : SimulationBase
         //리스트의 시간중 하나 선택
         string slectedAnswer = list_TimeAnswer[UnityEngine.Random.Range(0, list_TimeAnswer.Count)];
 
+        DataManager.inst.time = GetTimeWithMinutesAdded(slectedAnswer, 0);
+
         // 질문 텍스트 수정
         Tmp_TimeInput_Question.text = text_TimeInput_Question + $"\n[ 현재 시간 : {GetTimeWithMinutesAdded(slectedAnswer, -20)} ]";
         

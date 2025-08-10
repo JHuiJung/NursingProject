@@ -30,6 +30,13 @@ public class Simulation_Conversation : SimulationBase
     [Header("TTS"), Space(10)]
     public AudioSource audioSource;
 
+    [Header("ConvBox"), Space(10)]
+    public GameObject Obj_Area_ConvBox;
+    public GameObject pf_User_ConvBox;
+    public GameObject pf_Opposite_ConvBox;
+    public string opposite_Name = "보호자";
+    public string opposite_Content = "";
+
     [Header("Dotween"), Space(10)]
     public float DG_Time = 0.75f;
     public float DG_Area_EndY = -20f;
@@ -37,7 +44,6 @@ public class Simulation_Conversation : SimulationBase
     public Ease DG_Ease = Ease.Linear;
 
     //--- 음성 녹음 ----
-    private const string apiUrl = "http://127.0.0.1:8000/clova_stt"; // FastAPI /stt 엔드포인트
     private AudioClip recordedClip;
     private bool isRecording = false;
     private const int sampleRate = 16000;
@@ -55,6 +61,7 @@ public class Simulation_Conversation : SimulationBase
 
         Setup();
         StartCoroutine(AllUiOn());
+        StartCoroutine(Start_Simulation());
     }
 
     public override void Excute(ScenarioManager SM)
@@ -91,6 +98,46 @@ public class Simulation_Conversation : SimulationBase
     void Setup()
     {
         Tmp_Question.text = text_Question;
+    }
+    //----- 시뮬레이션 조작 ------
+
+    IEnumerator Start_Simulation()
+    {
+        // Opposite ConvBox 생성
+        GameObject oppositeConvbox = Instantiate(pf_Opposite_ConvBox,Obj_Area_ConvBox.transform);
+        oppositeConvbox.transform.SetAsLastSibling();
+        oppositeConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        oppositeConvbox.GetComponent<ConvBox>().Setup(opposite_Name, opposite_Content);
+
+        // TTS로 질문
+
+        yield return StartCoroutine(PlayTTSQuestion(opposite_Content));
+
+        // convBox 한칸 올리기
+        yield return StartCoroutine( AllConvBoxMoveUp() );
+
+
+        // UserConvBox 생성
+        GameObject userConvbox = Instantiate(pf_User_ConvBox, Obj_Area_ConvBox.transform);
+        userConvbox.transform.SetAsLastSibling();
+        userConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        userConvbox.GetComponent<ConvBox>().Setup($"{DataManager.inst.userName} 간호사", "");
+        txt_VoiceUserInput = userConvbox.GetComponent<ConvBox>().txt_Content;
+    }
+
+    IEnumerator AllConvBoxMoveUp()
+    {
+        int cnt = Obj_Area_ConvBox.transform.childCount;
+        float timeOffset = 0.5f;
+
+        for (int i = 0; i < Obj_Area_ConvBox.transform.childCount; i++)
+        {
+            ConvBox convBox = Obj_Area_ConvBox.transform.GetChild(i).GetComponent<ConvBox>();
+
+            convBox.MoveUp(timeOffset * (i + 1));
+        }
+
+        yield return new WaitForSeconds(timeOffset * cnt);
     }
 
     //------------------------------------------------------------------------------------------
@@ -145,7 +192,7 @@ public class Simulation_Conversation : SimulationBase
             new MultipartFormFileSection("audio", audioData, "recorded.wav", "audio/wav")
         };
 
-        UnityWebRequest request = UnityWebRequest.Post(apiUrl, formData);
+        UnityWebRequest request = UnityWebRequest.Post(APIConfig.Instance.ClovaSttUrl, formData);
         request.downloadHandler = new DownloadHandlerBuffer();
 
         yield return request.SendWebRequest();
@@ -189,7 +236,7 @@ public class Simulation_Conversation : SimulationBase
         WWWForm form = new WWWForm();
         form.AddField("text", questionText);
 
-        string url = "http://localhost:8000/tts";
+        string url = APIConfig.Instance.TtsUrl;
         UnityWebRequest request = UnityWebRequest.Post(url, form);
         yield return request.SendWebRequest();
 

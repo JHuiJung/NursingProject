@@ -149,7 +149,7 @@ public class Simulation_VoiceInput : SimulationBase
             new MultipartFormFileSection("audio", audioData, "recorded.wav", "audio/wav")
         };
 
-        UnityWebRequest request = UnityWebRequest.Post(apiUrl, formData);
+        UnityWebRequest request = UnityWebRequest.Post(APIConfig.Instance.ClovaSttUrl, formData);
         request.downloadHandler = new DownloadHandlerBuffer();
 
         yield return request.SendWebRequest();
