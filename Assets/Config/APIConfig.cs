@@ -14,6 +14,7 @@ public class APIConfig : ScriptableObject
     [SerializeField] private string ttsEndpoint = "/tts";
     [SerializeField] private string clovaSttEndpoint = "/clova_stt";
     [SerializeField] private string voiceChatEndpoint = "/voice_chat";
+    [SerializeField] private string parentResponse = "/parent_response";
 
     // 싱글톤 인스턴스
     private static APIConfig _instance;
@@ -41,6 +42,7 @@ public class APIConfig : ScriptableObject
     public string TtsUrl => baseUrl + ttsEndpoint;
     public string ClovaSttUrl => baseUrl + clovaSttEndpoint;
     public string VoiceChatUrl => baseUrl + voiceChatEndpoint;
+    public string ParentResponse => baseUrl + parentResponse;
 
     // 개발/운영 환경 전환을 위한 메서드
     public void SetBaseUrl(string newBaseUrl)

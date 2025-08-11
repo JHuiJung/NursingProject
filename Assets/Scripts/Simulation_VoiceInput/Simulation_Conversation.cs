@@ -6,35 +6,37 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TMPro;
+using uMicrophoneWebGL;
 using UnityEngine;
 using UnityEngine.Networking;
+using static NursingChatClient;
 
 public class Simulation_Conversation : SimulationBase
 {
     [Header("Canvas Obj & Stuff"), Space(10), SerializeField]
     GameObject Obj_CanvasChoice;
     public GameObject Obj_Area_Wait;
+    public GameObject Obj_Btn_Next;
+    public MicrophoneWebGL microphoneWebGL;
 
-    [TextArea] //Áú¹®
-    [Header("Áú¹®(ÇÊ¼ö·Î ÀÔ·Â)"), Space(10)]
+    [TextArea] //ï¿½ï¿½ï¿½ï¿½
+    [Header("ï¿½ï¿½ï¿½ï¿½(ï¿½Ê¼ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½)"), Space(10)]
     public string text_Question = "";
     public TMP_Text Tmp_Question;
+    public string keywords = "";
 
-    [Header("º¸ÀÌ½º ÀÔ·Â"), Space(10)]
+    [Header("ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ô·ï¿½"), Space(10)]
     public TMP_Text txt_VoiceUserInput;
     public GameObject Obj_Area_VoiceInput;
     public GameObject Obj_Btn_StartRecord;
     public GameObject Obj_Btn_StopRecord;
     public GameObject Obj_BTN_Submit;
 
-    [Header("TTS"), Space(10)]
-    public AudioSource audioSource;
-
     [Header("ConvBox"), Space(10)]
     public GameObject Obj_Area_ConvBox;
     public GameObject pf_User_ConvBox;
     public GameObject pf_Opposite_ConvBox;
-    public string opposite_Name = "º¸È£ÀÚ";
+    public string opposite_Name = "ï¿½ï¿½È£ï¿½ï¿½";
     public string opposite_Content = "";
 
     [Header("Dotween"), Space(10)]
@@ -43,16 +45,27 @@ public class Simulation_Conversation : SimulationBase
     public float DG_Area_StartY = -450f;
     public Ease DG_Ease = Ease.Linear;
 
-    //--- À½¼º ³ìÀ½ ----
-    private AudioClip recordedClip;
+    // ï¿½Ã¹Ä·ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ bool
+    bool isSimulationEnd = false;
+    private Coroutine autoStopCoroutine;
+    ScenarioManager _sm;
+
+    //--- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ----
     private bool isRecording = false;
     private const int sampleRate = 16000;
     private const int maxRecordingTime = 30;
 
-    // ½Ã¹Ä·¹ÀÌ¼Ç ³¡ bool
-    bool isSimulationEnd = false;
-    private Coroutine autoStopCoroutine;
-    ScenarioManager _sm;
+    //----WebGl
+    [Header("TTS & STT"), Space(10)]
+    public AudioSource audioSource;
+    public float maxDuration = 10f;
+    private float[] _buffer = null;
+    private int _bufferSize = 0;
+    private AudioClip _clip;
+    private bool _isPlaying = false;
+
+    //----ai ï¿½äº¯----
+    string aiResponse = "";
 
     public override void Enter(ScenarioManager SM)
     {
@@ -68,7 +81,7 @@ public class Simulation_Conversation : SimulationBase
     {
         if (isSimulationEnd) return;
 
-        //¹öÆ° È°¼ºÈ­ or ºñÈ°¼ºÈ­
+        //ï¿½ï¿½Æ° È°ï¿½ï¿½È­ or ï¿½ï¿½È°ï¿½ï¿½È­
         if (string.IsNullOrWhiteSpace(txt_VoiceUserInput.text))
         {
             Obj_BTN_Submit.SetActive(false);
@@ -81,7 +94,7 @@ public class Simulation_Conversation : SimulationBase
 
     public override void Exit(ScenarioManager SM)
     {
-        print($"{name} : °´°ü½Ä ¹®Á¦ ³¡");
+        print($"{name} : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½");
         ResetSimulation();
         Obj_CanvasChoice.SetActive(false);
     }
@@ -90,45 +103,95 @@ public class Simulation_Conversation : SimulationBase
         isSimulationEnd = false;
 
         txt_VoiceUserInput.text = string.Empty;
+        aiResponse = "";
 
         Obj_Btn_StartRecord.SetActive(true);
         Obj_Btn_StopRecord.SetActive(false);
+        Obj_Area_Wait.SetActive(false);
+
+        while(Obj_Area_ConvBox.transform.childCount > 0)
+        {
+            Destroy(Obj_Area_ConvBox.transform.GetChild(0).gameObject);
+        }
     }
 
     void Setup()
     {
         Tmp_Question.text = text_Question;
     }
-    //----- ½Ã¹Ä·¹ÀÌ¼Ç Á¶ÀÛ ------
+    //----- ï¿½Ã¹Ä·ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ------
 
     IEnumerator Start_Simulation()
     {
-        // Opposite ConvBox »ý¼º
+        // Opposite ConvBox ï¿½ï¿½ï¿½ï¿½
         GameObject oppositeConvbox = Instantiate(pf_Opposite_ConvBox,Obj_Area_ConvBox.transform);
         oppositeConvbox.transform.SetAsLastSibling();
         oppositeConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         oppositeConvbox.GetComponent<ConvBox>().Setup(opposite_Name, opposite_Content);
 
-        // TTS·Î Áú¹®
-
+        print("TTS ï¿½ï¿½");
+        // TTSï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         yield return StartCoroutine(PlayTTSQuestion(opposite_Content));
+        print("TTS ï¿½ï¿½");
 
-        // convBox ÇÑÄ­ ¿Ã¸®±â
+        // convBox ï¿½ï¿½Ä­ ï¿½Ã¸ï¿½ï¿½ï¿½
         yield return StartCoroutine( AllConvBoxMoveUp() );
 
 
-        // UserConvBox »ý¼º
+        // UserConvBox ï¿½ï¿½ï¿½ï¿½
         GameObject userConvbox = Instantiate(pf_User_ConvBox, Obj_Area_ConvBox.transform);
         userConvbox.transform.SetAsLastSibling();
         userConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        userConvbox.GetComponent<ConvBox>().Setup($"{DataManager.inst.userName} °£È£»ç", "");
+        userConvbox.GetComponent<ConvBox>().Setup($"{DataManager.inst.userName} ï¿½ï¿½È£ï¿½ï¿½", "");
         txt_VoiceUserInput = userConvbox.GetComponent<ConvBox>().txt_Content;
     }
 
     IEnumerator End_Simulation()
     {
+        // ai ï¿½ï¿½ï¿½ï¿½ ï¿½äº¯ ï¿½Þ±ï¿½
+        Obj_Btn_StartRecord.SetActive(false);
+        Obj_Btn_StopRecord.SetActive(false);
 
-        yield return null;
+        Obj_Area_Wait.SetActive(true);
+
+        yield return StartCoroutine(SendToServer());
+        string ai_responese = "";
+        if (!string.IsNullOrEmpty(aiResponse))
+        {
+            ai_responese = aiResponse;
+        }
+        else
+        {
+            ai_responese = "aiï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½äº¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+        }
+
+        Obj_Area_Wait.SetActive(false);
+
+        // convBox ï¿½ï¿½Ä­ ï¿½Ã¸ï¿½ï¿½ï¿½
+        yield return StartCoroutine(AllConvBoxMoveUp());
+
+        // Opposite ConvBox ï¿½ï¿½ï¿½ï¿½
+        GameObject oppositeConvbox = Instantiate(pf_Opposite_ConvBox, Obj_Area_ConvBox.transform);
+        oppositeConvbox.transform.SetAsLastSibling();
+        oppositeConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        oppositeConvbox.GetComponent<ConvBox>().Setup(opposite_Name, ai_responese);
+
+        //ttsï¿½ï¿½ ï¿½ï¿½ï¿½
+        yield return StartCoroutine(PlayTTSQuestion(ai_responese));
+
+        //
+        yield return new WaitForSeconds(3f);
+
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½
+        Obj_Btn_Next.SetActive(true);
+
+        
+
+    }
+
+    public void NextSimulation()
+    {
+        StartCoroutine(AllUiOff());
     }
 
     IEnumerator AllConvBoxMoveUp()
@@ -140,7 +203,7 @@ public class Simulation_Conversation : SimulationBase
         {
             ConvBox convBox = Obj_Area_ConvBox.transform.GetChild(i).GetComponent<ConvBox>();
 
-            convBox.MoveUp(timeOffset * (i + 1));
+            convBox.MoveUp(timeOffset);
         }
 
         yield return new WaitForSeconds(timeOffset * cnt);
@@ -148,81 +211,197 @@ public class Simulation_Conversation : SimulationBase
 
     //------------------------------------------------------------------------------------------
 
-    public void StartRecord()
+
+    #region ----------------------------------------STT ï¿½ï¿½ï¿½ï¿½
+    public void ToggleRecord()
     {
-        if (isRecording) return;
 #if UNITY_WEBGL && !UNITY_EDITOR
-        
+        if (!microphoneWebGL || !microphoneWebGL.isValid) return;
+
+        bool isMRecording = microphoneWebGL.isRecording;
+
+        if (!isMRecording)
+        {
+            Begin();
+        }
+        else
+        {
+            End();
+        }
+
+        isMRecording = !isMRecording;
 #else
-        //text ºñ¿ì±â
+        if (isRecording)
+        {
+            End();
+        }
+        else
+        {
+            Begin();
+        }
+#endif
+
+
+    }
+
+    public void TogglePlay()
+    {
+        if (!audioSource) return;
+
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+        else
+        {
+            audioSource.clip = _clip;
+            audioSource.Play();
+        }
+    }
+
+    private void Begin()
+    {
+        //text ï¿½ï¿½ï¿½ï¿½
         txt_VoiceUserInput.text = "";
 
-        //MikeOff Å°±â
+
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        Obj_Btn_StartRecord.SetActive(false);
+        Obj_Btn_StopRecord.SetActive(true);
+        microphoneWebGL.Begin();
+#else
+        if (isRecording) return;
+
         Obj_Btn_StartRecord.SetActive(false);
         Obj_Btn_StopRecord.SetActive(true);
 
-        recordedClip = Microphone.Start(null, false, maxRecordingTime, sampleRate);
+        _clip = Microphone.Start(null, false, maxRecordingTime, sampleRate);
         isRecording = true;
-
-        // ÄÚ·çÆ¾ ½ÇÇà ÈÄ ÂüÁ¶ ÀúÀå
-        autoStopCoroutine = StartCoroutine(AutoStopRecordingAfterDelay(maxRecordingTime));
+        // ï¿½Ú·ï¿½Æ¾ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        print("Begin");
 #endif
     }
 
-    public void StopRecord()
+    private void End()
     {
-        if (!isRecording) return;
+
+        print("End");
 
 #if UNITY_WEBGL && !UNITY_EDITOR
-        
+        Obj_Btn_StartRecord.SetActive(true);
+        Obj_Btn_StopRecord.SetActive(false);
+        microphoneWebGL.End();
+        StartCoroutine(SendWavToServer(_clip, text_Question));
 #else
+
+        if (!isRecording) return;
+
         Obj_Btn_StartRecord.SetActive(true);
         Obj_Btn_StopRecord.SetActive(false);
 
         Microphone.End(null);
         isRecording = false;
-        // ÀúÀåµÈ ÄÚ·çÆ¾ÀÌ ÀÖ´Ù¸é Áß´Ü
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ß´ï¿½
         if (autoStopCoroutine != null)
         {
             StopCoroutine(autoStopCoroutine);
             autoStopCoroutine = null;
         }
-        StartCoroutine(SendWavToServer(recordedClip, text_Question));
+        StartCoroutine(SendWavToServer(_clip, text_Question));
 #endif
     }
+
+    public void OnBegin()
+    {
+        int freq = microphoneWebGL.selectedDevice.sampleRate;
+        int n = (int)(freq * maxDuration);
+        if (_buffer == null || _buffer.Length != n)
+        {
+            _buffer = new float[n];
+        }
+        _bufferSize = 0;
+    }
+
+    public void OnEnd()
+    {
+        if (!audioSource) return;
+
+        var device = microphoneWebGL.selectedDevice;
+        var freq = device.sampleRate;
+        var ch = device.channelCount;
+        _clip = AudioClip.Create("uMicrophoneWebGL-Recorded", _bufferSize + freq, ch, freq, false);
+        var data = new float[_bufferSize];
+        System.Array.Copy(_buffer, data, _bufferSize);
+        _clip.SetData(data, 0);
+    }
+
+    public void OnData(float[] input)
+    {
+        if (input == null) return;
+        int n = input.Length;
+        if (_bufferSize + n >= _buffer.Length) return;
+        System.Array.Copy(input, 0, _buffer, _bufferSize, n);
+        _bufferSize += n;
+    }
+
+    #endregion
 
     IEnumerator SendWavToServer(AudioClip clip, string question)
     {
         Obj_Area_Wait.SetActive(true);
 
-        string filePath = Path.Combine(Application.persistentDataPath, "recorded.wav");
-        SaveWav(filePath, clip);
-        byte[] audioData = File.ReadAllBytes(filePath);
+        int length;
+        byte[] wavData = WavUtility.FromAudioClip(clip, out length);
 
-        List<IMultipartFormSection> formData = new List<IMultipartFormSection>
-        {
-            new MultipartFormDataSection("question", question),
-            new MultipartFormFileSection("audio", audioData, "recorded.wav", "audio/wav")
-        };
+        WWWForm form = new WWWForm();
+        form.AddBinaryData("audio", wavData, "followup.wav", "audio/wav");
 
-        UnityWebRequest request = UnityWebRequest.Post(APIConfig.Instance.ClovaSttUrl, formData);
-        request.downloadHandler = new DownloadHandlerBuffer();
+        string url = APIConfig.Instance.ClovaSttUrl;
 
+        UnityWebRequest request = UnityWebRequest.Post(url, form);
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            string json = request.downloadHandler.text;
-            Debug.Log("? ÀÀ´ä ¼ö½Å: " + json);
-
-            STTResponse response = JsonUtility.FromJson<STTResponse>(json);
-            txt_VoiceUserInput.text = $"{response.transcript}";
-
+            var result = JSON.Parse(request.downloadHandler.text);
+            string resultText = result["text"];
+            txt_VoiceUserInput.text = resultText;
+            Debug.Log("? ï¿½Ä¼ï¿½ ï¿½äº¯ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½: " + resultText);
         }
         else
         {
-            Debug.LogError("? Àü¼Û ½ÇÆÐ: " + request.error);
+            Debug.LogError("? ï¿½Ä¼ï¿½ ï¿½äº¯ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + request.error);
         }
+
+        //string filePath = Path.Combine(Application.persistentDataPath, "recorded.wav");
+        //SaveWav(filePath, clip);
+        //byte[] audioData = File.ReadAllBytes(filePath);
+
+        //List<IMultipartFormSection> formData = new List<IMultipartFormSection>
+        //{
+        //    new MultipartFormDataSection("question", question),
+        //    new MultipartFormFileSection("audio", audioData, "recorded.wav", "audio/wav")
+        //};
+
+        //UnityWebRequest request = UnityWebRequest.Post(APIConfig.Instance.ClovaSttUrl, formData);
+        //request.downloadHandler = new DownloadHandlerBuffer();
+
+        //yield return request.SendWebRequest();
+
+        //if (request.result == UnityWebRequest.Result.Success)
+        //{
+        //    string json = request.downloadHandler.text;
+        //    Debug.Log("? ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + json);
+
+        //    STTResponse response = JsonUtility.FromJson<STTResponse>(json);
+        //    txt_VoiceUserInput.text = $"{response.transcript}";
+
+        //}
+        //else
+        //{
+        //    Debug.LogError("? ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + request.error);
+        //}
 
         Obj_Area_Wait.SetActive(false);
     }
@@ -235,13 +414,6 @@ public class Simulation_Conversation : SimulationBase
         File.WriteAllBytes(path, wavData);
     }
 
-
-    // Æ¯Á¤ ½Ã°£ ÀÌÈÄ ³ìÀ½ Á¾·á
-    private IEnumerator AutoStopRecordingAfterDelay(int seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        if (isRecording) StopRecord();
-    }
 
     //---------- TTS ----------------
     IEnumerator PlayTTSQuestion(string questionText)
@@ -262,7 +434,7 @@ public class Simulation_Conversation : SimulationBase
         }
         else
         {
-            Debug.LogError("? Áú¹® TTS ¿äÃ» ½ÇÆÐ: " + request.error);
+            Debug.LogError("? ï¿½ï¿½ï¿½ï¿½ TTS ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½: " + request.error);
         }
     }
 
@@ -286,34 +458,64 @@ public class Simulation_Conversation : SimulationBase
             }
             else
             {
-                Debug.LogError("? TTS ¿Àµð¿À ·Îµå ½ÇÆÐ: " + www.error);
+                Debug.LogError("? TTS ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½: " + www.error);
             }
         }
     }
 
-    //Á¦Ãâ ¹× UI
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ UI
 
     public void SubmitAnswer()
     {
         if (isSimulationEnd) return;
 
         isSimulationEnd = true;
+        Obj_BTN_Submit.SetActive(false);
 
         string answer = txt_VoiceUserInput.text;
 
         SubmitForm submitForm = new SubmitForm();
         submitForm.txt_Question = text_Question;
-        submitForm.txt_QuestionAnswer = "¹Ì¸® Á¦½ÃµÈ Å°¿öµå°¡ ÀÖ´ÂÁö ÆÄ¾Ç ÈÄ Á¤´ä °ËÅäÇÒ °Í";
+        submitForm.txt_QuestionAnswer = $"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : {opposite_Content} / ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½äº¯ï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ï¿½ ï¿½Ï´ï¿½ Å°ï¿½ï¿½ï¿½ï¿½ {keywords} " +
+            $" / Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½ï¿½ ï¿½ï¿½";
         submitForm.txt_userAnswer = answer;
 
         _sm.str_Answers.Push(submitForm);
 
-        StartCoroutine(AllUiOff());
+        StartCoroutine(End_Simulation());
+    }
+
+    public IEnumerator SendToServer()
+    {
+
+        string userRes = txt_VoiceUserInput.text;
+
+        WWWForm form = new WWWForm();
+        form.AddField("parent_question", opposite_Content);
+        form.AddField("user_response", userRes);
+        form.AddField("keywords", keywords);
+
+        string url = APIConfig.Instance.ParentResponse;
+
+        UnityWebRequest request = UnityWebRequest.Post(url, form);
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            var result = JSON.Parse(request.downloadHandler.text);
+            string followupText = result["parent_response"];
+            aiResponse = followupText;
+            Debug.Log("? ï¿½Ä¼ï¿½ ï¿½äº¯ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½: " + followupText);
+        }
+        else
+        {
+            Debug.LogError("? ï¿½Ä¼ï¿½ ï¿½äº¯ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + request.error);
+        }
     }
 
     IEnumerator AllUiOn()
     {
-        // Å¸ÀÌÆ² DG
+        // Å¸ï¿½ï¿½Æ² DG
         RectTransform rect_title = Tmp_Question.gameObject.transform.parent
             .GetComponent<RectTransform>();
 
@@ -321,7 +523,7 @@ public class Simulation_Conversation : SimulationBase
         rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
             0f), DG_Time).SetEase(DG_Ease);
 
-        // º¸ÀÌ½º ÀÔ·Â DG
+        // ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ô·ï¿½ DG
         RectTransform rect_AreaTI = Obj_Area_VoiceInput.GetComponent<RectTransform>();
 
         rect_AreaTI.DOAnchorPos(new Vector2(rect_AreaTI.anchoredPosition.x, DG_Area_EndY), DG_Time
@@ -332,7 +534,7 @@ public class Simulation_Conversation : SimulationBase
 
     IEnumerator AllUiOff()
     {
-        // Å¸ÀÌÆ² DG
+        // Å¸ï¿½ï¿½Æ² DG
         RectTransform rect_title = Tmp_Question.gameObject.transform.parent
             .GetComponent<RectTransform>();
 
@@ -340,7 +542,7 @@ public class Simulation_Conversation : SimulationBase
         rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
             200f), DG_Time).SetEase(DG_Ease);
 
-        // º¸ÀÌ½º ÀÔ·Â DG
+        // ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ô·ï¿½ DG
         RectTransform rect_AreaTI = Obj_Area_VoiceInput.GetComponent<RectTransform>();
 
         rect_AreaTI.DOAnchorPos(new Vector2(rect_AreaTI.anchoredPosition.x, DG_Area_StartY), DG_Time
@@ -348,7 +550,9 @@ public class Simulation_Conversation : SimulationBase
 
         yield return new WaitForSeconds(DG_Time);
 
-        // ´ÙÀ½ ½Ã¹Ä·¹ÀÌ¼ÇÀ¸·Î ÀÌµ¿
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¹Ä·ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
         _sm.NextSimulation();
+
+
     }
 }

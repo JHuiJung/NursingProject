@@ -20,3 +20,4 @@ MonoBehaviour:
   ttsEndpoint: /tts
   clovaSttEndpoint: /clova_stt
   voiceChatEndpoint: /voice_chat
+  parentResponse: /parent_response

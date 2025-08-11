@@ -135,7 +135,6 @@ public class MicrophoneRecorder : MonoBehaviour
         _bufferSize += n;
     }
 
-        /*
     public void OnDeviceListUpdated(List<Device> devices)
     {
         if (!deviceDropdown) return;
@@ -151,7 +150,6 @@ public class MicrophoneRecorder : MonoBehaviour
         }
         deviceDropdown.options = options;
     }
-        */
 }
 
 }

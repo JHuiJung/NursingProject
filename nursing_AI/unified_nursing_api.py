@@ -197,79 +197,91 @@ class ChatResponse(BaseModel):
 # ========================================
 # 🔹 1. STT 평가 API (stt_naver_api.py)
 # ========================================
-
+###
 @app.post("/clova_stt")
 async def clova_stt(
-    question: str = Form(...),
-    audio: UploadFile | None = File(None),
-    patient_name: str | None = Form(None),
-    patient_regno: str | None = Form(None),
+    audio: UploadFile | None = File(None)
 ):
-    """STT 기반 평가 또는 텍스트 입력 기반 평가를 제공
-
-    - 환아 이름/등록번호 확인(Q17) 같은 경우: patient_name, patient_regno 전달 → 텍스트 기반 평가
-    - 그 외: audio 업로드 → Clova STT → 평가
-    """
-
-    # 1) 텍스트 입력 기반 분기 (환아 이름/등록번호 확인)
-    if (patient_name and patient_name.strip()) or (patient_regno and patient_regno.strip()):
-        name_val = patient_name.strip() if patient_name else ""
-        reg_val = patient_regno.strip() if patient_regno else ""
-        transcript = f"환아 이름: {name_val}, 등록번호: {reg_val}"
-
-        full_input = (
-            f"질문: {question}\n"
-            f"사용자 입력: {transcript}\n\n"
-        )
-        ai_response = get_ai_response(full_input)
-        feedback = ai_response.get("answer", "")
-
-        return JSONResponse({
-            "transcript": transcript,
-            "processed_versions": {"original": transcript},
-            "feedback": feedback,
-            "is_correct": feedback,
-            "question": question
-        })
-
-    # 2) 음성(STT) 기반 분기 (주사 목적 등)
-    if audio is None:
-        return JSONResponse(status_code=400, content={"error": "audio 또는 patient_name/patient_regno 중 하나는 제공되어야 합니다."})
-
-    audio_bytes = await audio.read()
-    headers = {
-        "X-CLOVASPEECH-API-KEY": CLOVA_API_KEY,
-        "Content-Type": "application/octet-stream"
-    }
-    params = {"lang": "Kor",
-              "boostings": "환아\t이하트\t239845\t심장\t주사\t팔\t수액줄"}
-
-    # Clova STT 요청
-    resp = requests.post(CLOVA_URL, params=params, headers=headers, data=audio_bytes)
-    if resp.status_code != 200:
-        return JSONResponse(status_code=500, content={"error": f"Clova STT 실패: {resp.status_code}"})
-    result = resp.json()
-    transcript = result.get("text", "")
-
-    # 음성 인식 텍스트 전처리
-    processed = preprocess_speech_text(transcript)
-
-    # LangChain 평가 구성(수정 텍스트 기준)
-    evaluation_text = processed["corrected"]
-    full_input = (
-        f"질문: {question}\n"
-        f"평가용 사용자 응답: {evaluation_text}\n\n"
-    )
-    ai_response = get_ai_response(full_input)
-    feedback = ai_response.get("answer", "")
+    ai_text = clova_speech_to_text(audio);
 
     return JSONResponse({
-        "transcript": processed['original'],
-        "processed_versions": processed,
-        "feedback": feedback,
-        "is_correct": feedback,
-        "question": question
+        "text": ai_text
     })
+###
+# # ###
+# # @app.post("/clova_stt")
+# # async def clova_stt(
+# #     question: str = Form(...),
+# #     audio: UploadFile | None = File(None),
+# #     patient_name: str | None = Form(None),
+# #     patient_regno: str | None = Form(None),
+# # ):
+# #     """STT 기반 평가 또는 텍스트 입력 기반 평가를 제공
+
+# #     - 환아 이름/등록번호 확인(Q17) 같은 경우: patient_name, patient_regno 전달 → 텍스트 기반 평가
+# #     - 그 외: audio 업로드 → Clova STT → 평가
+# #     """
+
+# #     # 1) 텍스트 입력 기반 분기 (환아 이름/등록번호 확인)
+# #     if (patient_name and patient_name.strip()) or (patient_regno and patient_regno.strip()):
+# #         name_val = patient_name.strip() if patient_name else ""
+# #         reg_val = patient_regno.strip() if patient_regno else ""
+# #         transcript = f"환아 이름: {name_val}, 등록번호: {reg_val}"
+
+# #         full_input = (
+# #             f"질문: {question}\n"
+# #             f"사용자 입력: {transcript}\n\n"
+# #         )
+# #         ai_response = get_ai_response(full_input)
+# #         feedback = ai_response.get("answer", "")
+
+# #         return JSONResponse({
+# #             "transcript": transcript,
+# #             "processed_versions": {"original": transcript},
+# #             "feedback": feedback,
+# #             "is_correct": feedback,
+# #             "question": question
+# #         })
+
+# #     # 2) 음성(STT) 기반 분기 (주사 목적 등)
+# #     if audio is None:
+# #         return JSONResponse(status_code=400, content={"error": "audio 또는 patient_name/patient_regno 중 하나는 제공되어야 합니다."})
+
+# #     audio_bytes = await audio.read()
+# #     headers = {
+# #         "X-CLOVASPEECH-API-KEY": CLOVA_API_KEY,
+# #         "Content-Type": "application/octet-stream"
+# #     }
+# #     params = {"lang": "Kor",
+# #               "boostings": "환아\t이하트\t239845\t심장\t주사\t팔\t수액줄"}
+
+# #     # Clova STT 요청
+# #     resp = requests.post(CLOVA_URL, params=params, headers=headers, data=audio_bytes)
+# #     if resp.status_code != 200:
+# #         return JSONResponse(status_code=500, content={"error": f"Clova STT 실패: {resp.status_code}"})
+# #     result = resp.json()
+# #     transcript = result.get("text", "")
+
+# #     # 음성 인식 텍스트 전처리
+# #     processed = preprocess_speech_text(transcript)
+
+# #     # LangChain 평가 구성(수정 텍스트 기준)
+# #     evaluation_text = processed["corrected"]
+# #     full_input = (
+# #         f"질문: {question}\n"
+# #         f"평가용 사용자 응답: {evaluation_text}\n\n"
+# #     )
+# #     ai_response = get_ai_response(full_input)
+# #     feedback = ai_response.get("answer", "")
+
+# #     return JSONResponse({
+# #         "transcript": processed['original'],
+# #         "processed_versions": processed,
+# #         "feedback": feedback,
+# #         "is_correct": feedback,
+# #         "question": question
+# #     })
+# # ###
 
 def _as_text(x) -> str:
     try:
@@ -336,6 +348,50 @@ async def parent_chat(
     }
 
     return JSONResponse(content=response)
+
+
+@app.post("/parent_response")
+async def parent_chat(
+    parent_question: str = Form(...),
+    user_response: str = Form(...),
+    keywords: str = Form(...)
+):
+    # """부모 음성 → STT → 키워드 누락 확인 → TTS 응답"""
+    # transcript = clova_speech_to_text(audio)
+    # current_q = next(q for q in QUESTIONS if q["id"] == question_id)
+    # missing_keywords = check_required_keywords(transcript, current_q["required_keywords"])
+
+    # 로그로 질문, 응답 확인
+    print(f"부모 질문 {parent_question} ")
+    print(f"유저 질문 {user_response} ")
+    print(f"핵심키워드 {keywords} ")
+
+    try:
+        ack_prompt = (
+            "역할: 당신은 환아의 보호자(부모)입니다. 아이가 아파 불안하고 다소 예민합니다.\n"
+            "목표: 부모의 입장에서 간호사 설명을 검토하여 누락된 핵심 키워드를 중심으로 답변해줘. 정답 오답은 너가 판단하는게 아니야\n"
+            f"질문: {parent_question}\n"
+            f"간호사 설명 : {user_response}\n"
+            f"간호사 설명에 포함되야할 핵심 키워드 : {keywords}\n\n"
+            "스타일: 존댓말, 예민한 상황, 아이의 건강을 걱정한다.\n"
+            "제한: 이모지는 사용하지 않습니다."
+            "제한: 총 글자수는 150자를 넘지 안되, 150글자에 근접하게 작성할것"
+            "제한: 너는 아이의 부모라는 것을 절대절대절대절대 역할에서 벗어나면 안되"
+
+        )
+        ai_ack = get_ai_response(ack_prompt)
+        ack_text = ai_ack.get("answer", "좋습니다. 내용을 잘 이해하셨습니다. 다음 질문으로 넘어갈게요.")
+    except Exception:
+        ack_text = "알겠습니다..."
+
+    response = {
+        "parent_response": ack_text,
+    }
+
+    return JSONResponse(content=response)
+
+
+
 
 
 @app.post("/parent_chat")
