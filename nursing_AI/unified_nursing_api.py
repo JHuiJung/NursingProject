@@ -1,5 +1,6 @@
 from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware  # CORSMiddleware 임포트
 from pydantic import BaseModel
 from google.cloud import texttospeech
 import requests, base64, os
@@ -9,6 +10,15 @@ from nursing_llm import get_ai_response, get_followup_question
 
 load_dotenv()
 app = FastAPI()
+
+# CORS 미들웨어를 추가합니다.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],           # 모든 출처(Origin) 허용
+    allow_credentials=True,        # 자격 증명(쿠키, 인증 헤더) 허용
+    allow_methods=["*"],           # 모든 HTTP 메서드(GET, POST, OPTIONS 등) 허용
+    allow_headers=["*"],           # 모든 헤더 허용
+)
 
 # ========================================
 # 🔹 공통 설정 및 유틸리티 함수
