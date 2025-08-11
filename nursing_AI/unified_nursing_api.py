@@ -461,6 +461,8 @@ async def tts(text: str = Form(...)):
 def chat_endpoint(request: ChatRequest):
     """RAG 기반 채팅 응답"""
     ai_response = get_ai_response(request.question)
+
+    print(ai_response)
     
     return {
         "answer": ai_response["answer"],
