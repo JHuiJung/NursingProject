@@ -99,6 +99,8 @@ public class MicrophoneRecorder : MonoBehaviour
 
     public void OnBegin()
     {
+            print("OnBegin Start");
+
         int freq = microphoneWebGL.selectedDevice.sampleRate;
         int n = (int)(freq * maxDuration);
         if (_buffer == null || _buffer.Length != n)
@@ -110,6 +112,8 @@ public class MicrophoneRecorder : MonoBehaviour
 
     public void OnEnd()
     {
+
+            print("OnEnd Start");
         if (!audioSource) return;
         
         var device = microphoneWebGL.selectedDevice;
@@ -123,6 +127,7 @@ public class MicrophoneRecorder : MonoBehaviour
 
     public void OnData(float[] input)
     {
+            print("OnData Start");
         if (input == null) return;
         int n = input.Length;
         if (_bufferSize + n >= _buffer.Length) return;
@@ -130,6 +135,7 @@ public class MicrophoneRecorder : MonoBehaviour
         _bufferSize += n;
     }
 
+        /*
     public void OnDeviceListUpdated(List<Device> devices)
     {
         if (!deviceDropdown) return;
@@ -145,6 +151,7 @@ public class MicrophoneRecorder : MonoBehaviour
         }
         deviceDropdown.options = options;
     }
+        */
 }
 
 }
