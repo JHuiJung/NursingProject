@@ -25,12 +25,12 @@ public class Simulation_VoiceInput : SimulationBase
     public GameObject Obj_Area_Wait;
     public MicrophoneWebGL microphoneWebGL;
 
-    [TextArea] //Áú¹®
-    [Header("Áú¹®(ÇÊ¼ö·Î ÀÔ·Â)"), Space(10)]
+    [TextArea] //ï¿½ï¿½ï¿½ï¿½
+    [Header("ï¿½ï¿½ï¿½ï¿½(ï¿½Ê¼ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½)"), Space(10)]
     public string text_Question = "";
     public TMP_Text Tmp_Question;
 
-    [Header("º¸ÀÌ½º ÀÔ·Â"), Space(10)]
+    [Header("ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ô·ï¿½"), Space(10)]
     public TMP_Text txt_VoiceUserInput;
     public GameObject Obj_Area_VoiceInput;
     public GameObject Obj_Btn_StartRecord;
@@ -43,7 +43,7 @@ public class Simulation_VoiceInput : SimulationBase
     public float DG_Area_StartY = -450f;
     public Ease DG_Ease = Ease.Linear;
 
-    //--- À½¼º ³ìÀ½ ----
+    //--- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ----
     private AudioClip recordedClip;
     private bool isRecording = false;
     private const int sampleRate = 16000;
@@ -57,7 +57,7 @@ public class Simulation_VoiceInput : SimulationBase
     private AudioClip _clip;
     private bool _isPlaying = false;
 
-    // ½Ã¹Ä·¹ÀÌ¼Ç ³¡ bool
+    // ï¿½Ã¹Ä·ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ bool
     bool isSimulationEnd = false;
     private Coroutine autoStopCoroutine;
     ScenarioManager _sm;
@@ -80,7 +80,7 @@ public class Simulation_VoiceInput : SimulationBase
             TogglePlay();
         }
 
-        //¹öÆ° È°¼ºÈ­ or ºñÈ°¼ºÈ­
+        //ï¿½ï¿½Æ° È°ï¿½ï¿½È­ or ï¿½ï¿½È°ï¿½ï¿½È­
         if (string.IsNullOrWhiteSpace(txt_VoiceUserInput.text))
         {
             Obj_BTN_Submit.SetActive(false);
@@ -93,7 +93,7 @@ public class Simulation_VoiceInput : SimulationBase
 
     public override void Exit(ScenarioManager SM)
     {
-        print($"{name} : °´°ü½Ä ¹®Á¦ ³¡");
+        print($"{name} : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½");
         ResetSimulation();
         Obj_CanvasChoice.SetActive(false);
     }
@@ -113,7 +113,7 @@ public class Simulation_VoiceInput : SimulationBase
         microphoneWebGL.UpdateMic();
     }
 
-    #region ----------------------------------------STT ±¸Çö
+    #region ----------------------------------------STT ï¿½ï¿½ï¿½ï¿½
     public void ToggleRecord()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -162,7 +162,7 @@ public class Simulation_VoiceInput : SimulationBase
 
     private void Begin()
     {
-        //text ºñ¿ì±â
+        //text ï¿½ï¿½ï¿½ï¿½
         txt_VoiceUserInput.text = "";
 
         
@@ -177,9 +177,13 @@ public class Simulation_VoiceInput : SimulationBase
         Obj_Btn_StartRecord.SetActive(false);
         Obj_Btn_StopRecord.SetActive(true);
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
+
         recordedClip = Microphone.Start(null, false, maxRecordingTime, sampleRate);
         isRecording = true;
-        // ÄÚ·çÆ¾ ½ÇÇà ÈÄ ÂüÁ¶ ÀúÀå
+        // ï¿½Ú·ï¿½Æ¾ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         print("Begin");
 
         autoStopCoroutine = StartCoroutine(AutoStopRecordingAfterDelay(maxRecordingTime));
@@ -203,9 +207,12 @@ public class Simulation_VoiceInput : SimulationBase
         Obj_Btn_StartRecord.SetActive(true);
         Obj_Btn_StopRecord.SetActive(false);
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
         Microphone.End(null);
         isRecording = false;
-        // ÀúÀåµÈ ÄÚ·çÆ¾ÀÌ ÀÖ´Ù¸é Áß´Ü
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ß´ï¿½
         if (autoStopCoroutine != null)
         {
             StopCoroutine(autoStopCoroutine);
@@ -255,10 +262,10 @@ public class Simulation_VoiceInput : SimulationBase
     {
         if (isRecording) return;
 
-        //text ºñ¿ì±â
+        //text ï¿½ï¿½ï¿½ï¿½
         txt_VoiceUserInput.text = "";
 
-        //MikeOff Å°±â
+        //MikeOff Å°ï¿½ï¿½
         Obj_Btn_StartRecord.SetActive(false);
         Obj_Btn_StopRecord.SetActive(true);
 
@@ -269,7 +276,7 @@ public class Simulation_VoiceInput : SimulationBase
         recordedClip = Microphone.Start(null, false, maxRecordingTime, sampleRate);
         isRecording = true;
 
-        // ÄÚ·çÆ¾ ½ÇÇà ÈÄ ÂüÁ¶ ÀúÀå
+        // ï¿½Ú·ï¿½Æ¾ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         autoStopCoroutine = StartCoroutine(AutoStopRecordingAfterDelay(maxRecordingTime));
 #endif
     }
@@ -286,7 +293,7 @@ public class Simulation_VoiceInput : SimulationBase
 #else
         Microphone.End(null);
         isRecording = false;
-        // ÀúÀåµÈ ÄÚ·çÆ¾ÀÌ ÀÖ´Ù¸é Áß´Ü
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ß´ï¿½
         if (autoStopCoroutine != null)
         {
             StopCoroutine(autoStopCoroutine);
@@ -318,7 +325,7 @@ public class Simulation_VoiceInput : SimulationBase
         if (request.result == UnityWebRequest.Result.Success)
         {
             string json = request.downloadHandler.text;
-            Debug.Log("? ÀÀ´ä ¼ö½Å: " + json);
+            Debug.Log("? ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + json);
 
             STTResponse response = JsonUtility.FromJson<STTResponse>(json);
             txt_VoiceUserInput.text = $"{response.transcript}";
@@ -326,7 +333,7 @@ public class Simulation_VoiceInput : SimulationBase
         }
         else
         {
-            Debug.LogError("? Àü¼Û ½ÇÆÐ: " + request.error);
+            Debug.LogError("? ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + request.error);
         }
 
         Obj_Area_Wait.SetActive(false);
@@ -341,7 +348,7 @@ public class Simulation_VoiceInput : SimulationBase
     }
 
 
-    // Æ¯Á¤ ½Ã°£ ÀÌÈÄ ³ìÀ½ Á¾·á
+    // Æ¯ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private IEnumerator AutoStopRecordingAfterDelay(int seconds)
     {
         yield return new WaitForSeconds(seconds);
@@ -358,7 +365,7 @@ public class Simulation_VoiceInput : SimulationBase
 
         SubmitForm submitForm = new SubmitForm();
         submitForm.txt_Question = text_Question;
-        submitForm.txt_QuestionAnswer = "¹Ì¸® Á¦½ÃµÈ Å°¿öµå°¡ ÀÖ´ÂÁö ÆÄ¾Ç ÈÄ Á¤´ä °ËÅäÇÒ °Í";
+        submitForm.txt_QuestionAnswer = "ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ Å°ï¿½ï¿½ï¿½å°¡ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ä¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½";
         submitForm.txt_userAnswer = answer;
 
         _sm.str_Answers.Push(submitForm);
@@ -368,7 +375,7 @@ public class Simulation_VoiceInput : SimulationBase
 
     IEnumerator AllUiOn()
     {
-        // Å¸ÀÌÆ² DG
+        // Å¸ï¿½ï¿½Æ² DG
         RectTransform rect_title = Tmp_Question.gameObject.transform.parent
             .GetComponent<RectTransform>();
 
@@ -376,7 +383,7 @@ public class Simulation_VoiceInput : SimulationBase
         rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
             0f), DG_Time).SetEase(DG_Ease);
 
-        // º¸ÀÌ½º ÀÔ·Â DG
+        // ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ô·ï¿½ DG
         RectTransform rect_AreaTI = Obj_Area_VoiceInput.GetComponent<RectTransform>();
 
         rect_AreaTI.DOAnchorPos(new Vector2(rect_AreaTI.anchoredPosition.x, DG_Area_EndY), DG_Time
@@ -387,7 +394,7 @@ public class Simulation_VoiceInput : SimulationBase
 
     IEnumerator AllUiOff()
     {
-        // Å¸ÀÌÆ² DG
+        // Å¸ï¿½ï¿½Æ² DG
         RectTransform rect_title = Tmp_Question.gameObject.transform.parent
             .GetComponent<RectTransform>();
 
@@ -395,7 +402,7 @@ public class Simulation_VoiceInput : SimulationBase
         rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
             200f), DG_Time).SetEase(DG_Ease);
 
-        // º¸ÀÌ½º ÀÔ·Â DG
+        // ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ô·ï¿½ DG
         RectTransform rect_AreaTI = Obj_Area_VoiceInput.GetComponent<RectTransform>();
 
         rect_AreaTI.DOAnchorPos(new Vector2(rect_AreaTI.anchoredPosition.x, DG_Area_StartY), DG_Time
@@ -403,7 +410,7 @@ public class Simulation_VoiceInput : SimulationBase
 
         yield return new WaitForSeconds(DG_Time);
 
-        // ´ÙÀ½ ½Ã¹Ä·¹ÀÌ¼ÇÀ¸·Î ÀÌµ¿
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¹Ä·ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
         _sm.NextSimulation();
     }
 

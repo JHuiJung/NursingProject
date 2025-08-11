@@ -19,13 +19,13 @@ public class Simulation_Conversation : SimulationBase
     public GameObject Obj_Btn_Next;
     public MicrophoneWebGL microphoneWebGL;
 
-    [TextArea] //Áú¹®
-    [Header("Áú¹®(ÇÊ¼ö·Î ÀÔ·Â)"), Space(10)]
+    [TextArea] //ï¿½ï¿½ï¿½ï¿½
+    [Header("ï¿½ï¿½ï¿½ï¿½(ï¿½Ê¼ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½)"), Space(10)]
     public string text_Question = "";
     public TMP_Text Tmp_Question;
     public string keywords = "";
 
-    [Header("º¸ÀÌ½º ÀÔ·Â"), Space(10)]
+    [Header("ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ô·ï¿½"), Space(10)]
     public TMP_Text txt_VoiceUserInput;
     public GameObject Obj_Area_VoiceInput;
     public GameObject Obj_Btn_StartRecord;
@@ -36,7 +36,7 @@ public class Simulation_Conversation : SimulationBase
     public GameObject Obj_Area_ConvBox;
     public GameObject pf_User_ConvBox;
     public GameObject pf_Opposite_ConvBox;
-    public string opposite_Name = "º¸È£ÀÚ";
+    public string opposite_Name = "ï¿½ï¿½È£ï¿½ï¿½";
     public string opposite_Content = "";
 
     [Header("Dotween"), Space(10)]
@@ -45,12 +45,12 @@ public class Simulation_Conversation : SimulationBase
     public float DG_Area_StartY = -450f;
     public Ease DG_Ease = Ease.Linear;
 
-    // ½Ã¹Ä·¹ÀÌ¼Ç ³¡ bool
+    // ï¿½Ã¹Ä·ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ bool
     bool isSimulationEnd = false;
     private Coroutine autoStopCoroutine;
     ScenarioManager _sm;
 
-    //--- À½¼º ³ìÀ½ ----
+    //--- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ----
     private bool isRecording = false;
     private const int sampleRate = 16000;
     private const int maxRecordingTime = 30;
@@ -64,7 +64,7 @@ public class Simulation_Conversation : SimulationBase
     private AudioClip _clip;
     private bool _isPlaying = false;
 
-    //----ai ´äº¯----
+    //----ai ï¿½äº¯----
     string aiResponse = "";
 
     public override void Enter(ScenarioManager SM)
@@ -81,7 +81,7 @@ public class Simulation_Conversation : SimulationBase
     {
         if (isSimulationEnd) return;
 
-        //¹öÆ° È°¼ºÈ­ or ºñÈ°¼ºÈ­
+        //ï¿½ï¿½Æ° È°ï¿½ï¿½È­ or ï¿½ï¿½È°ï¿½ï¿½È­
         if (string.IsNullOrWhiteSpace(txt_VoiceUserInput.text))
         {
             Obj_BTN_Submit.SetActive(false);
@@ -94,7 +94,7 @@ public class Simulation_Conversation : SimulationBase
 
     public override void Exit(ScenarioManager SM)
     {
-        print($"{name} : °´°ü½Ä ¹®Á¦ ³¡");
+        print($"{name} : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½");
         ResetSimulation();
         Obj_CanvasChoice.SetActive(false);
     }
@@ -119,36 +119,36 @@ public class Simulation_Conversation : SimulationBase
     {
         Tmp_Question.text = text_Question;
     }
-    //----- ½Ã¹Ä·¹ÀÌ¼Ç Á¶ÀÛ ------
+    //----- ï¿½Ã¹Ä·ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ------
 
     IEnumerator Start_Simulation()
     {
-        // Opposite ConvBox »ý¼º
+        // Opposite ConvBox ï¿½ï¿½ï¿½ï¿½
         GameObject oppositeConvbox = Instantiate(pf_Opposite_ConvBox,Obj_Area_ConvBox.transform);
         oppositeConvbox.transform.SetAsLastSibling();
         oppositeConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         oppositeConvbox.GetComponent<ConvBox>().Setup(opposite_Name, opposite_Content);
 
-        print("TTS Àü");
-        // TTS·Î Áú¹®
+        print("TTS ï¿½ï¿½");
+        // TTSï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         yield return StartCoroutine(PlayTTSQuestion(opposite_Content));
-        print("TTS ÈÄ");
+        print("TTS ï¿½ï¿½");
 
-        // convBox ÇÑÄ­ ¿Ã¸®±â
+        // convBox ï¿½ï¿½Ä­ ï¿½Ã¸ï¿½ï¿½ï¿½
         yield return StartCoroutine( AllConvBoxMoveUp() );
 
 
-        // UserConvBox »ý¼º
+        // UserConvBox ï¿½ï¿½ï¿½ï¿½
         GameObject userConvbox = Instantiate(pf_User_ConvBox, Obj_Area_ConvBox.transform);
         userConvbox.transform.SetAsLastSibling();
         userConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        userConvbox.GetComponent<ConvBox>().Setup($"{DataManager.inst.userName} °£È£»ç", "");
+        userConvbox.GetComponent<ConvBox>().Setup($"{DataManager.inst.userName} ï¿½ï¿½È£ï¿½ï¿½", "");
         txt_VoiceUserInput = userConvbox.GetComponent<ConvBox>().txt_Content;
     }
 
     IEnumerator End_Simulation()
     {
-        // ai ÇÑÅ× ´äº¯ ¹Þ±â
+        // ai ï¿½ï¿½ï¿½ï¿½ ï¿½äº¯ ï¿½Þ±ï¿½
         Obj_Btn_StartRecord.SetActive(false);
         Obj_Btn_StopRecord.SetActive(false);
 
@@ -162,27 +162,27 @@ public class Simulation_Conversation : SimulationBase
         }
         else
         {
-            ai_responese = "ai·Î ºÎÅÍ ´äº¯À» ¹ÞÁö ¸øÇßÀ½";
+            ai_responese = "aiï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½äº¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
         }
 
         Obj_Area_Wait.SetActive(false);
 
-        // convBox ÇÑÄ­ ¿Ã¸®±â
+        // convBox ï¿½ï¿½Ä­ ï¿½Ã¸ï¿½ï¿½ï¿½
         yield return StartCoroutine(AllConvBoxMoveUp());
 
-        // Opposite ConvBox »ý¼º
+        // Opposite ConvBox ï¿½ï¿½ï¿½ï¿½
         GameObject oppositeConvbox = Instantiate(pf_Opposite_ConvBox, Obj_Area_ConvBox.transform);
         oppositeConvbox.transform.SetAsLastSibling();
         oppositeConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         oppositeConvbox.GetComponent<ConvBox>().Setup(opposite_Name, ai_responese);
 
-        //tts·Î ´ë´ä
+        //ttsï¿½ï¿½ ï¿½ï¿½ï¿½
         yield return StartCoroutine(PlayTTSQuestion(ai_responese));
 
         //
         yield return new WaitForSeconds(3f);
 
-        // ´ÙÀ½ ¹öÆ° »ý¼º
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½
         Obj_Btn_Next.SetActive(true);
 
         
@@ -212,7 +212,7 @@ public class Simulation_Conversation : SimulationBase
     //------------------------------------------------------------------------------------------
 
 
-    #region ----------------------------------------STT ±¸Çö
+    #region ----------------------------------------STT ï¿½ï¿½ï¿½ï¿½
     public void ToggleRecord()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -261,7 +261,7 @@ public class Simulation_Conversation : SimulationBase
 
     private void Begin()
     {
-        //text ºñ¿ì±â
+        //text ï¿½ï¿½ï¿½ï¿½
         txt_VoiceUserInput.text = "";
 
 
@@ -278,7 +278,7 @@ public class Simulation_Conversation : SimulationBase
 
         _clip = Microphone.Start(null, false, maxRecordingTime, sampleRate);
         isRecording = true;
-        // ÄÚ·çÆ¾ ½ÇÇà ÈÄ ÂüÁ¶ ÀúÀå
+        // ï¿½Ú·ï¿½Æ¾ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         print("Begin");
 #endif
     }
@@ -302,7 +302,7 @@ public class Simulation_Conversation : SimulationBase
 
         Microphone.End(null);
         isRecording = false;
-        // ÀúÀåµÈ ÄÚ·çÆ¾ÀÌ ÀÖ´Ù¸é Áß´Ü
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ß´ï¿½
         if (autoStopCoroutine != null)
         {
             StopCoroutine(autoStopCoroutine);
@@ -367,11 +367,11 @@ public class Simulation_Conversation : SimulationBase
             var result = JSON.Parse(request.downloadHandler.text);
             string resultText = result["text"];
             txt_VoiceUserInput.text = resultText;
-            Debug.Log("? ÈÄ¼Ó ´äº¯ ÀúÀå ¿Ï·á: " + resultText);
+            Debug.Log("? ï¿½Ä¼ï¿½ ï¿½äº¯ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½: " + resultText);
         }
         else
         {
-            Debug.LogError("? ÈÄ¼Ó ´äº¯ ¼­¹ö Àü¼Û ½ÇÆÐ: " + request.error);
+            Debug.LogError("? ï¿½Ä¼ï¿½ ï¿½äº¯ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + request.error);
         }
 
         //string filePath = Path.Combine(Application.persistentDataPath, "recorded.wav");
@@ -392,7 +392,7 @@ public class Simulation_Conversation : SimulationBase
         //if (request.result == UnityWebRequest.Result.Success)
         //{
         //    string json = request.downloadHandler.text;
-        //    Debug.Log("? ÀÀ´ä ¼ö½Å: " + json);
+        //    Debug.Log("? ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + json);
 
         //    STTResponse response = JsonUtility.FromJson<STTResponse>(json);
         //    txt_VoiceUserInput.text = $"{response.transcript}";
@@ -400,7 +400,7 @@ public class Simulation_Conversation : SimulationBase
         //}
         //else
         //{
-        //    Debug.LogError("? Àü¼Û ½ÇÆÐ: " + request.error);
+        //    Debug.LogError("? ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + request.error);
         //}
 
         Obj_Area_Wait.SetActive(false);
@@ -434,7 +434,7 @@ public class Simulation_Conversation : SimulationBase
         }
         else
         {
-            Debug.LogError("? Áú¹® TTS ¿äÃ» ½ÇÆÐ: " + request.error);
+            Debug.LogError("? ï¿½ï¿½ï¿½ï¿½ TTS ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½: " + request.error);
         }
     }
 
@@ -458,12 +458,12 @@ public class Simulation_Conversation : SimulationBase
             }
             else
             {
-                Debug.LogError("? TTS ¿Àµð¿À ·Îµå ½ÇÆÐ: " + www.error);
+                Debug.LogError("? TTS ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½: " + www.error);
             }
         }
     }
 
-    //Á¦Ãâ ¹× UI
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ UI
 
     public void SubmitAnswer()
     {
@@ -476,8 +476,8 @@ public class Simulation_Conversation : SimulationBase
 
         SubmitForm submitForm = new SubmitForm();
         submitForm.txt_Question = text_Question;
-        submitForm.txt_QuestionAnswer = $"»ó´ë¹æ Áú¹® : {opposite_Content} / À¯ÀúÀÇ ´äº¯¿¡ Æ÷ÇÔµÇ¾î¾ß ÇÏ´Â Å°¿öµå {keywords} " +
-            $" / Å°¿öµåµéÀÌ Æ÷ÇÔµÇ¾ú´ÂÁö °ËÅä ÈÄ Á¤´ä ¿À´ä ÆÇ´ÜÇÒ °Í";
+        submitForm.txt_QuestionAnswer = $"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : {opposite_Content} / ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½äº¯ï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ï¿½ ï¿½Ï´ï¿½ Å°ï¿½ï¿½ï¿½ï¿½ {keywords} " +
+            $" / Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½ï¿½ ï¿½ï¿½";
         submitForm.txt_userAnswer = answer;
 
         _sm.str_Answers.Push(submitForm);
@@ -505,17 +505,17 @@ public class Simulation_Conversation : SimulationBase
             var result = JSON.Parse(request.downloadHandler.text);
             string followupText = result["parent_response"];
             aiResponse = followupText;
-            Debug.Log("? ÈÄ¼Ó ´äº¯ ÀúÀå ¿Ï·á: " + followupText);
+            Debug.Log("? ï¿½Ä¼ï¿½ ï¿½äº¯ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½: " + followupText);
         }
         else
         {
-            Debug.LogError("? ÈÄ¼Ó ´äº¯ ¼­¹ö Àü¼Û ½ÇÆÐ: " + request.error);
+            Debug.LogError("? ï¿½Ä¼ï¿½ ï¿½äº¯ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + request.error);
         }
     }
 
     IEnumerator AllUiOn()
     {
-        // Å¸ÀÌÆ² DG
+        // Å¸ï¿½ï¿½Æ² DG
         RectTransform rect_title = Tmp_Question.gameObject.transform.parent
             .GetComponent<RectTransform>();
 
@@ -523,7 +523,7 @@ public class Simulation_Conversation : SimulationBase
         rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
             0f), DG_Time).SetEase(DG_Ease);
 
-        // º¸ÀÌ½º ÀÔ·Â DG
+        // ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ô·ï¿½ DG
         RectTransform rect_AreaTI = Obj_Area_VoiceInput.GetComponent<RectTransform>();
 
         rect_AreaTI.DOAnchorPos(new Vector2(rect_AreaTI.anchoredPosition.x, DG_Area_EndY), DG_Time
@@ -534,7 +534,7 @@ public class Simulation_Conversation : SimulationBase
 
     IEnumerator AllUiOff()
     {
-        // Å¸ÀÌÆ² DG
+        // Å¸ï¿½ï¿½Æ² DG
         RectTransform rect_title = Tmp_Question.gameObject.transform.parent
             .GetComponent<RectTransform>();
 
@@ -542,7 +542,7 @@ public class Simulation_Conversation : SimulationBase
         rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
             200f), DG_Time).SetEase(DG_Ease);
 
-        // º¸ÀÌ½º ÀÔ·Â DG
+        // ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ô·ï¿½ DG
         RectTransform rect_AreaTI = Obj_Area_VoiceInput.GetComponent<RectTransform>();
 
         rect_AreaTI.DOAnchorPos(new Vector2(rect_AreaTI.anchoredPosition.x, DG_Area_StartY), DG_Time
@@ -550,7 +550,7 @@ public class Simulation_Conversation : SimulationBase
 
         yield return new WaitForSeconds(DG_Time);
 
-        // ´ÙÀ½ ½Ã¹Ä·¹ÀÌ¼ÇÀ¸·Î ÀÌµ¿
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¹Ä·ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
         _sm.NextSimulation();
 
 

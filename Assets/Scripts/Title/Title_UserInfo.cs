@@ -56,7 +56,7 @@ public class Title_UserInfo : MonoBehaviour
         microphoneWebGL.MicChange(deviceDropdown.value);
         microphoneWebGL.UpdateMic();
 
-        print($"¼±ÅÃµÈ ¸¶ÀÌÅ© {deviceDropdown.value}");
+        print($"ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½Å© {deviceDropdown.value}");
     }
 
 }
