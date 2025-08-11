@@ -30,6 +30,13 @@ public class Simulation_Conversation : SimulationBase
     [Header("TTS"), Space(10)]
     public AudioSource audioSource;
 
+    [Header("ConvBox"), Space(10)]
+    public GameObject Obj_Area_ConvBox;
+    public GameObject pf_User_ConvBox;
+    public GameObject pf_Opposite_ConvBox;
+    public string opposite_Name = "보호자";
+    public string opposite_Content = "";
+
     [Header("Dotween"), Space(10)]
     public float DG_Time = 0.75f;
     public float DG_Area_EndY = -20f;
@@ -37,7 +44,6 @@ public class Simulation_Conversation : SimulationBase
     public Ease DG_Ease = Ease.Linear;
 
     //--- 음성 녹음 ----
-    private const string apiUrl = "http://127.0.0.1:8000/clova_stt"; // FastAPI /stt 엔드포인트
     private AudioClip recordedClip;
     private bool isRecording = false;
     private const int sampleRate = 16000;
@@ -55,6 +61,7 @@ public class Simulation_Conversation : SimulationBase
 
         Setup();
         StartCoroutine(AllUiOn());
+        StartCoroutine(Start_Simulation());
     }
 
     public override void Excute(ScenarioManager SM)
@@ -92,13 +99,61 @@ public class Simulation_Conversation : SimulationBase
     {
         Tmp_Question.text = text_Question;
     }
+    //----- 시뮬레이션 조작 ------
+
+    IEnumerator Start_Simulation()
+    {
+        // Opposite ConvBox 생성
+        GameObject oppositeConvbox = Instantiate(pf_Opposite_ConvBox,Obj_Area_ConvBox.transform);
+        oppositeConvbox.transform.SetAsLastSibling();
+        oppositeConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        oppositeConvbox.GetComponent<ConvBox>().Setup(opposite_Name, opposite_Content);
+
+        // TTS로 질문
+
+        yield return StartCoroutine(PlayTTSQuestion(opposite_Content));
+
+        // convBox 한칸 올리기
+        yield return StartCoroutine( AllConvBoxMoveUp() );
+
+
+        // UserConvBox 생성
+        GameObject userConvbox = Instantiate(pf_User_ConvBox, Obj_Area_ConvBox.transform);
+        userConvbox.transform.SetAsLastSibling();
+        userConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        userConvbox.GetComponent<ConvBox>().Setup($"{DataManager.inst.userName} 간호사", "");
+        txt_VoiceUserInput = userConvbox.GetComponent<ConvBox>().txt_Content;
+    }
+
+    IEnumerator End_Simulation()
+    {
+
+        yield return null;
+    }
+
+    IEnumerator AllConvBoxMoveUp()
+    {
+        int cnt = Obj_Area_ConvBox.transform.childCount;
+        float timeOffset = 0.5f;
+
+        for (int i = 0; i < Obj_Area_ConvBox.transform.childCount; i++)
+        {
+            ConvBox convBox = Obj_Area_ConvBox.transform.GetChild(i).GetComponent<ConvBox>();
+
+            convBox.MoveUp(timeOffset * (i + 1));
+        }
+
+        yield return new WaitForSeconds(timeOffset * cnt);
+    }
 
     //------------------------------------------------------------------------------------------
 
     public void StartRecord()
     {
         if (isRecording) return;
-
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
         //text 비우기
         txt_VoiceUserInput.text = "";
 
@@ -111,12 +166,16 @@ public class Simulation_Conversation : SimulationBase
 
         // 코루틴 실행 후 참조 저장
         autoStopCoroutine = StartCoroutine(AutoStopRecordingAfterDelay(maxRecordingTime));
+#endif
     }
 
     public void StopRecord()
     {
         if (!isRecording) return;
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
         Obj_Btn_StartRecord.SetActive(true);
         Obj_Btn_StopRecord.SetActive(false);
 
@@ -129,6 +188,7 @@ public class Simulation_Conversation : SimulationBase
             autoStopCoroutine = null;
         }
         StartCoroutine(SendWavToServer(recordedClip, text_Question));
+#endif
     }
 
     IEnumerator SendWavToServer(AudioClip clip, string question)
@@ -145,7 +205,7 @@ public class Simulation_Conversation : SimulationBase
             new MultipartFormFileSection("audio", audioData, "recorded.wav", "audio/wav")
         };
 
-        UnityWebRequest request = UnityWebRequest.Post(apiUrl, formData);
+        UnityWebRequest request = UnityWebRequest.Post(APIConfig.Instance.ClovaSttUrl, formData);
         request.downloadHandler = new DownloadHandlerBuffer();
 
         yield return request.SendWebRequest();
@@ -189,7 +249,7 @@ public class Simulation_Conversation : SimulationBase
         WWWForm form = new WWWForm();
         form.AddField("text", questionText);
 
-        string url = "http://localhost:8000/tts";
+        string url = APIConfig.Instance.TtsUrl;
         UnityWebRequest request = UnityWebRequest.Post(url, form);
         yield return request.SendWebRequest();
 
