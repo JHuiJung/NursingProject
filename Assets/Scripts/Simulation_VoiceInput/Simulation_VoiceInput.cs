@@ -2,11 +2,12 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using TMPro;
+using uMicrophoneWebGL;
 using UnityEngine;
 using UnityEngine.Networking;
-using System.IO;
 
 [System.Serializable]
 public class STTResponse
@@ -21,6 +22,7 @@ public class Simulation_VoiceInput : SimulationBase
     [Header("Canvas Obj & Stuff"), Space(10), SerializeField]
     GameObject Obj_CanvasChoice;
     public GameObject Obj_Area_Wait;
+    public MicrophoneWebGL microphoneWebGL;
 
     [TextArea] //질문
     [Header("질문(필수로 입력)"), Space(10)]
@@ -103,15 +105,16 @@ public class Simulation_VoiceInput : SimulationBase
     {
         if (isRecording) return;
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-        
-#else
         //text 비우기
         txt_VoiceUserInput.text = "";
 
         //MikeOff 키기
         Obj_Btn_StartRecord.SetActive(false);
         Obj_Btn_StopRecord.SetActive(true);
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
 
         recordedClip = Microphone.Start(null, false, maxRecordingTime, sampleRate);
         isRecording = true;
@@ -124,12 +127,13 @@ public class Simulation_VoiceInput : SimulationBase
     public void StopRecord()
     {
         if (!isRecording) return;
-#if UNITY_WEBGL && !UNITY_EDITOR
-        
-#else
+
         Obj_Btn_StartRecord.SetActive(true);
         Obj_Btn_StopRecord.SetActive(false);
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
         Microphone.End(null);
         isRecording = false;
         // 저장된 코루틴이 있다면 중단

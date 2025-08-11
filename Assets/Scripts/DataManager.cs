@@ -27,7 +27,7 @@ public class DataManager : MonoBehaviour
     public string patient_Information = "";
 
     //---- google sheet ----
-    const string URL = "https://script.google.com/macros/s/AKfycbziS_bkMyK_13Bx64g5fP44dIQn3kPTreQYNB-OgtTIBNV-ukvlPSnef7pbmia9R5XD/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbw8jlHJTrJrFfFvg3IgFlkrgsvnj6zOt_WvazvhklhQwemtl1jbPhSUqY6W16FaeXM/exec";
     public GoogleData GD;
 
     private void Awake()
@@ -41,6 +41,8 @@ public class DataManager : MonoBehaviour
 
         inst = this;
         DontDestroyOnLoad(gameObject); // ¾ÀÀÌ ¹Ù²î¾îµµ À¯Áö
+
+        GD = new GoogleData();
     }
 
     // ¼Â¾÷
@@ -87,6 +89,8 @@ public class DataManager : MonoBehaviour
 
     void Response(string json)
     {
+        print(json);
+
         if (string.IsNullOrEmpty(json)) return;
 
         GD = JsonUtility.FromJson<GoogleData>(json);

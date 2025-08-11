@@ -30,6 +30,8 @@ public class ScenarioManager : MonoBehaviour
 
     //---- 점수 계산 ----
     public string score="None";
+    public int correctCnt = 0;
+    public int incorrectCnt = 0;
 
     //--- 시간 측정
     public string totalTime = "None";
@@ -158,5 +160,10 @@ public class ScenarioManager : MonoBehaviour
         Debug.Log("총 경과 시간: " + duration.ToString(@"hh\:mm\:ss"));
 
         totalTime = duration.ToString(@"hh\:mm\:ss");
+    }
+
+    public void SetScore()
+    {
+        score = $"정답 개수 : {correctCnt} / 오답 개수 : {incorrectCnt} / 정답률 : {correctCnt/(correctCnt + incorrectCnt)}";
     }
 }
