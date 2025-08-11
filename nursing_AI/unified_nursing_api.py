@@ -79,12 +79,14 @@ def synthesize_text(text: str) -> str:
 
 def preprocess_speech_text(text: str) -> dict:
     """
-    음성 인식 텍스트를 전처리하여 띄어쓰기 문제를 해결합니다.
+    음성 인식 텍스트 전처리.
+    - corrected: 자주 발생하는 오인식만 보정(평가/프롬프트에 사용)
+    - keyword_match_versions: 키워드 매칭 보조용 버전들(평가에는 사용하지 않음)
     """
     # 원본 텍스트
     original = text.strip()
     
-    # 띄어쓰기 제거
+    # 띄어쓰기 제거(키워드 매칭 보조용)
     no_spaces = original.replace(" ", "")
     
     # 일반적인 음성 인식 오류 패턴 수정
@@ -112,24 +114,24 @@ def preprocess_speech_text(text: str) -> dict:
         "original": original,
         "no_spaces": no_spaces,
         "corrected": corrected,
-        "all_versions": [original, no_spaces, corrected]
+        # 키워드 매칭 전용(평가/AI 입력에는 미사용)
+        "keyword_match_versions": [original, corrected, no_spaces]
     }
 
 def check_required_keywords(text: str, required_keywords: list[str]) -> list[str]:
-    """필수 키워드 누락 확인 (전처리된 텍스트 사용)"""
+    """필수 키워드 누락 확인. 평가가 아닌 매칭 보조용으로만 공백 제거를 활용."""
     processed = preprocess_speech_text(text)
-    
-    # 모든 버전에서 키워드 확인
-    missing_keywords = []
+    versions = processed.get("keyword_match_versions", [text])
+
+    def norm(s: str) -> str:
+        return s.replace(" ", "") if s else s
+
+    missing_keywords: list[str] = []
     for keyword in required_keywords:
-        found = False
-        for version in processed["all_versions"]:
-            if keyword in version:
-                found = True
-                break
+        k_norm = norm(keyword)
+        found = any(k_norm in norm(v) for v in versions)
         if not found:
             missing_keywords.append(keyword)
-    
     return missing_keywords
 
 # ========================================
@@ -189,9 +191,41 @@ class ChatResponse(BaseModel):
 @app.post("/clova_stt")
 async def clova_stt(
     question: str = Form(...),
-    audio: UploadFile = File(...)
+    audio: UploadFile | None = File(None),
+    patient_name: str | None = Form(None),
+    patient_regno: str | None = Form(None),
 ):
-    """음성 파일을 텍스트로 변환하고 AI 평가를 제공"""
+    """STT 기반 평가 또는 텍스트 입력 기반 평가를 제공
+
+    - 환아 이름/등록번호 확인(Q17) 같은 경우: patient_name, patient_regno 전달 → 텍스트 기반 평가
+    - 그 외: audio 업로드 → Clova STT → 평가
+    """
+
+    # 1) 텍스트 입력 기반 분기 (환아 이름/등록번호 확인)
+    if (patient_name and patient_name.strip()) or (patient_regno and patient_regno.strip()):
+        name_val = patient_name.strip() if patient_name else ""
+        reg_val = patient_regno.strip() if patient_regno else ""
+        transcript = f"환아 이름: {name_val}, 등록번호: {reg_val}"
+
+        full_input = (
+            f"질문: {question}\n"
+            f"사용자 입력: {transcript}\n\n"
+        )
+        ai_response = get_ai_response(full_input)
+        feedback = ai_response.get("answer", "")
+
+        return JSONResponse({
+            "transcript": transcript,
+            "processed_versions": {"original": transcript},
+            "feedback": feedback,
+            "is_correct": feedback,
+            "question": question
+        })
+
+    # 2) 음성(STT) 기반 분기 (주사 목적 등)
+    if audio is None:
+        return JSONResponse(status_code=400, content={"error": "audio 또는 patient_name/patient_regno 중 하나는 제공되어야 합니다."})
+
     audio_bytes = await audio.read()
     headers = {
         "X-CLOVASPEECH-API-KEY": CLOVA_API_KEY,
@@ -209,17 +243,13 @@ async def clova_stt(
 
     # 음성 인식 텍스트 전처리
     processed = preprocess_speech_text(transcript)
-    
-    # LangChain 평가 구성
-    full_input = (
-        f"질문: {question}\n\n"
-        f"사용자 음성 응답 텍스트 (원본): {processed['original']}\n"
-        f"사용자 음성 응답 텍스트 (띄어쓰기 제거): {processed['no_spaces']}\n"
-        f"사용자 음성 응답 텍스트 (오류 수정): {processed['corrected']}\n\n"
-        "음성 인식 시 띄어쓰기나 발음 오류가 발생할 수 있으므로, 모든 버전을 고려하여 평가해주세요.\n"
-        "핵심 키워드가 포함되어 있다면 정답으로 처리하세요. 정답일 경우 ✅로 시작하고, 오답일 경우 ❌로 시작해주세요."
-    )
 
+    # LangChain 평가 구성(수정 텍스트 기준)
+    evaluation_text = processed["corrected"]
+    full_input = (
+        f"질문: {question}\n"
+        f"평가용 사용자 응답: {evaluation_text}\n\n"
+    )
     ai_response = get_ai_response(full_input)
     feedback = ai_response.get("answer", "")
 
@@ -230,6 +260,24 @@ async def clova_stt(
         "is_correct": feedback,
         "question": question
     })
+
+def _as_text(x) -> str:
+    try:
+        if x is None:
+            return ""
+        if isinstance(x, str):
+            return x.strip()
+        # LangChain AIMessage
+        if hasattr(x, "content"):
+            return str(getattr(x, "content")).strip()
+        # dict 형태 (예: {"answer": "..."} 등)
+        if isinstance(x, dict):
+            for k in ("answer", "text", "output_text"):
+                if k in x and x[k]:
+                    return str(x[k]).strip()
+        return str(x).strip()
+    except Exception:
+        return ""
 
 # ========================================
 # 🔹 2. 부모 채팅 API (parent_chat_api.py)
@@ -265,14 +313,38 @@ async def parent_chat(
         "missing_keywords": []
     }
 
-    # 누락 키워드 있을 때 맞장구식 후속 질문 제공
     if missing_keywords:
-        followup_text = get_followup_question(transcript, missing_keywords)
+        followup_result = get_followup_question(transcript, missing_keywords)
+        followup_text = _as_text(followup_result) or "말씀하신 내용 중 더 구체적으로 설명해 주실 부분이 있어요. 아래 키워드를 포함해 다시 말씀해 주실 수 있을까요?"
+
         tts_audio = synthesize_text(followup_text)
         response.update({
             "followup_needed": True,
             "followup_audio_base64": tts_audio,
-            "missing_keywords": missing_keywords
+            "missing_keywords": missing_keywords,
+            "followup_text": followup_text
+        })
+    else:
+        # 키워드 모두 만족: 보호자 답변을 바탕으로 간호사 톤의 맞춤형 이해 확인 멘트를 AI로 생성
+        try:
+            ack_prompt = (
+                "역할: 당신은 환아의 보호자(부모)입니다.\n"
+                "상황: 간호사가 아래 질문에 대해 충분히 설명했고, 당신(보호자)은 그 내용을 이해했습니다.\n"
+                f"질문: {current_q['text']}\n"
+                f"간호사 설명 요지(STT): {transcript}\n\n"
+                "요청: 간호사의 설명을 이해했다는 뜻을 짧게 인정하고, 다음 질문으로 넘어가자는 자연스러운 보호자 톤의 멘트를 1~2문장으로 작성하세요.\n"
+                "스타일: 존댓말, 공감/안도/감사의 뉘앙스, 과도한 의학적 조언 없이 간단한 반응 위주.\n"
+                "제한: 12~30자 내외의 짧은 문장 1~2개. 이모지는 사용하지 않습니다."
+            )
+            ai_ack = get_ai_response(ack_prompt)
+            ack_text = ai_ack.get("answer", "좋습니다. 내용을 잘 이해하셨습니다. 다음 질문으로 넘어갈게요.")
+        except Exception:
+            ack_text = "좋습니다. 내용을 잘 이해하셨습니다. 다음 질문으로 넘어갈게요."
+
+        ack_audio = synthesize_text(ack_text)
+        response.update({
+            "ack_text": ack_text,
+            "ack_audio_base64": ack_audio
         })
 
     return JSONResponse(content=response)
@@ -283,27 +355,64 @@ async def parent_chat_followup(
     question_id: str = Form(...),
     audio: UploadFile = File(...)
 ):
-    """후속 응답 처리"""
     transcript = clova_speech_to_text(audio)
 
     if session_id not in user_sessions:
         return JSONResponse(content={"error": "세션이 없습니다."}, status_code=404)
-    
     if question_id not in user_sessions[session_id]:
         return JSONResponse(content={"error": f"{question_id}에 대한 기존 응답이 없습니다."}, status_code=404)
 
-    # 기존 응답에 후속 응답을 이어붙이기
+    # 기존 + 신규 후속 응답 누적
     prev = user_sessions[session_id][question_id]
-    updated = prev.strip() + " " + transcript.strip()
+    updated = (prev.strip() + " " + transcript.strip()).strip()
     user_sessions[session_id][question_id] = updated
 
-    print(f"[{session_id}] 후속 응답 누적 → '{updated}'")
+    # 현재 질문 메타
+    current_q = next(q for q in QUESTIONS if q["id"] == question_id)
 
-    return JSONResponse(content={
+    # 누락 키워드 재확인
+    missing_keywords = check_required_keywords(updated, current_q["required_keywords"])
+
+    resp = {
         "transcript": transcript,
         "updated_full_response": updated,
         "followup_registered": True
-    })
+    }
+
+    if missing_keywords:
+        # 여전히 부족 → 추가 꼬리질문 생성
+        followup_result = get_followup_question(updated, missing_keywords)
+        followup_text = _as_text(followup_result) or "좋아요. 아래 키워드를 포함해서 한 번 더 설명해 주실 수 있을까요?"
+        tts_audio = synthesize_text(followup_text)
+
+        resp.update({
+            "followup_needed": True,
+            "missing_keywords": missing_keywords,
+            "followup_text": followup_text,
+            "followup_audio_base64": tts_audio
+        })
+    else:
+        # 충분 → 짧은 확인 멘트
+        try:
+            ack_prompt = (
+                "역할: 간호사.\n"
+                f"질문: {current_q['text']}\n"
+                f"보호자 종합 응답: {updated}\n"
+                "요청: 충분히 설명과 이해가 이뤄졌음을 1~2문장으로 부드럽게 확인."
+            )
+            ai_ack = get_ai_response(ack_prompt)
+            ack_text = ai_ack.get("answer", "좋습니다. 충분히 확인되었어요. 다음으로 넘어가겠습니다.")
+        except Exception:
+            ack_text = "좋습니다. 충분히 확인되었어요. 다음으로 넘어가겠습니다."
+
+        resp.update({
+            "followup_needed": False,
+            "ack_text": ack_text,
+            "ack_audio_base64": synthesize_text(ack_text)
+        })
+
+    return JSONResponse(content=resp)
+
 
 @app.post("/parent_chat/summary")
 async def parent_chat_summary(session_id: str = Form(...)):

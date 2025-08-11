@@ -9,6 +9,14 @@ GIT_URL=${1}
 INSTANCE_IP=${2}
 KEYPAIR_NAME=${3:-nursing-api-key}
 INSTANCE_USER=${4:-ubuntu}
+# 배포할 브랜치 (기본값: Jimin)
+TARGET_BRANCH=${5:-Jimin}
+# 리포지토리 디렉토리명 (로컬에서 계산해 전달)
+REPO_NAME=$(basename -s .git "$GIT_URL")
+if [ -z "$REPO_NAME" ]; then
+  # .git 접미사가 없을 수도 있으니 재시도
+  REPO_NAME=$(basename "$GIT_URL")
+fi
 
 if [ -z "$GIT_URL" ] || [ -z "$INSTANCE_IP" ]; then
     echo "❌ Git URL과 인스턴스 IP를 입력해주세요."
@@ -22,6 +30,7 @@ KEYPAIR_FILE="${KEYPAIR_NAME}.pem"
 echo "🚀 Git 기반 Nursing API 배포를 시작합니다..."
 echo "📋 Git URL: $GIT_URL"
 echo "🌐 인스턴스: $INSTANCE_USER@$INSTANCE_IP"
+echo "🔀 브랜치: $TARGET_BRANCH"
 echo "🔑 키페어: $KEYPAIR_NAME"
 
 # 1. 키페어 파일 확인
@@ -65,16 +74,48 @@ ssh -i "$KEYPAIR_FILE" "$INSTANCE_USER@$INSTANCE_IP" << EOF
     mkdir -p ~/nursing-project
     cd ~/nursing-project
     
-    echo "📥 Git 저장소를 클론합니다..."
-    if [ -d "NursingProject" ]; then
+    echo "📥 Git 저장소를 준비합니다 (repo: $REPO_NAME)..."
+    if [ -d "$REPO_NAME/.git" ]; then
         echo "🔄 기존 저장소를 업데이트합니다..."
-        cd NursingProject
-        git pull origin Jimin
+        cd "$REPO_NAME"
+        # 원격 URL 동기화
+        git remote set-url origin "$GIT_URL" || true
+        # 최신 정보 가져오기
+        git fetch origin --prune
+        # 대상 브랜치 체크아웃 (없으면 생성)
+        if git show-ref --verify --quiet refs/heads/$TARGET_BRANCH; then
+            git checkout $TARGET_BRANCH
+        else
+            git checkout -b $TARGET_BRANCH || true
+        fi
+        # 원격 브랜치 기준으로 하드 리셋(정합성 보장)
+        git reset --hard origin/$TARGET_BRANCH || {
+          echo "❌ 원격에 브랜치($TARGET_BRANCH)가 없습니다. origin 브랜치 목록:";
+          git branch -r;
+          exit 1;
+        }
+        # 중요 로컬 파일(.env, credentials)을 보호하며 청소
+        git clean -f -d -e nursing_AI/credentials -e nursing_AI/credentials/ -e nursing_AI/.env || true
     else
-        echo "📥 Jimin 브랜치를 클론합니다..."
-        git clone -b Jimin $GIT_URL
-        cd NursingProject
+        echo "📥 브랜치 $TARGET_BRANCH 로 클론합니다..."
+        git clone -b "$TARGET_BRANCH" "$GIT_URL" "$REPO_NAME" || {
+          echo "❌ 해당 브랜치로 직접 클론 실패. 기본 클론 후 브랜치 체크아웃 시도";
+          git clone "$GIT_URL" "$REPO_NAME" || exit 1;
+          cd "$REPO_NAME";
+          git fetch origin --prune;
+          git checkout -B "$TARGET_BRANCH" origin/"$TARGET_BRANCH" || exit 1;
+        }
+        cd "$REPO_NAME"
     fi
+
+    echo "🧭 현재 저장소 상태 확인"
+    git remote -v | cat
+    echo "현재 브랜치: $(git rev-parse --abbrev-ref HEAD)"
+    echo "최신 커밋: $(git log -1 --pretty=format:'%h %s (%cr) by %an')"
+
+    # 보호 대상 폴더/파일 보장
+    mkdir -p nursing_AI/credentials
+    touch nursing_AI/.env || true
     
     echo "📁 nursing_AI 폴더로 이동합니다..."
     cd nursing_AI
@@ -157,7 +198,7 @@ echo "=========================================="
 echo ""
 echo "1️⃣ .env 파일 설정 (SSH 접속 후 수정):"
 echo "   ssh -i $KEYPAIR_FILE $INSTANCE_USER@$INSTANCE_IP"
-echo "   cd ~/nursing-project/nursing_AI"
+echo "   cd ~/nursing-project/$(basename -s .git "$GIT_URL")/nursing_AI"
 echo "   nano .env"
 echo ""
 echo "   📝 필요한 환경 변수들:"

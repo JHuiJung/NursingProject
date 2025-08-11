@@ -21,6 +21,7 @@ public class ParentChatManager : MonoBehaviour
     public TextMeshProUGUI questionText, transcriptText, feedbackText, keywordText;
     public Button recordBtn, stopBtn, sendBtn, nextBtn, summaryBtn;
     private bool isFollowupMode = false;
+    public TextMeshProUGUI followupGuideText; // 새로 추가
 
     private AudioClip recordedClip;
     private string sessionId;
@@ -98,6 +99,8 @@ public class ParentChatManager : MonoBehaviour
             questionText.text = questions[questionIndex];
             transcriptText.text = "";
             keywordText.text = "";
+            followupGuideText.text = "";
+            followupGuideText.gameObject.SetActive(false);  // 🔸 초기화
             sendBtn.interactable = false;
             recordBtn.interactable = true;
             nextBtn.interactable = false;
@@ -153,18 +156,46 @@ public class ParentChatManager : MonoBehaviour
                 byte[] audioBytes = Convert.FromBase64String(base64Audio);
                 PlayAudioFromBytes(audioBytes);
 
+                // 텍스트 가이드가 함께 오면 표시
+                string followupGuide = result.HasKey("followup_text") ? result["followup_text"] : "";
                 keywordText.text = $"누락 키워드: {result["missing_keywords"]}";
 
-                isFollowupMode = true; // ✅ 후속 모드 진입
+                if (!string.IsNullOrEmpty(followupGuide))
+                {
+                    Debug.Log("✅ followup_text 수신됨: " + followupGuide);
+                    followupGuideText.text = "💬 가이드: " + followupGuide;
+                    followupGuideText.gameObject.SetActive(true);
+                }
+                else
+                {
+                    Debug.LogWarning("⚠️ followup_text가 비어 있음");
+                    followupGuideText.text = "";
+                    followupGuideText.gameObject.SetActive(false);
+                }
 
-                // 버튼들 활성화
+                isFollowupMode = true;
+
                 recordBtn.interactable = true;
                 stopBtn.interactable = true;
                 sendBtn.interactable = true;
-            }
-            else
+            }           
+             else
             {
-                keywordText.text = "키워드 모두 포함됨!";
+                // 키워드 모두 포함됨: 서버가 이해 확인용 TTS/텍스트를 내려줄 수 있음
+                if (result.HasKey("ack_audio_base64"))
+                {
+                    byte[] ackBytes = Convert.FromBase64String(result["ack_audio_base64"]);
+                    PlayAudioFromBytes(ackBytes);
+                }
+                if (result.HasKey("ack_text"))
+                {
+                    keywordText.text = result["ack_text"];
+                }
+                else
+                {
+                    keywordText.text = "키워드 모두 포함됨!";
+                }
+
                 isFollowupMode = false; // ✅ 기본 질문 모드
                 nextBtn.interactable = true;
 
