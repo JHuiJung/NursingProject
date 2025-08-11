@@ -292,6 +292,51 @@ def _as_text(x) -> str:
 # ========================================
 # 🔹 2. 부모 채팅 API (parent_chat_api.py)
 # ========================================
+@app.post("/parent_response")
+async def parent_chat(
+    parent_question: str = Form(...),
+    user_response: str = Form(...),
+    keywords: str = Form(...)
+):
+    # """부모 음성 → STT → 키워드 누락 확인 → TTS 응답"""
+    # transcript = clova_speech_to_text(audio)
+    # current_q = next(q for q in QUESTIONS if q["id"] == question_id)
+    # missing_keywords = check_required_keywords(transcript, current_q["required_keywords"])
+
+    # 로그로 질문, 응답 확인
+    print(f"부모 질문 {parent_question} ")
+    print(f"유저 질문 {user_response} ")
+    print(f"핵심키워드 {keywords} ")
+
+    try:
+        ack_prompt = (
+            "역할: 당신은 환아의 보호자(부모)입니다. 아이가 아파 불안하고 다소 예민합니다.\n"
+            "목표: 간호사 설명을 검토하여 핵심 키워드 누락 여부에 따라 답변합니다..\n"
+            "\n"
+            "입력 정보\n"
+            f"- 배경 질문: {parent_question}\n"
+            f"- 간호사 설명: {user_response}\n"
+            f"- 핵심 키워드 목록: {keywords}\n"
+            "\n"
+            "지시사항\n"
+            "1) 간호사 설명에서 핵심 키워드가 포함됐는지 의미 기준으로 판단하세요(동의어·유사 표현 허용).\n"
+            "2) 누락된 키워드가 하나라도 있으면 → 누락 중 가장 중요한 1~2개를 중심으로 *예민하지만 공손한 반문 1문장*을 출력하세요.\n"
+            "   - 12~25자, 존댓말, 과한 전문용어/이모지 금지, 장황한 배경 금지, 반드시 물음표로 끝낼 것.\n"
+            # "   - 예: \"정맥으로 투여하는 건가요?\", \"부작용 설명 더 필요한가요?\"\n"
+            "3) 누락이 없다면 → 짧은 수용/이해 확인 *한 문장*을 출력하세요.\n"
+            "   - 12~20자, 존댓말, 물음표 금지.\n"
+        )
+        ai_ack = get_ai_response(ack_prompt)
+        ack_text = ai_ack.get("answer", "좋습니다. 내용을 잘 이해하셨습니다. 다음 질문으로 넘어갈게요.")
+    except Exception:
+        ack_text = "알겠습니다..."
+
+    response = {
+        "parent_response": ack_text,
+    }
+
+    return JSONResponse(content=response)
+
 
 @app.post("/parent_chat")
 async def parent_chat(
