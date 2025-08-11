@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using TMPro;
 using uMicrophoneWebGL;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -43,7 +44,6 @@ public class Simulation_VoiceInput : SimulationBase
     public Ease DG_Ease = Ease.Linear;
 
     //--- 음성 녹음 ----
-    private const string apiUrl = "http://127.0.0.1:8000/clova_stt"; // FastAPI /stt 엔드포인트
     private AudioClip recordedClip;
     private bool isRecording = false;
     private const int sampleRate = 16000;
@@ -110,16 +110,18 @@ public class Simulation_VoiceInput : SimulationBase
     void Setup()
     {
         Tmp_Question.text = text_Question;
+        microphoneWebGL.UpdateMic();
     }
 
     #region ----------------------------------------STT 구현
     public void ToggleRecord()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
         if (!microphoneWebGL || !microphoneWebGL.isValid) return;
 
-        bool isRecording = microphoneWebGL.isRecording;
+        bool isMRecording = microphoneWebGL.isRecording;
 
-        if (!isRecording)
+        if (!isMRecording)
         {
             Begin();
         }
@@ -128,7 +130,19 @@ public class Simulation_VoiceInput : SimulationBase
             End();
         }
 
-        isRecording = !isRecording;
+        isMRecording = !isMRecording;
+#else
+        if(isRecording)
+        {
+            End();
+        }
+        else
+        {
+            Begin();
+        }
+#endif
+
+
     }
 
     public void TogglePlay()
@@ -148,17 +162,57 @@ public class Simulation_VoiceInput : SimulationBase
 
     private void Begin()
     {
+        //text 비우기
+        txt_VoiceUserInput.text = "";
+
+        
+
+#if UNITY_WEBGL && !UNITY_EDITOR
         Obj_Btn_StartRecord.SetActive(false);
         Obj_Btn_StopRecord.SetActive(true);
         microphoneWebGL.Begin();
+#else
+        if (isRecording) return;
+
+        Obj_Btn_StartRecord.SetActive(false);
+        Obj_Btn_StopRecord.SetActive(true);
+
+        recordedClip = Microphone.Start(null, false, maxRecordingTime, sampleRate);
+        isRecording = true;
+        // 코루틴 실행 후 참조 저장
+        print("Begin");
+
+        autoStopCoroutine = StartCoroutine(AutoStopRecordingAfterDelay(maxRecordingTime));
+#endif
     }
 
     private void End()
     {
+
+        print("End");
+
+#if UNITY_WEBGL && !UNITY_EDITOR
         Obj_Btn_StartRecord.SetActive(true);
         Obj_Btn_StopRecord.SetActive(false);
         microphoneWebGL.End();
-        //StartCoroutine(SendWavToServer(_clip, text_Question));
+        StartCoroutine(SendWavToServer(_clip, text_Question));
+#else
+
+        if (!isRecording) return;
+
+        Obj_Btn_StartRecord.SetActive(true);
+        Obj_Btn_StopRecord.SetActive(false);
+
+        Microphone.End(null);
+        isRecording = false;
+        // 저장된 코루틴이 있다면 중단
+        if (autoStopCoroutine != null)
+        {
+            StopCoroutine(autoStopCoroutine);
+            autoStopCoroutine = null;
+        }
+        StartCoroutine(SendWavToServer(recordedClip, text_Question));
+#endif
     }
 
     public void OnBegin()
@@ -195,6 +249,7 @@ public class Simulation_VoiceInput : SimulationBase
     }
 
     #endregion
+
 
     public void StartRecord()
     {

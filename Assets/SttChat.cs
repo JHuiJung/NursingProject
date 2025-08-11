@@ -66,10 +66,15 @@ public class STTChat : MonoBehaviour
     // Q18: 녹음 정지
     public void OnClickStop()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
         if (!isRecording) return;
         Microphone.End(null);
         isRecording = false;
         SetStatus("⏹️ 녹음 종료");
+
+#endif
     }
 
     // Q18: 오디오 전송
@@ -94,11 +99,14 @@ public class STTChat : MonoBehaviour
     private void StartRecording()
     {
         if (isRecording) return;
-
+#if UNITY_WEBGL && !UNITY_EDITOR
+        
+#else
         SetStatus("🎙️ 녹음 시작...");
         recordedClip = Microphone.Start(null, false, maxRecordingTime, sampleRate);
         isRecording = true;
         StartCoroutine(AutoStopRecordingAfterDelay(maxRecordingTime)); // 자동 종료만; 전송은 수동
+#endif
     }
 
     private IEnumerator AutoStopRecordingAfterDelay(int seconds)
