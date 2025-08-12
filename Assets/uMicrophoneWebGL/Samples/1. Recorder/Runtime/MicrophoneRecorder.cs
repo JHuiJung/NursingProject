@@ -25,7 +25,11 @@ public class MicrophoneRecorder : MonoBehaviour
     private AudioClip _clip;
     private bool _isPlaying = false;
 
-    void Update()
+        private void Start()
+        {
+            microphoneWebGL.RefreshDeviceList();
+        }
+        void Update()
     {
         UpdatePlayButtonText();
     }

@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: 70fc72b9fad591e4ebf9fce6274f24a7
   - enabled: 1
-    path: Assets/Scenes/Scenario1.unity
-    guid: eb23e950bf279054092e3e2567112772
-  - enabled: 1
     path: Assets/uMicrophoneWebGL/Samples/1. Recorder/Scenes/Recorder.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Scenario1.unity
+    guid: eb23e950bf279054092e3e2567112772
   m_configObjects: {}

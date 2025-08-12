@@ -12,7 +12,6 @@ public class DeviceListEvent : UnityEvent<List<Device>>
 
 public class MicrophoneWebGL : MonoBehaviour
 {
-        public static int mainMicIndex = 0;
 
     public bool isAutoStart = true;
     public int micIndex = 0;
@@ -98,6 +97,7 @@ public class MicrophoneWebGL : MonoBehaviour
         Lib.Stop();
     }
 
+        [ContextMenu("Refesh Device")]
     public void RefreshDeviceList()
     {
         Lib.RefreshDeviceList();
@@ -154,16 +154,6 @@ public class MicrophoneWebGL : MonoBehaviour
     {
         stopEvent.Invoke();
     }
-
-        public void MicChange(int index)
-        {
-            mainMicIndex = index;
-        }
-
-        public void UpdateMic()
-        {
-            micIndex = mainMicIndex;
-        }
 }
 
 }

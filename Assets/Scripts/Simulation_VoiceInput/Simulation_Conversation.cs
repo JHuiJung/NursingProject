@@ -20,12 +20,12 @@ public class Simulation_Conversation : SimulationBase
     public MicrophoneWebGL microphoneWebGL;
 
     [TextArea] //����
-    [Header("����(�ʼ��� �Է�)"), Space(10)]
+    [Header("질문 (반드시 포함할 것)"), Space(10)]
     public string text_Question = "";
     public TMP_Text Tmp_Question;
     public string keywords = "";
 
-    [Header("���̽� �Է�"), Space(10)]
+    [Header("Voice Input"), Space(10)]
     public TMP_Text txt_VoiceUserInput;
     public GameObject Obj_Area_VoiceInput;
     public GameObject Obj_Btn_StartRecord;
@@ -36,7 +36,7 @@ public class Simulation_Conversation : SimulationBase
     public GameObject Obj_Area_ConvBox;
     public GameObject pf_User_ConvBox;
     public GameObject pf_Opposite_ConvBox;
-    public string opposite_Name = "��ȣ��";
+    public string opposite_Name = "보호자";
     public string opposite_Content = "";
 
     [Header("Dotween"), Space(10)]
@@ -94,7 +94,6 @@ public class Simulation_Conversation : SimulationBase
 
     public override void Exit(ScenarioManager SM)
     {
-        print($"{name} : ������ ���� ��");
         ResetSimulation();
         Obj_CanvasChoice.SetActive(false);
     }
@@ -109,15 +108,17 @@ public class Simulation_Conversation : SimulationBase
         Obj_Btn_StopRecord.SetActive(false);
         Obj_Area_Wait.SetActive(false);
 
-        while(Obj_Area_ConvBox.transform.childCount > 0)
+        for (int i = Obj_Area_ConvBox.transform.childCount - 1; i >= 0; i--)
         {
-            Destroy(Obj_Area_ConvBox.transform.GetChild(0).gameObject);
+            Destroy(Obj_Area_ConvBox.transform.GetChild(i).gameObject);
         }
+
     }
 
     void Setup()
     {
         Tmp_Question.text = text_Question;
+        microphoneWebGL.RefreshDeviceList();
     }
     //----- �ùķ��̼� ���� ------
 
@@ -129,10 +130,8 @@ public class Simulation_Conversation : SimulationBase
         oppositeConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         oppositeConvbox.GetComponent<ConvBox>().Setup(opposite_Name, opposite_Content);
 
-        print("TTS ��");
         // TTS�� ����
         yield return StartCoroutine(PlayTTSQuestion(opposite_Content));
-        print("TTS ��");
 
         // convBox ��ĭ �ø���
         yield return StartCoroutine( AllConvBoxMoveUp() );
@@ -142,7 +141,7 @@ public class Simulation_Conversation : SimulationBase
         GameObject userConvbox = Instantiate(pf_User_ConvBox, Obj_Area_ConvBox.transform);
         userConvbox.transform.SetAsLastSibling();
         userConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        userConvbox.GetComponent<ConvBox>().Setup($"{DataManager.inst.userName} ��ȣ��", "");
+        userConvbox.GetComponent<ConvBox>().Setup($"{DataManager.inst.userName} 간호사", "");
         txt_VoiceUserInput = userConvbox.GetComponent<ConvBox>().txt_Content;
     }
 
@@ -162,7 +161,7 @@ public class Simulation_Conversation : SimulationBase
         }
         else
         {
-            ai_responese = "ai�� ���� �亯�� ���� ������";
+            ai_responese = "ai응답이 없습니다";
         }
 
         Obj_Area_Wait.SetActive(false);
@@ -189,7 +188,7 @@ public class Simulation_Conversation : SimulationBase
 
     }
 
-    public void NextSimulation()
+    public void Next()
     {
         StartCoroutine(AllUiOff());
     }
@@ -212,7 +211,7 @@ public class Simulation_Conversation : SimulationBase
     //------------------------------------------------------------------------------------------
 
 
-    #region ----------------------------------------STT ����
+    #region ----------------------------------------STT 
     public void ToggleRecord()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -367,51 +366,14 @@ public class Simulation_Conversation : SimulationBase
             var result = JSON.Parse(request.downloadHandler.text);
             string resultText = result["text"];
             txt_VoiceUserInput.text = resultText;
-            Debug.Log("? �ļ� �亯 ���� �Ϸ�: " + resultText);
+            Debug.Log("? 응답: " + resultText);
         }
         else
         {
-            Debug.LogError("? �ļ� �亯 ���� ���� ����: " + request.error);
+            Debug.LogError("? 응답 오류: " + request.error);
         }
 
-        //string filePath = Path.Combine(Application.persistentDataPath, "recorded.wav");
-        //SaveWav(filePath, clip);
-        //byte[] audioData = File.ReadAllBytes(filePath);
-
-        //List<IMultipartFormSection> formData = new List<IMultipartFormSection>
-        //{
-        //    new MultipartFormDataSection("question", question),
-        //    new MultipartFormFileSection("audio", audioData, "recorded.wav", "audio/wav")
-        //};
-
-        //UnityWebRequest request = UnityWebRequest.Post(APIConfig.Instance.ClovaSttUrl, formData);
-        //request.downloadHandler = new DownloadHandlerBuffer();
-
-        //yield return request.SendWebRequest();
-
-        //if (request.result == UnityWebRequest.Result.Success)
-        //{
-        //    string json = request.downloadHandler.text;
-        //    Debug.Log("? ���� ����: " + json);
-
-        //    STTResponse response = JsonUtility.FromJson<STTResponse>(json);
-        //    txt_VoiceUserInput.text = $"{response.transcript}";
-
-        //}
-        //else
-        //{
-        //    Debug.LogError("? ���� ����: " + request.error);
-        //}
-
         Obj_Area_Wait.SetActive(false);
-    }
-
-    void SaveWav(string path, AudioClip clip)
-    {
-        var samples = new float[clip.samples];
-        clip.GetData(samples, 0);
-        byte[] wavData = WavUtility.FromAudioClip(clip, out _, true);
-        File.WriteAllBytes(path, wavData);
     }
 
 
@@ -434,7 +396,7 @@ public class Simulation_Conversation : SimulationBase
         }
         else
         {
-            Debug.LogError("? ���� TTS ��û ����: " + request.error);
+            Debug.LogError("? 응답: " + request.error);
         }
     }
 
@@ -476,8 +438,8 @@ public class Simulation_Conversation : SimulationBase
 
         SubmitForm submitForm = new SubmitForm();
         submitForm.txt_Question = text_Question;
-        submitForm.txt_QuestionAnswer = $"���� ���� : {opposite_Content} / ������ �亯�� ���ԵǾ�� �ϴ� Ű���� {keywords} " +
-            $" / Ű������� ���ԵǾ����� ���� �� ���� ���� �Ǵ��� ��";
+        submitForm.txt_QuestionAnswer = $"상대방 질문 : {opposite_Content} / 유저의 답변에 포함되야할 키워드 : {keywords} " +
+            $" / 상대방의 질문과 키워드를 참고해서 정답, 오답 판별";
         submitForm.txt_userAnswer = answer;
 
         _sm.str_Answers.Push(submitForm);
@@ -505,11 +467,11 @@ public class Simulation_Conversation : SimulationBase
             var result = JSON.Parse(request.downloadHandler.text);
             string followupText = result["parent_response"];
             aiResponse = followupText;
-            Debug.Log("? �ļ� �亯 ���� �Ϸ�: " + followupText);
+            Debug.Log("? 응답: " + followupText);
         }
         else
         {
-            Debug.LogError("? �ļ� �亯 ���� ���� ����: " + request.error);
+            Debug.LogError("? 응답 오류: " + request.error);
         }
     }
 
@@ -541,12 +503,6 @@ public class Simulation_Conversation : SimulationBase
 
         rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
             200f), DG_Time).SetEase(DG_Ease);
-
-        // ���̽� �Է� DG
-        RectTransform rect_AreaTI = Obj_Area_VoiceInput.GetComponent<RectTransform>();
-
-        rect_AreaTI.DOAnchorPos(new Vector2(rect_AreaTI.anchoredPosition.x, DG_Area_StartY), DG_Time
-            ).SetEase(DG_Ease);
 
         yield return new WaitForSeconds(DG_Time);
 

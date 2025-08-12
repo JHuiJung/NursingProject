@@ -127,13 +127,13 @@ public class NursingChatClient : MonoBehaviour
                 // answerOutput.text = displayText;
 
                 simulation_FeedBack.aiResponse = response;
-                answerOutput.text = response.answer;
+                //answerOutput.text = response.answer;
                 Debug.Log($"✅ 응답 수신:\n{response.answer}\n📊 정답: {response.correct_count}개, 오답: {response.incorrect_count}개, 점수: {response.score_percentage}%");
             }
             else
             {
                 Debug.LogError("❌ 요청 실패: " + www.error);
-                answerOutput.text = "서버 오류: " + www.error;
+                //answerOutput.text = "서버 오류: " + www.error;
             }
 
             yield return new WaitForSeconds(0f);

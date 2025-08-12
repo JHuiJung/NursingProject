@@ -1,4 +1,5 @@
 using DG.Tweening;
+using SimpleJSON;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,11 +27,12 @@ public class Simulation_VoiceInput : SimulationBase
     public MicrophoneWebGL microphoneWebGL;
 
     [TextArea] //����
-    [Header("����(�ʼ��� �Է�)"), Space(10)]
+    [Header("질문 (반드시 포함할 것)"), Space(10)]
     public string text_Question = "";
     public TMP_Text Tmp_Question;
+    public string keywords = "";
 
-    [Header("���̽� �Է�"), Space(10)]
+    [Header("Voice Input"), Space(10)]
     public TMP_Text txt_VoiceUserInput;
     public GameObject Obj_Area_VoiceInput;
     public GameObject Obj_Btn_StartRecord;
@@ -93,7 +95,6 @@ public class Simulation_VoiceInput : SimulationBase
 
     public override void Exit(ScenarioManager SM)
     {
-        print($"{name} : ������ ���� ��");
         ResetSimulation();
         Obj_CanvasChoice.SetActive(false);
     }
@@ -110,10 +111,9 @@ public class Simulation_VoiceInput : SimulationBase
     void Setup()
     {
         Tmp_Question.text = text_Question;
-        microphoneWebGL.UpdateMic();
+        microphoneWebGL.RefreshDeviceList();
     }
 
-    #region ----------------------------------------STT ����
     public void ToggleRecord()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -177,10 +177,6 @@ public class Simulation_VoiceInput : SimulationBase
         Obj_Btn_StartRecord.SetActive(false);
         Obj_Btn_StopRecord.SetActive(true);
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-        
-#else
-
         recordedClip = Microphone.Start(null, false, maxRecordingTime, sampleRate);
         isRecording = true;
         // �ڷ�ƾ ���� �� ���� ����
@@ -207,9 +203,6 @@ public class Simulation_VoiceInput : SimulationBase
         Obj_Btn_StartRecord.SetActive(true);
         Obj_Btn_StopRecord.SetActive(false);
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-        
-#else
         Microphone.End(null);
         isRecording = false;
         // ����� �ڷ�ƾ�� �ִٸ� �ߴ�
@@ -254,8 +247,6 @@ public class Simulation_VoiceInput : SimulationBase
         System.Array.Copy(input, 0, _buffer, _bufferSize, n);
         _bufferSize += n;
     }
-
-    #endregion
 
 
     public void StartRecord()
@@ -307,44 +298,30 @@ public class Simulation_VoiceInput : SimulationBase
     {
         Obj_Area_Wait.SetActive(true);
 
-        string filePath = Path.Combine(Application.persistentDataPath, "recorded.wav");
-        SaveWav(filePath, clip);
-        byte[] audioData = File.ReadAllBytes(filePath);
+        int length;
+        byte[] wavData = WavUtility.FromAudioClip(clip, out length);
 
-        List<IMultipartFormSection> formData = new List<IMultipartFormSection>
-        {
-            new MultipartFormDataSection("question", question),
-            new MultipartFormFileSection("audio", audioData, "recorded.wav", "audio/wav")
-        };
+        WWWForm form = new WWWForm();
+        form.AddBinaryData("audio", wavData, "followup.wav", "audio/wav");
 
-        UnityWebRequest request = UnityWebRequest.Post(APIConfig.Instance.ClovaSttUrl, formData);
-        request.downloadHandler = new DownloadHandlerBuffer();
+        string url = APIConfig.Instance.ClovaSttUrl;
 
+        UnityWebRequest request = UnityWebRequest.Post(url, form);
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            string json = request.downloadHandler.text;
-            Debug.Log("? ���� ����: " + json);
-
-            STTResponse response = JsonUtility.FromJson<STTResponse>(json);
-            txt_VoiceUserInput.text = $"{response.transcript}";
-
+            var result = JSON.Parse(request.downloadHandler.text);
+            string resultText = result["text"];
+            txt_VoiceUserInput.text = resultText;
+            Debug.Log("? 응답: " + resultText);
         }
         else
         {
-            Debug.LogError("? ���� ����: " + request.error);
+            Debug.LogError("? 응답 오류: " + request.error);
         }
 
         Obj_Area_Wait.SetActive(false);
-    }
-
-    void SaveWav(string path, AudioClip clip)
-    {
-        var samples = new float[clip.samples];
-        clip.GetData(samples, 0);
-        byte[] wavData = WavUtility.FromAudioClip(clip, out _, true);
-        File.WriteAllBytes(path, wavData);
     }
 
 
@@ -365,7 +342,7 @@ public class Simulation_VoiceInput : SimulationBase
 
         SubmitForm submitForm = new SubmitForm();
         submitForm.txt_Question = text_Question;
-        submitForm.txt_QuestionAnswer = "�̸� ���õ� Ű���尡 �ִ��� �ľ� �� ���� ������ ��";
+        submitForm.txt_QuestionAnswer = $"키워드 : {keywords} / 유저의 응답에 핵심 키워드가 포함 되었는지 파악 후 정답, 오답 판별";
         submitForm.txt_userAnswer = answer;
 
         _sm.str_Answers.Push(submitForm);
@@ -414,5 +391,5 @@ public class Simulation_VoiceInput : SimulationBase
         _sm.NextSimulation();
     }
 
-    
+
 }

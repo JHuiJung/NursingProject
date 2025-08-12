@@ -13,6 +13,11 @@ public class Title_UserInfo : MonoBehaviour
     public MicrophoneWebGL microphoneWebGL;
     public Dropdown deviceDropdown;
 
+    private void Start()
+    {
+        microphoneWebGL.RefreshDeviceList();
+    }
+
     private void Update()
     {
         if(string.IsNullOrEmpty(inputField_UserName.text) ||
@@ -53,10 +58,6 @@ public class Title_UserInfo : MonoBehaviour
 
     public void MicChange()
     {
-        microphoneWebGL.MicChange(deviceDropdown.value);
-        microphoneWebGL.UpdateMic();
-
-        print($"���õ� ����ũ {deviceDropdown.value}");
     }
 
 }
