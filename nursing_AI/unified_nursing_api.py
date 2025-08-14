@@ -75,10 +75,10 @@ def synthesize_text(text: str) -> str:
     )
 
     audio_config = texttospeech.AudioConfig(
-        audio_encoding=texttospeech.AudioEncoding.MP3,
-        sample_rate_hertz=24000,
-        speaking_rate=1.3,  # 더 빠른 속도로 날카로운 느낌
-        pitch=5.0           # 높은 톤으로 날카로운 목소리
+        audio_encoding=texttospeech.AudioEncoding.LINEAR16,
+        sample_rate_hertz=24000, # 더 빠른 속도로 날카로운 느낌
+        speaking_rate=1.3, # 높은 톤으로 날카로운 목소리
+        pitch=5.0
     )
 
     response = client.synthesize_speech(
@@ -506,6 +506,7 @@ async def parent_chat_summary(session_id: str = Form(...)):
 @app.post("/tts")
 async def tts(text: str = Form(...)):
     """질문 또는 일반 텍스트를 음성으로 변환하여 base64로 반환"""
+    print(f"음성 합성 요청: {text}")
     audio_base64 = synthesize_text(text)
     return JSONResponse(content={"audio_base64": audio_base64})
 

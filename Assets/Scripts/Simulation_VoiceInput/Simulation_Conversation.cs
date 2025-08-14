@@ -20,12 +20,12 @@ public class Simulation_Conversation : SimulationBase
     public MicrophoneWebGL microphoneWebGL;
 
     [TextArea] //����
-    [Header("����(�ʼ��� �Է�)"), Space(10)]
+    [Header("질문 (반드시 포함할 것)"), Space(10)]
     public string text_Question = "";
     public TMP_Text Tmp_Question;
     public string keywords = "";
 
-    [Header("���̽� �Է�"), Space(10)]
+    [Header("Voice Input"), Space(10)]
     public TMP_Text txt_VoiceUserInput;
     public GameObject Obj_Area_VoiceInput;
     public GameObject Obj_Btn_StartRecord;
@@ -36,7 +36,7 @@ public class Simulation_Conversation : SimulationBase
     public GameObject Obj_Area_ConvBox;
     public GameObject pf_User_ConvBox;
     public GameObject pf_Opposite_ConvBox;
-    public string opposite_Name = "��ȣ��";
+    public string opposite_Name = "보호자";
     public string opposite_Content = "";
 
     [Header("Dotween"), Space(10)]
@@ -94,7 +94,6 @@ public class Simulation_Conversation : SimulationBase
 
     public override void Exit(ScenarioManager SM)
     {
-        print($"{name} : ������ ���� ��");
         ResetSimulation();
         Obj_CanvasChoice.SetActive(false);
     }
@@ -109,15 +108,17 @@ public class Simulation_Conversation : SimulationBase
         Obj_Btn_StopRecord.SetActive(false);
         Obj_Area_Wait.SetActive(false);
 
-        while(Obj_Area_ConvBox.transform.childCount > 0)
+        for (int i = Obj_Area_ConvBox.transform.childCount - 1; i >= 0; i--)
         {
-            Destroy(Obj_Area_ConvBox.transform.GetChild(0).gameObject);
+            Destroy(Obj_Area_ConvBox.transform.GetChild(i).gameObject);
         }
+
     }
 
     void Setup()
     {
         Tmp_Question.text = text_Question;
+        microphoneWebGL.RefreshDeviceList();
     }
     //----- �ùķ��̼� ���� ------
 
@@ -129,10 +130,8 @@ public class Simulation_Conversation : SimulationBase
         oppositeConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         oppositeConvbox.GetComponent<ConvBox>().Setup(opposite_Name, opposite_Content);
 
-        print("TTS ��");
         // TTS�� ����
         yield return StartCoroutine(PlayTTSQuestion(opposite_Content));
-        print("TTS ��");
 
         // convBox ��ĭ �ø���
         yield return StartCoroutine( AllConvBoxMoveUp() );
@@ -142,7 +141,7 @@ public class Simulation_Conversation : SimulationBase
         GameObject userConvbox = Instantiate(pf_User_ConvBox, Obj_Area_ConvBox.transform);
         userConvbox.transform.SetAsLastSibling();
         userConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        userConvbox.GetComponent<ConvBox>().Setup($"{DataManager.inst.userName} ��ȣ��", "");
+        userConvbox.GetComponent<ConvBox>().Setup($"{DataManager.inst.userName} 간호사", "");
         txt_VoiceUserInput = userConvbox.GetComponent<ConvBox>().txt_Content;
     }
 
@@ -162,7 +161,7 @@ public class Simulation_Conversation : SimulationBase
         }
         else
         {
-            ai_responese = "ai�� ���� �亯�� ���� ������";
+            ai_responese = "ai응답이 없습니다";
         }
 
         Obj_Area_Wait.SetActive(false);
@@ -189,7 +188,7 @@ public class Simulation_Conversation : SimulationBase
 
     }
 
-    public void NextSimulation()
+    public void Next()
     {
         StartCoroutine(AllUiOff());
     }
@@ -212,7 +211,7 @@ public class Simulation_Conversation : SimulationBase
     //------------------------------------------------------------------------------------------
 
 
-    #region ----------------------------------------STT ����
+    #region ----------------------------------------STT 
     public void ToggleRecord()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -367,55 +366,17 @@ public class Simulation_Conversation : SimulationBase
             var result = JSON.Parse(request.downloadHandler.text);
             string resultText = result["text"];
             txt_VoiceUserInput.text = resultText;
-            Debug.Log("? �ļ� �亯 ���� �Ϸ�: " + resultText);
+            Debug.Log("? 응답: " + resultText);
         }
         else
         {
-            Debug.LogError("? �ļ� �亯 ���� ���� ����: " + request.error);
+            Debug.LogError("? 응답 오류: " + request.error);
         }
-
-        //string filePath = Path.Combine(Application.persistentDataPath, "recorded.wav");
-        //SaveWav(filePath, clip);
-        //byte[] audioData = File.ReadAllBytes(filePath);
-
-        //List<IMultipartFormSection> formData = new List<IMultipartFormSection>
-        //{
-        //    new MultipartFormDataSection("question", question),
-        //    new MultipartFormFileSection("audio", audioData, "recorded.wav", "audio/wav")
-        //};
-
-        //UnityWebRequest request = UnityWebRequest.Post(APIConfig.Instance.ClovaSttUrl, formData);
-        //request.downloadHandler = new DownloadHandlerBuffer();
-
-        //yield return request.SendWebRequest();
-
-        //if (request.result == UnityWebRequest.Result.Success)
-        //{
-        //    string json = request.downloadHandler.text;
-        //    Debug.Log("? ���� ����: " + json);
-
-        //    STTResponse response = JsonUtility.FromJson<STTResponse>(json);
-        //    txt_VoiceUserInput.text = $"{response.transcript}";
-
-        //}
-        //else
-        //{
-        //    Debug.LogError("? ���� ����: " + request.error);
-        //}
 
         Obj_Area_Wait.SetActive(false);
     }
 
-    void SaveWav(string path, AudioClip clip)
-    {
-        var samples = new float[clip.samples];
-        clip.GetData(samples, 0);
-        byte[] wavData = WavUtility.FromAudioClip(clip, out _, true);
-        File.WriteAllBytes(path, wavData);
-    }
 
-
-    //---------- TTS ----------------
     IEnumerator PlayTTSQuestion(string questionText)
     {
         WWWForm form = new WWWForm();
@@ -430,12 +391,74 @@ public class Simulation_Conversation : SimulationBase
             var result = JSON.Parse(request.downloadHandler.text);
             string base64Audio = result["audio_base64"];
             byte[] audioBytes = Convert.FromBase64String(base64Audio);
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+            // WebGL 환경: base64 → AudioClip 직접 생성 및 재생
+            AudioClip clip = WavToAudioClip(audioBytes, "TTS_AudioClip");
+            PlayClip(clip);
+#else
+            // 에디터/PC 환경: 파일 저장 후 재생
             PlayAudioFromBytes(audioBytes);
+#endif
         }
         else
         {
-            Debug.LogError("? ���� TTS ��û ����: " + request.error);
+            Debug.LogError("TTS 응답 오류: " + request.error);
         }
+    }
+    public static AudioClip WavToAudioClip(byte[] wavFile, string clipName = "wavClip")
+    {
+        int channels = wavFile[22]; // 채널 수
+        int sampleRate = BitConverter.ToInt32(wavFile, 24);
+        int byteRate = BitConverter.ToInt32(wavFile, 28);
+        int bitsPerSample = wavFile[34];
+
+        Debug.Log($"WAV Info - channels: {channels}, sampleRate: {sampleRate}, bitsPerSample: {bitsPerSample}");
+
+        int subchunk2 = BitConverter.ToInt32(wavFile, 40);
+        int dataPos = 44;
+
+        int bytesPerSample = bitsPerSample / 8;
+        if (bytesPerSample == 0)
+        {
+            Debug.LogError("Invalid bitsPerSample in WAV data, cannot proceed.");
+            return null;
+        }
+
+        int samples = subchunk2 / bytesPerSample;
+
+        float[] data = new float[samples];
+        int offset = dataPos;
+        for (int i = 0; i < samples; i++)
+        {
+            if (offset + 1 >= wavFile.Length)
+            {
+                Debug.LogWarning("Unexpected end of WAV data.");
+                break;
+            }
+            short sample = BitConverter.ToInt16(wavFile, offset);
+            data[i] = sample / 32768.0f;
+            offset += 2;
+        }
+
+        if (channels == 0 || sampleRate == 0)
+        {
+            Debug.LogError("Invalid WAV header values for channels or sampleRate.");
+            return null;
+        }
+
+        AudioClip audioClip = AudioClip.Create(clipName, samples / channels, channels, sampleRate, false);
+        audioClip.SetData(data, 0);
+
+        return audioClip;
+    }
+
+
+
+    void PlayClip(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 
     void PlayAudioFromBytes(byte[] data)
@@ -458,7 +481,7 @@ public class Simulation_Conversation : SimulationBase
             }
             else
             {
-                Debug.LogError("? TTS ����� �ε� ����: " + www.error);
+                Debug.LogError("TTS 재생 오류: " + www.error);
             }
         }
     }
@@ -476,8 +499,8 @@ public class Simulation_Conversation : SimulationBase
 
         SubmitForm submitForm = new SubmitForm();
         submitForm.txt_Question = text_Question;
-        submitForm.txt_QuestionAnswer = $"���� ���� : {opposite_Content} / ������ �亯�� ���ԵǾ�� �ϴ� Ű���� {keywords} " +
-            $" / Ű������� ���ԵǾ����� ���� �� ���� ���� �Ǵ��� ��";
+        submitForm.txt_QuestionAnswer = $"상대방 질문 : {opposite_Content} / 유저의 답변에 포함되야할 키워드 : {keywords} " +
+            $" / 상대방의 질문과 키워드를 참고해서 정답, 오답 판별";
         submitForm.txt_userAnswer = answer;
 
         _sm.str_Answers.Push(submitForm);
@@ -505,11 +528,11 @@ public class Simulation_Conversation : SimulationBase
             var result = JSON.Parse(request.downloadHandler.text);
             string followupText = result["parent_response"];
             aiResponse = followupText;
-            Debug.Log("? �ļ� �亯 ���� �Ϸ�: " + followupText);
+            Debug.Log("? 응답: " + followupText);
         }
         else
         {
-            Debug.LogError("? �ļ� �亯 ���� ���� ����: " + request.error);
+            Debug.LogError("? 응답 오류: " + request.error);
         }
     }
 
@@ -541,12 +564,6 @@ public class Simulation_Conversation : SimulationBase
 
         rect_title.DOAnchorPos(new Vector2(rect_title.anchoredPosition.x,
             200f), DG_Time).SetEase(DG_Ease);
-
-        // ���̽� �Է� DG
-        RectTransform rect_AreaTI = Obj_Area_VoiceInput.GetComponent<RectTransform>();
-
-        rect_AreaTI.DOAnchorPos(new Vector2(rect_AreaTI.anchoredPosition.x, DG_Area_StartY), DG_Time
-            ).SetEase(DG_Ease);
 
         yield return new WaitForSeconds(DG_Time);
 

@@ -17,6 +17,7 @@ public class Simulation_Paper : SimulationBase
     [Header("질문(필수로 입력)"), Space(10)]
     public string text_Question = "";
     public TMP_Text Tmp_Question;
+    public string keywords = "";
 
     [Header("Txts"), Space(10)]
     public TMP_Text txt_Date;
@@ -84,7 +85,7 @@ public class Simulation_Paper : SimulationBase
 
         SubmitForm submitForm = new SubmitForm();
         submitForm.txt_Question = text_Question;
-        submitForm.txt_QuestionAnswer = $" 환자 정보 : [{DataManager.inst.patient_Information}] 와 미리 제공된 답변 참고하여 잘 작성돼었는지 판단";
+        submitForm.txt_QuestionAnswer = $" 환자 정보 : [{DataManager.inst.patient_Information}] / 핵심 키워드 : {keywords} / 핵심 키워드와 환자 정보";
         submitForm.txt_userAnswer = userAnswer;
         _sm.str_Answers.Push(submitForm);
 

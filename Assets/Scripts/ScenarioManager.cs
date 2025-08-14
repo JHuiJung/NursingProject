@@ -164,6 +164,6 @@ public class ScenarioManager : MonoBehaviour
 
     public void SetScore()
     {
-        score = $"정답 개수 : {correctCnt} / 오답 개수 : {incorrectCnt} / 정답률 : {correctCnt/(correctCnt + incorrectCnt)}";
+        score = $"정답 개수 : {correctCnt} / 오답 개수 : {incorrectCnt} / 정답률 : 아직안됨";
     }
 }

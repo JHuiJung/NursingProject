@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -191,6 +192,21 @@ public class Simulation_FeedBack : SimulationBase
 
         print($"{name} : aiAsnwers Cnt :  {aiAnswers.Count} / userAnswer Cnt : {userAnswers.Count}");
 
+        if (aiAnswers.Count != userAnswers.Count)
+        {
+            print("=== aiAnswers 내용 ===");
+            for (int i = 0; i < aiAnswers.Count; i++)
+            {
+                print($"[{i}] {aiAnswers[i]}");
+            }
+
+            print("=== userAnswers 내용 ===");
+            for (int i = 0; i < userAnswers.Count; i++)
+            {
+                print($"[{i}] {userAnswers[i]}");
+            }
+        }
+
         // 카드 생성
         for (int i = 0; i < userAnswers.Count; i++)
         {
@@ -231,19 +247,21 @@ public class Simulation_FeedBack : SimulationBase
 
     List<string> GetQList(string rawText)
     {
-        // "Q숫자:" 또는 "Q숫자." 로 시작해서 다음 Q숫자: 또는 Q숫자. 또는 📊, 🎯 또는 끝까지 추출
-        string pattern = @"Q\d+[:.].*?(?=Q\d+[:.]|📊|🎯|$)";
+        string pattern = @"Q\d+(?:-\d+)?[:.]\s*((?:오답|정답):\s*.*?)(?=Q\d+(?:-\d+)?[:.]|📊|🎯|$)";
         MatchCollection matches = Regex.Matches(rawText, pattern, RegexOptions.Singleline);
 
         List<string> qSentences = new List<string>();
 
         foreach (Match match in matches)
         {
-            qSentences.Add(match.Value.Trim());
+            qSentences.Add(match.Groups[1].Value.Trim());
         }
 
         return qSentences;
     }
+
+
+
 
 
     IEnumerator AllUIOn()
