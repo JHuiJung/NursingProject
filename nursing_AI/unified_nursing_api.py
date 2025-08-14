@@ -37,6 +37,7 @@ async def root():
     """루트 엔드포인트"""
     return {"message": "Nursing API Server", "docs": "/docs"}
 
+
 def clova_speech_to_text(audio_file: UploadFile) -> str:
     """Clova Speech-to-Text API를 사용하여 음성을 텍스트로 변환"""
     # 오디오 파일을 임시 저장
@@ -86,6 +87,8 @@ def synthesize_text(text: str) -> str:
     )
 
     return base64.b64encode(response.audio_content).decode("utf-8")
+
+
 
 def preprocess_speech_text(text: str) -> dict:
     """
@@ -202,7 +205,9 @@ class ChatResponse(BaseModel):
 async def clova_stt(
     audio: UploadFile | None = File(None)
 ):
-    ai_text = clova_speech_to_text(audio);
+    ai_text = clova_speech_to_text(audio)
+
+    print(f"STT 음성 인식 결과: {ai_text} / {audio.filename} / {audio.size} / {audio.content_type}")
 
     return JSONResponse({
         "text": ai_text

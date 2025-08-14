@@ -10,12 +10,11 @@ public class Title_UserInfo : MonoBehaviour
     public TMP_InputField inputField_UserName;
     public TMP_InputField inputField_UserID;
     public GameObject obj_BTN_Submit;
-    public MicrophoneWebGL microphoneWebGL;
     public Dropdown deviceDropdown;
 
     private void Start()
     {
-        microphoneWebGL.RefreshDeviceList();
+        STT_TTS_Manager.inst.microphoneWebGL.RefreshDeviceList();
     }
 
     private void Update()
@@ -32,6 +31,11 @@ public class Title_UserInfo : MonoBehaviour
         
     }
 
+    private void LateUpdate()
+    {
+        OnDeviceListUpdated();
+    }
+
     public void Submit()
     {
         string _name = inputField_UserName.text;
@@ -40,10 +44,12 @@ public class Title_UserInfo : MonoBehaviour
         DataManager.inst.SetupUserInfo( _name, _id );
     }
 
-    public void OnDeviceListUpdated(List<Device> devices)
+    public void OnDeviceListUpdated()
     {
         if (!deviceDropdown) return;
-        print("hi");
+
+        List<Device> devices = STT_TTS_Manager.inst.devices;
+
         var options = new List<Dropdown.OptionData>();
         foreach (var device in devices)
         {
@@ -58,6 +64,7 @@ public class Title_UserInfo : MonoBehaviour
 
     public void MicChange()
     {
+        STT_TTS_Manager.inst.microphoneWebGL.micIndex = deviceDropdown.value;
     }
 
 }
