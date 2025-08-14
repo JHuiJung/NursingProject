@@ -58,12 +58,8 @@ public class STT_TTS_Manager : MonoBehaviour
         audioSource.clip = clip;
         audioSource.Play();
 #else
-            //yield return StartCoroutine(PlayAudioFromBytes(audioBytes));
-            //AudioClip clip = WavToAudioClip(audioBytes, "TTS_AudioClip");
-            //audioSource.clip = clip;
-            //audioSource.Play();
+            yield return StartCoroutine(PlayAudioFromBytes(audioBytes));
 
-            yield return StartCoroutine(PlayAudioFromBytesWeb(base64Audio));
 #endif
 
             // 재생이 끝날 때까지 대기
@@ -74,7 +70,6 @@ public class STT_TTS_Manager : MonoBehaviour
             Debug.LogError("TTS 응답 오류: " + request.error);
         }
     }
-
     // editer conversion from byte[] to AudioClip
     IEnumerator PlayAudioFromBytes(byte[] data)
     {
@@ -97,27 +92,52 @@ public class STT_TTS_Manager : MonoBehaviour
         }
     }
 
-    // WebGl conversion from mp3 to AudioClip
-
-    IEnumerator PlayAudioFromBytesWeb(string base64Audio)
+    // WebGl conversion from wav to AudioClip
+    public static AudioClip WavToAudioClip(byte[] wavFile, string clipName = "wavClip")
     {
-        // Base64 → data URI 형식으로 변환
-        string dataUri = "data:audio/mp3;base64," + base64Audio;
+        int channels = wavFile[22]; // 채널 수
+        int sampleRate = BitConverter.ToInt32(wavFile, 24);
+        int byteRate = BitConverter.ToInt32(wavFile, 28);
+        int bitsPerSample = wavFile[34];
 
-        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(dataUri, AudioType.MPEG))
+        Debug.Log($"WAV Info - channels: {channels}, sampleRate: {sampleRate}, bitsPerSample: {bitsPerSample}");
+
+        int subchunk2 = BitConverter.ToInt32(wavFile, 40);
+        int dataPos = 44;
+
+        int bytesPerSample = bitsPerSample / 8;
+        if (bytesPerSample == 0)
         {
-            yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.Success)
-            {
-                audioSource.clip = DownloadHandlerAudioClip.GetContent(www);
-                audioSource.Play();
-            }
-            else
-            {
-                Debug.LogError("WebGL TTS 재생 오류: " + www.error);
-            }
+            Debug.LogError("Invalid bitsPerSample in WAV data, cannot proceed.");
+            return null;
         }
+
+        int samples = subchunk2 / bytesPerSample;
+
+        float[] data = new float[samples];
+        int offset = dataPos;
+        for (int i = 0; i < samples; i++)
+        {
+            if (offset + 1 >= wavFile.Length)
+            {
+                Debug.LogWarning("Unexpected end of WAV data.");
+                break;
+            }
+            short sample = BitConverter.ToInt16(wavFile, offset);
+            data[i] = sample / 32768.0f;
+            offset += 2;
+        }
+
+        if (channels == 0 || sampleRate == 0)
+        {
+            Debug.LogError("Invalid WAV header values for channels or sampleRate.");
+            return null;
+        }
+
+        AudioClip audioClip = AudioClip.Create(clipName, samples / channels, channels, sampleRate, false);
+        audioClip.SetData(data, 0);
+
+        return audioClip;
     }
 
 
