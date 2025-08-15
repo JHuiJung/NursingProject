@@ -15,8 +15,10 @@ public class ScenarioManager : MonoBehaviour
 {
     public static ScenarioManager inst;
     // 시뮬레이션
+
+    [Header("Simulation & Scenario")]
     public List<SimulationBase> simulationBases = new List<SimulationBase>();
-    
+   
     public Stack<SubmitForm> str_Answers = new Stack<SubmitForm>();
 
     SimulationBase currentSimulation = null;
@@ -27,6 +29,8 @@ public class ScenarioManager : MonoBehaviour
     [SerializeField]
     bool isScenarioEnd = false;
 
+    [Header("Game info ")]
+    public string inGameTime = "6am";
 
     //---- 점수 계산 ----
     public string score="None";
@@ -37,6 +41,8 @@ public class ScenarioManager : MonoBehaviour
     public string totalTime = "None";
     private DateTime startTime;
     private DateTime endTime;
+
+    //---- 
 
     private void Awake()
     {
