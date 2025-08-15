@@ -114,7 +114,7 @@ public class Simulation_Paper : SimulationBase
         Tmp_Question.text = text_Question;
 
         txt_Date.text = DateTime.Now.ToString("yyyy.MM.dd");
-        txt_Time.text = DataManager.inst.time;
+        txt_Time.text = _sm.inGameTime;
         txt_Writer.text = DataManager.inst.userName;
 
     }

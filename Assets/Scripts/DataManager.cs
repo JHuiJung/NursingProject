@@ -23,7 +23,6 @@ public class DataManager : MonoBehaviour
     public string userName = "ȫ�浿";
     public string userID = "000000";
 
-    public string time = "9am";
     public string patient_Information = "";
 
     //---- google sheet ----

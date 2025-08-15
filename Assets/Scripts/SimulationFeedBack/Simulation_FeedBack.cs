@@ -247,17 +247,33 @@ public class Simulation_FeedBack : SimulationBase
 
     List<string> GetQList(string rawText)
     {
-        string pattern = @"Q\d+(?:-\d+)?[:.]\s*((?:오답|정답):\s*.*?)(?=Q\d+(?:-\d+)?[:.]|📊|🎯|$)";
-        MatchCollection matches = Regex.Matches(rawText, pattern, RegexOptions.Singleline);
-
         List<string> qSentences = new List<string>();
 
-        foreach (Match match in matches)
+        // 줄 단위 분리
+        string[] lines = rawText.Split(new[] { '\r', '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
+
+        foreach (string line in lines)
         {
-            qSentences.Add(match.Groups[1].Value.Trim());
+            string trimmed = line.Trim();
+            if (!string.IsNullOrEmpty(trimmed))
+            {
+                qSentences.Add(trimmed);
+            }
         }
 
         return qSentences;
+
+        //string pattern = @"Q\d+(?:-\d+)?[:.]\s*((?:오답|정답):\s*.*?)(?=Q\d+(?:-\d+)?[:.]|📊|🎯|$)";
+        //MatchCollection matches = Regex.Matches(rawText, pattern, RegexOptions.Singleline);
+
+        //List<string> qSentences = new List<string>();
+
+        //foreach (Match match in matches)
+        //{
+        //    qSentences.Add(match.Groups[1].Value.Trim());
+        //}
+
+        //return qSentences;
     }
 
 
