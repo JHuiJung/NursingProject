@@ -33,9 +33,9 @@ public class ScenarioManager : MonoBehaviour
     public string inGameTime = "6am";
 
     //---- 점수 계산 ----
-    public string score="None";
-    public int correctCnt = 0;
-    public int incorrectCnt = 0;
+    public int score_totalCorrect = 0;
+    public int score_totalinCorrect = 0;
+    public int score_Totalcnt = 0;
 
     //--- 시간 측정
     public string totalTime = "None";
@@ -94,7 +94,10 @@ public class ScenarioManager : MonoBehaviour
     {
         print($"해당 시나리오 종료 됨");
         isScenarioEnd = true;
-    }
+        score_totalCorrect = 0;
+        score_totalinCorrect = 0;
+        score_Totalcnt = 0;
+}
 
     [ContextMenu("Start Scenario")]
     public void StartScenario()
@@ -166,10 +169,5 @@ public class ScenarioManager : MonoBehaviour
         Debug.Log("총 경과 시간: " + duration.ToString(@"hh\:mm\:ss"));
 
         totalTime = duration.ToString(@"hh\:mm\:ss");
-    }
-
-    public void SetScore()
-    {
-        score = $"정답 개수 : {correctCnt} / 오답 개수 : {incorrectCnt} / 정답률 : 아직안됨";
     }
 }

@@ -48,8 +48,6 @@ public class Simulation_Save : SimulationBase
         _sm.TimeCntEnd();
 
         Obj_Area_Wait.SetActive(true);
-        _sm.SetScore();
-
 
         yield return StartCoroutine( DataManager.inst.CoSave() );
 

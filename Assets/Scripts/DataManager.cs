@@ -4,18 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
+using static NursingChatClient;
 
-[System.Serializable]
-public class GoogleData
-{
-    public string order, result, msg;
-    public string _id;
-    public string _name;
-    public string _scenario;
-    public string _date;
-    public string _score;
-    public string _totalTime;
-}
+
 public class DataManager : MonoBehaviour
 {
     public static DataManager inst;
@@ -24,6 +16,9 @@ public class DataManager : MonoBehaviour
     public string userID = "000000";
 
     public string patient_Information = "";
+
+    [Header("Score Json Save Form")]
+    public JsonScoreData jsonScoreData = new JsonScoreData();
 
     //---- google sheet ----
     const string URL = "https://script.google.com/macros/s/AKfycbw8jlHJTrJrFfFvg3IgFlkrgsvnj6zOt_WvazvhklhQwemtl1jbPhSUqY6W16FaeXM/exec";
@@ -59,6 +54,17 @@ public class DataManager : MonoBehaviour
 
     public IEnumerator CoSave()
     {
+
+        // jsonform 데이터 제작
+        jsonScoreData.SceneName = SceneManager.GetActiveScene().name;
+        jsonScoreData.score_total_Correct_Cnt = ScenarioManager.inst.score_totalCorrect;
+        jsonScoreData.score_total_inCorrect_Cnt = ScenarioManager.inst.score_totalinCorrect;
+        jsonScoreData.score_total_Cnt = ScenarioManager.inst.score_Totalcnt;
+        jsonScoreData.score_Percentage = ScenarioManager.inst.score_Totalcnt > 0 ? 
+            (float)ScenarioManager.inst.score_totalCorrect / ScenarioManager.inst.score_Totalcnt * 100 : 0f;
+
+        string scoreJson = JsonUtility.ToJson(jsonScoreData, true);
+
         string id = DataManager.inst.userID;
         string name = DataManager.inst.userName;
 
@@ -68,11 +74,14 @@ public class DataManager : MonoBehaviour
         form.AddField("name", name);
         form.AddField("scenario", SceneManager.GetActiveScene().name);
         form.AddField("date", DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss"));
-        form.AddField("score", ScenarioManager.inst.score);
+        form.AddField("score", scoreJson);
         form.AddField("totalTime", ScenarioManager.inst.totalTime);
         
 
         yield return StartCoroutine(Post(form));
+
+        // 폼 초기화
+        jsonScoreData = new JsonScoreData();
     }
 
     IEnumerator Post(WWWForm form)
@@ -104,5 +113,89 @@ public class DataManager : MonoBehaviour
         {
             print(GD.order + " 을 실행했습니다. 메세지 : " + GD.msg);
         }
+    }
+
+    public void Add_ScoreSaveForm(List<SubmitForm> userSubmitForm, List<string> ai_Answer, ChatResponse ai_Response, string sesstionName)
+    {   
+        ScoreSaveForm scoreSaveForm = new ScoreSaveForm();
+
+        scoreSaveForm.sesstionName = sesstionName;
+        scoreSaveForm.score_Correct_Cnt = ai_Response.correct_count;
+        scoreSaveForm.score_InCorrect_Cnt = ai_Response.incorrect_count;
+        scoreSaveForm.score_Total_Cnt = ai_Response.total_questions;
+        scoreSaveForm.score_Percentage = ai_Response.score_percentage;
+
+        for (int i = 0; i < userSubmitForm.Count; i++)
+        {
+            QustionAndisCorrect qAndIC = new QustionAndisCorrect();
+            qAndIC.question = userSubmitForm[i].txt_Question;
+            qAndIC.userAnswer = userSubmitForm[i].txt_userAnswer;
+            qAndIC.ai_Response = ai_Answer[i];
+
+            if (ai_Answer[i].Contains("정답"))
+            {
+                qAndIC.isCorrect = "O";
+            }
+            else if (ai_Answer[i].Contains("오답"))
+            {
+                qAndIC.isCorrect = "X";
+            }
+            else
+            {
+                qAndIC.isCorrect = "?"; // 혹시 정답/오답이 없을 때 대비
+            }
+
+            scoreSaveForm.ls_questionAndisCorrect.Add(qAndIC);
+        }
+
+
+        jsonScoreData.ls_scoreSaveForm.Add(scoreSaveForm);
+
+    }
+
+
+    [System.Serializable]
+    public class GoogleData
+    {
+        public string order, result, msg;
+        public string _id;
+        public string _name;
+        public string _scenario;
+        public string _date;
+        public string _score;
+        public string _totalTime;
+    }
+
+    
+
+    [System.Serializable]
+    public class QustionAndisCorrect
+    {
+        public string question = "";
+        public string userAnswer = "";
+        public string ai_Response = "";
+        public string isCorrect = "";
+    }
+
+    [System.Serializable]
+    public class ScoreSaveForm
+    {
+        public string sesstionName = "";
+        public int score_Correct_Cnt = 0;
+        public int score_InCorrect_Cnt = 0;
+        public int score_Total_Cnt = 0;
+        public float score_Percentage = 0f;
+        public List<QustionAndisCorrect> ls_questionAndisCorrect = new List<QustionAndisCorrect>();   
+    }
+
+    [System.Serializable]
+    public class JsonScoreData
+    {
+        public string SceneName = "";
+        public int score_total_Correct_Cnt = 0;
+        public int score_total_inCorrect_Cnt = 0;
+        public int score_total_Cnt = 0;
+        public float score_Percentage = 0f;
+        public List<ScoreSaveForm> ls_scoreSaveForm = new List<ScoreSaveForm>();
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
+using static DataManager;
 using static NursingChatClient;
 
 
@@ -35,6 +36,7 @@ public class Simulation_FeedBack : SimulationBase
     TMP_Text txt_PageNum;
 
     [Header("Pass or NonPass"), Space(10)]
+    public string sessionName = "Session 1";
     public float pass_Threshold = 80f;
     public int pass_MoveSimulationIndex = 1;
 
@@ -43,6 +45,7 @@ public class Simulation_FeedBack : SimulationBase
     public float DG_TimeDelta = 0.2f;
     public Ease DG_Ease = Ease.InOutQuad;
 
+    List<string> qSentences = new List<string>();
     bool isSimulationEnd = false;
     ScenarioManager _sm;
     public override void Enter(ScenarioManager SM)
@@ -61,6 +64,7 @@ public class Simulation_FeedBack : SimulationBase
 
     public override void Exit(ScenarioManager SM)
     {
+        isSimulationEnd = false;
 
         // ȭ�� ����
         Obj_CanvasChoice.SetActive(false);
@@ -68,11 +72,15 @@ public class Simulation_FeedBack : SimulationBase
         ResetSimulation();
     }
 
+    [ContextMenu("Pass")]
     public void Pass()
     {
+        AddScoreSaveForm();
+        UpdateScore();
         _sm.NextSimulation();
     }
 
+    [ContextMenu("NonPass")]
     public void NonPass()
     {
         _sm.MoveSimulation(pass_MoveSimulationIndex);
@@ -85,6 +93,9 @@ public class Simulation_FeedBack : SimulationBase
         // 카드 역순으로 삭제해야 안전
         list_FeedbackCards.Clear();
 
+        // 리스트 초기화
+        qSentences.Clear();
+
         for (int i = obj_Area_Cards.transform.childCount - 1; i >= 0; i--)
         {
             Destroy(obj_Area_Cards.transform.GetChild(i).gameObject);
@@ -92,6 +103,24 @@ public class Simulation_FeedBack : SimulationBase
 
         //%%%%%%%%%%%%%%%%%%%% �ӽ÷� �ǵ�� ����� ���� ���� %%%%%%%%%%%%%%%%%%%%%%
         _sm.str_Answers.Clear();
+    }
+
+    //세션에 대한 정보 데이터 매니저에 추가
+    void AddScoreSaveForm()
+    {
+        Stack<SubmitForm> userStack = new Stack<SubmitForm>(_sm.str_Answers.ToArray());
+        Stack<SubmitForm> tmpUserStack = new Stack<SubmitForm>(_sm.str_Answers);
+        List<SubmitForm> userAnswers = new List<SubmitForm>(tmpUserStack);
+        List<string> aiAnswers = new List<string>(qSentences);
+
+        DataManager.inst.Add_ScoreSaveForm(userAnswers, aiAnswers, aiResponse, sessionName);
+    }
+
+    void UpdateScore()
+    {
+        _sm.score_totalCorrect += aiResponse.correct_count;
+        _sm.score_totalinCorrect += aiResponse.incorrect_count;
+        _sm.score_Totalcnt += aiResponse.total_questions;
     }
 
     IEnumerator Setup()
@@ -117,7 +146,8 @@ public class Simulation_FeedBack : SimulationBase
         yield return StartCoroutine(NursingChatClient.SendQuestionToAPIUsing(_result));
 
         // 답변 리스트 반환
-        List<string> qSentences = GetQList(aiResponse.answer);
+        qSentences.Clear();
+        qSentences = GetQList(aiResponse.answer);
 
         // 답변 카드 생성
         DisplayAnswerCards(qSentences, tmpUserStack);
@@ -276,10 +306,6 @@ public class Simulation_FeedBack : SimulationBase
 
         //return qSentences;
     }
-
-
-
-
 
     IEnumerator AllUIOn()
     {
