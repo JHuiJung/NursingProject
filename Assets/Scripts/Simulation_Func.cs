@@ -8,7 +8,7 @@ public class Simulation_Func : SimulationBase
     public UnityEvent events;
     public override void Enter(ScenarioManager SM)
     {
-        events.Invoke();
+        events?.Invoke();
         SM.NextSimulation();
     }
 
