@@ -30404,6 +30404,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cba7bd76eba49b84da083eddb7a5cd27, type: 3}
+--- !u!1 &465546404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 465546405}
+  m_Layer: 0
+  m_Name: Session1_Package
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &465546405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465546404}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 911994546}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &468388940
 GameObject:
   m_ObjectHideFlags: 0
@@ -52582,7 +52613,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: 73ffbc06802a247cfb1b26f4ee67eba8, type: 3}
   m_Controller: {fileID: 9100000, guid: 704b79e00d0dda64b9a27a97fe3d5d74, type: 2}
   m_CullingMode: 1
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -60652,11 +60683,10 @@ Transform:
   - {fileID: 1824616302}
   - {fileID: 1692478297}
   - {fileID: 723866935}
+  - {fileID: 465546405}
   - {fileID: 118184951}
   - {fileID: 1785098924}
   - {fileID: 1703919865}
-  - {fileID: 237916509}
-  - {fileID: 629214596}
   - {fileID: 740105040}
   - {fileID: 1926342594}
   - {fileID: 1447922227}
@@ -60665,6 +60695,7 @@ Transform:
   - {fileID: 1602964743}
   - {fileID: 1610252386}
   - {fileID: 1647380650}
+  - {fileID: 629214596}
   - {fileID: 1006497391}
   - {fileID: 505717324}
   - {fileID: 471298398}
@@ -60676,6 +60707,7 @@ Transform:
   - {fileID: 1743506460}
   - {fileID: 2075739000}
   - {fileID: 912721738}
+  - {fileID: 237916509}
   - {fileID: 1988179661}
   - {fileID: 2076258309}
   - {fileID: 977796634}
@@ -145098,7 +145130,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: 73ffbc06802a247cfb1b26f4ee67eba8, type: 3}
   m_Controller: {fileID: 9100000, guid: 6c00250f0802b0c479045efa1051840e, type: 2}
   m_CullingMode: 1
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
