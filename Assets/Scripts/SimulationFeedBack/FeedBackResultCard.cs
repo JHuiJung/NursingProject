@@ -36,13 +36,13 @@ public class FeedBackResultCard : MonoBehaviour
 
         if (isPass)
         {
-            txt_Result.text = "합격";
+            txt_Result.text = "<color=#BEFFA3>합격</color>";
 
             obj_Btn_Pass.SetActive(true);
         }
         else
         {
-            txt_Result.text = "불합격";
+            txt_Result.text = "<color=#FF7A7A>불합격</color>";
 
             obj_Btn_NonPass.SetActive(true);
         }

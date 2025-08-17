@@ -17,6 +17,10 @@ public class Simulation_ImgComb : SimulationBase
     public string text_Question = "";
     public TMP_Text Tmp_Question;
 
+    [Header("피드백 영상 파일 이름"), Space(10)]
+    public string video_Name = "";
+
+    [Header("카드 정보"), Space(10)]
     public List<GameObject> answerSpaces = new List<GameObject>();
     public List<ImgComb_Entity> imgComb_Entities = new List<ImgComb_Entity>();
 
@@ -151,6 +155,7 @@ public class Simulation_ImgComb : SimulationBase
         submitForm.txt_Question = text_Question;
         submitForm.txt_QuestionAnswer = "미리 제공된 답변 참고";
         submitForm.txt_userAnswer = userAnswer;
+        submitForm.video_Name = video_Name;
 
         _sm.str_Answers.Push(submitForm);
 

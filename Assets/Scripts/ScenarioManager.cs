@@ -10,6 +10,7 @@ public class SubmitForm
     public string txt_Question;
     public string txt_userAnswer;
     public string txt_QuestionAnswer;
+    public string video_Name = "";
 }
 public class ScenarioManager : MonoBehaviour
 {

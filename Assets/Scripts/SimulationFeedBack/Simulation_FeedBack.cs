@@ -30,6 +30,7 @@ public class Simulation_FeedBack : SimulationBase
     public GameObject obj_Area_BTns;
     public GameObject pf_FeedbackCard;
     public GameObject pf_FeedbackResultCard;
+    public GameObject pf_FeedbackVideoCard;
     public List<GameObject> list_FeedbackCards = new List<GameObject>();
     public int currentCardNum = 0;
     [SerializeField]
@@ -244,11 +245,29 @@ public class Simulation_FeedBack : SimulationBase
             string aiAnswer = aiAnswers[i];
             SubmitForm userAnswer = userAnswers[i];
 
-            var np = Instantiate(pf_FeedbackCard, obj_Area_Cards.transform);
-            np.name = $"pf_FeedBackCard_{i + 1}";
-            FeedBackCard feedBackCard = np.GetComponent<FeedBackCard>();
+            GameObject np = null;
 
-            feedBackCard.Setup(userAnswer.txt_Question, userAnswer.txt_userAnswer, aiAnswer);
+            // 비디오 URL이 있는지 확인
+            if ( userAnswer.video_Name != "")
+            {
+                // 비디오가 포함된 카드 생성
+                np = Instantiate(pf_FeedbackVideoCard, obj_Area_Cards.transform);
+                np.name = $"pf_FeedBackVideoCard_{i + 1}";
+                FeedBackCard feedBackCard = np.GetComponent<FeedBackCard>();
+
+                feedBackCard.Setup(userAnswer.txt_Question, userAnswer.txt_userAnswer, aiAnswer, userAnswer.video_Name);
+            }
+            else
+            {
+                // 일반 카드 생성
+                np = Instantiate(pf_FeedbackCard, obj_Area_Cards.transform);
+                np.name = $"pf_FeedBackCard_{i + 1}";
+                FeedBackCard feedBackCard = np.GetComponent<FeedBackCard>();
+
+                feedBackCard.Setup(userAnswer.txt_Question, userAnswer.txt_userAnswer, aiAnswer);
+            }
+
+            
 
             list_FeedbackCards.Add(np);
 

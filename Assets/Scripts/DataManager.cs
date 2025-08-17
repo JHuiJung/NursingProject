@@ -132,21 +132,27 @@ public class DataManager : MonoBehaviour
             qAndIC.userAnswer = userSubmitForm[i].txt_userAnswer;
             qAndIC.ai_Response = ai_Answer[i];
 
-            if (ai_Answer[i].Contains("정답"))
+            string aiResp = ai_Answer[i];
+
+            int idxCorrect = aiResp.IndexOf("정답");
+            int idxWrong = aiResp.IndexOf("오답");
+
+            if (idxCorrect == -1 && idxWrong == -1)
             {
-                qAndIC.isCorrect = "O";
+                qAndIC.isCorrect = "?"; // 둘 다 없음
             }
-            else if (ai_Answer[i].Contains("오답"))
+            else if (idxCorrect != -1 && (idxWrong == -1 || idxCorrect < idxWrong))
             {
-                qAndIC.isCorrect = "X";
+                qAndIC.isCorrect = "O"; // "정답"이 먼저 등장
             }
-            else
+            else if (idxWrong != -1 && (idxCorrect == -1 || idxWrong < idxCorrect))
             {
-                qAndIC.isCorrect = "?"; // 혹시 정답/오답이 없을 때 대비
+                qAndIC.isCorrect = "X"; // "오답"이 먼저 등장
             }
 
             scoreSaveForm.ls_questionAndisCorrect.Add(qAndIC);
         }
+
 
 
         jsonScoreData.ls_scoreSaveForm.Add(scoreSaveForm);
