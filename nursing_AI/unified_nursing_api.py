@@ -75,10 +75,10 @@ def synthesize_text(text: str) -> str:
     )
 
     audio_config = texttospeech.AudioConfig(
-        audio_encoding=texttospeech.AudioEncoding.MP3,
-        sample_rate_hertz=24000,
-        speaking_rate=1.3,  # 더 빠른 속도로 날카로운 느낌
-        pitch=5.0           # 높은 톤으로 날카로운 목소리
+        audio_encoding=texttospeech.AudioEncoding.LINEAR16,
+        sample_rate_hertz=24000, # 더 빠른 속도로 날카로운 느낌
+        speaking_rate=1.2, # 높은 톤으로 날카로운 목소리
+        pitch=5.0
     )
 
     response = client.synthesize_speech(
