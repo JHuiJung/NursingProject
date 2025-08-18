@@ -121,6 +121,8 @@ public class Simulation_ImgComb : SimulationBase
     {
         isSimulationEnd = true;
 
+        Obj_Button.SetActive(false);
+
         imgComb_Entities.Sort((a, b) =>
         {
             int numA = a.number;

@@ -124,6 +124,8 @@ public class Simulation_Basket : SimulationBase
         if (isSimulationEnd) return;
         isSimulationEnd = true;
 
+        Obj_BTN_Submt.SetActive(false);
+
         // check 된 엔티티 만 답에 추가
 
         userAnswer += "담은 물품 [ ";

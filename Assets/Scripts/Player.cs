@@ -5,29 +5,41 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player inst;
 
     public bool isMove = false;
-    public List<Vector3> ls_MovePosition = new List<Vector3>();
-    public float DG_Time = 0.75f;
+    public float moveSpeed = 8f; // 이동 속도
     public Ease DG_Ease = Ease.Linear;
     public Animator animator;
 
-    [ContextMenu("move")]
-    public void GotoPosition()
+    private void Awake()
     {
-        StartCoroutine(MovePosition());
+        if (inst == null)
+        {
+            inst = this;
+        }
+    }
+    
+    public void SetAnimation(string aniName)
+    {
+        animator.SetTrigger(aniName);
     }
 
-    public IEnumerator MovePosition()
+    public void GotoPosition(List<Vector3> postions)
     {
-        if (ls_MovePosition.Count == 0) yield break;
+        StartCoroutine(MovePosition(postions));
+    }
+
+    public IEnumerator MovePosition(List<Vector3> postions)
+    {
+        if (postions.Count == 0) yield break;
 
         isMove = true;
 
         // 애니메이션 트리거
         animator.SetTrigger("walk");
 
-        foreach (Vector3 targetPosition in ls_MovePosition)
+        foreach (Vector3 targetPosition in postions)
         {
             // 회전 방향 계산
             Vector3 direction = (targetPosition - transform.position).normalized;
@@ -38,9 +50,14 @@ public class Player : MonoBehaviour
             }
 
             
-
+            // 거리 = 속도 시간
             // DOTween으로 이동
             bool moveDone = false;
+
+            float distance = Vector3.Distance(transform.position, targetPosition);
+
+            float DG_Time = distance / moveSpeed;
+
             transform.DOMove(targetPosition, DG_Time)
                      .SetEase(DG_Ease)
                      .OnComplete(() => moveDone = true);

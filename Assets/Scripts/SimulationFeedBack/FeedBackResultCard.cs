@@ -17,9 +17,7 @@ public class FeedBackResultCard : MonoBehaviour
     public GameObject obj_Btn_Pass;
     public GameObject obj_Btn_NonPass;
 
-    int _pass_MoveSimulationIndex = 0;
-
-    public void Setup(float passThreshold, ChatResponse userResponse, int pass_MoveSimulationIndex)
+    public void Setup(float passThreshold, ChatResponse userResponse)
     {
         int O = userResponse.correct_count;
         int X = userResponse.incorrect_count;
@@ -31,8 +29,6 @@ public class FeedBackResultCard : MonoBehaviour
         txt_X.text = $" {X} °³";
 
         bool isPass = rate >= passThreshold;
-
-        _pass_MoveSimulationIndex = pass_MoveSimulationIndex;
 
         if (isPass)
         {
@@ -56,7 +52,7 @@ public class FeedBackResultCard : MonoBehaviour
 
     public void NonPass()
     {
-        ScenarioManager.inst.MoveSimulation(_pass_MoveSimulationIndex);
+        ScenarioManager.inst.ReturnSimultion();
     }
 
 }

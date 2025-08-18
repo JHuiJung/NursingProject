@@ -17,6 +17,11 @@ public class Simulation_Conversation : SimulationBase
     GameObject Obj_CanvasChoice;
     public GameObject Obj_Area_Wait;
     public GameObject Obj_Btn_Next;
+    //카메라 메니저에 접근하기 위한 정보들
+    public string opposite_Cam_Name = "ParentSide";
+    public string opposite_Obj_Name = "Parent";
+    public string player_Cam_Name = "PlayerSide";
+    public string player_Obj_Name = "Player";
 
     [TextArea]
     [Header("질문 (반드시 포함할 것)"), Space(10)]
@@ -122,8 +127,17 @@ public class Simulation_Conversation : SimulationBase
         oppositeConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         oppositeConvbox.GetComponent<ConvBox>().Setup(opposite_Name, opposite_Content);
 
+        // Opposite Cam On
+        CameraManager.inst.SetCamera(opposite_Cam_Name);
+
+        // Opposite Ani Talk On
+        CameraManager.inst.SetAnimation(opposite_Obj_Name, "talk");
+
         // TTS�� ����
         yield return StartCoroutine(STT_TTS_Manager.inst.TTS(opposite_Content));
+
+        // Opposite Ani idle On
+        CameraManager.inst.SetAnimation(opposite_Obj_Name, "idle");
 
         // convBox ��ĭ �ø���
         yield return StartCoroutine(AllConvBoxMoveUp());
@@ -131,6 +145,9 @@ public class Simulation_Conversation : SimulationBase
         // BTN Active
         Obj_Btn_StartRecord.SetActive(true);
         Obj_Btn_StopRecord.SetActive(false);
+
+        // Player Cam On
+        CameraManager.inst.SetCamera(player_Cam_Name);
 
         // UserConvBox ����
         GameObject userConvbox = Instantiate(pf_User_ConvBox, Obj_Area_ConvBox.transform);
@@ -170,9 +187,18 @@ public class Simulation_Conversation : SimulationBase
         oppositeConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         oppositeConvbox.GetComponent<ConvBox>().Setup(opposite_Name, ai_responese);
 
+        // Opposite Cam On
+        CameraManager.inst.SetCamera(opposite_Cam_Name);
+
+        // Opposite Ani Talk On
+        CameraManager.inst.SetAnimation(opposite_Obj_Name, "talk");
+
         //tts�� ���
         //yield return StartCoroutine(PlayTTSQuestion(ai_responese));
         yield return StartCoroutine(STT_TTS_Manager.inst.TTS(ai_responese));
+
+        // Opposite Ani idle On
+        CameraManager.inst.SetAnimation(opposite_Obj_Name, "idle");
 
         // ���� ��ư ����
         Obj_Btn_Next.SetActive(true);
@@ -217,6 +243,9 @@ public class Simulation_Conversation : SimulationBase
             Obj_Btn_StartRecord.SetActive(false);
             Obj_Btn_StopRecord.SetActive(true);
 
+            // Player Ani Talk On
+            CameraManager.inst.SetAnimation(player_Obj_Name, "talk");
+
         }
         else
         {
@@ -224,6 +253,9 @@ public class Simulation_Conversation : SimulationBase
 
             Obj_Btn_StartRecord.SetActive(true);
             Obj_Btn_StopRecord.SetActive(false);
+
+            // Player Ani idle On
+            CameraManager.inst.SetAnimation(player_Obj_Name, "idle");
         }
 
         STT_TTS_Manager.inst.ToggleRecord();

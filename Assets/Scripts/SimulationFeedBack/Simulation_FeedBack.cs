@@ -39,7 +39,7 @@ public class Simulation_FeedBack : SimulationBase
     [Header("Pass or NonPass"), Space(10)]
     public string sessionName = "Session 1";
     public float pass_Threshold = 80f;
-    public int pass_MoveSimulationIndex = 1;
+    public GameObject obj_Pass_Package;
 
     [Header("Dotween"), Space(10)]
     public float DG_Time = 0.75f;
@@ -60,7 +60,13 @@ public class Simulation_FeedBack : SimulationBase
 
     public override void Excute(ScenarioManager SM)
     {
+        if(isSimulationEnd) return;
 
+        //나중에 지워야함
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            Pass();
+        }
     }
 
     public override void Exit(ScenarioManager SM)
@@ -78,13 +84,23 @@ public class Simulation_FeedBack : SimulationBase
     {
         AddScoreSaveForm();
         UpdateScore();
+
+        // 패스 패키지 생성
+        if( obj_Pass_Package != null)
+        {
+            var Obj_passPackage = Instantiate(obj_Pass_Package, transform.parent);
+            SimulationBase simulationBase = Obj_passPackage.GetComponent<SimulationBase>();
+            _sm.simulationBases.Add(simulationBase);
+            Obj_passPackage.transform.SetAsLastSibling();
+        }
+
         _sm.NextSimulation();
     }
 
     [ContextMenu("NonPass")]
     public void NonPass()
     {
-        _sm.MoveSimulation(pass_MoveSimulationIndex);
+        _sm.ReturnSimultion();
     }
 
     public override void ResetSimulation()
@@ -279,7 +295,7 @@ public class Simulation_FeedBack : SimulationBase
         np2.name = $"pf_FeedBackResultCard";
         FeedBackResultCard feedBackResultCard = np2.GetComponent<FeedBackResultCard>();
 
-        feedBackResultCard.Setup(pass_Threshold, aiResponse, pass_MoveSimulationIndex);
+        feedBackResultCard.Setup(pass_Threshold, aiResponse);
 
         list_FeedbackCards.Add(np2);
 

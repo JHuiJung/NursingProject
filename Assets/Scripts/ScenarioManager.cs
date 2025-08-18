@@ -24,8 +24,8 @@ public class ScenarioManager : MonoBehaviour
 
     SimulationBase currentSimulation = null;
 
-    [SerializeField]
-    int currentNumber = 0;
+    public int currentNumber = 0;
+    public int returnPoint = 0;
 
     [SerializeField]
     bool isScenarioEnd = false;
@@ -132,8 +132,28 @@ public class ScenarioManager : MonoBehaviour
         currentSimulation.Enter(this);
     }
 
-    void Setup()
+    public void ReturnSimultion()
     {
+        //시나리오 종료시 실행 안함
+        if (isScenarioEnd) return;
+
+        // 현재 번호를 리턴 포인트로 설정
+        currentNumber = returnPoint;
+
+        // 현재 시뮬레이션이 있으면 탈출
+        if (currentSimulation != null)
+        {
+            currentSimulation.Exit(this);
+        }
+
+        currentSimulation = simulationBases[currentNumber];
+        currentSimulation.Enter(this);
+    }
+
+    public void Setup()
+    {
+        simulationBases.Clear();
+
         //simulationControllers 채우기
 
         int childCount = this.transform.childCount;
