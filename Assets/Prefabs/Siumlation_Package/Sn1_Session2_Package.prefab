@@ -668,6 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94a903bd3cc95714195092cee4ad523d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   returnIndex: 1
   playerMovePositions: []
 --- !u!1 &535436806377989838
@@ -2432,6 +2433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1cc462e76d437468e509f597a15060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 10
   Obj_CanvasChoice: {fileID: 7631621907024985925}
   Obj_AreaTextInput: {fileID: 9165924289062862700}
   Obj_BTN_Submit: {fileID: 6312591110321580737}
@@ -4134,6 +4136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1cc462e76d437468e509f597a15060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 13
   Obj_CanvasChoice: {fileID: 82701489325608864}
   Obj_AreaTextInput: {fileID: 920652527427035014}
   Obj_BTN_Submit: {fileID: 7849431559619270835}
@@ -4814,6 +4817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a773a4f28962294d84d21a1a2fc2aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 11
   Obj_CanvasChoice: {fileID: 5463077955622950392}
   text_Question: "Q11: \uCC98\uBC29\uC744 \uCC38\uACE0\uD558\uC5EC \"Cefotaxime\uC740
     \uC5B4\uB5A4 \uC6A9\uC561\uC5D0 \uD76C\uC11D\uD574\uC57C \uD558\uB098\uC694?"
@@ -9446,6 +9450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa0e284220ab5546bb2b91bbf99ecf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   isInfinity: 0
   DelayTime: 1.5
 --- !u!1 &6312591110321580737
@@ -11652,6 +11657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbe7d22ecbfda14a92afaafc6a0f609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   NursingChatClient: {fileID: 4380549481762046625}
   aiResponse:
     answer: 
@@ -13904,6 +13910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a773a4f28962294d84d21a1a2fc2aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 12
   Obj_CanvasChoice: {fileID: 5170440492065959406}
   text_Question: "Q12: \"\uD76C\uC11D \uC2DC \uD544\uC694\uD55C \uC6A9\uB7C9\uC740?\""
   Tmp_Question: {fileID: 199442198563172017}

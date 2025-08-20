@@ -2227,6 +2227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbe7d22ecbfda14a92afaafc6a0f609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   NursingChatClient: {fileID: 1567885193616472584}
   aiResponse:
     answer: 
@@ -2300,6 +2301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa0e284220ab5546bb2b91bbf99ecf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   isInfinity: 0
   DelayTime: 1.5
 --- !u!1 &2329088570794745062
@@ -2635,6 +2637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94a903bd3cc95714195092cee4ad523d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   returnIndex: 1
   playerMovePositions: []
 --- !u!1 &2898852708907404275
@@ -2816,6 +2819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -3382,6 +3386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1cc462e76d437468e509f597a15060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 17
   Obj_CanvasChoice: {fileID: 7772793506538452092}
   Obj_AreaTextInput: {fileID: 6556284307998562901}
   Obj_BTN_Submit: {fileID: 3434583152824416154}
@@ -6361,12 +6366,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81c0005f8615d6e449a0b49967b6d0e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 18
   Obj_CanvasChoice: {fileID: 5267188363316500163}
   Obj_Area_Wait: {fileID: 1742202112335755277}
   text_Question: "Q18. \u201C\uD658\uC544\uC5D0\uAC8C \uC774\uBC88 \uC8FC\uC0AC\uC758
     \uBAA9\uC801\uACFC \uACFC\uC815\uC744 \uC124\uBA85\uD574\uC8FC\uC138\uC694.\u201D"
   Tmp_Question: {fileID: 1769540431339063079}
-  keywords: 
+  keywords: "[ \"\uC2EC\uC7A5\" ,\"\uC8FC\uC0AC\", \"\uAD00\", \"\uCC9C\uCC9C\uD788\"
+    ] "
   txt_VoiceUserInput: {fileID: 5506703848740372645}
   Obj_Area_VoiceInput: {fileID: 5917660210632494669}
   Obj_Btn_StartRecord: {fileID: 4800976671342512600}
@@ -7628,6 +7635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa0e284220ab5546bb2b91bbf99ecf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   isInfinity: 0
   DelayTime: 2.5
 --- !u!1 &6805306582014327504
@@ -8577,6 +8585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:

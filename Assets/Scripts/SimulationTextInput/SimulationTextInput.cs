@@ -6,6 +6,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using WebGLSupport;
 using static UnityEngine.Rendering.DebugUI;
 
 [System.Serializable]
@@ -123,17 +124,36 @@ public class SimulationTextInput : SimulationBase
         Obj_BTN_Submit.SetActive(false);
 
         string userAnswer = "";
-        foreach (var inputField in ls_textInputForm)
+        for (int i = 0; i < ls_textInputForm.Count; i++)
         {
-            userAnswer += $"{inputField.lable} : {inputField.userInput.text}";
-            userAnswer += "\n";
+            userAnswer += $"{ls_textInputForm[i].userInput.text}";
+            if (i != ls_textInputForm.Count - 1)
+            {
+                userAnswer += "/";
+            }
         }
+        //foreach (var inputField in ls_textInputForm)
+        //{
+        //    //userAnswer += $"{inputField.lable} : {inputField.userInput.text}";
+        //    //userAnswer += "\n";
+        //    userAnswer += $"{inputField.userInput.text} /";
+        //}
 
         string correctAnswer = "";
-        foreach (var inputField in ls_textInputForm)
+        //foreach (var inputField in ls_textInputForm)
+        //{
+        //    //correctAnswer += $"{inputField.lable} 의 정답 : {inputField.correctAnswer}";
+        //    //correctAnswer += "\n";
+        //    correctAnswer += $"{inputField.correctAnswer} /";
+        //}
+        for (int i = 0; i < ls_textInputForm.Count; i++)
         {
-            correctAnswer += $"{inputField.lable} 의 정답 : {inputField.correctAnswer}";
-            correctAnswer += "\n";
+            correctAnswer += $"{ls_textInputForm[i].correctAnswer}";
+
+            if (i != ls_textInputForm.Count - 1)
+            {
+                correctAnswer += "/";
+            }
         }
 
         // 정답 스택에 추가

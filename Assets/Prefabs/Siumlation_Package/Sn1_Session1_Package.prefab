@@ -1254,6 +1254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa0e284220ab5546bb2b91bbf99ecf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   isInfinity: 0
   DelayTime: 2.5
 --- !u!1 &254181969194810709
@@ -1750,6 +1751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -9786,6 +9788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a773a4f28962294d84d21a1a2fc2aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 7
   Obj_CanvasChoice: {fileID: 2690009261827157910}
   text_Question: "Q7. \uC774 \uC57D\uBB3C\uC740 \uD22C\uC5EC \uC2DC \uD76C\uC11D\uC774
     \uD544\uC694\uD55C\uAC00\uC694?"
@@ -11924,6 +11927,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa0e284220ab5546bb2b91bbf99ecf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   isInfinity: 0
   DelayTime: 2.5
 --- !u!1 &3120752088206699573
@@ -13478,6 +13482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -13879,6 +13884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94a903bd3cc95714195092cee4ad523d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   returnIndex: 1
   playerMovePositions:
   - {x: 52.03, y: 0, z: 10.54}
@@ -13927,6 +13933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa0e284220ab5546bb2b91bbf99ecf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   isInfinity: 0
   DelayTime: 6
 --- !u!1 &3687284148125613615
@@ -16999,6 +17006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a773a4f28962294d84d21a1a2fc2aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 6
   Obj_CanvasChoice: {fileID: 682251593546513423}
   text_Question: "Q6. \uC774 \uC57D\uBB3C\uC740 \uC5B4\uB5A4 \uACBD\uB85C\uB85C \uD22C\uC5EC
     \uB418\uB098\uC694?"
@@ -22612,6 +22620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a773a4f28962294d84d21a1a2fc2aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 2
   Obj_CanvasChoice: {fileID: 5282786308870353614}
   text_Question: "Q2. \uD22C\uC57D \uACBD\uB85C\uB294 \uBB34\uC5C7\uC778\uAC00\uC694?"
   Tmp_Question: {fileID: 2900913924036105297}
@@ -24891,6 +24900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a773a4f28962294d84d21a1a2fc2aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 5
   Obj_CanvasChoice: {fileID: 1743907508111106414}
   text_Question: "Q5. \uC774 \uC57D\uBB3C\uC758 \uC131\uBD84\uC740 \uBB34\uC5C7\uC778\uAC00\uC694?"
   Tmp_Question: {fileID: 1932324672129644073}
@@ -25989,6 +25999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -27528,6 +27539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de640c73fe4bf8b43a40f445928df25c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 9
   Obj_CanvasChoice: {fileID: 4919342120737130835}
   simulation_RandImg: {fileID: 7159358783112537886}
   useButtonSetup: 1
@@ -27823,6 +27835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de640c73fe4bf8b43a40f445928df25c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 8
   Obj_CanvasChoice: {fileID: 9201238035325291009}
   simulation_RandImg: {fileID: 7159358783112537886}
   useButtonSetup: 0
@@ -30971,6 +30984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d32edc0d6429a864d8609ae69cf97c59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 4
   Obj_CanvasChoice: {fileID: 299710172714635295}
   Obj_AreaTextInput: {fileID: 3515533807334263738}
   Obj_BTN_Submit: {fileID: 7541304952128214678}
@@ -31034,6 +31048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a773a4f28962294d84d21a1a2fc2aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 1
   Obj_CanvasChoice: {fileID: 7496545110424182775}
   text_Question: "Q1. \uC57D\uBB3C \uC774\uB984\uC740 \uBB34\uC5C7\uC778\uAC00\uC694?"
   Tmp_Question: {fileID: 6428102480141604154}
@@ -33370,6 +33385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbe7d22ecbfda14a92afaafc6a0f609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   NursingChatClient: {fileID: 2585298410079873878}
   aiResponse:
     answer: 
@@ -34752,6 +34768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -35233,6 +35250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -35292,6 +35310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -36181,6 +36200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a773a4f28962294d84d21a1a2fc2aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 3
   Obj_CanvasChoice: {fileID: 6791162773876028001}
   text_Question: "Q3. 1\uD68C \uC6A9\uB7C9\uC740 \uC5BC\uB9C8\uC778\uAC00\uC694?"
   Tmp_Question: {fileID: 468161761106332975}

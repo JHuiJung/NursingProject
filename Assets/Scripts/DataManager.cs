@@ -273,6 +273,19 @@ public class DataManager : MonoBehaviour
             }
         }
 
+        // 기본 오답 대답 반환
+        foreach (var form in csvForms)
+        {
+            if (form.sceneName == sceneName &&
+                form.index == Quiz_index &&
+                form.userAnswer == "d" &&
+                form.quizAnswer == "d"
+                )
+            {
+                return form.response;
+            }
+        }
+
         // 없으면 기본값 반환
         return "No response found.";
     }
