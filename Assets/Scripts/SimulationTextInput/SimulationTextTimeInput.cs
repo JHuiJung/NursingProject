@@ -121,7 +121,8 @@ public class SimulationTextTimeInput : SimulationBase
         submitForm.txt_Question = text_Question;
         submitForm.txt_QuestionAnswer = $"Answer :  {timeInput_Offset} 만큼 지난 시간인 {timeInput_Answer} 이 정답";
         submitForm.txt_userAnswer = answer;
-        _sm.str_Answers.Push(submitForm);
+        submitForm.quiz_index = simulation_Quiz_Index;
+        _sm.str_Answers.Add(submitForm);
 
         StartCoroutine(AllUiOff());
     }

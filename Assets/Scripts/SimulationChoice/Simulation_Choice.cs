@@ -17,7 +17,7 @@ public class Simulation_Choice : SimulationBase
     public TMP_Text Tmp_Question;
 
     // 정답
-    [Header("정답(필수로 입력 RandImg 제외)"), Space(10)]
+    [Header("정답(필수로 입력)"), Space(10)]
     public string text_Answer = "";
 
     // 오답 뭉치
@@ -175,9 +175,10 @@ public class Simulation_Choice : SimulationBase
         //정답 스택에 추가
         SubmitForm submitForm = new SubmitForm();
         submitForm.txt_Question = text_Question;
-        submitForm.txt_QuestionAnswer = "미리 제공된 답변 참고";
+        submitForm.txt_QuestionAnswer = text_Answer;
         submitForm.txt_userAnswer = answer;
-        _sm.str_Answers.Push(submitForm);
+        submitForm.quiz_index = simulation_Quiz_Index;
+        _sm.str_Answers.Add(submitForm);
 
 
         // DG UI OFF

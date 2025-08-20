@@ -282,8 +282,10 @@ public class Simulation_Conversation : SimulationBase
         submitForm.txt_QuestionAnswer = $"상대방 질문 : {opposite_Content} / 유저의 답변에 포함되야할 키워드 : {keywords} " +
             $" / 상대방의 질문과 키워드를 참고해서 정답, 오답 판별";
         submitForm.txt_userAnswer = answer;
+        submitForm.useAiAnswer = true;
+        submitForm.quiz_index = simulation_Quiz_Index;
 
-        _sm.str_Answers.Push(submitForm);
+        _sm.str_Answers.Add(submitForm);
 
         StartCoroutine(End_Simulation());
     }

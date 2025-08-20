@@ -158,8 +158,10 @@ public class Simulation_ImgComb : SimulationBase
         submitForm.txt_QuestionAnswer = "미리 제공된 답변 참고";
         submitForm.txt_userAnswer = userAnswer;
         submitForm.video_Name = video_Name;
+        submitForm.useAiAnswer = true; // AI 답변 사용 여부
+        submitForm.quiz_index = simulation_Quiz_Index;
 
-        _sm.str_Answers.Push(submitForm);
+        _sm.str_Answers.Add(submitForm);
 
         StartCoroutine(AllUiOff());
 

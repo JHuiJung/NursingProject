@@ -141,8 +141,8 @@ public class SimulationTextInput : SimulationBase
         submitForm.txt_Question = text_Question;
         submitForm.txt_QuestionAnswer = correctAnswer;
         submitForm.txt_userAnswer = userAnswer;
-
-        _sm.str_Answers.Push(submitForm);
+        submitForm.quiz_index = simulation_Quiz_Index;
+        _sm.str_Answers.Add(submitForm);
 
         StartCoroutine(AllUiOff());
     }

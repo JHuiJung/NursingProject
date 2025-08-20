@@ -140,7 +140,8 @@ public class Simulation_ChoiceRandImg : SimulationBase
         submitForm.txt_Question = Tmp_Question.text;
         submitForm.txt_QuestionAnswer = selectedAnswer.ls_Answers[answerNumber];
         submitForm.txt_userAnswer = answer;
-        _sm.str_Answers.Push(submitForm);
+        submitForm.quiz_index = simulation_Quiz_Index;
+        _sm.str_Answers.Add(submitForm);
 
 
         StartCoroutine(AllUiOff());

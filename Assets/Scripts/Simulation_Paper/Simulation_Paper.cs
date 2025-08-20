@@ -87,7 +87,9 @@ public class Simulation_Paper : SimulationBase
         submitForm.txt_Question = text_Question;
         submitForm.txt_QuestionAnswer = $" 환자 정보 : [{DataManager.inst.patient_Information}] / 핵심 키워드 : {keywords} / 핵심 키워드와 환자 정보";
         submitForm.txt_userAnswer = userAnswer;
-        _sm.str_Answers.Push(submitForm);
+        submitForm.useAiAnswer = true; // AI 답변 사용 여부
+        submitForm.quiz_index = simulation_Quiz_Index;
+        _sm.str_Answers.Add(submitForm);
 
         print($"{submitForm.txt_Question} / {submitForm.txt_QuestionAnswer} / {submitForm.txt_userAnswer}");
         StartCoroutine(AllUiOff());

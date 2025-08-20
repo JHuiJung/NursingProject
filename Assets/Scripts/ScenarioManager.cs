@@ -11,6 +11,8 @@ public class SubmitForm
     public string txt_userAnswer;
     public string txt_QuestionAnswer;
     public string video_Name = "";
+    public int quiz_index = 1;
+    public bool useAiAnswer = false;
 }
 public class ScenarioManager : MonoBehaviour
 {
@@ -20,7 +22,7 @@ public class ScenarioManager : MonoBehaviour
     [Header("Simulation & Scenario")]
     public List<SimulationBase> simulationBases = new List<SimulationBase>();
    
-    public Stack<SubmitForm> str_Answers = new Stack<SubmitForm>();
+    public List<SubmitForm> str_Answers = new List<SubmitForm>();
 
     SimulationBase currentSimulation = null;
 

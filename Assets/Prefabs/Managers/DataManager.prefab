@@ -44,10 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac37c2bf3598404479a5e87ac0686414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dataBank: {fileID: 11400000, guid: 2faac5217a3f00742bc4f329c9b9132c, type: 2}
   userName: "\uD64D\uAE38\uB3D9"
   userID: 000000
-  time: 9am
   patient_Information: 
+  jsonScoreData:
+    SceneName: 
+    score_total_Correct_Cnt: 0
+    score_total_inCorrect_Cnt: 0
+    score_total_Cnt: 0
+    score_Percentage: 0
+    ls_scoreSaveForm: []
   GD:
     order: 
     result: 
