@@ -3458,7 +3458,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB9C8\uC774\uD06C \uD14C\uC2A4\uD2B8\uB85C \uC774\uB3D9"
+  m_text: "\uB300\uD654 \uD14C\uC2A4\uD2B8\uB85C \uC774\uB3D9"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed21f0a27c3c7114783de72406ce063e, type: 2}
   m_sharedMaterial: {fileID: 2226096250028548758, guid: ed21f0a27c3c7114783de72406ce063e,
@@ -3646,6 +3646,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 686759380}
   m_CullTransparentMesh: 1
+--- !u!1 &696661021
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 696661022}
+  m_Layer: 0
+  m_Name: Cam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &696661022
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696661021}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 50.85887, y: -0.063587666, z: 6.359403}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1828215201}
+  - {fileID: 1783487590}
+  - {fileID: 2080238532}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &698687410
 GameObject:
   m_ObjectHideFlags: 0
@@ -4313,7 +4347,7 @@ GameObject:
   - component: {fileID: 846770094}
   - component: {fileID: 846770093}
   m_Layer: 5
-  m_Name: BTN_MicTest
+  m_Name: BTN_ConvTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4394,7 +4428,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Recorder
+          m_StringArgument: Scenario1_TEST
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &846770094
@@ -5179,79 +5213,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f873da293bd2ab248b418329fe95661f, type: 3}
---- !u!1 &968203898
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 968203900}
-  - component: {fileID: 968203899}
-  m_Layer: 0
-  m_Name: Mic
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &968203899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 968203898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65bfef609686d44c69d900c6e5df8ba0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isAutoStart: 0
-  micIndex: 0
-  readyEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  startEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  stopEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  deviceListEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2049005104}
-        m_TargetAssemblyTypeName: Title_UserInfo, Assembly-CSharp
-        m_MethodName: OnDeviceListUpdated
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  dataEvent:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!4 &968203900
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 968203898}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 960, y: 595, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &979326103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11859,12 +11820,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1783487588}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.12328463, z: 0, w: 0.9923714}
-  m_LocalPosition: {x: 50.572865, y: 2.6674292, z: 9.486072}
+  m_LocalRotation: {x: -0, y: 0.12328463, z: -0, w: 0.9923714}
+  m_LocalPosition: {x: -0.28600693, y: 2.7310169, z: 3.1266685}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 696661022}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1828215199
 GameObject:
@@ -11922,13 +11883,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1828215199}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -50.85887, y: 0.063587666, z: -6.359403}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1374958556}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 696661022}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1835245867 stripped
 Transform:
@@ -13791,12 +13752,12 @@ Transform:
   m_GameObject: {fileID: 2080238530}
   serializedVersion: 2
   m_LocalRotation: {x: 0.27110565, y: 0.70951426, z: -0.35142794, w: 0.54734784}
-  m_LocalPosition: {x: 50.572865, y: 2.6674292, z: 9.486072}
+  m_LocalPosition: {x: -0.28600693, y: 2.7310169, z: 3.1266685}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 704896576}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 696661022}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2080606402 stripped
 Transform:
@@ -13973,12 +13934,9 @@ SceneRoots:
   - {fileID: 1083991520}
   - {fileID: 1332282911}
   - {fileID: 21296390}
-  - {fileID: 4379728465037355494}
   - {fileID: 954582703}
-  - {fileID: 968203900}
-  - {fileID: 1766638737}
   - {fileID: 1388125489}
-  - {fileID: 1828215201}
-  - {fileID: 1783487590}
-  - {fileID: 2080238532}
   - {fileID: 962380190}
+  - {fileID: 696661022}
+  - {fileID: 4379728465037355494}
+  - {fileID: 1766638737}

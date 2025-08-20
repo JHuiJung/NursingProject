@@ -12,11 +12,6 @@ public class Title_UserInfo : MonoBehaviour
     public GameObject obj_BTN_Submit;
     public Dropdown deviceDropdown;
 
-    private void Start()
-    {
-        STT_TTS_Manager.inst.microphoneWebGL.RefreshDeviceList();
-    }
-
     private void Update()
     {
         if(string.IsNullOrEmpty(inputField_UserName.text) ||

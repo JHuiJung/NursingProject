@@ -17,8 +17,12 @@ public class FeedBackResultCard : MonoBehaviour
     public GameObject obj_Btn_Pass;
     public GameObject obj_Btn_NonPass;
 
+    Simulation_FeedBack simulation_FeedBack;
+
     public void Setup(float passThreshold, ChatResponse userResponse)
     {
+        simulation_FeedBack = transform.parent.parent.parent.GetComponent<Simulation_FeedBack>();
+
         int O = userResponse.correct_count;
         int X = userResponse.incorrect_count;
         float rate = userResponse.score_percentage;
@@ -47,12 +51,12 @@ public class FeedBackResultCard : MonoBehaviour
 
     public void Pass()
     {
-        ScenarioManager.inst.NextSimulation();
+        simulation_FeedBack.Pass();
     }
 
     public void NonPass()
     {
-        ScenarioManager.inst.ReturnSimultion();
+        simulation_FeedBack.NonPass();
     }
 
 }

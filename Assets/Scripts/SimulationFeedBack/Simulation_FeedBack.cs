@@ -82,6 +82,7 @@ public class Simulation_FeedBack : SimulationBase
     [ContextMenu("Pass")]
     public void Pass()
     {
+        print($"{sessionName} 이 통과(Pass) 됨");
         AddScoreSaveForm();
         UpdateScore();
 
@@ -100,6 +101,7 @@ public class Simulation_FeedBack : SimulationBase
     [ContextMenu("NonPass")]
     public void NonPass()
     {
+        print($"{sessionName} 이 불통과(NonPass) 됨");
         _sm.ReturnSimultion();
     }
 
