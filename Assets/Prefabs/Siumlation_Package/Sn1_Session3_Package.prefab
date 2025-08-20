@@ -3261,6 +3261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbe7d22ecbfda14a92afaafc6a0f609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   NursingChatClient: {fileID: 8100892540116735774}
   aiResponse:
     answer: 
@@ -7321,6 +7322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46f3da2ffe5b5fd41a9f402bc72ce5e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 15
   Obj_CanvasChoice: {fileID: 2618937686139540284}
   Obj_BTN_Submt: {fileID: 8321474876037830825}
   Obj_Area_Basket: {fileID: 8711304093181468293}
@@ -8167,6 +8169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94a903bd3cc95714195092cee4ad523d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   returnIndex: 1
   playerMovePositions: []
 --- !u!1 &4381378651402798303
@@ -16541,6 +16544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1425a8fb096b44487eeb1c509ecfea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 14
   Obj_CanvasChoice: {fileID: 5642847806477115057}
   text_Question: "Q14. \"\uD22C\uC57D \uC900\uBE44 \uC804 \uAC10\uC5FC\uC608\uBC29\uC744
     \uC704\uD55C \uC190 \uC53B\uAE30\uB97C \uC218\uD589\uD558\uC138\uC694.\u201C\n(
@@ -17666,6 +17670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1cc462e76d437468e509f597a15060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 16
   Obj_CanvasChoice: {fileID: 7936019571156064043}
   Obj_AreaTextInput: {fileID: 4157612814242313839}
   Obj_BTN_Submit: {fileID: 407297246950964588}
@@ -18982,6 +18987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa0e284220ab5546bb2b91bbf99ecf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   isInfinity: 0
   DelayTime: 1.5
 --- !u!1 &8675428594156408151

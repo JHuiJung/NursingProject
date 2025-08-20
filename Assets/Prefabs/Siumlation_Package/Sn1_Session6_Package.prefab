@@ -2451,6 +2451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -3454,6 +3455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -4313,6 +4315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94a903bd3cc95714195092cee4ad523d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   returnIndex: 1
   playerMovePositions:
   - {x: 52.03, y: 0, z: 10.74}
@@ -6627,6 +6630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa0e284220ab5546bb2b91bbf99ecf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   isInfinity: 0
   DelayTime: 2.5
 --- !u!1 &1509610061510356553
@@ -6748,6 +6752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -9485,6 +9490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -10139,6 +10145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -10520,6 +10527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -10904,6 +10912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa0e284220ab5546bb2b91bbf99ecf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   isInfinity: 0
   DelayTime: 2.5
 --- !u!1 &2705232409495431136
@@ -11494,6 +11503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de640c73fe4bf8b43a40f445928df25c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 22
   Obj_CanvasChoice: {fileID: 296361962406834964}
   simulation_RandImg: {fileID: 3811601641077070121}
   useButtonSetup: 0
@@ -11553,6 +11563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa0e284220ab5546bb2b91bbf99ecf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   isInfinity: 0
   DelayTime: 6
 --- !u!1 &2870315460623321551
@@ -12793,6 +12804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5dafb5f8337e542a3a94085875cfde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 24
   Obj_CanvasChoice: {fileID: 7717068992807407787}
   Obj_Area_Wait: {fileID: 4047091350119300914}
   Obj_Btn_Next: {fileID: 3520387658167881002}
@@ -12966,6 +12978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5dafb5f8337e542a3a94085875cfde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 24
   Obj_CanvasChoice: {fileID: 1282499685612382170}
   Obj_Area_Wait: {fileID: 6029555893509965842}
   Obj_Btn_Next: {fileID: 6334094973988834772}
@@ -13212,6 +13225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba63c4b897091948aec5e2eac3a56b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   Obj_CanvasChoice: {fileID: 7693445135722139630}
   Obj_BTN_Next: {fileID: 4565634495409845879}
   Pf_Result_Session_Card: {fileID: 7083025802504306742, guid: 633cb994c4c5022459db533eacaac955,
@@ -14454,6 +14468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa0e284220ab5546bb2b91bbf99ecf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   isInfinity: 0
   DelayTime: 2.5
 --- !u!1 &3542416650516921801
@@ -14844,6 +14859,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -20219,6 +20235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5dafb5f8337e542a3a94085875cfde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 24
   Obj_CanvasChoice: {fileID: 6331758551415994949}
   Obj_Area_Wait: {fileID: 4743111116836577095}
   Obj_Btn_Next: {fileID: 4134224203965545204}
@@ -21528,6 +21545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8423b808912054a8fa47ec53708560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 25
   Obj_CanvasChoice: {fileID: 2411111120076669952}
   Obj_Area_TextInput: {fileID: 6668631967589946337}
   Obj_BTN_Submit: {fileID: 7256096500809071135}
@@ -22400,6 +22418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77e6f1898ef5ffe4f835b5e24582a81f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   Obj_CanvasChoice: {fileID: 97618475478224494}
   Obj_Area_Wait: {fileID: 1767417393772061364}
   DG_Time: 0.75
@@ -28015,6 +28034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5dafb5f8337e542a3a94085875cfde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 24
   Obj_CanvasChoice: {fileID: 8555889764238209894}
   Obj_Area_Wait: {fileID: 4347962704090841038}
   Obj_Btn_Next: {fileID: 8098560915895706829}
@@ -29301,6 +29321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbe7d22ecbfda14a92afaafc6a0f609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   NursingChatClient: {fileID: 5935871049073475609}
   aiResponse:
     answer: 
@@ -29580,6 +29601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -32308,6 +32330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa0e284220ab5546bb2b91bbf99ecf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   isInfinity: 0
   DelayTime: 1.5
 --- !u!1 &7454951505855945127
@@ -32620,6 +32643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -33523,6 +33547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -33583,6 +33608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -34339,6 +34365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa0e284220ab5546bb2b91bbf99ecf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   isInfinity: 0
   DelayTime: 2.5
 --- !u!1 &7972667237444696325
@@ -38428,6 +38455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
   events:
     m_PersistentCalls:
       m_Calls:
@@ -38985,6 +39013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de640c73fe4bf8b43a40f445928df25c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 23
   Obj_CanvasChoice: {fileID: 3872118225969923718}
   simulation_RandImg: {fileID: 3811601641077070121}
   useButtonSetup: 0

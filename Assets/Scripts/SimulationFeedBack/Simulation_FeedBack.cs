@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static DataManager;
@@ -186,6 +185,7 @@ public class Simulation_FeedBack : SimulationBase
         // ai를 통해 정보 가져오기
         if (_result_For_AIAnswer != "")
         {
+            print($"{name} : AI에게 질문을 보냄 : {_result_For_AIAnswer}");
             yield return StartCoroutine(NursingChatClient.SendQuestionToAPIUsing(_result_For_AIAnswer));
 
             // 답변 리스트 반환
