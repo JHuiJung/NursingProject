@@ -107,6 +107,25 @@ public class CameraManager : MonoBehaviour
     {
         GameObject obj = GetGameObject(objName);
 
-        obj.GetComponent<Animator>().SetTrigger(aniName);
+        if (obj == null)
+        {
+            Debug.LogError($"SetAnimation 실패: {objName} 오브젝트를 찾을 수 없습니다.");
+            return;
+        }
+
+        // 자신 포함 자식 전체에서 Animator 찾기
+        Animator[] animators = obj.GetComponentsInChildren<Animator>();
+
+        if (animators.Length == 0)
+        {
+            Debug.LogWarning($"SetAnimation 실패: {objName} 및 자식 오브젝트에서 Animator를 찾을 수 없습니다.");
+            return;
+        }
+
+        foreach (Animator animator in animators)
+        {
+            animator.SetTrigger(aniName);
+        }
     }
+
 }

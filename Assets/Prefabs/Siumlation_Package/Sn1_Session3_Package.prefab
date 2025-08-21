@@ -1966,7 +1966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b67bdaf3f48e8546a11a697ea8ab79d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity_Title: "\uAC10\uC5FC\uC131 \uD3D0\uAE30\uBB3C \uBC15\uC2A4"
+  entity_Title: "\uC758\uB8CC\uD3D0\uAE30\uBB3C\uBC15\uC2A4"
   isCheck: 0
   DG_Time: 0.125
   DG_ease: 7
@@ -5241,7 +5241,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5629e8723f66830429ef98765b32eba4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 37cc39a95f47b7a4f867ef867d850824, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15842,7 +15842,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uAC10\uC5FC\uC131 \uD3D0\uAE30\uBB3C \uBC15\uC2A4"
+  m_text: "\uC758\uB8CC\uD3D0\uAE30\uBB3C\uBC15\uC2A4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed21f0a27c3c7114783de72406ce063e, type: 2}
   m_sharedMaterial: {fileID: 2226096250028548758, guid: ed21f0a27c3c7114783de72406ce063e,

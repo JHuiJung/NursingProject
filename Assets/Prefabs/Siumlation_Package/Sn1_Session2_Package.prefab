@@ -4140,7 +4140,7 @@ MonoBehaviour:
   Obj_CanvasChoice: {fileID: 82701489325608864}
   Obj_AreaTextInput: {fileID: 920652527427035014}
   Obj_BTN_Submit: {fileID: 7849431559619270835}
-  text_Question: "Q13: \"Cefotaxime 500mg\uC5D0 N/S 2cc \uD76C\uC11D \uD6C4\n \uCC98\uBC29\uB41C
+  text_Question: "Q13: \"Cefotaxime 500mg\uC5D0 N/S 10ml \uD76C\uC11D \uD6C4\n \uCC98\uBC29\uB41C
     1\uD68C \uC8FC\uC785 \uC6A9\uB7C9\uC744 \uACC4\uC0B0\uD558\uBA74?\u201C\n( \uC608\uC2DC
     : 1ml / \uB2E8\uC704 ml\uB97C \uD544\uC218\uB85C \uC785\uB825\uD558\uC2DC\uC624
     )"

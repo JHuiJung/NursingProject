@@ -22622,7 +22622,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simulation_Quiz_Index: 2
   Obj_CanvasChoice: {fileID: 5282786308870353614}
-  text_Question: "Q2. \uD22C\uC57D \uACBD\uB85C\uB294 \uBB34\uC5C7\uC778\uAC00\uC694?"
+  text_Question: "Q2 \uD574\uB2F9 \uC57D\uBB3C\uC758 \uD22C\uC57D \uACBD\uB85C\uB294
+    \uBB34\uC5C7\uC778\uAC00\uC694?"
   Tmp_Question: {fileID: 2900913924036105297}
   text_Answer: "\uC815\uB9E5\uD22C\uC5EC (IV)"
   text_Dummies:
@@ -31050,7 +31051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simulation_Quiz_Index: 1
   Obj_CanvasChoice: {fileID: 7496545110424182775}
-  text_Question: "Q1. \uC57D\uBB3C \uC774\uB984\uC740 \uBB34\uC5C7\uC778\uAC00\uC694?"
+  text_Question: "Q1. \uD22C\uC5EC\uD560 \uC57D\uBB3C\uC758 \uC774\uB984\uC740 \uBB34\uC5C7\uC778\uAC00\uC694?"
   Tmp_Question: {fileID: 6428102480141604154}
   text_Answer: Cefotaxime 0.5g Vial
   text_Dummies:
