@@ -1,3 +1,4 @@
+using DarkTonic.MasterAudio;
 using DG.Tweening;
 using System;
 using System.Collections;
@@ -84,6 +85,8 @@ public class Simulation_FeedBack : SimulationBase
     [ContextMenu("Pass")]
     public void Pass()
     {
+        MasterAudio.PlaySound("Button_Press");
+
         print($"{sessionName} 이 통과(Pass) 됨");
         AddScoreSaveForm();
         UpdateScore();
@@ -103,6 +106,8 @@ public class Simulation_FeedBack : SimulationBase
     [ContextMenu("NonPass")]
     public void NonPass()
     {
+        MasterAudio.PlaySound("Button_Press");
+
         print($"{sessionName} 이 불통과(NonPass) 됨");
         _sm.ReturnSimultion();
     }
@@ -326,6 +331,8 @@ public class Simulation_FeedBack : SimulationBase
 
         }
 
+        MasterAudio.PlaySound("Button_Press");
+
         txt_PageNum.text = $"{currentCardNum + 1} / {list_FeedbackCards.Count}";
     }
 
@@ -347,7 +354,7 @@ public class Simulation_FeedBack : SimulationBase
 
 
         }
-
+        MasterAudio.PlaySound("Button_Press");
         txt_PageNum.text = $"{currentCardNum + 1} / {list_FeedbackCards.Count}";
     }
 

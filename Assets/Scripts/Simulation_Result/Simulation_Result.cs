@@ -1,3 +1,4 @@
+using DarkTonic.MasterAudio;
 using DG.Tweening;
 using System;
 using System.Collections;
@@ -88,6 +89,7 @@ public class Simulation_Result : SimulationBase
     {
         isSimulationEnd = true;
 
+        MasterAudio.PlaySound("Button_Press");
         Obj_BTN_Next.SetActive(false);
         
         _sm.NextSimulation();

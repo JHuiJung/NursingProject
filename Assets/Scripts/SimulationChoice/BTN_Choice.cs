@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using DarkTonic.MasterAudio;
 using UnityEngine.EventSystems;
 
 public class BTN_Choice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -38,7 +39,9 @@ public class BTN_Choice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(simulation_Choice != null)
+        MasterAudio.PlaySound("Button_Hover");
+
+        if (simulation_Choice != null)
         {
             if (simulation_Choice.isSimulationEnd) return;
 

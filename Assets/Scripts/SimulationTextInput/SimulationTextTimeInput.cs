@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using DarkTonic.MasterAudio;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -110,6 +111,8 @@ public class SimulationTextTimeInput : SimulationBase
     public void SubmitAnswer()
     {
         if (isSimulationEnd) return;
+
+        MasterAudio.PlaySound("Button_Press");
 
         isSimulationEnd = true;
         Obj_BTN_Submit.SetActive(false);

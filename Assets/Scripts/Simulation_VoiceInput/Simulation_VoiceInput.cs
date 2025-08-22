@@ -10,6 +10,7 @@ using TMPro;
 using uMicrophoneWebGL;
 using UnityEngine;
 using UnityEngine.Networking;
+using DarkTonic.MasterAudio;
 
 public class Simulation_VoiceInput : SimulationBase
 {
@@ -136,6 +137,8 @@ public class Simulation_VoiceInput : SimulationBase
             Obj_Btn_StopRecord.SetActive(false);
         }
 
+        MasterAudio.PlaySound("Button_Press");
+
         STT_TTS_Manager.inst.ToggleRecord();
     }
 
@@ -147,6 +150,8 @@ public class Simulation_VoiceInput : SimulationBase
         Obj_BTN_Submit.SetActive(false);
         STT_TTS_Manager.inst.stt_Text = string.Empty;
         string answer = txt_VoiceUserInput.text;
+
+        MasterAudio.PlaySound("Button_Press");
 
         SubmitForm submitForm = new SubmitForm();
         submitForm.txt_Question = text_Question;

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 using TMPro;
+using DarkTonic.MasterAudio;
 
 public class ImgComb_Entity : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler
 {
@@ -54,6 +55,7 @@ public class ImgComb_Entity : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     
     public void OnPointerEnter(PointerEventData eventData)
     {
+        MasterAudio.PlaySound("Button_Hover");
         this.transform.SetAsLastSibling();
         rect.DOScale( DG_TargetScale, DG_Time).SetEase( DG_ease );
     }

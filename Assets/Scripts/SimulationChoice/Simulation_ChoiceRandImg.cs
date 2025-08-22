@@ -1,3 +1,4 @@
+using DarkTonic.MasterAudio;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
@@ -135,6 +136,8 @@ public class Simulation_ChoiceRandImg : SimulationBase
             print($"{answer} 은 오답 {selectedAnswer.ls_Answers[answerNumber]} 이 정답");
 
         }
+
+        MasterAudio.PlaySound("Button_Press");
 
         SubmitForm submitForm = new SubmitForm();
         submitForm.txt_Question = Tmp_Question.text;

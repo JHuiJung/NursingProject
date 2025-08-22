@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using DG.Tweening;
+using DarkTonic.MasterAudio;
 using TMPro;
 
 public class Simulation_Choice : SimulationBase
@@ -156,6 +157,8 @@ public class Simulation_Choice : SimulationBase
     public virtual void SubmitAnswer(string answer, int choosedNum)
     {
         isSimulationEnd=true;
+
+        MasterAudio.PlaySound("Button_Press");
 
         //print($"제출된 문항 : {answer} / 선택 번호 : {choosedNum}");
 

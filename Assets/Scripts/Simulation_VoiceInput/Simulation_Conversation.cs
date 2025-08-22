@@ -1,3 +1,4 @@
+using DarkTonic.MasterAudio;
 using DG.Tweening;
 using SimpleJSON;
 using System;
@@ -258,6 +259,8 @@ public class Simulation_Conversation : SimulationBase
             CameraManager.inst.SetAnimation(player_Obj_Name, "idle");
         }
 
+        MasterAudio.PlaySound("Button_Press");
+
         STT_TTS_Manager.inst.ToggleRecord();
     }
 
@@ -273,6 +276,8 @@ public class Simulation_Conversation : SimulationBase
         Obj_BTN_Submit.SetActive(false);
         Obj_Btn_StartRecord.SetActive(false);
         Obj_Btn_StopRecord.SetActive(false);
+
+        MasterAudio.PlaySound("Button_Press");
 
         string answer = txt_VoiceUserInput.text;
         STT_TTS_Manager.inst.stt_Text = string.Empty;

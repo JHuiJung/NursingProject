@@ -1,3 +1,4 @@
+using DarkTonic.MasterAudio;
 using DG.Tweening;
 using System;
 using System.Collections;
@@ -155,6 +156,8 @@ public class SimulationTextInput : SimulationBase
                 correctAnswer += "/";
             }
         }
+
+        MasterAudio.PlaySound("Button_Press");
 
         // 정답 스택에 추가
         SubmitForm submitForm = new SubmitForm();

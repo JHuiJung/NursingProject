@@ -1,3 +1,4 @@
+using DarkTonic.MasterAudio;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
@@ -142,6 +143,9 @@ public class Simulation_Basket : SimulationBase
         }
 
         userAnswer += " ] ";
+
+        MasterAudio.PlaySound("Button_Press");
+
         SubmitForm submitForm = new SubmitForm();
         submitForm.txt_Question = text_Question;
         submitForm.txt_QuestionAnswer = "미리 제공된 답변 참고";

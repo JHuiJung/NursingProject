@@ -1,3 +1,4 @@
+using DarkTonic.MasterAudio;
 using DG.Tweening;
 using System;
 using System.Collections;
@@ -82,6 +83,8 @@ public class Simulation_Paper : SimulationBase
                 userAnswer += "\n";
             }
         }
+
+        MasterAudio.PlaySound("Button_Press");
 
         SubmitForm submitForm = new SubmitForm();
         submitForm.txt_Question = text_Question;

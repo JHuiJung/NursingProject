@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using uMicrophoneWebGL;
+using DarkTonic.MasterAudio;
 
 public class Title_UserInfo : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class Title_UserInfo : MonoBehaviour
     {
         string _name = inputField_UserName.text;
         string _id = inputField_UserID.text;
+
+        MasterAudio.PlaySound("Button_Press");
 
         DataManager.inst.SetupUserInfo( _name, _id );
     }
