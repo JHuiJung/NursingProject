@@ -4483,11 +4483,11 @@ MonoBehaviour:
   - obj_name: ParentSit
     obj_position: {x: 50.750057, y: 0.148, z: 7.6198115}
     obj_rotation: {x: 0, y: 90, z: 0}
-    is_active: 1
+    is_active: 0
   - obj_name: Parent
     obj_position: {x: 51.85, y: 0, z: 7.6}
-    obj_rotation: {x: 0, y: 90, z: 0}
-    is_active: 0
+    obj_rotation: {x: 0, y: 0, z: 0}
+    is_active: 1
 --- !u!1 &1167975143752537222
 GameObject:
   m_ObjectHideFlags: 0
