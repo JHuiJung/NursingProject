@@ -120,7 +120,7 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public void Add_ScoreSaveForm(List<SubmitForm> userSubmitForm, List<string> ai_Answer, ChatResponse ai_Response, string sesstionName)
+    public void Add_ScoreSaveForm(List<SubmitForm> userSubmitForm,List<string> ls_response, List<string> ls_isCorrect, ChatResponse ai_Response, string sesstionName)
     {   
         ScoreSaveForm scoreSaveForm = new ScoreSaveForm();
 
@@ -135,25 +135,8 @@ public class DataManager : MonoBehaviour
             QustionAndisCorrect qAndIC = new QustionAndisCorrect();
             qAndIC.question = userSubmitForm[i].txt_Question;
             qAndIC.userAnswer = userSubmitForm[i].txt_userAnswer;
-            qAndIC.ai_Response = ai_Answer[i];
-
-            string aiResp = ai_Answer[i];
-
-            int idxCorrect = aiResp.IndexOf("정답");
-            int idxWrong = aiResp.IndexOf("오답");
-
-            if (idxCorrect == -1 && idxWrong == -1)
-            {
-                qAndIC.isCorrect = "?"; // 둘 다 없음
-            }
-            else if (idxCorrect != -1 && (idxWrong == -1 || idxCorrect < idxWrong))
-            {
-                qAndIC.isCorrect = "O"; // "정답"이 먼저 등장
-            }
-            else if (idxWrong != -1 && (idxCorrect == -1 || idxWrong < idxCorrect))
-            {
-                qAndIC.isCorrect = "X"; // "오답"이 먼저 등장
-            }
+            qAndIC.ai_Response = ls_response[i];
+            qAndIC.isCorrect = ls_isCorrect[i];
 
             scoreSaveForm.ls_questionAndisCorrect.Add(qAndIC);
         }

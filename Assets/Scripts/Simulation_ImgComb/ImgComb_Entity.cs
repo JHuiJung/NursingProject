@@ -28,6 +28,9 @@ public class ImgComb_Entity : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField, Space(10), Header("숫자 표시")] GameObject Obj_Num;
     [SerializeField] TMP_Text txt_Num;
 
+    [Header("Card Info"), Space(10)]
+    public GameObject obj_Info;
+
     private RectTransform rect;
     private Canvas canvas;
 
@@ -35,6 +38,11 @@ public class ImgComb_Entity : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         rect = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
+
+        if(obj_Info != null)
+        {
+            obj_Info.SetActive(false);
+        }
     }
 
     public void OnNumber(int num)
@@ -57,11 +65,21 @@ public class ImgComb_Entity : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         MasterAudio.PlaySound("Button_Hover");
         this.transform.SetAsLastSibling();
+        if (obj_Info != null)
+        {
+            obj_Info.SetActive(true);
+        }
+        
         rect.DOScale( DG_TargetScale, DG_Time).SetEase( DG_ease );
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (obj_Info != null)
+        {
+            obj_Info.SetActive(false);
+        }
+        
         rect.DOScale(Vector3.one, DG_Time).SetEase(DG_ease);
     }
 

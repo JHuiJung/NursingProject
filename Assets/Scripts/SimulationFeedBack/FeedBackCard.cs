@@ -1,7 +1,8 @@
+using DarkTonic.MasterAudio;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.Video;
 
 public class FeedBackCard : MonoBehaviour
@@ -36,6 +37,7 @@ public class FeedBackCard : MonoBehaviour
     {
         if (videoPlayer != null && videoPath != "")
         {
+            MasterAudio.PlaySound("Button_Press");
             videoPlayer.url = videoPath;
             videoPlayer.SetDirectAudioVolume(0, 0f); // Mute audio
             videoPlayer.Play();
@@ -50,6 +52,7 @@ public class FeedBackCard : MonoBehaviour
     {
         if (videoPlayer != null && videoPlayer.isPlaying)
         {
+            MasterAudio.PlaySound("Button_Press");
             videoPlayer.Stop();
         }
     }

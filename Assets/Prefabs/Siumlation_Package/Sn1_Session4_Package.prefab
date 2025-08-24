@@ -495,6 +495,66 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &357883570205504907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1613349695793627848}
+  - component: {fileID: 2531615297776046897}
+  m_Layer: 0
+  m_Name: Func_Obj_ParentOn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1613349695793627848
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357883570205504907}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3466629781319714207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2531615297776046897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357883570205504907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
+  events:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8672240629804307900}
+        m_TargetAssemblyTypeName: Simulation_SessionPackage, Assembly-CSharp
+        m_MethodName: SetActivieObj_On
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Parent
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &465287423281353241
 GameObject:
   m_ObjectHideFlags: 0
@@ -2617,6 +2677,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 907916887092316092}
+  - {fileID: 1613349695793627848}
+  - {fileID: 8660624089387276501}
   - {fileID: 4144167903259039611}
   - {fileID: 7911283658905648430}
   - {fileID: 83833384306257000}
@@ -3352,7 +3414,7 @@ GameObject:
   - component: {fileID: 83833384306257000}
   - component: {fileID: 1678909004451473888}
   m_Layer: 0
-  m_Name: Q17_S_TextInput
+  m_Name: Q16_S_TextInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3386,11 +3448,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1cc462e76d437468e509f597a15060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulation_Quiz_Index: 17
+  simulation_Quiz_Index: 16
   Obj_CanvasChoice: {fileID: 7772793506538452092}
   Obj_AreaTextInput: {fileID: 6556284307998562901}
   Obj_BTN_Submit: {fileID: 3434583152824416154}
-  text_Question: "Q17. \u201C\uD658\uC544\uC758 \uC774\uB984\uACFC \uB4F1\uB85D\uBC88\uD638\uB97C
+  text_Question: "Q16. \u201C\uD658\uC544\uC758 \uC774\uB984\uACFC \uB4F1\uB85D\uBC88\uD638\uB97C
     \uD655\uC778\uD558\uC138\uC694.\u201D"
   Tmp_Question: {fileID: 2983710586380309007}
   ls_textInputForm:
@@ -5416,6 +5478,66 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &5449731067973258230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8660624089387276501}
+  - component: {fileID: 7805448350715893996}
+  m_Layer: 0
+  m_Name: Func_Obj_ParentSitOff
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8660624089387276501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5449731067973258230}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3466629781319714207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7805448350715893996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5449731067973258230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
+  events:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8672240629804307900}
+        m_TargetAssemblyTypeName: Simulation_SessionPackage, Assembly-CSharp
+        m_MethodName: SetActivieObj_Off
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ParentSit
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &5511630470904301443
 GameObject:
   m_ObjectHideFlags: 0
@@ -6332,7 +6454,7 @@ GameObject:
   - component: {fileID: 662951939740261492}
   - component: {fileID: 1539481776223857305}
   m_Layer: 0
-  m_Name: Q18_S_VoiceInput
+  m_Name: Q17_S_VoiceInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6366,10 +6488,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81c0005f8615d6e449a0b49967b6d0e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulation_Quiz_Index: 18
+  simulation_Quiz_Index: 17
   Obj_CanvasChoice: {fileID: 5267188363316500163}
   Obj_Area_Wait: {fileID: 1742202112335755277}
-  text_Question: "Q18. \u201C\uD658\uC544\uC5D0\uAC8C \uC774\uBC88 \uC8FC\uC0AC\uC758
+  text_Question: "Q17. \u201C\uD658\uC544\uC5D0\uAC8C \uC774\uBC88 \uC8FC\uC0AC\uC758
     \uBAA9\uC801\uACFC \uACFC\uC815\uC744 \uC124\uBA85\uD574\uC8FC\uC138\uC694.\u201D"
   Tmp_Question: {fileID: 1769540431339063079}
   keywords: "[ \"\uC2EC\uC7A5\" ,\"\uC8FC\uC0AC\", \"\uAD00\", \"\uCC9C\uCC9C\uD788\"

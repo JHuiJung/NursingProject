@@ -1,3 +1,4 @@
+using DarkTonic.MasterAudio;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,6 +41,7 @@ public class BasketEntity : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        MasterAudio.PlaySound("Button_Hover");
         this.transform.SetAsLastSibling();
         rect.DOScale(DG_TargetScale, DG_Time).SetEase(DG_ease);
     }

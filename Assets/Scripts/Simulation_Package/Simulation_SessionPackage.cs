@@ -75,4 +75,9 @@ public class Simulation_SessionPackage : SimulationBase
     {
         CameraManager.inst.SetActivieObj_On(objName);
     }
+
+    public void NextSimulation()
+    {
+               _sm.NextSimulation();
+    }
 }

@@ -48,7 +48,8 @@ public class Simulation_FeedBack : SimulationBase
     public float DG_TimeDelta = 0.2f;
     public Ease DG_Ease = Ease.InOutQuad;
 
-    List<string> qSentences = new List<string>();
+    List<string> ls_isCorrect = new List<string>();
+    List<string> ls_Response = new List<string>();
     bool isSimulationEnd = false;
     ScenarioManager _sm;
     public override void Enter(ScenarioManager SM)
@@ -121,7 +122,8 @@ public class Simulation_FeedBack : SimulationBase
         list_FeedbackCards.Clear();
 
         // 리스트 초기화
-        qSentences.Clear();
+        ls_isCorrect.Clear();
+        ls_Response.Clear();
 
         for (int i = obj_Area_Cards.transform.childCount - 1; i >= 0; i--)
         {
@@ -135,12 +137,9 @@ public class Simulation_FeedBack : SimulationBase
     //세션에 대한 정보 데이터 매니저에 추가
     void AddScoreSaveForm()
     {
-        Stack<SubmitForm> userStack = new Stack<SubmitForm>(_sm.str_Answers.ToArray());
-        Stack<SubmitForm> tmpUserStack = new Stack<SubmitForm>(_sm.str_Answers);
-        List<SubmitForm> userAnswers = new List<SubmitForm>(tmpUserStack);
-        List<string> aiAnswers = new List<string>(qSentences);
+        List<SubmitForm> userAnswers = new List<SubmitForm>(_sm.str_Answers);
 
-        DataManager.inst.Add_ScoreSaveForm(userAnswers, aiAnswers, aiResponse, sessionName);
+        DataManager.inst.Add_ScoreSaveForm(userAnswers,ls_Response, ls_isCorrect, aiResponse, sessionName);
     }
 
     void UpdateScore()
@@ -163,7 +162,8 @@ public class Simulation_FeedBack : SimulationBase
         List<FeedBackCardForm> feedbackCardForms = new List<FeedBackCardForm>();
 
         // 답변 뭉치 초기화
-        qSentences.Clear();
+        ls_isCorrect.Clear();
+        ls_Response.Clear();
 
         // 1. ai 답변 카드 만들기
 
@@ -199,7 +199,31 @@ public class Simulation_FeedBack : SimulationBase
             // 카드 폼에 답변 추가
             for (int i = 0; i < aianswers.Count; i++)
             {
-                feedbackCardForms[i].answer = aianswers[i];
+                string aiResp = aianswers[i];
+
+                int idxCorrect = aiResp.IndexOf("정답");
+                int idxWrong = aiResp.IndexOf("오답");
+
+                string isCorrect = "X"; // 기본값은 오답
+
+                if (idxCorrect == -1 && idxWrong == -1)
+                {
+                    isCorrect = "?"; // 둘 다 없음
+                }
+                else if (idxCorrect != -1 && (idxWrong == -1 || idxCorrect < idxWrong))
+                {
+                    isCorrect = "O"; // "정답"이 먼저 등장
+                    aiResp = $"<color=#BEFFA3>정답 : </color> {aiResp}";
+                }
+                else if (idxWrong != -1 && (idxCorrect == -1 || idxWrong < idxCorrect))
+                {
+                    isCorrect = "X"; // "오답"이 먼저 등장
+                    aiResp = $"<color=#FF7A7A>오답 : </color> {aiResp}";
+                }
+
+                feedbackCardForms[i].display_Answer = aiResp;
+                feedbackCardForms[i].origin_Answer = aianswers[i];
+                feedbackCardForms[i].isCorrect = isCorrect;
             }
         }
 
@@ -223,23 +247,26 @@ public class Simulation_FeedBack : SimulationBase
 
                 print($"{name} : index : {normalCardForm.index} / Question : {normalCardForm.submitForm.txt_Question} / UserAnswer : {normalCardForm.submitForm.txt_userAnswer} / NormalAnswer : {normalAnswer}");
 
+                normalCardForm.origin_Answer = normalAnswer;
+
                 // 답변이 맞았으면 aiResponse의 개수 변경  
-                if(normalCardForm.submitForm.txt_userAnswer
+                if (normalCardForm.submitForm.txt_userAnswer
                     == normalCardForm.submitForm.txt_QuestionAnswer)
                 {
                     aiResponse.correct_count++;
                     // 카드 폼 답변란 추가
-                    normalCardForm.answer = "정답: " + normalAnswer;
+                    normalCardForm.display_Answer = "<color=#BEFFA3>정답 : </color>" + normalAnswer;
+                    normalCardForm.isCorrect = "O"; // 정답
                 }
                 else
                 {
                     aiResponse.incorrect_count++;
                     // 카드 폼 답변란 추가
-                    normalCardForm.answer = "오답: " + normalAnswer;
+                    normalCardForm.display_Answer = "<color=#FF7A7A>오답 : </color>" + normalAnswer;
+                    normalCardForm.isCorrect = "X";
                 }
 
                 aiResponse.total_questions++;
-
                 feedbackCardForms.Add(normalCardForm);
             }
         }
@@ -267,7 +294,8 @@ public class Simulation_FeedBack : SimulationBase
         //qentences 업데이트
         for(int i = 0; i < feedbackCardForms.Count; i++)
         {
-            qSentences.Add(feedbackCardForms[i].answer);
+            ls_Response.Add(feedbackCardForms[i].origin_Answer);
+            ls_isCorrect.Add(feedbackCardForms[i].isCorrect);
         }
 
         // 4. 결과 카드 추가
@@ -358,86 +386,9 @@ public class Simulation_FeedBack : SimulationBase
         txt_PageNum.text = $"{currentCardNum + 1} / {list_FeedbackCards.Count}";
     }
 
-    //void DisplayAnswerCards(List<string> aiAnswers, Stack<SubmitForm> userAnswersStack)
-    //{
-    //    List<SubmitForm> userAnswers = new List<SubmitForm>(userAnswersStack);
-
-    //    print($"{name} : aiAsnwers Cnt :  {aiAnswers.Count} / userAnswer Cnt : {userAnswers.Count}");
-
-    //    if (aiAnswers.Count != userAnswers.Count)
-    //    {
-    //        print("=== aiAnswers 내용 ===");
-    //        for (int i = 0; i < aiAnswers.Count; i++)
-    //        {
-    //            print($"[{i}] {aiAnswers[i]}");
-    //        }
-
-    //        print("=== userAnswers 내용 ===");
-    //        for (int i = 0; i < userAnswers.Count; i++)
-    //        {
-    //            print($"[{i}] {userAnswers[i]}");
-    //        }
-    //    }
-
-    //    // 카드 생성
-    //    for (int i = 0; i < userAnswers.Count; i++)
-    //    {
-    //        string aiAnswer = aiAnswers[i];
-    //        SubmitForm userAnswer = userAnswers[i];
-
-    //        GameObject np = null;
-
-    //        // 비디오 URL이 있는지 확인
-    //        if ( userAnswer.video_Name != "")
-    //        {
-    //            // 비디오가 포함된 카드 생성
-    //            np = Instantiate(pf_FeedbackVideoCard, obj_Area_Cards.transform);
-    //            np.name = $"pf_FeedBackVideoCard_{i + 1}";
-    //            FeedBackCard feedBackCard = np.GetComponent<FeedBackCard>();
-
-    //            feedBackCard.Setup(userAnswer.txt_Question, userAnswer.txt_userAnswer, aiAnswer, userAnswer.video_Name);
-    //        }
-    //        else
-    //        {
-    //            // 일반 카드 생성
-    //            np = Instantiate(pf_FeedbackCard, obj_Area_Cards.transform);
-    //            np.name = $"pf_FeedBackCard_{i + 1}";
-    //            FeedBackCard feedBackCard = np.GetComponent<FeedBackCard>();
-
-    //            feedBackCard.Setup(userAnswer.txt_Question, userAnswer.txt_userAnswer, aiAnswer);
-    //        }
-
-            
-
-    //        list_FeedbackCards.Add(np);
-
-
-    //    }
-
-    //    // 결과 카드 추가
-    //    var np2 = Instantiate(pf_FeedbackResultCard, obj_Area_Cards.transform);
-    //    np2.name = $"pf_FeedBackResultCard";
-    //    FeedBackResultCard feedBackResultCard = np2.GetComponent<FeedBackResultCard>();
-
-    //    feedBackResultCard.Setup(pass_Threshold, aiResponse);
-
-    //    list_FeedbackCards.Add(np2);
-
-
-    //    for (int i = 1; i < list_FeedbackCards.Count; i++)
-    //    {
-    //        list_FeedbackCards[i].SetActive(false);
-    //    }
-
-        
-    //    currentCardNum = 0;
-    //    txt_PageNum.text = $"{currentCardNum + 1} / {list_FeedbackCards.Count}";
-
-    //}
-
     void MakeAnswerCard(FeedBackCardForm userAnswerForm)
     {
-        string answer = userAnswerForm.answer;
+        string answer = userAnswerForm.display_Answer;
         SubmitForm userAnswer = userAnswerForm.submitForm;
         int index = userAnswerForm.index;
 
@@ -467,7 +418,6 @@ public class Simulation_FeedBack : SimulationBase
 
         list_FeedbackCards.Add(np);
     }
-
 
     List<string> GetQList(string rawText)
     {
@@ -522,5 +472,7 @@ public class FeedBackCardForm
 {
     public int index = 0;
     public SubmitForm submitForm = null;
-    public string answer = "";
+    public string display_Answer = "";
+    public string origin_Answer = "";
+    public string isCorrect = "X"; // 기본값은 오답
 }
