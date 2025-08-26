@@ -39,11 +39,13 @@ public class Simulation_Conversation : SimulationBase
     public GameObject Obj_BTN_Submit;
 
     [Header("ConvBox"), Space(10)]
+    public int minConvCount = 2;
     public GameObject Obj_Area_ConvBox;
     public GameObject pf_User_ConvBox;
     public GameObject pf_Opposite_ConvBox;
     public string opposite_Name = "보호자";
     public string opposite_Content = "";
+    public int currentConvCount = 0;
 
     [Header("Dotween"), Space(10)]
     public float DG_Time = 0.75f;
@@ -73,7 +75,17 @@ public class Simulation_Conversation : SimulationBase
         if (isSimulationEnd) return;
 
         CheckSTT_Text();
-        
+        CheckConvCnt();
+
+
+    }
+
+    public void CheckConvCnt()
+    {
+        if(currentConvCount >= minConvCount && !isSimulationEnd)
+        {
+            Obj_Btn_Next.SetActive(true);
+        }
     }
 
     public override void Exit(ScenarioManager SM)
@@ -87,6 +99,7 @@ public class Simulation_Conversation : SimulationBase
 
         txt_VoiceUserInput.text = "";
         aiParentResponse = "";
+        currentConvCount = 0;
 
         Obj_Btn_StartRecord.SetActive(false);
         Obj_Btn_StopRecord.SetActive(false);
@@ -114,6 +127,7 @@ public class Simulation_Conversation : SimulationBase
 
     void Setup()
     {
+        currentConvCount = 0;
         Tmp_Question.text = text_Question;
     }
     //----- �ùķ��̼� ���� ------
@@ -121,7 +135,14 @@ public class Simulation_Conversation : SimulationBase
     IEnumerator Start_Simulation()
     {
         
+        yield return StartCoroutine(ParentReadQuestion());
 
+        yield return StartCoroutine(MakeUserConvBox());
+
+    }
+
+    IEnumerator ParentReadQuestion()
+    {
         // Opposite ConvBox ����
         GameObject oppositeConvbox = Instantiate(pf_Opposite_ConvBox, Obj_Area_ConvBox.transform);
         oppositeConvbox.transform.SetAsLastSibling();
@@ -139,26 +160,9 @@ public class Simulation_Conversation : SimulationBase
 
         // Opposite Ani idle On
         CameraManager.inst.SetAnimation(opposite_Obj_Name, "idle");
-
-        // convBox ��ĭ �ø���
-        yield return StartCoroutine(AllConvBoxMoveUp());
-
-        // BTN Active
-        Obj_Btn_StartRecord.SetActive(true);
-        Obj_Btn_StopRecord.SetActive(false);
-
-        // Player Cam On
-        CameraManager.inst.SetCamera(player_Cam_Name);
-
-        // UserConvBox ����
-        GameObject userConvbox = Instantiate(pf_User_ConvBox, Obj_Area_ConvBox.transform);
-        userConvbox.transform.SetAsLastSibling();
-        userConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        userConvbox.GetComponent<ConvBox>().Setup($"{DataManager.inst.userName} 간호사", "");
-        txt_VoiceUserInput = userConvbox.GetComponent<ConvBox>().txt_Content;
     }
 
-    IEnumerator End_Simulation()
+    IEnumerator ParentResponse()
     {
         // ai ���� �亯 �ޱ�
         Obj_Btn_StartRecord.SetActive(false);
@@ -200,16 +204,83 @@ public class Simulation_Conversation : SimulationBase
 
         // Opposite Ani idle On
         CameraManager.inst.SetAnimation(opposite_Obj_Name, "idle");
-
-        // ���� ��ư ����
-        Obj_Btn_Next.SetActive(true);
-
-
-
     }
+
+    IEnumerator MakeUserConvBox()
+    {
+        // convBox ��ĭ �ø���
+        yield return StartCoroutine(AllConvBoxMoveUp());
+
+        // BTN Active
+        Obj_Btn_StartRecord.SetActive(true);
+        Obj_Btn_StopRecord.SetActive(false);
+
+        // Player Cam On
+        CameraManager.inst.SetCamera(player_Cam_Name);
+
+        // UserConvBox ����
+        GameObject userConvbox = Instantiate(pf_User_ConvBox, Obj_Area_ConvBox.transform);
+        userConvbox.transform.SetAsLastSibling();
+        userConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        userConvbox.GetComponent<ConvBox>().Setup($"{DataManager.inst.userName} 간호사", "");
+        txt_VoiceUserInput = userConvbox.GetComponent<ConvBox>().txt_Content;
+    }
+
+    IEnumerator NextConv()
+    {
+        yield return StartCoroutine(ParentResponse());
+
+        yield return StartCoroutine(MakeUserConvBox());
+    }
+
+    //IEnumerator End_Simulation()
+    //{
+    //    // ai ���� �亯 �ޱ�
+    //    Obj_Btn_StartRecord.SetActive(false);
+    //    Obj_Btn_StopRecord.SetActive(false);
+
+    //    Obj_Area_Wait.SetActive(true);
+
+    //    yield return StartCoroutine(GetParentResponse());
+    //    string ai_responese = "";
+    //    if (!string.IsNullOrEmpty(aiParentResponse))
+    //    {
+    //        ai_responese = aiParentResponse;
+    //    }
+    //    else
+    //    {
+    //        ai_responese = "ai응답이 없습니다";
+    //    }
+
+    //    Obj_Area_Wait.SetActive(false);
+
+    //    // convBox ��ĭ �ø���
+    //    yield return StartCoroutine(AllConvBoxMoveUp());
+
+    //    // Opposite ConvBox ����
+    //    GameObject oppositeConvbox = Instantiate(pf_Opposite_ConvBox, Obj_Area_ConvBox.transform);
+    //    oppositeConvbox.transform.SetAsLastSibling();
+    //    oppositeConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+    //    oppositeConvbox.GetComponent<ConvBox>().Setup(opposite_Name, ai_responese);
+
+    //    // Opposite Cam On
+    //    CameraManager.inst.SetCamera(opposite_Cam_Name);
+
+    //    // Opposite Ani Talk On
+    //    CameraManager.inst.SetAnimation(opposite_Obj_Name, "talk");
+
+    //    //tts�� ���
+    //    //yield return StartCoroutine(PlayTTSQuestion(ai_responese));
+    //    yield return StartCoroutine(STT_TTS_Manager.inst.TTS(ai_responese));
+
+    //    // Opposite Ani idle On
+    //    CameraManager.inst.SetAnimation(opposite_Obj_Name, "idle");
+
+    //}
 
     public void Next()
     {
+        isSimulationEnd = true;
         StartCoroutine(AllUiOff());
     }
 
@@ -272,7 +343,7 @@ public class Simulation_Conversation : SimulationBase
     {
         if (isSimulationEnd) return;
 
-        isSimulationEnd = true;
+        
         Obj_BTN_Submit.SetActive(false);
         Obj_Btn_StartRecord.SetActive(false);
         Obj_Btn_StopRecord.SetActive(false);
@@ -282,6 +353,8 @@ public class Simulation_Conversation : SimulationBase
         string answer = txt_VoiceUserInput.text;
         STT_TTS_Manager.inst.stt_Text = string.Empty;
 
+
+        /*
         SubmitForm submitForm = new SubmitForm();
         submitForm.txt_Question = text_Question;
         submitForm.txt_QuestionAnswer = $"상대방 질문 : {opposite_Content} / 유저의 답변에 포함되야할 키워드 : {keywords} " +
@@ -291,8 +364,11 @@ public class Simulation_Conversation : SimulationBase
         submitForm.quiz_index = simulation_Quiz_Index;
 
         _sm.str_Answers.Add(submitForm);
+        */
 
-        StartCoroutine(End_Simulation());
+        currentConvCount++;
+
+        StartCoroutine(NextConv());
     }
 
     public IEnumerator GetParentResponse()
