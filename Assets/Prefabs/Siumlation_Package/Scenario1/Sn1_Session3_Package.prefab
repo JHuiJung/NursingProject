@@ -4526,9 +4526,9 @@ MonoBehaviour:
           m_StringArgument: Button_Press
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4345283648813606550}
-        m_TargetAssemblyTypeName: SimulationTextInput, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 8199438087296726086}
+        m_TargetAssemblyTypeName: Simulation_SessionPackage, Assembly-CSharp
+        m_MethodName: NextSimulation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9439,8 +9439,8 @@ MonoBehaviour:
   Obj_Area_TimeOut: {fileID: 1109633711651182498}
   objs_SetupForms:
   - obj_name: Player
-    obj_position: {x: 47.74, y: 0, z: 10.74}
-    obj_rotation: {x: 0, y: 90, z: 0}
+    obj_position: {x: 52.03, y: 0, z: 8.7}
+    obj_rotation: {x: 0, y: 180, z: 0}
     is_active: 1
   - obj_name: ParentSit
     obj_position: {x: 50.750057, y: 0.148, z: 7.6198115}
@@ -21340,7 +21340,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Q15. \uC57D\uBB3C\uC774 \uD63C\uD569\uB41C \uC8FC\uC0AC\uAE30\uC758 \uB77C\uBCA8\uC744
+  m_text: "Q14. \uC57D\uBB3C\uC774 \uD63C\uD569\uB41C \uC8FC\uC0AC\uAE30\uC758 \uB77C\uBCA8\uC744
     \uBD80\uCC29\uD569\uB2C8\uB2E4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed21f0a27c3c7114783de72406ce063e, type: 2}

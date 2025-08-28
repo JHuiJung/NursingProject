@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33ce3cedd71c9406daa0b718c0154db2, type: 3}
   m_Name: APIConfig
   m_EditorClassIdentifier: 
-  baseUrl: https://4515e189f81b.ngrok-free.app
+  baseUrl: https://412741c60ce8.ngrok-free.app
   chatEndpoint: /chat
   parentChatEndpoint: /parent_chat
   parentChatFollowupEndpoint: /parent_chat/followup

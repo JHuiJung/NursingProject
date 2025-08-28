@@ -68,6 +68,9 @@ public class Simulation_ChoiceRandImg : SimulationBase
     }
     public override void ResetSimulation()
     {
+        simulation_RandImg.obj_AreaImage.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -800f);
+        simulation_RandImg.gameObject.SetActive(false);
+
         foreach (BTN_Choice button in BTN_Choices)
         {
             button.BtnOff();
@@ -115,6 +118,8 @@ public class Simulation_ChoiceRandImg : SimulationBase
     {
         // 질문 텍스트 수정
         Tmp_Question.text = text_Question;
+
+        simulation_RandImg.gameObject.SetActive(true);
     }
 
     public void SubmitAnswer(string answer, int choosedNum)
@@ -152,6 +157,8 @@ public class Simulation_ChoiceRandImg : SimulationBase
 
     IEnumerator AllUiOn()
     {
+        simulation_RandImg.UiOn();
+
         // 타이틀 DG
         RectTransform rect_title = Tmp_Question.gameObject.transform.parent
             .GetComponent<RectTransform>();
@@ -175,6 +182,8 @@ public class Simulation_ChoiceRandImg : SimulationBase
 
     IEnumerator AllUiOff()
     {
+        simulation_RandImg.UiOff();
+
         // 타이틀 DG
         RectTransform rect_title = Tmp_Question.gameObject.transform.parent
             .GetComponent<RectTransform>();

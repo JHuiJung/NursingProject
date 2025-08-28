@@ -3640,8 +3640,8 @@ MonoBehaviour:
   Obj_Area_TimeOut: {fileID: 6457001210335272505}
   objs_SetupForms:
   - obj_name: Player
-    obj_position: {x: 47.74, y: 0, z: 10.74}
-    obj_rotation: {x: 0, y: 90, z: 0}
+    obj_position: {x: 52.03, y: 0, z: 8.7}
+    obj_rotation: {x: 0, y: 180, z: 0}
     is_active: 1
   - obj_name: ParentSit
     obj_position: {x: 50.750057, y: 0.148, z: 7.6198115}
@@ -5904,7 +5904,7 @@ MonoBehaviour:
   opposite_Obj_Name: Parent
   player_Cam_Name: PlayerSide
   player_Obj_Name: Player
-  text_Question: "Q23-1. \u201C\uD658\uC544 \uBD80\uBAA8\uB2D8\uC5D0\uAC8C \uD22C\uC57D
+  text_Question: "Q23. \u201C\uD658\uC544 \uBD80\uBAA8\uB2D8\uC5D0\uAC8C \uD22C\uC57D
     \uD6C4 \uC8FC\uC758\uC0AC\uD56D\uC744 \uC548\uB0B4\uD558\uC138\uC694.\u201D"
   Tmp_Question: {fileID: 7767394528956275481}
   keywords: "[ \"\uD56D\uC0DD\uC81C\" , \"\uAC10\uC5FC\", \"\uC5FC\uC99D\" ]"
@@ -21656,6 +21656,7 @@ MonoBehaviour:
     - "\uBE44\uC815\uC0C1, \uC774\uC0C1 \uBC18\uC751 \uBC1C\uC0DD"
     - "\uC8FC\uC785 \uC911\uB2E8, \uBCF4\uACE0"
   Obj_targetImg: {fileID: 4696193727810326195}
+  obj_AreaImage: {fileID: 7796424225630577034}
   selectedTA:
     sprite: {fileID: 0}
     ls_Answers: []
@@ -24032,6 +24033,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 3811601641077070121}
+        m_TargetAssemblyTypeName: Simulation_RandImg, Assembly-CSharp
+        m_MethodName: Setup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &7791134601229464280
 GameObject:
   m_ObjectHideFlags: 0
@@ -24214,8 +24227,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2844509754797221849}
   - component: {fileID: 7578333056543219933}
-  - component: {fileID: 764648322353185212}
-  - component: {fileID: 4306699344991922833}
   m_Layer: 5
   m_Name: AreaImage
   m_TagString: Untagged
@@ -24261,129 +24272,6 @@ MonoBehaviour:
   targetVec: {x: 0.1, y: 0.1, z: 0.1}
   DG_Time: 0.12
   DG_Ease: 7
---- !u!114 &764648322353185212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7796424225630577034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 40306178, guid: aa0b1eebb5db27a419fa4564bbe5c9c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  preset: 0
-  onEnableBehaviour: 2
-  onDisableBehaviour: 2
---- !u!114 &4306699344991922833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7796424225630577034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0390bd8b8ffd640b34fe25065ff1df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  updateType: 0
-  isSpeedBased: 0
-  hasOnStart: 0
-  hasOnPlay: 0
-  hasOnUpdate: 0
-  hasOnStepComplete: 0
-  hasOnComplete: 0
-  hasOnTweenCreated: 0
-  hasOnRewind: 0
-  onStart:
-    m_PersistentCalls:
-      m_Calls: []
-  onPlay:
-    m_PersistentCalls:
-      m_Calls: []
-  onUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  onStepComplete:
-    m_PersistentCalls:
-      m_Calls: []
-  onComplete:
-    m_PersistentCalls:
-      m_Calls: []
-  onTweenCreated:
-    m_PersistentCalls:
-      m_Calls: []
-  onRewind:
-    m_PersistentCalls:
-      m_Calls: []
-  targetIsSelf: 1
-  targetGO: {fileID: 0}
-  tweenTargetIsTargetGO: 1
-  delay: 0
-  duration: 0.75
-  easeType: 7
-  easeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  loopType: 0
-  loops: 1
-  id: 
-  isRelative: 0
-  isFrom: 0
-  isIndependentUpdate: 0
-  autoKill: 0
-  autoGenerate: 1
-  isActive: 1
-  isValid: 1
-  target: {fileID: 2844509754797221849}
-  animationType: 1
-  targetType: 5
-  forcedTargetType: 0
-  autoPlay: 1
-  useTargetAsV3: 0
-  endValueFloat: 0
-  endValueV3: {x: 0, y: 0, z: 0}
-  endValueV2: {x: 0, y: 0}
-  endValueColor: {r: 1, g: 1, b: 1, a: 1}
-  endValueString: 
-  endValueRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  endValueTransform: {fileID: 0}
-  optionalBool0: 0
-  optionalBool1: 0
-  optionalFloat0: 0
-  optionalInt0: 0
-  optionalRotationMode: 0
-  optionalScrambleMode: 0
-  optionalShakeRandomnessMode: 0
-  optionalString: 
 --- !u!1 &7941212510303325701
 GameObject:
   m_ObjectHideFlags: 0

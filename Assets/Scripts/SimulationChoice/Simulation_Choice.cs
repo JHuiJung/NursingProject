@@ -35,6 +35,10 @@ public class Simulation_Choice : SimulationBase
     public float DG_BTN_StartX = 900f;
     public Ease DG_Ease = Ease.Linear;
 
+    [Header("Events"), Space(10)]
+    public UnityEngine.Events.UnityEvent OnBegin;
+    public UnityEngine.Events.UnityEvent OnEnd;
+
     // 시뮬레이션 끝 bool
     [NonReorderable]
     public bool isSimulationEnd = false;
@@ -50,6 +54,8 @@ public class Simulation_Choice : SimulationBase
 
         Setup();
         StartCoroutine(AllUiOn());
+
+        OnBegin.Invoke();
     }
 
     public override void Excute(ScenarioManager SM)
@@ -61,6 +67,7 @@ public class Simulation_Choice : SimulationBase
     {
         print($"{name} : 객관식 문제 끝");
         ResetSimulation();
+        OnEnd.Invoke();
         Obj_CanvasChoice.SetActive(false);
     }
     public override void ResetSimulation()
@@ -88,6 +95,8 @@ public class Simulation_Choice : SimulationBase
         // 버튼의 개수 -1  개 만큼의 더미 대답 뭉치 가져오기
         List<string> dummy_strs = GetRandomStrings(text_Dummies, BTN_Choices.Count - 1);
         int j = 0;
+
+        print($"{dummy_strs.Count} / {BTN_Choices.Count}");
 
         // 텍스트 할당
         for (int i = 0; i < BTN_Choices.Count; i++)
