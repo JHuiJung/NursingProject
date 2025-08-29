@@ -29,6 +29,9 @@ public class Simulation_Choice : SimulationBase
     [Header("선택 버튼들"), Space(10)]
     public List<BTN_Choice> BTN_Choices = new List<BTN_Choice>();
 
+    [Header("FeedBack Video"), Space(10)]
+    public string video_name = "";
+
     [Header("Dotween"), Space(10)]
     public float DG_Time = 0.25f;
     public float DG_BTN_EndX = 150f;
@@ -190,6 +193,7 @@ public class Simulation_Choice : SimulationBase
         submitForm.txt_QuestionAnswer = text_Answer;
         submitForm.txt_userAnswer = answer;
         submitForm.quiz_index = simulation_Quiz_Index;
+        submitForm.video_Name = video_name;
         _sm.str_Answers.Add(submitForm);
 
 

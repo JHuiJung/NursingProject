@@ -4190,6 +4190,7 @@ MonoBehaviour:
   - {fileID: 3992659951817459792}
   - {fileID: 7047584792407484876}
   - {fileID: 1143639947821695636}
+  video_Name: SampleVideo2
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -5750,8 +5751,9 @@ MonoBehaviour:
   txt_PageNum: {fileID: 9102912125349669931}
   sessionName: Session 1
   pass_Threshold: 80
-  obj_Pass_Package: {fileID: 222595331574817193, guid: 649c4b04f91de8a4899a91ad1f65106d,
+  obj_Pass_Package: {fileID: 9127788676176417840, guid: 4b583baf11694ad4fbd247e618347635,
     type: 3}
+  ls_NonPass_Objs: []
   DG_Time: 0.75
   DG_TimeDelta: 0.1
   DG_Ease: 7
@@ -5820,6 +5822,7 @@ MonoBehaviour:
   - {fileID: 2448035330800122298}
   - {fileID: 6602619236353139269}
   - {fileID: 5423842545842793048}
+  video_name: 
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -6974,6 +6977,7 @@ MonoBehaviour:
   BTN_Choices:
   - {fileID: 6058143143431098548}
   - {fileID: 7940288222758515844}
+  video_name: 
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -8257,6 +8261,7 @@ MonoBehaviour:
   - {fileID: 3746501407351548131}
   - {fileID: 1936840019793029242}
   - {fileID: 4074092080350876099}
+  video_name: 
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -11522,6 +11527,7 @@ MonoBehaviour:
   BTN_Choices:
   - {fileID: 8701790172145987952}
   - {fileID: 2183695348307028482}
+  video_Name: SampleVideo2
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -12959,6 +12965,7 @@ MonoBehaviour:
   - {fileID: 6687267522164568110}
   - {fileID: 6062610552748441454}
   - {fileID: 5087700357300956387}
+  video_name: 
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900

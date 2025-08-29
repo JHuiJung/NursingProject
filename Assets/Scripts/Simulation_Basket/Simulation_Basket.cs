@@ -21,6 +21,9 @@ public class Simulation_Basket : SimulationBase
     [Header("- Basket -"), Space(10)]
     public float findRangeY = 400;
 
+    [Header("FeedBack Video"), Space(10)]
+    public string video_name = "";
+
     [Header("- Dotween -"), Space(10)]
     public float DG_Time = 0.75f;
     public Ease DG_Ease = Ease.InOutQuad;
@@ -152,6 +155,7 @@ public class Simulation_Basket : SimulationBase
         submitForm.txt_userAnswer = userAnswer;
         submitForm.useAiAnswer = true; // AI 답변 사용 여부
         submitForm.quiz_index = simulation_Quiz_Index;
+        submitForm.video_Name = video_name;
         _sm.str_Answers.Add(submitForm);
 
         StartCoroutine(AllUiOff());

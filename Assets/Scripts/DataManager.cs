@@ -226,6 +226,15 @@ public class DataManager : MonoBehaviour
             result.Add(fields.ToArray());
         }
 
+        foreach (var arr in result)
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i] = arr[i].Replace("\\n", "\n"); // 이 부분 추가
+            }
+        }
+
+
         return result;
     }
 
@@ -248,8 +257,8 @@ public class DataManager : MonoBehaviour
         {
             if (form.sceneName == sceneName &&
                 form.index == Quiz_index &&
-                form.userAnswer == userAnswer &&
-                form.quizAnswer == "d"
+                form.userAnswer == "d" &&
+                form.quizAnswer == quizAnswer
                 )
             {
                 return form.response;

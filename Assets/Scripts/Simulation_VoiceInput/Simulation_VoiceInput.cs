@@ -33,30 +33,18 @@ public class Simulation_VoiceInput : SimulationBase
     public GameObject Obj_Btn_StopRecord;
     public GameObject Obj_BTN_Submit;
 
+    [Header("FeedBack Video"), Space(10)]
+    public string video_name = "";
+    
     [Header("Dotween"), Space(10)]
     public float DG_Time = 0.75f;
     public float DG_Area_EndY = -20f;
     public float DG_Area_StartY = -450f;
     public Ease DG_Ease = Ease.Linear;
 
-    ////--- ���� ���� ----
-    //private AudioClip recordedClip;
-    //private bool isRecording = false;
-    //private const int sampleRate = 16000;
-    //private const int maxRecordingTime = 30;
-
-    ////----WebGl
-    //public AudioSource audioSource;
-    //public float maxDuration = 10f;
-    //private float[] _buffer = null;
-    //private int _bufferSize = 0;
-    //private AudioClip _clip;
-    //private bool _isPlaying = false;
-
     // �ùķ��̼� �� bool
     bool isSimulationEnd = false;
     ScenarioManager _sm;
-    //private Coroutine autoStopCoroutine;
 
 
     public override void Enter(ScenarioManager SM)
@@ -96,11 +84,6 @@ public class Simulation_VoiceInput : SimulationBase
     {
         Tmp_Question.text = text_Question;
 
-        // --- 텍스트 입력하는곳 다시 생성
-        //GameObject newInputField = Instantiate(txt_VoiceUserInput.gameObject, txt_VoiceUserInput.transform.parent);
-        //Destroy(txt_VoiceUserInput.gameObject);
-        //txt_VoiceUserInput = newInputField.GetComponent<TMP_Text>();
-
     }
 
     void CheckSTT_Text()
@@ -108,9 +91,6 @@ public class Simulation_VoiceInput : SimulationBase
         string sttText = STT_TTS_Manager.inst.stt_Text;
 
         if (sttText == "") return;
-
-        // set userbox text
-        //Debug.Log($"?? STT 응답: {sttText} / 개수 {sttText.Length}");
         txt_VoiceUserInput.text = sttText;
         Obj_BTN_Submit.SetActive(true);
     }
@@ -158,6 +138,7 @@ public class Simulation_VoiceInput : SimulationBase
         submitForm.txt_QuestionAnswer = $"키워드 : {keywords} / 유저의 응답에 핵심 키워드가 포함 되었는지 파악 후 정답, 오답 판별";
         submitForm.txt_userAnswer = answer;
         submitForm.useAiAnswer = true;
+        submitForm.video_Name = video_name;
         submitForm.quiz_index = simulation_Quiz_Index;
 
         _sm.str_Answers.Add(submitForm);

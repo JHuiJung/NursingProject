@@ -12,7 +12,7 @@ using static DataManager;
 using static NursingChatClient;
 
 
-public class Simulation_FeedBack : SimulationBase
+public class Simulation_FeedBack_Imp : SimulationBase
 {
     public NursingChatClient NursingChatClient;
     public ChatResponse aiResponse = null;
@@ -40,9 +40,9 @@ public class Simulation_FeedBack : SimulationBase
 
     [Header("Pass or NonPass"), Space(10)]
     public string sessionName = "Session 1";
-    public float pass_Threshold = 80f;
+    public float pass_Threshold = 0f;
     public GameObject obj_Pass_Package;
-    public List<GameObject> ls_NonPass_Objs = new List<GameObject>();
+    
 
     [Header("Dotween"), Space(10)]
     public float DG_Time = 0.75f;
@@ -90,8 +90,6 @@ public class Simulation_FeedBack : SimulationBase
         MasterAudio.PlaySound("Button_Press");
 
         print($"{sessionName} 이 통과(Pass) 됨");
-        AddScoreSaveForm();
-        UpdateScore();
 
         // 패스 패키지 생성
         if( obj_Pass_Package != null)
@@ -111,33 +109,14 @@ public class Simulation_FeedBack : SimulationBase
         MasterAudio.PlaySound("Button_Press");
 
         print($"{sessionName} 이 불통과(NonPass) 됨");
-
-
-        if (ls_NonPass_Objs.Count < 1)
-        {
-            // 불통과 패키지 생성
-            foreach (var np in ls_NonPass_Objs)
-            {
-                Add_NonPassObjs(np);
-                var Obj_passPackage = Instantiate(obj_Pass_Package, transform.parent);
-                SimulationBase simulationBase = Obj_passPackage.GetComponent<SimulationBase>();
-                _sm.simulationBases.Add(simulationBase);
-                Obj_passPackage.transform.SetAsLastSibling();
-            }
-
-            _sm.NextSimulation();
-        }
-        else
-        {
-            _sm.ReturnSimultion();
-        }
+        _sm.NextSimulation();
+        
     }
 
     public override void ResetSimulation()
     {
         isSimulationEnd = false;
         aiResponse = null;
-        ls_NonPass_Objs.Clear();
 
         // 카드 역순으로 삭제해야 안전
         list_FeedbackCards.Clear();
@@ -153,21 +132,6 @@ public class Simulation_FeedBack : SimulationBase
 
         //%%%%%%%%%%%%%%%%%%%% �ӽ÷� �ǵ�� ����� ���� ���� %%%%%%%%%%%%%%%%%%%%%%
         _sm.str_Answers.Clear();
-    }
-
-    //세션에 대한 정보 데이터 매니저에 추가
-    void AddScoreSaveForm()
-    {
-        List<SubmitForm> userAnswers = new List<SubmitForm>(_sm.str_Answers);
-
-        DataManager.inst.Add_ScoreSaveForm(userAnswers,ls_Response, ls_isCorrect, aiResponse, sessionName);
-    }
-
-    void UpdateScore()
-    {
-        _sm.score_totalCorrect += aiResponse.correct_count;
-        _sm.score_totalinCorrect += aiResponse.incorrect_count;
-        _sm.score_Totalcnt += aiResponse.total_questions;
     }
 
     IEnumerator Setup()
@@ -459,11 +423,6 @@ public class Simulation_FeedBack : SimulationBase
         return _qSentences;
     }
 
-    public void Add_NonPassObjs(GameObject obj_NonPass)
-    {
-        ls_NonPass_Objs.Add(obj_NonPass);
-    }
-
     IEnumerator AllUIOff()
     {
 
@@ -482,13 +441,4 @@ public class Simulation_FeedBack : SimulationBase
         Obj_CanvasChoice.SetActive(false);
 
     }
-}
-
-public class FeedBackCardForm
-{
-    public int index = 0;
-    public SubmitForm submitForm = null;
-    public string display_Answer = "";
-    public string origin_Answer = "";
-    public string isCorrect = "X"; // 기본값은 오답
 }

@@ -27,6 +27,9 @@ public class Simulation_ChoiceRandImg : SimulationBase
     [Header("선택 버튼들"), Space(10)]
     public List<BTN_Choice> BTN_Choices = new List<BTN_Choice>();
 
+    [Header("Feedback Video"), Space(10)]
+    public string video_Name = "";
+
     //닷트윈 옵션
     [Header("Dotween"), Space(10)]
     public float DG_Time = 0.75f;
@@ -148,6 +151,7 @@ public class Simulation_ChoiceRandImg : SimulationBase
         submitForm.txt_Question = Tmp_Question.text;
         submitForm.txt_QuestionAnswer = selectedAnswer.ls_Answers[answerNumber];
         submitForm.txt_userAnswer = answer;
+        submitForm.video_Name = video_Name;
         submitForm.quiz_index = simulation_Quiz_Index;
         _sm.str_Answers.Add(submitForm);
 
