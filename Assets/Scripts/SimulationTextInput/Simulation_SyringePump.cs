@@ -26,6 +26,9 @@ public class Simulation_SyringePump : SimulationBase
     public float Question_Answer = 20f;
     public string Numeric_Unit = "ml/hr";
 
+    [Header("Feedback Video")]
+    public string video_name = "";
+
     [Header("Events")]
     public UnityEngine.Events.UnityEvent OnBegin;
     public UnityEngine.Events.UnityEvent OnEnd;
@@ -100,6 +103,8 @@ public class Simulation_SyringePump : SimulationBase
         submitForm.txt_QuestionAnswer = $"{Question_Answer}{Numeric_Unit}";
         submitForm.txt_userAnswer = answer;
         submitForm.quiz_index = simulation_Quiz_Index;
+        submitForm.video_Name = video_name;
+        submitForm.useAiAnswer = false;
         _sm.str_Answers.Add(submitForm);
 
         print($"{name} : UserAnswer -> {answer} / Question Answer -> {Question_Answer}{Numeric_Unit}");

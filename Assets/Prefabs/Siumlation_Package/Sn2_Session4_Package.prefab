@@ -892,8 +892,8 @@ Transform:
   - {fileID: 1811406078156358755}
   - {fileID: 5607567283921954246}
   - {fileID: 6638170491528381704}
-  - {fileID: 547566668003595608}
   - {fileID: 2237715522897839737}
+  - {fileID: 547566668003595608}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &95457299585309599
@@ -2630,7 +2630,7 @@ MonoBehaviour:
   txt_PageNum: {fileID: 8529949943932386135}
   sessionName: Session 4
   pass_Threshold: 80
-  obj_Pass_Package: {fileID: 222595331574817193, guid: 649c4b04f91de8a4899a91ad1f65106d,
+  obj_Pass_Package: {fileID: 3254256976750806029, guid: 55d07d17dfdaeae408d079932c6b2db5,
     type: 3}
   ls_NonPass_Objs: []
   DG_Time: 0.75
