@@ -1576,7 +1576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 931518f9ca6c3844891dee74db8ed494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 5
+  weight: 10
   probabilityToPlay: 100
   importance: 5
   isUninterruptible: 0
@@ -4490,7 +4490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 931518f9ca6c3844891dee74db8ed494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 5
+  weight: 15
   probabilityToPlay: 100
   importance: 5
   isUninterruptible: 0
@@ -5903,7 +5903,7 @@ MonoBehaviour:
   soundPlayedEventActive: 0
   soundPlayedCustomEvent: 
   willCleanUpDelegatesAfterStop: 1
-  frames: 1296
+  frames: 1422
 --- !u!1 &995147831
 GameObject:
   m_ObjectHideFlags: 0
@@ -12787,7 +12787,7 @@ MonoBehaviour:
   soundPlayedEventActive: 0
   soundPlayedCustomEvent: 
   willCleanUpDelegatesAfterStop: 1
-  frames: 1357
+  frames: 1502
 --- !u!1001 &1896855393
 PrefabInstance:
   m_ObjectHideFlags: 0
