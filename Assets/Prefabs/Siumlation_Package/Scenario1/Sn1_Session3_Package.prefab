@@ -13911,7 +13911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d7d0420e6af6b845a426a5234d8e8a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity_Title: "\uC5C4\uC9C0\uC190\uAC00\uB77D "
+  entity_Title: "\uC5C4\uC9C0\uC190\uAC00\uB77D"
   number: -1
   isBTNOn: 0
   DG_Time: 0.125
@@ -19920,6 +19920,9 @@ MonoBehaviour:
     \uC774\uBBF8\uC9C0 \uB4DC\uB798\uADF8 & \uB4DC\uB86D )"
   Tmp_Question: {fileID: 2985394246298623551}
   video_Name: SampleVideo
+  text_QuestionAnswer: "[1\uBC88 : \uC190\uBC14\uB2E5] -> [2\uBC88 : \uC190\uB4F1]
+    -> [3\uBC88 : \uC190\uAE4D\uC9C0] -> [4\uBC88 : \uC190\uAC00\uB77D] -> [5\uBC88
+    : \uC5C4\uC9C0\uC190\uAC00\uB77D] -> [6\uBC88 : \uC190\uD1B1 \uBC11]"
   answerSpaces:
   - {fileID: 7660277585325820781}
   - {fileID: 5448822644210212406}

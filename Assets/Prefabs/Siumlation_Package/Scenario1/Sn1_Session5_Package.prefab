@@ -7878,6 +7878,9 @@ MonoBehaviour:
     & \uB4DC\uB86D )"
   Tmp_Question: {fileID: 4977647306396011366}
   video_Name: SampleVideo
+  text_QuestionAnswer: "[1\uBC88 : \uC190 \uC18C\uB3C5\uC81C] -> [2\uBC88 : \uC190\uBC14\uB2E5]
+    -> [3\uBC88 : \uC190\uB4F1] -> [4\uBC88 : \uC190\uAE4D\uC9C0] -> [5\uBC88 : \uC190\uAC00\uB77D]
+    -> [6\uBC88 : \uC5C4\uC9C0\uC190\uAC00\uB77D] -> [7\uBC88 : \uC190\uD1B1 \uBC11]"
   answerSpaces:
   - {fileID: 3359339981940056875}
   - {fileID: 3345340604803059535}
@@ -20874,7 +20877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d7d0420e6af6b845a426a5234d8e8a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity_Title: "\uC5C4\uC9C0\uC190\uAC00\uB77D "
+  entity_Title: "\uC5C4\uC9C0\uC190\uAC00\uB77D"
   number: -1
   isBTNOn: 0
   DG_Time: 0.125

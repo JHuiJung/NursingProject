@@ -732,7 +732,9 @@ MonoBehaviour:
     \uD074\uB9AD\uD574 \uC62C\uBC14\uB978 \uC21C\uC11C\uB97C \uACE0\uB974\uC2DC\uC624)"
   Tmp_Question: {fileID: 8075062389876386269}
   video_Name: 
-  useAiAnswer: 0
+  text_QuestionAnswer: "[1\uBC88 : \uC190\uBC14\uB2E5] -> [2\uBC88 : \uC190\uB4F1]
+    -> [3\uBC88 : \uC190\uAE4D\uC9C0] -> [4\uBC88 : \uC190\uAC00\uB77D] -> [5\uBC88
+    : \uC5C4\uC9C0\uC190\uAC00\uB77D] -> [6\uBC88 : \uC190\uD1B1 \uBC11]"
   imgClick_Entities:
   - {fileID: 4247492041320937872}
   - {fileID: 2976602192912329142}

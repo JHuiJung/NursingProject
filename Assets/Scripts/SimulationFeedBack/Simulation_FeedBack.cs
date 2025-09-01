@@ -43,6 +43,7 @@ public class Simulation_FeedBack : SimulationBase
     public string sessionName = "Session 1";
     public float pass_Threshold = 80f;
     public GameObject obj_Pass_Package;
+    public GameObject obj_NonPass_Package;
     public List<GameObject> ls_NonPass_Objs = new List<GameObject>();
 
     [Header("Dotween"), Space(10)]
@@ -113,17 +114,27 @@ public class Simulation_FeedBack : SimulationBase
 
         print($"{sessionName} 이 불통과(NonPass) 됨");
 
-
-        if (ls_NonPass_Objs.Count < 1)
+        if (ls_NonPass_Objs.Count > 0)
         {
+            AddScoreSaveForm();
+            UpdateScore();
+
             // 불통과 패키지 생성
             foreach (var np in ls_NonPass_Objs)
             {
-                Add_NonPassObjs(np);
-                var Obj_passPackage = Instantiate(obj_Pass_Package, transform.parent);
-                SimulationBase simulationBase = Obj_passPackage.GetComponent<SimulationBase>();
+                var obj_nonPass = Instantiate(np, transform.parent);
+                SimulationBase simulationBase = obj_nonPass.GetComponent<SimulationBase>();
                 _sm.simulationBases.Add(simulationBase);
-                Obj_passPackage.transform.SetAsLastSibling();
+                obj_nonPass.transform.SetAsLastSibling();
+            }
+
+            // 피드백 패키지
+            if(obj_NonPass_Package != null)
+            {
+                var obj_nonPassFeedback = Instantiate(obj_NonPass_Package, transform.parent);
+                SimulationBase simulationBase = obj_nonPassFeedback.GetComponent<SimulationBase>();
+                _sm.simulationBases.Add(simulationBase);
+                obj_nonPassFeedback.transform.SetAsLastSibling();
             }
 
             _sm.NextSimulation();
@@ -414,7 +425,7 @@ public class Simulation_FeedBack : SimulationBase
         SubmitForm userAnswer = userAnswerForm.submitForm;
         int index = userAnswerForm.index;
 
-        print($"{name} : index :  {index} / Question : {userAnswer.txt_Question} / UserAnser : {userAnswer.txt_userAnswer}");
+        //print($"{name} : index :  {index} / Question : {userAnswer.txt_Question} / UserAnser : {userAnswer.txt_userAnswer} / Answer : {userAnswer.txt_QuestionAnswer}");
 
         GameObject np = null;
 

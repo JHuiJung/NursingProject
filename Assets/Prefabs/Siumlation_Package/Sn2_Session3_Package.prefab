@@ -6002,7 +6002,9 @@ MonoBehaviour:
     \uC704\uD55C \uC190 \uC53B\uAE30\uB97C \uC218\uD589\uD558\uC138\uC694.\u201C"
   Tmp_Question: {fileID: 2180055506054737943}
   video_Name: SampleVideo
-  useAiAnswer: 0
+  text_QuestionAnswer: "[1\uBC88 : \uC190\uBC14\uB2E5] -> [2\uBC88 : \uC190\uB4F1]
+    -> [3\uBC88 : \uC190\uAE4D\uC9C0] -> [4\uBC88 : \uC190\uAC00\uB77D] -> [5\uBC88
+    : \uC5C4\uC9C0\uC190\uAC00\uB77D] -> [6\uBC88 : \uC190\uD1B1 \uBC11]"
   answerSpaces:
   - {fileID: 1986370875744077091}
   - {fileID: 4220379778596086955}

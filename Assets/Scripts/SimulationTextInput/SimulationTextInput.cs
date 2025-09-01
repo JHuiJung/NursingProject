@@ -48,11 +48,13 @@ public class SimulationTextInput : SimulationBase
     [Header("Events")]
     public UnityEngine.Events.UnityEvent OnBegin;
     public UnityEngine.Events.UnityEvent OnEnd;
+    public UnityEngine.Events.UnityEvent OnEnd_If_NonPass;
 
     // 시뮬레이션 끝 bool
     bool isSimulationEnd = false;
 
     ScenarioManager _sm;
+    bool isPass = false;
 
     public override void Enter(ScenarioManager SM)
     {
@@ -87,13 +89,21 @@ public class SimulationTextInput : SimulationBase
     {
         print($"{name} : 객관식 문제 끝");
         ResetSimulation();
+
         Obj_CanvasChoice.SetActive(false);
+
         OnEnd?.Invoke(); // 종료 이벤트 호출
+
+        if(!isPass)
+        {
+            OnEnd_If_NonPass?.Invoke(); // 통과 시 종료 이벤트 호출
+            isPass = false;
+        }
     }
     public override void ResetSimulation()
     {
         isSimulationEnd = false;
-
+        
         // 모든 입력 필드 비우기
         foreach (var textInputForm in ls_textInputForm)
         {
@@ -118,6 +128,7 @@ public class SimulationTextInput : SimulationBase
     {
         // 질문 텍스트 수정
         Tmp_Question.text = text_Question;
+        isPass = false;
     }
 
     public void SubmitAnswer()
@@ -161,6 +172,8 @@ public class SimulationTextInput : SimulationBase
         }
 
         MasterAudio.PlaySound("Button_Press");
+
+        isPass = (userAnswer == correctAnswer);
 
         // 정답 스택에 추가
         SubmitForm submitForm = new SubmitForm();

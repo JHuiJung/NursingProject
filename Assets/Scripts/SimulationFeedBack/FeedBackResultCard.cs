@@ -18,10 +18,12 @@ public class FeedBackResultCard : MonoBehaviour
     public GameObject obj_Btn_NonPass;
 
     Simulation_FeedBack simulation_FeedBack;
+    Simulation_FeedBack_Imp simulation_FeedBack_Imp;
 
     public void Setup(float passThreshold, ChatResponse userResponse)
     {
         simulation_FeedBack = transform.parent.parent.parent.GetComponent<Simulation_FeedBack>();
+        simulation_FeedBack_Imp = transform.parent.parent.parent.GetComponent<Simulation_FeedBack_Imp>();
 
         int O = userResponse.correct_count;
         int X = userResponse.incorrect_count;
@@ -51,12 +53,28 @@ public class FeedBackResultCard : MonoBehaviour
 
     public void Pass()
     {
-        simulation_FeedBack.Pass();
+        if(simulation_FeedBack != null)
+        {
+            simulation_FeedBack.Pass();
+        }
+        else if(simulation_FeedBack_Imp != null)
+        {
+            simulation_FeedBack_Imp.Pass();
+        }
+            
     }
 
     public void NonPass()
     {
-        simulation_FeedBack.NonPass();
+        if (simulation_FeedBack != null)
+        {
+            simulation_FeedBack.NonPass();
+        }
+        else if (simulation_FeedBack_Imp != null)
+        {
+            simulation_FeedBack_Imp.NonPass();
+        }
+        
     }
 
 }

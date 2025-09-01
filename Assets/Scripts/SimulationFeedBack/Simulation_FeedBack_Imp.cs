@@ -33,6 +33,7 @@ public class Simulation_FeedBack_Imp : SimulationBase
     public GameObject pf_FeedbackCard;
     public GameObject pf_FeedbackResultCard;
     public GameObject pf_FeedbackVideoCard;
+    public GameObject pf_FeedbackImgCard;
     public List<GameObject> list_FeedbackCards = new List<GameObject>();
     public int currentCardNum = 0;
     [SerializeField]
@@ -49,8 +50,6 @@ public class Simulation_FeedBack_Imp : SimulationBase
     public float DG_TimeDelta = 0.2f;
     public Ease DG_Ease = Ease.InOutQuad;
 
-    List<string> ls_isCorrect = new List<string>();
-    List<string> ls_Response = new List<string>();
     bool isSimulationEnd = false;
     ScenarioManager _sm;
     public override void Enter(ScenarioManager SM)
@@ -121,10 +120,6 @@ public class Simulation_FeedBack_Imp : SimulationBase
         // 카드 역순으로 삭제해야 안전
         list_FeedbackCards.Clear();
 
-        // 리스트 초기화
-        ls_isCorrect.Clear();
-        ls_Response.Clear();
-
         for (int i = obj_Area_Cards.transform.childCount - 1; i >= 0; i--)
         {
             Destroy(obj_Area_Cards.transform.GetChild(i).gameObject);
@@ -146,10 +141,6 @@ public class Simulation_FeedBack_Imp : SimulationBase
 
         List<FeedBackCardForm> feedbackCardForms = new List<FeedBackCardForm>();
 
-        // 답변 뭉치 초기화
-        ls_isCorrect.Clear();
-        ls_Response.Clear();
-
         // 1. ai 답변 카드 만들기
 
         string _result_For_AIAnswer = "";
@@ -157,8 +148,8 @@ public class Simulation_FeedBack_Imp : SimulationBase
         for (int i = 0; i < userStack.Count; i++)
         {
             SubmitForm submitForm = userStack[i];
-            
-            if(submitForm.useAiAnswer)
+
+            if (submitForm.useAiAnswer)
             {
                 FeedBackCardForm aiCardForm = new FeedBackCardForm();
                 aiCardForm.index = i;
@@ -260,7 +251,7 @@ public class Simulation_FeedBack_Imp : SimulationBase
         feedbackCardForms.Sort((a, b) => a.index.CompareTo(b.index));
 
         // 카드 생성
-        for(int i = 0; i < feedbackCardForms.Count; i++)
+        for (int i = 0; i < feedbackCardForms.Count; i++)
         {
             FeedBackCardForm cardForm = feedbackCardForms[i];
             MakeAnswerCard(cardForm);
@@ -274,13 +265,6 @@ public class Simulation_FeedBack_Imp : SimulationBase
         else
         {
             aiResponse.score_percentage = 0f;
-        }
-
-        //qentences 업데이트
-        for(int i = 0; i < feedbackCardForms.Count; i++)
-        {
-            ls_Response.Add(feedbackCardForms[i].origin_Answer);
-            ls_isCorrect.Add(feedbackCardForms[i].isCorrect);
         }
 
         // 4. 결과 카드 추가
@@ -302,7 +286,7 @@ public class Simulation_FeedBack_Imp : SimulationBase
         currentCardNum = 0;
         txt_PageNum.text = $"{currentCardNum + 1} / {list_FeedbackCards.Count}";
 
-        
+
 
         Obj_Wait.SetActive(false);
         obj_Area_BTns.SetActive(true);
@@ -377,7 +361,7 @@ public class Simulation_FeedBack_Imp : SimulationBase
         SubmitForm userAnswer = userAnswerForm.submitForm;
         int index = userAnswerForm.index;
 
-        print($"{name} : index :  {index} / Question : {userAnswer.txt_Question} / UserAnser : {userAnswer.txt_userAnswer}");
+        //print($"{name} : index :  {index} / Question : {userAnswer.txt_Question} / UserAnser : {userAnswer.txt_userAnswer} / Answer : {userAnswer.txt_QuestionAnswer}");
 
         GameObject np = null;
 
@@ -390,6 +374,14 @@ public class Simulation_FeedBack_Imp : SimulationBase
             FeedBackCard feedBackCard = np.GetComponent<FeedBackCard>();
 
             feedBackCard.Setup(userAnswer.txt_Question, userAnswer.txt_userAnswer, answer, userAnswer.video_Name);
+        }
+        else if (userAnswer.img_Sprite != null)
+        {
+            // 이미지가 포함된 카드 생성
+            np = Instantiate(pf_FeedbackImgCard, obj_Area_Cards.transform);
+            np.name = $"pf_FeedBackImgCard_{index}";
+            FeedBackCard feedBackCard = np.GetComponent<FeedBackCard>();
+            feedBackCard.Setup(userAnswer.txt_Question, userAnswer.txt_userAnswer, answer, "", userAnswer.img_Sprite);
         }
         else
         {
