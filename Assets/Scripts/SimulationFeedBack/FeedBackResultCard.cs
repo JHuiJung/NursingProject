@@ -28,7 +28,7 @@ public class FeedBackResultCard : MonoBehaviour
         float rate = userResponse.score_percentage;
 
         txt_Title.text = $"결과 요약\r\n( 합격 기준 : 정답률 {passThreshold}%  )";
-        txt_CorrectRate.text = $"정답률 : {rate}%";
+        txt_CorrectRate.text = $"정답률 : {rate:F1}%";
         txt_O.text = $" {O} 개";
         txt_X.text = $" {X} 개";
 
