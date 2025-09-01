@@ -36,6 +36,9 @@ public class SimulationTextInput : SimulationBase
     [Header("폼 텍스트 입력")]
     public List<TextInputForm> ls_textInputForm;
 
+    [Header("정답 이미지 추가")]
+    public Sprite img_Answer = null;
+
     [Header("Dotween"),]
     public float DG_Time = 0.75f;
     public float DG_Area_EndY = -20f;
@@ -165,6 +168,8 @@ public class SimulationTextInput : SimulationBase
         submitForm.txt_QuestionAnswer = correctAnswer;
         submitForm.txt_userAnswer = userAnswer;
         submitForm.quiz_index = simulation_Quiz_Index;
+        if(img_Answer != null)
+            submitForm.img_Sprite = img_Answer;
         _sm.str_Answers.Add(submitForm);
 
         StartCoroutine(AllUiOff());

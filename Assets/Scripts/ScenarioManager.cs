@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 [System.Serializable]
@@ -11,6 +12,7 @@ public class SubmitForm
     public string txt_userAnswer;
     public string txt_QuestionAnswer;
     public string video_Name = "";
+    public Sprite img_Sprite = null;
     public int quiz_index = 1;
     public bool useAiAnswer = false;
 }

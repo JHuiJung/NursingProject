@@ -6510,6 +6510,7 @@ MonoBehaviour:
   - {fileID: 9210090395609173396}
   - {fileID: 5530630559068289558}
   video_name: 
+  img_Sprite: {fileID: 21300000, guid: 642130d4129103b479d8b95af8458c2d, type: 3}
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -19394,6 +19395,7 @@ MonoBehaviour:
   - {fileID: 2356048241931630263}
   - {fileID: 164753467986103438}
   video_name: 
+  img_Sprite: {fileID: 21300000, guid: 64ae45eb66894664bbca51917fd595ac, type: 3}
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -26186,6 +26188,7 @@ MonoBehaviour:
   - {fileID: 1201322101111225253}
   - {fileID: 3173943716712289883}
   video_name: 
+  img_Sprite: {fileID: 0}
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -26298,6 +26301,8 @@ MonoBehaviour:
   pf_FeedbackResultCard: {fileID: 4747616628194600292, guid: d6921e9be7cbb444b872ccd911cee5be,
     type: 3}
   pf_FeedbackVideoCard: {fileID: 629495242282847724, guid: b33185f76ac7463428edec7a6972fabc,
+    type: 3}
+  pf_FeedbackImgCard: {fileID: 629495242282847724, guid: 4f162d6d8ff222f4ab29c4e5edf42102,
     type: 3}
   list_FeedbackCards: []
   currentCardNum: 0
@@ -36329,6 +36334,7 @@ MonoBehaviour:
   - {fileID: 5959428458570799232}
   - {fileID: 3531346869003037268}
   video_name: SampleVideo2
+  img_Sprite: {fileID: 0}
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -41177,6 +41183,7 @@ MonoBehaviour:
   - {fileID: 7980242701688160626}
   - {fileID: 5434509462455994717}
   video_name: SampleVideo2
+  img_Sprite: {fileID: 21300000, guid: aa61b544dc8adb94496512c384f1dda3, type: 3}
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -41275,6 +41282,7 @@ MonoBehaviour:
   - {fileID: 7252647321127218971}
   - {fileID: 6412988144657631974}
   video_name: 
+  img_Sprite: {fileID: 0}
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -42219,6 +42227,7 @@ MonoBehaviour:
   - {fileID: 7795818981907546447}
   - {fileID: 1645085698733782113}
   video_name: SampleVideo2
+  img_Sprite: {fileID: 0}
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -45255,6 +45264,7 @@ MonoBehaviour:
   - {fileID: 2389850646259394563}
   - {fileID: 5319101549324366182}
   video_name: 
+  img_Sprite: {fileID: 0}
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -45398,6 +45408,7 @@ MonoBehaviour:
   - {fileID: 9000507274416679014}
   - {fileID: 1991790550984793052}
   video_name: 
+  img_Sprite: {fileID: 0}
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -46053,6 +46064,7 @@ MonoBehaviour:
   - {fileID: 2068371998880377935}
   - {fileID: 296299262277203242}
   video_name: 
+  img_Sprite: {fileID: 0}
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900

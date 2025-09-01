@@ -732,6 +732,7 @@ MonoBehaviour:
     \uD074\uB9AD\uD574 \uC62C\uBC14\uB978 \uC21C\uC11C\uB97C \uACE0\uB974\uC2DC\uC624)"
   Tmp_Question: {fileID: 8075062389876386269}
   video_Name: 
+  useAiAnswer: 0
   imgClick_Entities:
   - {fileID: 4247492041320937872}
   - {fileID: 2976602192912329142}
@@ -24928,6 +24929,8 @@ MonoBehaviour:
   pf_FeedbackResultCard: {fileID: 4747616628194600292, guid: d6921e9be7cbb444b872ccd911cee5be,
     type: 3}
   pf_FeedbackVideoCard: {fileID: 629495242282847724, guid: b33185f76ac7463428edec7a6972fabc,
+    type: 3}
+  pf_FeedbackImgCard: {fileID: 629495242282847724, guid: 4f162d6d8ff222f4ab29c4e5edf42102,
     type: 3}
   list_FeedbackCards: []
   currentCardNum: 0

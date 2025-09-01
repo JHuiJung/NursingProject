@@ -32,6 +32,9 @@ public class Simulation_Choice : SimulationBase
     [Header("FeedBack Video"), Space(10)]
     public string video_name = "";
 
+    [Header("FeedBack Img"), Space(10)]
+    public Sprite img_Sprite = null;
+
     [Header("Dotween"), Space(10)]
     public float DG_Time = 0.25f;
     public float DG_BTN_EndX = 150f;
@@ -194,6 +197,8 @@ public class Simulation_Choice : SimulationBase
         submitForm.txt_userAnswer = answer;
         submitForm.quiz_index = simulation_Quiz_Index;
         submitForm.video_Name = video_name;
+        if(img_Sprite != null)
+            submitForm.img_Sprite = img_Sprite;
         _sm.str_Answers.Add(submitForm);
 
 

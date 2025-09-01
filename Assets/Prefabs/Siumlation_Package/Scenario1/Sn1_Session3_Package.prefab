@@ -3208,6 +3208,8 @@ MonoBehaviour:
     type: 3}
   pf_FeedbackVideoCard: {fileID: 629495242282847724, guid: b33185f76ac7463428edec7a6972fabc,
     type: 3}
+  pf_FeedbackImgCard: {fileID: 629495242282847724, guid: 4f162d6d8ff222f4ab29c4e5edf42102,
+    type: 3}
   list_FeedbackCards: []
   currentCardNum: 0
   txt_PageNum: {fileID: 3334064012737635192}
@@ -3215,6 +3217,7 @@ MonoBehaviour:
   pass_Threshold: 80
   obj_Pass_Package: {fileID: 2698456978995159031, guid: b0b5485da0226f947a541a59d467089a,
     type: 3}
+  ls_NonPass_Objs: []
   DG_Time: 0.75
   DG_TimeDelta: 0.1
   DG_Ease: 7
@@ -8520,6 +8523,7 @@ MonoBehaviour:
     \uBAA8\uB450 \uC120\uD0DD\uD558\uC138\uC694.\u201C"
   Tmp_Question: {fileID: 5386393974476782969}
   findRangeY: -275
+  video_name: 
   DG_Time: 0.75
   DG_Ease: 7
   DG_deltaTime: 0.25

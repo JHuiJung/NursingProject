@@ -33,6 +33,7 @@ public class Simulation_FeedBack : SimulationBase
     public GameObject pf_FeedbackCard;
     public GameObject pf_FeedbackResultCard;
     public GameObject pf_FeedbackVideoCard;
+    public GameObject pf_FeedbackImgCard;
     public List<GameObject> list_FeedbackCards = new List<GameObject>();
     public int currentCardNum = 0;
     [SerializeField]
@@ -426,6 +427,14 @@ public class Simulation_FeedBack : SimulationBase
             FeedBackCard feedBackCard = np.GetComponent<FeedBackCard>();
 
             feedBackCard.Setup(userAnswer.txt_Question, userAnswer.txt_userAnswer, answer, userAnswer.video_Name);
+        }
+        else if(userAnswer.img_Sprite != null)
+        {
+            // 이미지가 포함된 카드 생성
+            np = Instantiate(pf_FeedbackImgCard, obj_Area_Cards.transform);
+            np.name = $"pf_FeedBackImgCard_{index}";
+            FeedBackCard feedBackCard = np.GetComponent<FeedBackCard>();
+            feedBackCard.Setup(userAnswer.txt_Question, userAnswer.txt_userAnswer, answer, "", userAnswer.img_Sprite);
         }
         else
         {

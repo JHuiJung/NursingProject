@@ -10145,6 +10145,7 @@ MonoBehaviour:
   BTN_Choices:
   - {fileID: 908971087952130578}
   - {fileID: 1957763395260278064}
+  video_name: 
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -17889,6 +17890,7 @@ MonoBehaviour:
   - {fileID: 8916322217228471940}
   - {fileID: 520580425889428179}
   - {fileID: 6093445418516669396}
+  video_name: 
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -23581,6 +23583,7 @@ MonoBehaviour:
   - {fileID: 583984496976118924}
   - {fileID: 8660106391170168474}
   - {fileID: 3298114944955888534}
+  video_name: 
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -25974,6 +25977,7 @@ MonoBehaviour:
   - {fileID: 5309379620214004121}
   - {fileID: 831925215969208907}
   - {fileID: 1029620801142859081}
+  video_name: 
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -28612,6 +28616,7 @@ MonoBehaviour:
   - {fileID: 464620505969582779}
   - {fileID: 6053775129839775532}
   - {fileID: 8559107351548402672}
+  video_Name: 
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -28903,6 +28908,7 @@ MonoBehaviour:
   BTN_Choices:
   - {fileID: 196591479660379054}
   - {fileID: 4885603891700575813}
+  video_Name: 
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -32201,6 +32207,7 @@ MonoBehaviour:
   - {fileID: 5364533807289318460}
   - {fileID: 1294839484138381597}
   - {fileID: 2196704132414382926}
+  video_name: 
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -34580,6 +34587,8 @@ MonoBehaviour:
     type: 3}
   pf_FeedbackVideoCard: {fileID: 629495242282847724, guid: b33185f76ac7463428edec7a6972fabc,
     type: 3}
+  pf_FeedbackImgCard: {fileID: 629495242282847724, guid: 4f162d6d8ff222f4ab29c4e5edf42102,
+    type: 3}
   list_FeedbackCards: []
   currentCardNum: 0
   txt_PageNum: {fileID: 6558893765258359600}
@@ -34587,6 +34596,7 @@ MonoBehaviour:
   pass_Threshold: 80
   obj_Pass_Package: {fileID: 222595331574817193, guid: 649c4b04f91de8a4899a91ad1f65106d,
     type: 3}
+  ls_NonPass_Objs: []
   DG_Time: 0.75
   DG_TimeDelta: 0.1
   DG_Ease: 7
@@ -37282,6 +37292,7 @@ MonoBehaviour:
   - {fileID: 6977103833479761348}
   - {fileID: 4516525977640742704}
   - {fileID: 3122479097710000262}
+  video_name: 
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900

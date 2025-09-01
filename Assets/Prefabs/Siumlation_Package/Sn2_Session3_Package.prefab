@@ -6002,6 +6002,7 @@ MonoBehaviour:
     \uC704\uD55C \uC190 \uC53B\uAE30\uB97C \uC218\uD589\uD558\uC138\uC694.\u201C"
   Tmp_Question: {fileID: 2180055506054737943}
   video_Name: SampleVideo
+  useAiAnswer: 0
   answerSpaces:
   - {fileID: 1986370875744077091}
   - {fileID: 4220379778596086955}
@@ -8242,6 +8243,8 @@ MonoBehaviour:
   pf_FeedbackResultCard: {fileID: 4747616628194600292, guid: d6921e9be7cbb444b872ccd911cee5be,
     type: 3}
   pf_FeedbackVideoCard: {fileID: 629495242282847724, guid: b33185f76ac7463428edec7a6972fabc,
+    type: 3}
+  pf_FeedbackImgCard: {fileID: 629495242282847724, guid: 4f162d6d8ff222f4ab29c4e5edf42102,
     type: 3}
   list_FeedbackCards: []
   currentCardNum: 0
@@ -16308,6 +16311,7 @@ MonoBehaviour:
   - {fileID: 4879037201559818025}
   - {fileID: 6658406697863301958}
   video_name: 
+  img_Sprite: {fileID: 0}
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900

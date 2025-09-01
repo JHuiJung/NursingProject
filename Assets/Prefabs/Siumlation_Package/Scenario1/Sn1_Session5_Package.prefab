@@ -12361,6 +12361,8 @@ MonoBehaviour:
     type: 3}
   pf_FeedbackVideoCard: {fileID: 629495242282847724, guid: b33185f76ac7463428edec7a6972fabc,
     type: 3}
+  pf_FeedbackImgCard: {fileID: 629495242282847724, guid: 4f162d6d8ff222f4ab29c4e5edf42102,
+    type: 3}
   list_FeedbackCards: []
   currentCardNum: 0
   txt_PageNum: {fileID: 7028874171858996459}
@@ -12368,6 +12370,7 @@ MonoBehaviour:
   pass_Threshold: 80
   obj_Pass_Package: {fileID: 1121678294415307661, guid: 77cc25d7413bfc44ba026f05dbb7dd4a,
     type: 3}
+  ls_NonPass_Objs: []
   DG_Time: 0.75
   DG_TimeDelta: 0.1
   DG_Ease: 7
@@ -16394,6 +16397,7 @@ MonoBehaviour:
   BTN_Choices:
   - {fileID: 6587642216394124829}
   - {fileID: 3413162007118773063}
+  video_Name: 
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900

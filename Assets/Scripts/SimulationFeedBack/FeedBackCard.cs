@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class FeedBackCard : MonoBehaviour
@@ -12,6 +13,7 @@ public class FeedBackCard : MonoBehaviour
     public TMP_Text txt_UserAnswer;
     public TMP_Text txt_AiAnswer;
     public VideoPlayer videoPlayer;
+    public Image img_AnswerImg;
 
     string videoPath = "";
 
@@ -20,7 +22,7 @@ public class FeedBackCard : MonoBehaviour
         Area_Cover.SetActive(isCoverOn);
     }
 
-    public void Setup(string title, string userAnswer, string aiAnswer, string videoName = "")
+    public void Setup(string title, string userAnswer, string aiAnswer, string videoName = "", Sprite imgSprite = null)
     {
         txt_AiAnswer.text = aiAnswer;
         txt_Title.text = title;
@@ -30,7 +32,12 @@ public class FeedBackCard : MonoBehaviour
         {
             videoPath = videoPath = Application.streamingAssetsPath + "/" + videoName + ".mp4";
         }
-        
+
+        if(imgSprite != null)
+        {
+            img_AnswerImg.sprite = imgSprite;
+        }
+
     }
 
     public void PlayVideo()

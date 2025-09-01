@@ -3127,6 +3127,7 @@ MonoBehaviour:
   - lable: "\uC8FC\uC785\uC2DC\uAC04"
     userInput: {fileID: 4989984671403941263}
     correctAnswer: 62.3ml/hr
+  img_Answer: {fileID: 21300000, guid: 83412f442edb3d64c84c33a8b4811f24, type: 3}
   DG_Time: 0.75
   DG_Area_EndY: -20
   DG_Area_StartY: -450
@@ -3825,6 +3826,7 @@ MonoBehaviour:
   - lable: "\uC6A9\uC561 \uC6A9\uB7C9"
     userInput: {fileID: 7557445810218381189}
     correctAnswer: 10ml
+  img_Answer: {fileID: 0}
   DG_Time: 0.75
   DG_Area_EndY: -20
   DG_Area_StartY: -450
@@ -9994,6 +9996,7 @@ MonoBehaviour:
   - lable: "\uD22C\uC5EC\uB7C9"
     userInput: {fileID: 8291062063680607226}
     correctAnswer: 28mg
+  img_Answer: {fileID: 0}
   DG_Time: 0.75
   DG_Area_EndY: -20
   DG_Area_StartY: -450
@@ -13539,6 +13542,7 @@ MonoBehaviour:
   - lable: "\uC8FC\uC0AC \uC6A9\uB7C9"
     userInput: {fileID: 2368919399462115496}
     correctAnswer: 1.9ml
+  img_Answer: {fileID: 0}
   DG_Time: 0.75
   DG_Area_EndY: -20
   DG_Area_StartY: -450
@@ -13759,6 +13763,7 @@ MonoBehaviour:
   - lable: "\uC8FC\uC785\uC2DC\uAC04"
     userInput: {fileID: 6738397306958753904}
     correctAnswer: 23.8ml/hr
+  img_Answer: {fileID: 21300000, guid: defeefc59f1a18f448d8d8663071c450, type: 3}
   DG_Time: 0.75
   DG_Area_EndY: -20
   DG_Area_StartY: -450
@@ -14082,6 +14087,8 @@ MonoBehaviour:
   pf_FeedbackResultCard: {fileID: 4747616628194600292, guid: d6921e9be7cbb444b872ccd911cee5be,
     type: 3}
   pf_FeedbackVideoCard: {fileID: 629495242282847724, guid: b33185f76ac7463428edec7a6972fabc,
+    type: 3}
+  pf_FeedbackImgCard: {fileID: 629495242282847724, guid: 4f162d6d8ff222f4ab29c4e5edf42102,
     type: 3}
   list_FeedbackCards: []
   currentCardNum: 0
@@ -17063,6 +17070,7 @@ MonoBehaviour:
   - lable: "\uD22C\uC5EC\uB7C9"
     userInput: {fileID: 1486713902556203436}
     correctAnswer: 140mg
+  img_Answer: {fileID: 0}
   DG_Time: 0.75
   DG_Area_EndY: -20
   DG_Area_StartY: -450
@@ -20806,7 +20814,7 @@ MonoBehaviour:
   objs_SetupForms:
   - obj_name: Player
     obj_position: {x: 52.03, y: 0, z: 8.7}
-    obj_rotation: {x: 0, y: 90, z: 0}
+    obj_rotation: {x: 0, y: 180, z: 0}
     is_active: 1
   - obj_name: ParentSit
     obj_position: {x: 50.750057, y: 0.148, z: 7.6198115}

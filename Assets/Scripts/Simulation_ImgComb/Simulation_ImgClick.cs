@@ -16,8 +16,9 @@ public class Simulation_ImgClick : SimulationBase
     public string text_Question = "";
     public TMP_Text Tmp_Question;
 
-    [Header("피드백 영상 파일 이름"), Space(10)]
+    [Header("피드백 설정"), Space(10)]
     public string video_Name = "";
+    public bool useAiAnswer = true; // AI 답변 사용 여부
 
     [Header("카드 정보"), Space(10)]
     public List<ImgClick_Entity> imgClick_Entities = new List<ImgClick_Entity>();
@@ -146,10 +147,6 @@ public class Simulation_ImgClick : SimulationBase
             {
                 userAnswer += " -> ";
             }
-            else
-            {
-                userAnswer += "\n";
-            }
 
 
         }
@@ -163,7 +160,7 @@ public class Simulation_ImgClick : SimulationBase
         submitForm.txt_QuestionAnswer = "미리 제공된 답변 참고";
         submitForm.txt_userAnswer = userAnswer;
         submitForm.video_Name = video_Name;
-        submitForm.useAiAnswer = true; // AI 답변 사용 여부
+        submitForm.useAiAnswer = useAiAnswer; // AI 답변 사용 여부
         submitForm.quiz_index = simulation_Quiz_Index;
 
         _sm.str_Answers.Add(submitForm);

@@ -4485,10 +4485,17 @@ MonoBehaviour:
   - {fileID: 1244931586391000398}
   - {fileID: 5751936679967588563}
   - {fileID: 8834445295492390255}
+  video_name: 
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
   DG_Ease: 7
+  OnBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEnd:
+    m_PersistentCalls:
+      m_Calls: []
   isSimulationEnd: 0
 --- !u!1 &3113331786475691970
 GameObject:
@@ -9926,6 +9933,8 @@ MonoBehaviour:
     type: 3}
   pf_FeedbackVideoCard: {fileID: 629495242282847724, guid: b33185f76ac7463428edec7a6972fabc,
     type: 3}
+  pf_FeedbackImgCard: {fileID: 629495242282847724, guid: 4f162d6d8ff222f4ab29c4e5edf42102,
+    type: 3}
   list_FeedbackCards: []
   currentCardNum: 0
   txt_PageNum: {fileID: 3929739953774267447}
@@ -9933,6 +9942,7 @@ MonoBehaviour:
   pass_Threshold: 80
   obj_Pass_Package: {fileID: 4345283648813606550, guid: 0ad51ffa26b97f2479255434e4864085,
     type: 3}
+  ls_NonPass_Objs: []
   DG_Time: 0.75
   DG_TimeDelta: 0.1
   DG_Ease: 7
