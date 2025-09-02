@@ -804,7 +804,7 @@ PlayerSettings:
   webGLMemoryLinearGrowthStep: 16
   webGLMemoryGeometricGrowthStep: 0.2
   webGLMemoryGeometricGrowthCap: 96
-  webGLPowerPreference: 2
+  webGLPowerPreference: 0
   scriptingDefineSymbols:
     Android: DOTWEEN
     EmbeddedLinux: DOTWEEN
@@ -838,7 +838,7 @@ PlayerSettings:
     QNX: 1
     Stadia: 1
     VisionOS: 1
-    WebGL: 1
+    WebGL: 2
     Windows Store Apps: 1
     XboxOne: 1
     iPhone: 1

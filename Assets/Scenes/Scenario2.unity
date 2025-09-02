@@ -5038,20 +5038,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u25CF \uC774\uB984: \uC774\uD558\uD2B8             \u25CF \uC131\uBCC4:
-    \uB0A8\uC544              \u25CF \uC5F0\uB839: 13\uAC1C\uC6D4\r\n\u25CF \uC9C4\uB2E8\uBA85:
-    Acute myocarditis\r\n\u25CF \uD604\uC7AC \uD65C\uB825\uC9D5\uD6C4: 92/54mmHg,
-    P: 148\uD68C/\uBD84, R: 32/\uBD84,  T: 36.8C\r\n\r\n\uD658\uC544\uB294 \uD3C9\uC18C
-    \uD2B9\uC774 \uAE30\uC800\uC9C8\uD658 \uC5C6\uC5C8\uC73C\uBA70, \uB0B4\uC6D0
-    3\uC77C \uC804\uBD80\uD130 37.5~37.9C \uBBF8\uC5F4\uC774 \uC788\uC5C8\uACE0,
-    \uB0B4\uC6D0 2\uC77C \uC804 39.C \uC774\uC0C1\uC758 \uACE0\uC5F4 \uBC1C\uC0DD\uD558\uC5EC
-    \uD0C0 \uBCD1\uC6D0\uC5D0\uC11C \uC2DC\uD589\uD55C \uC2EC\uC7A5\uCD08\uC74C\uD30C\uC0C1
-    pericardial effusion \uAD00\uCC30\uB418\uC5B4 \uBCF8\uC6D0\uC73C\uB85C \uC804\uC6D0
-    \uB418\uC5C8\uB2E4. \uBCF8\uC6D0 \uC751\uAE09\uC2E4\uC5D0\uC11C \uC2DC\uD589\uD55C
-    \uAC80\uC0AC\uC5D0\uC11C Cardiac maker \uC0C1\uC2B9 \uAD00\uCC30\uB418\uC5B4
-    Acute myocarditis \uC9C4\uB2E8\uBC1B\uACE0 \uBCD1\uB3D9 \uC785\uC6D0\uD558\uC600\uB2E4.\r\n\r\n\u25CF
-    \uD0A4: 78.6 cm                         \r\n\u25CF \uBAB8\uBB34\uAC8C: 9.2kg
-    \r\n\u25CF Cefotaxime AST : Negative\r\n\u25CF eneral condition : tolerable"
+  m_text: "\uCD5C\uBD80\uB974 \uD658\uC544 \uC815\uBCF4 \uD604\uC7AC \uBABB \uBC1B\uC74C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed21f0a27c3c7114783de72406ce063e, type: 2}
   m_sharedMaterial: {fileID: 2226096250028548758, guid: ed21f0a27c3c7114783de72406ce063e,
@@ -7648,7 +7635,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1022442987
 MonoBehaviour:
   m_ObjectHideFlags: 0

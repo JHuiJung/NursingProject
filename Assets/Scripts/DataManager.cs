@@ -41,6 +41,11 @@ public class DataManager : MonoBehaviour
         DontDestroyOnLoad(gameObject); // 씬이 바뀌어도 유지
 
         GD = new GoogleData();
+        
+    }
+
+    private void Start()
+    {
         StartCoroutine(CSVReadStart()); // CSV 파일 읽기 시작
     }
 
@@ -149,7 +154,6 @@ public class DataManager : MonoBehaviour
 
     IEnumerator CSVReadStart()
     {
-        // CSV 파일 경로 (StreamingAssets에 넣었을 경우)
         string path = System.IO.Path.Combine(Application.streamingAssetsPath, "NormalAnswerData.csv");
         UnityWebRequest www = UnityWebRequest.Get(path);
         yield return www.SendWebRequest();
@@ -161,32 +165,46 @@ public class DataManager : MonoBehaviour
         }
 
         string csvText = www.downloadHandler.text;
-        print("CSV Load Success");
-        ParseCSV(csvText);
+        Debug.Log("CSV Load Success");
+
+        // CSV 파싱을 코루틴으로 처리
+        yield return StartCoroutine(ParseCSVCoroutine(csvText, 50)); // 50줄씩 처리
     }
 
-    void ParseCSV(string csvText)
+    IEnumerator ParseCSVCoroutine(string csvText, int batchSize)
     {
         var rows = ParseCSVLine(csvText);
 
-        // 첫 줄은 헤더라서 건너뛰기
-        for (int i = 1; i < rows.Count; i++)
+        int totalRows = rows.Count;
+        int processed = 1; // 헤더는 건너뜀
+        while (processed < totalRows)
         {
-            var values = rows[i];
-            if (values.Length < 5) continue;
+            int countThisBatch = Mathf.Min(batchSize, totalRows - processed);
 
-            CSVForm form = new CSVForm();
-            form.sceneName = values[0];
-            int.TryParse(values[1], out form.index);
-            form.userAnswer = values[2];
-            form.quizAnswer = values[3];
-            form.response = values[4]; // 콤마 들어가도 안전하게 읽힘
+            for (int i = 0; i < countThisBatch; i++)
+            {
+                var values = rows[processed + i];
+                if (values.Length < 5) continue;
 
-            csvForms.Add(form);
+                CSVForm form = new CSVForm();
+                form.sceneName = values[0];
+                int.TryParse(values[1], out form.index);
+                form.userAnswer = values[2];
+                form.quizAnswer = values[3];
+                form.response = values[4];
+
+                csvForms.Add(form);
+            }
+
+            processed += countThisBatch;
+
+            // 다음 프레임으로 넘김
+            yield return null;
         }
 
         Debug.Log($"CSV Loaded: {csvForms.Count} rows");
     }
+
 
     /// <summary>
     /// 따옴표(") 처리 지원하는 간단 CSV 파서
