@@ -5755,6 +5755,7 @@ MonoBehaviour:
   pass_Threshold: 80
   obj_Pass_Package: {fileID: 9127788676176417840, guid: 4b583baf11694ad4fbd247e618347635,
     type: 3}
+  obj_NonPass_Package: {fileID: 0}
   ls_NonPass_Objs: []
   DG_Time: 0.75
   DG_TimeDelta: 0.1
@@ -5825,6 +5826,7 @@ MonoBehaviour:
   - {fileID: 6602619236353139269}
   - {fileID: 5423842545842793048}
   video_name: 
+  img_Sprite: {fileID: 0}
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -6980,6 +6982,7 @@ MonoBehaviour:
   - {fileID: 6058143143431098548}
   - {fileID: 7940288222758515844}
   video_name: 
+  img_Sprite: {fileID: 0}
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -8264,6 +8267,7 @@ MonoBehaviour:
   - {fileID: 1936840019793029242}
   - {fileID: 4074092080350876099}
   video_name: 
+  img_Sprite: {fileID: 0}
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
@@ -12363,6 +12367,7 @@ MonoBehaviour:
   - lable: "\uD22C\uC5EC \uC2DC\uAC04"
     userInput: {fileID: 7046460765596731663}
     correctAnswer: 9pm
+  img_Answer: {fileID: 0}
   DG_Time: 0.75
   DG_Area_EndY: -20
   DG_Area_StartY: -450
@@ -12371,6 +12376,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEnd_If_NonPass:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &3457417126842184961
@@ -12968,6 +12976,7 @@ MonoBehaviour:
   - {fileID: 6062610552748441454}
   - {fileID: 5087700357300956387}
   video_name: 
+  img_Sprite: {fileID: 0}
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900

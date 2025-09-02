@@ -18453,7 +18453,8 @@ MonoBehaviour:
   user_Answer: 20
   Question_Answer: 23.8
   Numeric_Unit: ml/hr
-  video_name: 
+  video_name: SampleVideo2
+  img_Sprite: {fileID: 0}
   OnBegin:
     m_PersistentCalls:
       m_Calls: []
@@ -24941,6 +24942,7 @@ MonoBehaviour:
   pass_Threshold: 80
   obj_Pass_Package: {fileID: 1965839550541273847, guid: 306e5c9515f3e254a9f01b30a522fc1d,
     type: 3}
+  obj_NonPass_Package: {fileID: 0}
   ls_NonPass_Objs: []
   DG_Time: 0.75
   DG_TimeDelta: 0.1

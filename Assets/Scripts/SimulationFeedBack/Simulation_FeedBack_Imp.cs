@@ -14,7 +14,7 @@ using static NursingChatClient;
 
 public class Simulation_FeedBack_Imp : SimulationBase
 {
-    public NursingChatClient NursingChatClient;
+    public NursingChatClient NursingChatClient = null;
     public ChatResponse aiResponse = null;
 
     [Header("Canvas Obj & Stuff"), Space(10),SerializeField]

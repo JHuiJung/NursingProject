@@ -26,12 +26,14 @@ public class Simulation_SyringePump : SimulationBase
     public float Question_Answer = 20f;
     public string Numeric_Unit = "ml/hr";
 
-    [Header("Feedback Video")]
+    [Header("Feedback")]
     public string video_name = "";
+    public Sprite img_Sprite = null;
 
     [Header("Events")]
     public UnityEngine.Events.UnityEvent OnBegin;
     public UnityEngine.Events.UnityEvent OnEnd;
+    public UnityEngine.Events.UnityEvent OnNonPassEnd;
 
     [Header("Dotween"), Space(10)]
     public float DG_Time = 0.75f;
@@ -41,6 +43,7 @@ public class Simulation_SyringePump : SimulationBase
 
     // 시뮬레이션 끝 bool
     bool isSimulationEnd = false;
+    bool isPass = false;
 
     ScenarioManager _sm;
 
@@ -56,6 +59,10 @@ public class Simulation_SyringePump : SimulationBase
         StartCoroutine(AllUiOn());
 
         OnBegin?.Invoke(); // 시작 이벤트 호출
+        if(!isPass)
+        {
+            OnNonPassEnd?.Invoke();
+        }
     }
 
     public override void Excute(ScenarioManager SM)
@@ -84,6 +91,7 @@ public class Simulation_SyringePump : SimulationBase
         // 질문 텍스트 수정
         Tmp_Question.text = text_Question;
         txt_SyringePump_amount.text = $"{user_Answer}{Numeric_Unit}";
+        isPass = false;
     }
 
     public void SubmitAnswer()
@@ -96,15 +104,21 @@ public class Simulation_SyringePump : SimulationBase
         Obj_BTN_Submit.SetActive(false);
 
         string answer = $"{user_Answer}{Numeric_Unit}";
+        string qustion_Answer = $"{Question_Answer}{Numeric_Unit}";
+
+        isPass = (answer == qustion_Answer);
 
         // 정답 스택에 추가
         SubmitForm submitForm = new SubmitForm();
         submitForm.txt_Question = text_Question;
-        submitForm.txt_QuestionAnswer = $"{Question_Answer}{Numeric_Unit}";
+        submitForm.txt_QuestionAnswer = qustion_Answer;
         submitForm.txt_userAnswer = answer;
         submitForm.quiz_index = simulation_Quiz_Index;
         submitForm.video_Name = video_name;
         submitForm.useAiAnswer = false;
+        if(img_Sprite != null)
+            submitForm.img_Sprite = img_Sprite;
+
         _sm.str_Answers.Add(submitForm);
 
         print($"{name} : UserAnswer -> {answer} / Question Answer -> {Question_Answer}{Numeric_Unit}");

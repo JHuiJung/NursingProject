@@ -221,3 +221,21 @@ Scenario2,2092,56mg,56mg,\n1. 체중과 투여용량 확인\n  - 체중: 11.2kg\
 Scenario2,2092,d,d,\n1. 체중과 투여용량 확인\n  - 체중: 11.2kg\n  - 유지용량: 5mg/kg/dose\n2. 1회 투여량(mg) = 체중(kg) x 부하용량(mg/kg)\n3. 계산하기\n  - 11.2kg x 5mg/kg = 56mg\n4.  체중 11.2kg인 환아에게 1회 투여할 약물 총 용량은 56mg입니다.
 Scenario2,2093,27.2mg,27.2mg,\n1. 체중과 투여용량 확인\n  - 체중: 6.8kg\n  - 유지용량: 4mg/kg/dose\n2. 1회 투여량(mg) = 체중(kg) x 부하용량(mg/kg)\n3. 계산하기\n  - 6.8kg x 4mg/kg = 27.2mg\n4.  체중 6.8kg인 환아에게 1회 투여할 약물 총 용량은 27.2mg입니다.
 Scenario2,2093,d,d,\n1. 체중과 투여용량 확인\n  - 체중: 6.8kg\n  - 유지용량: 4mg/kg/dose\n2. 1회 투여량(mg) = 체중(kg) x 부하용량(mg/kg)\n3. 계산하기\n  - 6.8kg x 4mg/kg = 27.2mg\n4.  체중 6.8kg인 환아에게 1회 투여할 약물 총 용량은 27.2mg입니다.
+Scenario2,2101,1.04ml,1.04ml,"\n1. 체중과 1회 투여용량으로 계산된 부하용량이 78mg입니다.\n2. 약물 농도는 Celebyx 2ml에 150mg으로, 1ml당 75mg/ml입니다.\n3. 용량(ml) = (부하용량 mg) / (농도 mg/ml)\n  -용량(ml) = 78mg / 75mg/ml = 1.04ml\n  -소수점 첫째 자리까지 반올림하면 1.04ml가 됩니다.\n4. 주사기에 1.04ml의 Celebyx를 담아 준비하면 됩니다."
+Scenario2,2101,d,d,"\n1. 체중과 1회 투여용량으로 계산된 부하용량이 78mg입니다.\n2. 약물 농도는 Celebyx 2ml에 150mg으로, 1ml당 75mg/ml입니다.\n3. 용량(ml) = (부하용량 mg) / (농도 mg/ml)\n  -용량(ml) = 78mg / 75mg/ml = 1.04ml\n  -소수점 첫째 자리까지 반올림하면 1.04ml가 됩니다.\n4. 주사기에 1.04ml의 Celebyx를 담아 준비하면 됩니다."
+Scenario2,2102,2.4ml,2.4ml,"\n 1. 체중과 1회 투여용량으로 계산된 부하용량이 180mg입니다.\n2. 약물 농도는 Celebyx 2ml에 150mg으로, 1ml당 75mg/ml입니다.\n3. 용량(ml) = (부하용량 mg) / (농도 mg/ml)\n  -용량(ml) = 180mg / 75mg/ml = 2.4ml\n4. 주사기에 2.4ml의 Celebyx를 담아 준비하면 됩니다."
+Scenario2,2102,d,d,"\n 1. 체중과 1회 투여용량으로 계산된 부하용량이 180mg입니다.\n2. 약물 농도는 Celebyx 2ml에 150mg으로, 1ml당 75mg/ml입니다.\n3. 용량(ml) = (부하용량 mg) / (농도 mg/ml)\n  -용량(ml) = 180mg / 75mg/ml = 2.4ml\n4. 주사기에 2.4ml의 Celebyx를 담아 준비하면 됩니다."
+Scenario2,2103,0.7ml,0.7ml,"\n1. 체중과 1회 투여용량으로 계산된 부하용량이 53mg입니다.\n2. 약물 농도는 Celebyx 2ml에 150mg으로, 1ml당 75mg/ml입니다.\n3. 용량(ml) = (부하용량 mg) / (농도 mg/ml)\n  -용량(ml) = 53mg / 75mg/ml = 0.7066...ml\n  - 소수점 첫째자리까지 계산 = 0.7ml\n4. 주사기에 0.7ml의 Celebyx를 담아 준비하면 됩니다."
+Scenario2,2103,d,d,"\n1. 체중과 1회 투여용량으로 계산된 부하용량이 53mg입니다.\n2. 약물 농도는 Celebyx 2ml에 150mg으로, 1ml당 75mg/ml입니다.\n3. 용량(ml) = (부하용량 mg) / (농도 mg/ml)\n  -용량(ml) = 53mg / 75mg/ml = 0.7066...ml\n  - 소수점 첫째자리까지 계산 = 0.7ml\n4. 주사기에 0.7ml의 Celebyx를 담아 준비하면 됩니다."
+Scenario2,2131,21.2ml/hr,21.2ml/hr,이미지를 참고하세요.
+Scenario2,2131,d,d,이미지를 참고하세요.
+Scenario2,2132,25.6ml/hr,25.6ml/hr,이미지를 참고하세요.
+Scenario2,2132,d,d,이미지를 참고하세요.
+Scenario2,2133,18.8ml/hr,18.8ml/hr,이미지를 참고하세요.
+Scenario2,2133,d,d,이미지를 참고하세요.
+Scenario2,2351,1.5cc/hr,1.5cc/hr,이미지를 참고하세요.
+Scenario2,2351,d,d,이미지를 참고하세요.
+Scenario2,2352,2.1cc/hr,2.1cc/hr,이미지를 참고하세요.
+Scenario2,2352,d,d,이미지를 참고하세요.
+Scenario2,2353,3.6cc/hr,3.6cc/hr,이미지를 참고하세요.
+Scenario2,2353,d,d,이미지를 참고하세요.

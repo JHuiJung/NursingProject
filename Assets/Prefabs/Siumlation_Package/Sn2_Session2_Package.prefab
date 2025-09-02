@@ -3138,6 +3138,9 @@ MonoBehaviour:
   OnEnd:
     m_PersistentCalls:
       m_Calls: []
+  OnEnd_If_NonPass:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1358492907700151970
 GameObject:
   m_ObjectHideFlags: 0
@@ -3835,6 +3838,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEnd_If_NonPass:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1897985604009325924
@@ -10007,6 +10013,48 @@ MonoBehaviour:
   OnEnd:
     m_PersistentCalls:
       m_Calls: []
+  OnEnd_If_NonPass:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4177927784988774349}
+        m_TargetAssemblyTypeName: Simulation_FeedBack, Assembly-CSharp
+        m_MethodName: Add_NonPassObjs
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 677387017659321212, guid: 0f349e0357d2f1c42bc092ed02964815,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4177927784988774349}
+        m_TargetAssemblyTypeName: Simulation_FeedBack, Assembly-CSharp
+        m_MethodName: Add_NonPassObjs
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 9200109985556962074, guid: de8e253ec8a004c4e816c4cf50dad443,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4177927784988774349}
+        m_TargetAssemblyTypeName: Simulation_FeedBack, Assembly-CSharp
+        m_MethodName: Add_NonPassObjs
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 5138612628789270217, guid: 33719344496def04893db0541ad3db3f,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5313304895330088068
 GameObject:
   m_ObjectHideFlags: 0
@@ -13553,6 +13601,48 @@ MonoBehaviour:
   OnEnd:
     m_PersistentCalls:
       m_Calls: []
+  OnEnd_If_NonPass:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4177927784988774349}
+        m_TargetAssemblyTypeName: Simulation_FeedBack, Assembly-CSharp
+        m_MethodName: Add_NonPassObjs
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 659774672379310142, guid: e365b6bcf0ef8dd4cb1804bd97face37,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4177927784988774349}
+        m_TargetAssemblyTypeName: Simulation_FeedBack, Assembly-CSharp
+        m_MethodName: Add_NonPassObjs
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 3544272992969739701, guid: 555f6488914022f49b6e9f4960eb9a7b,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4177927784988774349}
+        m_TargetAssemblyTypeName: Simulation_FeedBack, Assembly-CSharp
+        m_MethodName: Add_NonPassObjs
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8433370978076394917, guid: 6619124a09362e74886d90241beb1728,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6765070604328834243
 GameObject:
   m_ObjectHideFlags: 0
@@ -13774,6 +13864,48 @@ MonoBehaviour:
   OnEnd:
     m_PersistentCalls:
       m_Calls: []
+  OnEnd_If_NonPass:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4177927784988774349}
+        m_TargetAssemblyTypeName: Simulation_FeedBack, Assembly-CSharp
+        m_MethodName: Add_NonPassObjs
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 357583153776934490, guid: bc7e8a02a5d1a6d48a4e0f99008e1b92,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4177927784988774349}
+        m_TargetAssemblyTypeName: Simulation_FeedBack, Assembly-CSharp
+        m_MethodName: Add_NonPassObjs
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7352479637295359900, guid: 8cde71d566282c24f92f4a6899c1ed58,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4177927784988774349}
+        m_TargetAssemblyTypeName: Simulation_FeedBack, Assembly-CSharp
+        m_MethodName: Add_NonPassObjs
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2365682883897365138, guid: 9eda4506ace368146952d0f480435103,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6976185858442620779
 GameObject:
   m_ObjectHideFlags: 0
@@ -14096,6 +14228,8 @@ MonoBehaviour:
   sessionName: Session 2
   pass_Threshold: 80
   obj_Pass_Package: {fileID: 7002224310339484105, guid: bc190dbe464bfd34cade826faef4c77a,
+    type: 3}
+  obj_NonPass_Package: {fileID: 9165332856546278634, guid: 7bbdeb2c0701c0f439e5a404bf02f6d3,
     type: 3}
   ls_NonPass_Objs: []
   DG_Time: 0.75
@@ -17081,6 +17215,48 @@ MonoBehaviour:
   OnEnd:
     m_PersistentCalls:
       m_Calls: []
+  OnEnd_If_NonPass:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4177927784988774349}
+        m_TargetAssemblyTypeName: Simulation_FeedBack, Assembly-CSharp
+        m_MethodName: Add_NonPassObjs
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 474671728657046733, guid: 22f9482b3d98adf4888806f45b1b89c2,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4177927784988774349}
+        m_TargetAssemblyTypeName: Simulation_FeedBack, Assembly-CSharp
+        m_MethodName: Add_NonPassObjs
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1374602295418289402, guid: f75d867f794208e49964df829c53df01,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4177927784988774349}
+        m_TargetAssemblyTypeName: Simulation_FeedBack, Assembly-CSharp
+        m_MethodName: Add_NonPassObjs
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7355722150055370411, guid: 1a3e5180fa101b442a9dade41fedb357,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7827521558887390855
 GameObject:
   m_ObjectHideFlags: 0
@@ -19122,6 +19298,7 @@ MonoBehaviour:
   - {fileID: 5822617090161791237}
   - {fileID: 6849643452293220660}
   video_name: SampleVideo2
+  img_Sprite: {fileID: 0}
   DG_Time: 0.75
   DG_BTN_EndX: 150
   DG_BTN_StartX: 900
