@@ -5494,7 +5494,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC138\uC158 1 \uD53C\uB4DC\uBC31"
+  m_text: "\uC138\uC158 3 \uD53C\uB4DC\uBC31"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed21f0a27c3c7114783de72406ce063e, type: 2}
   m_sharedMaterial: {fileID: 2226096250028548758, guid: ed21f0a27c3c7114783de72406ce063e,
@@ -8255,6 +8255,7 @@ MonoBehaviour:
   pass_Threshold: 80
   obj_Pass_Package: {fileID: 768675390034696484, guid: 4c5d3c108c971f94da7a3a8970d537d2,
     type: 3}
+  obj_NonPass_Package: {fileID: 0}
   ls_NonPass_Objs: []
   DG_Time: 0.75
   DG_TimeDelta: 0.1
@@ -19623,7 +19624,7 @@ MonoBehaviour:
   objs_SetupForms:
   - obj_name: Player
     obj_position: {x: 52.03, y: 0, z: 8.7}
-    obj_rotation: {x: 0, y: 90, z: 0}
+    obj_rotation: {x: 0, y: 180, z: 0}
     is_active: 1
   - obj_name: ParentSit
     obj_position: {x: 50.750057, y: 0.148, z: 7.6198115}

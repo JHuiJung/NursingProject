@@ -141,6 +141,8 @@ public class ScenarioManager : MonoBehaviour
         //시나리오 종료시 실행 안함
         if (isScenarioEnd) return;
 
+        str_Answers.Clear();
+
         // 현재 번호를 리턴 포인트로 설정
         currentNumber = returnPoint;
 

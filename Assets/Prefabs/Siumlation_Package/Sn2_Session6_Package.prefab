@@ -3025,7 +3025,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC138\uC158 1 \uD53C\uB4DC\uBC31"
+  m_text: "\uC138\uC158 6 \uD53C\uB4DC\uBC31"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed21f0a27c3c7114783de72406ce063e, type: 2}
   m_sharedMaterial: {fileID: 2226096250028548758, guid: ed21f0a27c3c7114783de72406ce063e,
@@ -7159,6 +7159,7 @@ MonoBehaviour:
   pass_Threshold: 80
   obj_Pass_Package: {fileID: 5705833632798770370, guid: 915647405f0adb046b9d188cafc6780d,
     type: 3}
+  obj_NonPass_Package: {fileID: 0}
   ls_NonPass_Objs: []
   DG_Time: 0.75
   DG_TimeDelta: 0.1

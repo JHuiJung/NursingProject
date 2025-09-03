@@ -919,7 +919,7 @@ MonoBehaviour:
   objs_SetupForms:
   - obj_name: Player
     obj_position: {x: 52.03, y: 0, z: 8.7}
-    obj_rotation: {x: 0, y: 90, z: 0}
+    obj_rotation: {x: 0, y: 180, z: 0}
     is_active: 1
   - obj_name: ParentSit
     obj_position: {x: 50.750057, y: 0.148, z: 7.6198115}
@@ -2634,6 +2634,7 @@ MonoBehaviour:
   pass_Threshold: 80
   obj_Pass_Package: {fileID: 3254256976750806029, guid: 55d07d17dfdaeae408d079932c6b2db5,
     type: 3}
+  obj_NonPass_Package: {fileID: 0}
   ls_NonPass_Objs: []
   DG_Time: 0.75
   DG_TimeDelta: 0.1
@@ -5026,6 +5027,7 @@ MonoBehaviour:
   - lable: "\uB4F1\uB85D\uBC88\uD638"
     userInput: {fileID: 2710048889764776500}
     correctAnswer: 240349
+  img_Answer: {fileID: 0}
   DG_Time: 0.75
   DG_Area_EndY: -20
   DG_Area_StartY: -450
@@ -5034,6 +5036,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEnd_If_NonPass:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &4937645582117102964
@@ -5571,7 +5576,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC138\uC158 1 \uD53C\uB4DC\uBC31"
+  m_text: "\uC138\uC158 4 \uD53C\uB4DC\uBC31"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed21f0a27c3c7114783de72406ce063e, type: 2}
   m_sharedMaterial: {fileID: 2226096250028548758, guid: ed21f0a27c3c7114783de72406ce063e,
