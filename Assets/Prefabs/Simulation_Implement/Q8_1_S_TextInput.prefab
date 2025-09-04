@@ -132,6 +132,9 @@ MonoBehaviour:
   - lable: "\uD22C\uC5EC\uB7C9"
     userInput: {fileID: 7507205734334721703}
     correctAnswer: 157.5mg
+  ls_Extra_Answers:
+  - 157.5
+  - 157.5 mg
   img_Answer: {fileID: 0}
   DG_Time: 0.75
   DG_Area_EndY: -20

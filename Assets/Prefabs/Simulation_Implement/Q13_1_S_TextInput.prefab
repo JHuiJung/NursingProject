@@ -52,13 +52,16 @@ MonoBehaviour:
   text_Question: "[\uC2EC\uD654 \uBB38\uC81C] Celebyx\uB97C N/S\uC5D0 \uD76C\uC11D
     \uD6C4 \uCD1D\uC8FC\uC785\uB7C9 10.6ml\uB97C 30\uBD84 \uB3D9\uC548 \uD22C\uC5EC\uD558\uB824\uACE0
     \uD569\uB2C8\uB2E4. syringe pump\uC758 \uC8FC\uC785 \uC2DC\uAC04\uC744 \uBA87
-    ml/hr\uC73C\uB85C \uC124\uC815\uD574\uC57C \uD558\uB098\uC694?\n( \uB2E8\uC704
-    ml/hr \uD544\uC218\uB85C \uD45C\uAE30. ex) 19.2ml/hr )"
+    ml/hr\uC73C\uB85C \uC124\uC815\uD574\uC57C \uD558\uB098\uC694?"
   Tmp_Question: {fileID: 657869449070331173}
   ls_textInputForm:
   - lable: "\uD22C\uC5EC\uB7C9"
     userInput: {fileID: 2460935763730115682}
     correctAnswer: 21.2ml/hr
+  ls_Extra_Answers:
+  - 21.2
+  - 21.2 ml
+  - 21.2 ml/hr
   img_Answer: {fileID: 21300000, guid: 066e00245de29384e947ca46752610fd, type: 3}
   DG_Time: 0.75
   DG_Area_EndY: -20

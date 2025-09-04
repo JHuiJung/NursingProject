@@ -3127,6 +3127,10 @@ MonoBehaviour:
   - lable: "\uC8FC\uC785\uC2DC\uAC04"
     userInput: {fileID: 4989984671403941263}
     correctAnswer: 62.3ml/hr
+  ls_Extra_Answers:
+  - 62.3
+  - 62.3 ml
+  - 62.3 ml/hr
   img_Answer: {fileID: 21300000, guid: 83412f442edb3d64c84c33a8b4811f24, type: 3}
   DG_Time: 0.75
   DG_Area_EndY: -20
@@ -3829,6 +3833,9 @@ MonoBehaviour:
   - lable: "\uC6A9\uC561 \uC6A9\uB7C9"
     userInput: {fileID: 7557445810218381189}
     correctAnswer: 10ml
+  ls_Extra_Answers:
+  - 10
+  - 10 ml
   img_Answer: {fileID: 0}
   DG_Time: 0.75
   DG_Area_EndY: -20
@@ -10002,6 +10009,9 @@ MonoBehaviour:
   - lable: "\uD22C\uC5EC\uB7C9"
     userInput: {fileID: 8291062063680607226}
     correctAnswer: 28mg
+  ls_Extra_Answers:
+  - 28
+  - 28 mg
   img_Answer: {fileID: 0}
   DG_Time: 0.75
   DG_Area_EndY: -20
@@ -13590,6 +13600,9 @@ MonoBehaviour:
   - lable: "\uC8FC\uC0AC \uC6A9\uB7C9"
     userInput: {fileID: 2368919399462115496}
     correctAnswer: 1.9ml
+  ls_Extra_Answers:
+  - 1.9
+  - 1.9 ml
   img_Answer: {fileID: 0}
   DG_Time: 0.75
   DG_Area_EndY: -20
@@ -13846,13 +13859,16 @@ MonoBehaviour:
     dose) \uD22C\uC5EC\uB97C \uC704\uD574 Celebyx\uB97C N/S\uC5D0 \uD76C\uC11D\uD55C
     \uD6C4, 30\uBD84 \uB3D9\uC548 \uD22C\uC5EC\uD558\uB824\uACE0 \uD569\uB2C8\uB2E4.
     Syringe pump\uC758 \uC8FC\uC785 \uC2DC\uAC04\uC744 \uBA87 ml/hr\uC73C\uB85C \uC124\uC815\uD574\uC57C
-    \uD558\uB098\uC694?\n( \uB2E8\uC704 ml/hr \uB97C \uD544\uC218\uB85C \uD3EC\uD568\uD560
-    \uAC83 )"
+    \uD558\uB098\uC694?"
   Tmp_Question: {fileID: 6334064428696736437}
   ls_textInputForm:
   - lable: "\uC8FC\uC785\uC2DC\uAC04"
     userInput: {fileID: 6738397306958753904}
     correctAnswer: 23.8ml/hr
+  ls_Extra_Answers:
+  - 23.8
+  - 23.8 ml
+  - 23.8 ml/hr
   img_Answer: {fileID: 21300000, guid: defeefc59f1a18f448d8d8663071c450, type: 3}
   DG_Time: 0.75
   DG_Area_EndY: -20
@@ -17204,6 +17220,9 @@ MonoBehaviour:
   - lable: "\uD22C\uC5EC\uB7C9"
     userInput: {fileID: 1486713902556203436}
     correctAnswer: 140mg
+  ls_Extra_Answers:
+  - 140
+  - 140 mg
   img_Answer: {fileID: 0}
   DG_Time: 0.75
   DG_Area_EndY: -20

@@ -2382,6 +2382,9 @@ MonoBehaviour:
   - lable: "1\uD68C \uC6A9\uB7C9"
     userInput: {fileID: 7097714501534663341}
     correctAnswer: 460mg
+  ls_Extra_Answers:
+  - 460
+  - 460 mg
   img_Answer: {fileID: 0}
   DG_Time: 0.75
   DG_Area_EndY: -20
@@ -4069,6 +4072,9 @@ MonoBehaviour:
   - lable: "1\uD68C \uC8FC\uC785 \uC6A9\uB7C9"
     userInput: {fileID: 8162472866168985790}
     correctAnswer: 1.84ml
+  ls_Extra_Answers:
+  - 1.84
+  - 1.84 ml
   img_Answer: {fileID: 0}
   DG_Time: 0.75
   DG_Area_EndY: -20

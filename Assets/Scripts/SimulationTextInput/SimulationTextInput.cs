@@ -36,6 +36,9 @@ public class SimulationTextInput : SimulationBase
     [Header("폼 텍스트 입력")]
     public List<TextInputForm> ls_textInputForm;
 
+    [Header("추가 인정 답변들")]
+    public List<string> ls_Extra_Answers;
+
     [Header("정답 이미지 추가")]
     public Sprite img_Answer = null;
 
@@ -172,6 +175,14 @@ public class SimulationTextInput : SimulationBase
         }
 
         MasterAudio.PlaySound("Button_Press");
+
+        for (int i = 0; i < ls_Extra_Answers.Count; i++)
+        {
+            if (ls_Extra_Answers[i] == userAnswer)
+            {
+                userAnswer = correctAnswer;
+            }
+        }
 
         isPass = (userAnswer == correctAnswer);
 
