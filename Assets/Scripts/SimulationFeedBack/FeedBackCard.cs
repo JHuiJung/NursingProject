@@ -16,6 +16,7 @@ public class FeedBackCard : MonoBehaviour
     public Image img_AnswerImg;
 
     string videoPath = "";
+    RenderTexture renderTexture;
 
     public void CoverOnOff(bool isCoverOn)
     {
@@ -28,9 +29,19 @@ public class FeedBackCard : MonoBehaviour
         txt_Title.text = title;
         txt_UserAnswer.text = userAnswer;
 
-        if(videoName != "")
+        if (videoName != "")
         {
-            videoPath = videoPath = Application.streamingAssetsPath + "/" + videoName + ".mp4";
+            renderTexture = videoPlayer.targetTexture;
+            print($"{renderTexture.name}");
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+            videoPath = Application.absoluteURL.Replace("index.html", "") + "videos/" + videoName + ".mp4";
+#else
+            videoPath = Application.streamingAssetsPath + "/" + "SampleVideo2" + ".mp4";
+#endif
+
+
+            print($"{name}_URL => {videoPath}");
         }
 
         if(imgSprite != null)
@@ -40,13 +51,21 @@ public class FeedBackCard : MonoBehaviour
 
     }
 
+    public void ClearRenderTexture()
+    {
+        RenderTexture activeRT = RenderTexture.active;
+        RenderTexture.active = renderTexture;
+        GL.Clear(true, true, Color.black); // 검은색으로 초기화
+        RenderTexture.active = activeRT;
+    }
+
     public void PlayVideo()
     {
         if (videoPlayer != null && videoPath != "")
         {
             MasterAudio.PlaySound("Button_Press");
             videoPlayer.url = videoPath;
-            videoPlayer.SetDirectAudioVolume(0, 0f); // Mute audio
+            videoPlayer.SetDirectAudioVolume(0, 1f); // Mute audio
             videoPlayer.Play();
         }
         else

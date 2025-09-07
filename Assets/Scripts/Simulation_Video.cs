@@ -31,7 +31,7 @@ public class Simulation_Video : SimulationBase
     public Ease DG_Ease = Ease.InOutQuad;
 
 
-    
+    RenderTexture renderTexture;
 
     string videoPath = "";
 
@@ -86,7 +86,11 @@ public class Simulation_Video : SimulationBase
 
         if (!string.IsNullOrEmpty(video_Name))
         {
-            videoPath = Application.streamingAssetsPath + "/" + video_Name + ".mp4";
+#if UNITY_WEBGL && !UNITY_EDITOR
+            videoPath = Application.absoluteURL.Replace("index.html", "") + "videos/" + video_Name + ".mp4";
+#else
+            videoPath = Application.streamingAssetsPath + "/" + "SampleVideo2" + ".mp4";
+#endif
         }
 
         if (videoPlayer != null)
@@ -94,6 +98,10 @@ public class Simulation_Video : SimulationBase
             // 영상이 끝났을 때 호출될 이벤트 등록
             videoPlayer.loopPointReached += OnVideoEnd;
         }
+
+        renderTexture = videoPlayer.targetTexture;
+
+        ClearRenderTexture();
 
         // Next 버튼은 처음엔 꺼두기
         Obj_BTN_Next.SetActive(false);
@@ -111,7 +119,7 @@ public class Simulation_Video : SimulationBase
         {
             MasterAudio.PlaySound("Button_Press");
             videoPlayer.url = videoPath;
-            videoPlayer.SetDirectAudioVolume(0, 0f); // Mute audio
+            videoPlayer.SetDirectAudioVolume(0, 1f); // Mute audio
             videoPlayer.Play();
         }
         else
@@ -178,5 +186,13 @@ public class Simulation_Video : SimulationBase
 
         // 다음 시뮬레이션으로 이동
         _sm.NextSimulation();
+    }
+
+    public void ClearRenderTexture()
+    {
+        RenderTexture activeRT = RenderTexture.active;
+        RenderTexture.active = renderTexture;
+        GL.Clear(true, true, Color.black); // 검은색으로 초기화
+        RenderTexture.active = activeRT;
     }
 }

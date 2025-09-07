@@ -42,7 +42,10 @@ public class SimulationTextInput : SimulationBase
     [Header("정답 이미지 추가")]
     public Sprite img_Answer = null;
 
-    [Header("Dotween"),]
+    [Header("Feedback")]
+    public string videoName = "";
+
+    [Header("Dotween")]
     public float DG_Time = 0.75f;
     public float DG_Area_EndY = -20f;
     public float DG_Area_StartY = -450f;
@@ -192,6 +195,7 @@ public class SimulationTextInput : SimulationBase
         submitForm.txt_QuestionAnswer = correctAnswer;
         submitForm.txt_userAnswer = userAnswer;
         submitForm.quiz_index = simulation_Quiz_Index;
+        submitForm.video_Name = videoName;
         if(img_Answer != null)
             submitForm.img_Sprite = img_Answer;
         _sm.str_Answers.Add(submitForm);

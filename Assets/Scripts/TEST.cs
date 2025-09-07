@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
 
 public class TEST : MonoBehaviour
 {
     public VideoPlayer videoPlayer;
-    public string videoTitle = "SampleVideo";
+    public TMP_InputField inputField;
     // Start is called before the first frame update
 
     string videoPath;
 
-    void Start()
+    public void SetVideoUrl()
     {
-        //videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, $"{videoTitle}.mp4");
-        videoPath = videoPath = Application.streamingAssetsPath + "/" + videoTitle + ".mp4";
+        videoPath = Application.absoluteURL.Replace("index.html", "") + "videos/" + inputField.text + ".mp4";
+        print($" URL => {videoPath}");
     }
 
     [ContextMenu("Play Video")]
