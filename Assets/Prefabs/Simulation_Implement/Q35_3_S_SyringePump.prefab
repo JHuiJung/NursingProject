@@ -3376,6 +3376,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnNonPassEnd:
+    m_PersistentCalls:
+      m_Calls: []
   DG_Time: 0.75
   DG_Area_EndY: -50
   DG_Area_StartY: -800
@@ -3445,7 +3448,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC774\uBBF8\uC9C0"
+  m_text: "\uB3C4\uD30C\uBBFC \uC8FC\uC785\uC18D\uB3C4 \uACF5\uC2DD"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed21f0a27c3c7114783de72406ce063e, type: 2}
   m_sharedMaterial: {fileID: 2226096250028548758, guid: ed21f0a27c3c7114783de72406ce063e,

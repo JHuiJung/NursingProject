@@ -2373,7 +2373,7 @@ MonoBehaviour:
   Obj_CanvasChoice: {fileID: 7631621907024985925}
   Obj_AreaTextInput: {fileID: 9165924289062862700}
   Obj_BTN_Submit: {fileID: 6312591110321580737}
-  text_Question: "Q10. \"\uCCB4\uC911 9.2kg, 50mg/kg/day q 8hr \uCC98\uBC29 \uC2DC,
+  text_Question: "Q10. \"\uCCB4\uC911 9.2kg, 50mg/kg/dose q 8hr \uCC98\uBC29 \uC2DC,
     1\uD68C \uC6A9\uB7C9\uC740 \uC5BC\uB9C8\uC778\uAC00\uC694?\n( \uC608\uC2DC :
     120mg / \uB2E8\uC704 mg\uB97C \uD544\uC218\uB85C \uC785\uB825\uD558\uC2DC\uC624
     )"
@@ -4066,8 +4066,7 @@ MonoBehaviour:
   Obj_BTN_Submit: {fileID: 7849431559619270835}
   text_Question: "Q12: \uD22C\uC57D \uCC98\uBC29\uC5D0 \uB530\uB77C Cefotaxime\uC744
     \uD76C\uC11D \uD6C4 1\uD68C \uC8FC\uC785 \uC6A9\uB7C9\uC744 \uACC4\uC0B0\uD558\uC138\uC694.\n(
-    \uC608\uC2DC : 1ml / \uB2E8\uC704 ml\uB97C \uD544\uC218\uB85C \uC785\uB825\uD558\uC2DC\uC624
-    )"
+    \uC18C\uC22B\uC810 \uB458\uC9F8 \uC790\uB9AC\uAE4C\uC9C0 \uAE30\uC785 )"
   Tmp_Question: {fileID: 6216345658500363180}
   ls_textInputForm:
   - lable: "1\uD68C \uC8FC\uC785 \uC6A9\uB7C9"

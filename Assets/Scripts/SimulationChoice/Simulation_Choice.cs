@@ -20,6 +20,7 @@ public class Simulation_Choice : SimulationBase
     // 정답
     [Header("정답(필수로 입력)"), Space(10)]
     public string text_Answer = "";
+    public bool isAnswerSuffle = true;
 
     // 오답 뭉치
     [Header("오답 뭉치"),Space(10)]
@@ -95,8 +96,10 @@ public class Simulation_Choice : SimulationBase
         // 질문 텍스트 수정
         Tmp_Question.text = text_Question;
 
+        int randBTN_Num = 0;
         // 정답이 할당될 번호 가져오기
-        int randBTN_Num = Random.Range(0, BTN_Choices.Count);
+        if (isAnswerSuffle)
+            randBTN_Num  = Random.Range(0, BTN_Choices.Count);
 
         // 버튼의 개수 -1  개 만큼의 더미 대답 뭉치 가져오기
         List<string> dummy_strs = GetRandomStrings(text_Dummies, BTN_Choices.Count - 1);
