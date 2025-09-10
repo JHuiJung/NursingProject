@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using System.Text.RegularExpressions;
 
 public class FeedBackCard : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class FeedBackCard : MonoBehaviour
 
     string videoPath = "";
     RenderTexture renderTexture;
+
+    public static Coroutine ttsCoroutine = null;
 
     public void CoverOnOff(bool isCoverOn)
     {
@@ -85,5 +88,30 @@ public class FeedBackCard : MonoBehaviour
             MasterAudio.PlaySound("Button_Press");
             videoPlayer.Stop();
         }
+    }
+
+    public void PlayTTS()
+    {
+        // 이전 코루틴 실행 중이면 중단
+        if (ttsCoroutine != null)
+        {
+            StopCoroutine(ttsCoroutine);
+            ttsCoroutine = null;
+        }
+
+        // 재생 중인 오디오가 있으면 멈추고 해제
+        if (STT_TTS_Manager.inst.audioSource.isPlaying)
+        {
+            STT_TTS_Manager.inst.audioSource.Stop();
+            if (STT_TTS_Manager.inst.audioSource.clip != null)
+            {
+                Destroy(STT_TTS_Manager.inst.audioSource.clip);
+                STT_TTS_Manager.inst.audioSource.clip = null;
+            }
+        }
+
+        // 새로운 TTS 코루틴 시작
+        string onlyText = Regex.Replace(txt_AiAnswer.text, "<.*?>", string.Empty);
+        ttsCoroutine = StartCoroutine(STT_TTS_Manager.inst.TTS(onlyText));
     }
 }

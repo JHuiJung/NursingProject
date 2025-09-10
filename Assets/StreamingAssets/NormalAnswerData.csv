@@ -94,15 +94,15 @@ Scenario1,1122,d,d,"""1단계: 필요한 약물 용량 계산, 1회 투여량(mg
 Scenario1,1123,3.5ml,3.5ml,"""1단계: 1일 총 투여량 계산, 1일 총 투여량(mg) = 체중(kg) x 1일 용량(mg/kg)\n       3.5kg x 150mg/kg = 525mg/day\n\n2단계: 희석 후 농도 계산, 약물량: 750mg, 희석액량: 5ml\n     희석 후 농도 = 750mg / 5ml = 150mg/ml\n3단계: 1일 총 주입 용량 계산\n      주입할 용량(ml) = 필요한 약물량(mg) / 농도(mg/ml)\n      525mg / 150mg/ml = 3.5ml\n\n따라서 체중 3.5kg 환아에게 150mg/kg/day를 투여하기 위해서는 하루에 총 3.5ml를 주입해야 합니다."""
 Scenario1,1123,d,d,"""1단계: 1일 총 투여량 계산, 1일 총 투여량(mg) = 체중(kg) x 1일 용량(mg/kg)\n       3.5kg x 150mg/kg = 525mg/day\n\n2단계: 희석 후 농도 계산, 약물량: 750mg, 희석액량: 5ml\n     희석 후 농도 = 750mg / 5ml = 150mg/ml\n3단계: 1일 총 주입 용량 계산\n      주입할 용량(ml) = 필요한 약물량(mg) / 농도(mg/ml)\n      525mg / 150mg/ml = 3.5ml\n\n따라서 체중 3.5kg 환아에게 150mg/kg/day를 투여하기 위해서는 하루에 총 3.5ml를 주입해야 합니다."""
 Scenario2,1,Celebyx 150mg amp,Celebyx 150mg amp,"“Celebyx 150mg amp는 응급상황(특히 뇌전증중첩증)에서 빠른 혈중 농도 도달을 목표로 IV(정맥주사)로 투여되는 항경련제이며, 비응급 상황에서는 IM(근육주사)로도 투여가 가능합니다.”"
-Scenario2,1,Dilantin 250mg vial,Cerebyx 150mg amp,"Dilantin 250mg은 주성분은 페니토인(Phenytoin)으로, 급성 경련/간질중첩증에 IV 또는 IM으로 투여하는 항경련제이나, 현재 처방된 약물이 아닙니다."
-Scenario2,1,Ativan 4mg amp,Cerebyx 150mg amp,"Ativan 4mg amp(성분명: Lorazepam)는 불안, 긴장, 우울 등 신경증 치료 또는 간질 지속상태에 사용되는 벤조디아제핀 계열 진정제입니다."
-Scenario2,1,Diazepam 10mg amp,Cerebyx 150mg amp,"Diazepam 10mg amp는 급성 불안, 경련 등에서 사용되는 진정·항불안제입니다."
-Scenario2,1,Midazolam 5mg amp,Cerebyx 150mg amp,"Midazolam 5mg amp는 단기간 작용하는 벤조디아제핀계 진정제로, 수술 전후 진정, 발작 중재, 불안 완화에 사용됩니다."
-Scenario2,1,Luminal 100mg amp,Cerebyx 150mg amp,"Luminal 100mg amp는 바르비투르산계 항경련제로 IV/IM 투여 가능하나, 현재 처방된 약물이 아닙니다."
-Scenario2,1,Keppra 500mg vial,Cerebyx 150mg amp,"Keppra 500mg vial은 레비티라세탐 성분 항경련제로 IV로 사용되지만, 현재 처방된 약물이 아닙니다."
-Scenario2,1,Tegretol syrup,Cerebyx 150mg amp,"Tegretol syrup은  카르바마제핀 경구 시럽제, 부분발작 및 삼차신경통 치료에 사용하며 정맥 투여 약물이 아닙니다."
-Scenario2,1,Keppra oral soln 100mg,Cerebyx 150mg amp,Keppra oral soln 100mg은  레비티라세탐 경구용 액제로 소아·성인 경련 치료에 사용하지만 정맥 투여 약물은 아닙니다.
-Scenario2,1,Phenobarbital Tab 30mg,Cerebyx 150mg amp,Phenobarbital Tab 30mg은 바르비투르산계 약물로 간질 및 기타 경련의 유지 치료에 경구 투여합니다. 하지만 정맥으로 투여될 약물이 아닙니다
+Scenario2,1,Dilantin 250mg vial,Celebyx 150mg amp,"Dilantin 250mg은 주성분은 페니토인(Phenytoin)으로, 급성 경련/간질중첩증에 IV 또는 IM으로 투여하는 항경련제이나, 현재 처방된 약물이 아닙니다."
+Scenario2,1,Ativan 4mg amp,Celebyx 150mg amp,"Ativan 4mg amp(성분명: Lorazepam)는 불안, 긴장, 우울 등 신경증 치료 또는 간질 지속상태에 사용되는 벤조디아제핀 계열 진정제입니다."
+Scenario2,1,Diazepam 10mg amp,Celebyx 150mg amp,"Diazepam 10mg amp는 급성 불안, 경련 등에서 사용되는 진정·항불안제입니다."
+Scenario2,1,Midazolam 5mg amp,Celebyx 150mg amp,"Midazolam 5mg amp는 단기간 작용하는 벤조디아제핀계 진정제로, 수술 전후 진정, 발작 중재, 불안 완화에 사용됩니다."
+Scenario2,1,Luminal 100mg amp,Celebyx 150mg amp,"Luminal 100mg amp는 바르비투르산계 항경련제로 IV/IM 투여 가능하나, 현재 처방된 약물이 아닙니다."
+Scenario2,1,Keppra 500mg vial,Celebyx 150mg amp,"Keppra 500mg vial은 레비티라세탐 성분 항경련제로 IV로 사용되지만, 현재 처방된 약물이 아닙니다."
+Scenario2,1,Tegretol syrup,Celebyx 150mg amp,"Tegretol syrup은  카르바마제핀 경구 시럽제, 부분발작 및 삼차신경통 치료에 사용하며 정맥 투여 약물이 아닙니다."
+Scenario2,1,Keppra oral soln 100mg,Celebyx 150mg amp,Keppra oral soln 100mg은  레비티라세탐 경구용 액제로 소아·성인 경련 치료에 사용하지만 정맥 투여 약물은 아닙니다.
+Scenario2,1,Phenobarbital Tab 30mg,Celebyx 150mg amp,Phenobarbital Tab 30mg은 바르비투르산계 약물로 간질 및 기타 경련의 유지 치료에 경구 투여합니다. 하지만 정맥으로 투여될 약물이 아닙니다
 Scenario2,2,1kg 당 20mg 투여,1kg 당 20mg 투여,"“1kg 당 20mg 투여“ Celebyx 20mg/kg/dose""는 체중 1kg당 Celebyx 20mg을 1회 투여하는 용량을 의미합니다."
 Scenario2,2,1kg 당 20mg 하루 12시간 동안 투여,1kg 당 20mg 투여,1kg 당 20mg 하루 12시간 동안 투여 : 체중 1kg당 20mg 용량을 12시간 동안 투여한다는 의미입니다.
 Scenario2,2,1kg 당 4mg 투여,1kg 당 20mg 투여,1kg 당 4mg 투여: 체중 1kg당 4mg을 1회 투여한다는 의미입니다.
