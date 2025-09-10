@@ -254,7 +254,16 @@ public class STT_TTS_Manager : MonoBehaviour
         try
         {
             int length;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+            wavData = WavUtility.FromAudioClipResample16kHz(clip, out length, true);
+            Debug.Log($"WebGL STT: {clip.frequency}Hz → 16000Hz 리샘플링 완료");
+#else
             wavData = WavUtility.FromAudioClip(clip, out length);
+
+#endif
+
+
         }
         catch (Exception e)
         {

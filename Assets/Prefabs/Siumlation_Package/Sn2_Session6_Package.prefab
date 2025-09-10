@@ -46,23 +46,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteAndTextAnswer_Dummies:
-  - sprite: {fileID: 21300000, guid: c4957ffe77d6fe044a0f7288de1f57ff, type: 3}
+  - sprite: {fileID: 21300000, guid: 70af046f3358fc3489a61a86f092c38f, type: 3}
     ls_Answers:
     - "\uC815\uC0C1, \uC774\uC0C1\uBC18\uC751 \uC5C6\uC74C"
     - "\uC8FC\uC785 \uC9C0\uC18D"
-  - sprite: {fileID: 21300000, guid: e20f99193e07b4f448f6148924c3a623, type: 3}
+  - sprite: {fileID: 21300000, guid: 1433935b3ad89a5418b9ebfec5ff64ae, type: 3}
     ls_Answers:
     - "\uBE44\uC815\uC0C1, \uC774\uC0C1 \uBC18\uC751 \uBC1C\uC0DD"
     - "\uC8FC\uC785 \uC911\uB2E8, \uBCF4\uACE0"
-  - sprite: {fileID: 21300000, guid: 54aced1d84643ae46b14a24fdb8445c0, type: 3}
+  - sprite: {fileID: 21300000, guid: 12781e75d44efa8428cf5d2e931eb376, type: 3}
     ls_Answers:
     - "\uBE44\uC815\uC0C1, \uC774\uC0C1 \uBC18\uC751 \uBC1C\uC0DD"
     - "\uC8FC\uC785 \uC911\uB2E8, \uBCF4\uACE0"
-  - sprite: {fileID: 21300000, guid: ab6582e1d0f7eb841b214bf868470550, type: 3}
+  - sprite: {fileID: 21300000, guid: 536cc1cf492897342b6eeabb9056451c, type: 3}
     ls_Answers:
     - "\uBE44\uC815\uC0C1, \uC774\uC0C1 \uBC18\uC751 \uBC1C\uC0DD"
     - "\uC8FC\uC785 \uC911\uB2E8, \uBCF4\uACE0"
-  - sprite: {fileID: 21300000, guid: 033b8f9cd28e9154aa77645cc3e050f6, type: 3}
+  - sprite: {fileID: 21300000, guid: 56cf493f1208f5f478642b48a4cacdd4, type: 3}
     ls_Answers:
     - "\uBE44\uC815\uC0C1, \uC774\uC0C1 \uBC18\uC751 \uBC1C\uC0DD"
     - "\uC8FC\uC785 \uC911\uB2E8, \uBCF4\uACE0"

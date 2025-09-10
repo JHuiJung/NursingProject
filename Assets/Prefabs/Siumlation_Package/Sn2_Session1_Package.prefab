@@ -16390,8 +16390,12 @@ MonoBehaviour:
       \uC788\uC2B5\uB2C8\uB2E4."
   - sprite: {fileID: 21300000, guid: 1182e5cf606aa4b4b8ef8ed6ce65b7ca, type: 3}
     ls_Answers:
-    - "\uC801\uD569, \uC57D\uBB3C\uC758 \uC720\uD6A8\uAE30\uAC04\uC740 \uC815\uC0C1\uC785\uB2C8\uB2E4."
-    - "\uBD80\uC801\uD569, \uC570\uD50C\uC758 \uBCC0\uC0C9\uC774 \uAD00\uCC30\uB429\uB2C8\uB2E4."
+    - "\uBD80\uC801\uD569. \uC57D\uBB3C\uC758 \uC720\uD6A8\uAE30\uAC04\uC774 \uB9CC\uB8CC\uB418\uC5C8\uC2B5\uB2C8\uB2E4."
+    - "\uBD80\uC801\uD569. \uC57D\uBB3C\uC758 \uC720\uD6A8\uAE30\uAC04\uC774 \uB9CC\uB8CC\uB418\uC5C8\uC2B5\uB2C8\uB2E4."
+  - sprite: {fileID: 21300000, guid: 2feada3aacb58634c89bcb2a5d37dac5, type: 3}
+    ls_Answers:
+    - "\uBD80\uC801\uD569, \uC57D\uBB3C\uC758 \uC720\uD6A8\uAE30\uAC04\uC774 \uC815\uC0C1\uC785\uB2C8\uB2E4."
+    - "\uBD80\uC801\uD569, \uC57D\uBB3C\uC758 \uC720\uD6A8\uAE30\uAC04\uC774 \uC815\uC0C1\uC785\uB2C8\uB2E4."
   Obj_targetImg: {fileID: 1980063059761454751}
   obj_AreaImage: {fileID: 1158223210740591618}
   selectedTA:
