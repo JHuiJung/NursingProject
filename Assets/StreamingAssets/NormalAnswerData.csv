@@ -2,7 +2,7 @@
 Scenario1,1,Cefotaxime 0.5g Vial,Cefotaxime 0.5g Vial,"Cefotaxime 0.5g은 3세대 세팔로스포린계 항생제로, 빠른 치료효과 발현과 효과적 혈중농도 유지를 목적으로 근육 또는 정맥주사(IV/IM)로 투여하는 광범위 항균제입니다."
 Scenario1,1,Ceftriaxone 0.5g Vial,Cefotaxime 0.5g Vial,"Ceftriaxone 0.5g Vial: 3세대 세팔로스포린계 항생제로, 그람양성균과 그람음성균 모두에 효과가 있으며, 폐렴, 요로감염, 복강내감염, 뇌수막염 등 다양한 중증 감염에 정맥 또는 근육 주사(IV/IM)로 널리 사용됩니다."
 Scenario1,1,Cefazolin 0.5g Vial,Cefotaxime 0.5g Vial,"Cefazolin 0.5g Vial:1세대 세팔로스포린계 항생제로 감수성 있는 세균에 의한 피부, 기도, 비뇨기계 감염 및 수술 전 예방을 위해 정맥 또는 근육 주사(IV/IM)로 투여합니다"
-Scenario1,1,Ampicillin 0.5g Vial,Cefotaxime 0.5g Vial,"Ampicillin 0.5g Vial:광범위 페니실린계 항생제로 폐렴, 심내막염, 요로감염 등 다양한 그람양성·음성균 감염에 정맥 또는 근육 주사(IV/IM)로 사용합니다."
+Scenario1,1,Ampicillin 0.5g Vial,Cefotaxime 0.5g Vial,"Ampicillin 0.5g Vial:광범위 페니실린계 항생제로 폐렴, 심내막염, 요로감염 등 다양한 그람양성, 음성균 감염에 정맥 또는 근육 주사(IV/IM)로 사용합니다."
 Scenario1,1,Vancomycin 0.5g Vial,Cefotaxime 0.5g Vial,"Vancomycin 0.5g Vial:내성 그람양성균(주로 MRSA) 감염 치료에 효과적인 글라이코펩타이드계 항생제로, 심각한 감염에 정맥주사(IV)로 주입합니다."
 Scenario1,1,Ceftazidime 0.5g Vial,Cefotaxime 0.5g Vial,"Ceftazidime 0.5g Vial:3세대 세팔로스포린계 항생제로, 주로 녹농균 등 그람음성균 감염과 중증 감염 치료에 정맥 또는 근육 주사(IV/IM)로 투여됩니다"
 Scenario1,1,Gentamicin 0.5g Vial,Cefotaxime 0.5g Vial,"Gentamicin 0.5g Vial: 아미노글리코사이드계 항생제로 요로감염, 패혈증, 복합감염에 강력한 살균작용을 보이며 정맥 또는 근육 주사(IV/IM) 로 사용합니다"
