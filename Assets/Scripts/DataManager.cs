@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using static NursingChatClient;
 
 
@@ -28,6 +28,9 @@ public class DataManager : MonoBehaviour
     //---- csv data ----
     public List<CSVForm> csvForms = new List<CSVForm>();
 
+    public AudioSource audioSource;
+    public Slider volumeSlider;
+
     private void Awake()
     {
         // 이미 인스턴스가 있고, 그것이 자기 자신이 아니라면 제거
@@ -47,6 +50,7 @@ public class DataManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(CSVReadStart()); // CSV 파일 읽기 시작
+        SetVolume();
     }
 
     // 셋업
@@ -354,5 +358,31 @@ public class DataManager : MonoBehaviour
         public string userAnswer = "";
         public string quizAnswer = "";
         public string response = "";
+    }
+
+    public void SetVolume()
+    {
+        if (audioSource != null)
+        {
+            float vol = volumeSlider.value / 5;
+            audioSource.volume = vol;
+        }
+    }
+
+    public void SetMute(bool isMute)
+    {
+        if (audioSource != null)
+        {
+            audioSource.mute = isMute;
+        }
+    }
+
+    public void SetClip(AudioClip clip)
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();
+        }
     }
 }

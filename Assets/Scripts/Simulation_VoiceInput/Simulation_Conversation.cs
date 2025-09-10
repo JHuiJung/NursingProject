@@ -155,8 +155,12 @@ public class Simulation_Conversation : SimulationBase
         // Opposite Ani Talk On
         CameraManager.inst.SetAnimation(opposite_Obj_Name, "talk");
 
+        DataManager.inst.SetMute(true);
+
         // TTS�� ����
         yield return StartCoroutine(STT_TTS_Manager.inst.TTS(opposite_Content));
+
+        DataManager.inst.SetMute(false);
 
         // Opposite Ani idle On
         CameraManager.inst.SetAnimation(opposite_Obj_Name, "idle");
@@ -198,9 +202,13 @@ public class Simulation_Conversation : SimulationBase
         // Opposite Ani Talk On
         CameraManager.inst.SetAnimation(opposite_Obj_Name, "talk");
 
+        DataManager.inst.SetMute(true);
+
         //tts�� ���
         //yield return StartCoroutine(PlayTTSQuestion(ai_responese));
         yield return StartCoroutine(STT_TTS_Manager.inst.TTS(ai_responese));
+
+        DataManager.inst.SetMute(false);
 
         // Opposite Ani idle On
         CameraManager.inst.SetAnimation(opposite_Obj_Name, "idle");
@@ -316,6 +324,7 @@ public class Simulation_Conversation : SimulationBase
             Obj_Btn_StopRecord.SetActive(true);
 
             // Player Ani Talk On
+            DataManager.inst.SetMute(true);
             CameraManager.inst.SetAnimation(player_Obj_Name, "talk");
 
         }
@@ -327,6 +336,7 @@ public class Simulation_Conversation : SimulationBase
             Obj_Btn_StopRecord.SetActive(false);
 
             // Player Ani idle On
+            DataManager.inst.SetMute(false);
             CameraManager.inst.SetAnimation(player_Obj_Name, "idle");
         }
 

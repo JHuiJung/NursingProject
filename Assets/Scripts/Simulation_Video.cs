@@ -110,6 +110,7 @@ public class Simulation_Video : SimulationBase
     void OnVideoEnd(VideoPlayer vp)
     {
         // 영상 끝나면 Next 버튼 켜기
+        DataManager.inst.SetMute(false);
         Obj_BTN_Next.SetActive(true);
     }
 
@@ -117,6 +118,8 @@ public class Simulation_Video : SimulationBase
     {
         if (videoPlayer != null && videoPath != "")
         {
+            DataManager.inst.SetMute(true);
+
             MasterAudio.PlaySound("Button_Press");
             videoPlayer.url = videoPath;
             videoPlayer.SetDirectAudioVolume(0, 1f); // Mute audio
@@ -132,6 +135,7 @@ public class Simulation_Video : SimulationBase
     {
         if (videoPlayer != null && videoPlayer.isPlaying)
         {
+            DataManager.inst.SetMute(false);
             MasterAudio.PlaySound("Button_Press");
             videoPlayer.Stop();
         }

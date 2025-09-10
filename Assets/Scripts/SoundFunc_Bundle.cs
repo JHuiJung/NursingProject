@@ -15,4 +15,14 @@ public class SoundFunc_Bundle : MonoBehaviour
         // Play the sound using Master Audio
         MasterAudio.PlaySound(soundName);
     }
+
+    public void SetClip(AudioClip audioClip)
+    {
+        DataManager.inst.SetClip(audioClip);
+    }
+
+    public void SetMute(bool isMute)
+    {
+        DataManager.inst.SetMute(isMute);
+    }
 }

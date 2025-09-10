@@ -1,3 +1,4 @@
+using DarkTonic.MasterAudio;
 using DG.Tweening;
 using System;
 using System.Collections;
@@ -5,8 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using DarkTonic.MasterAudio;
 using UnityEngine.UI;
+using static Unity.Burst.Intrinsics.X86.Avx;
 using static UnityEngine.Rendering.DebugUI;
 
 public class SimulationTextTimeInput : SimulationBase
@@ -118,11 +119,12 @@ public class SimulationTextTimeInput : SimulationBase
         Obj_BTN_Submit.SetActive(false);
 
         string answer = textInputField.text;
+        answer = answer.Replace(" ", "").ToLower();
 
         // 정답 스택에 추가
         SubmitForm submitForm = new SubmitForm();
         submitForm.txt_Question = text_Question;
-        submitForm.txt_QuestionAnswer = $"Answer :  {timeInput_Offset} 만큼 지난 시간인 {timeInput_Answer} 이 정답";
+        submitForm.txt_QuestionAnswer = timeInput_Answer;
         submitForm.txt_userAnswer = answer;
         submitForm.quiz_index = simulation_Quiz_Index;
         _sm.str_Answers.Add(submitForm);

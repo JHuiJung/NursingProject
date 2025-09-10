@@ -7,8 +7,8 @@ Scenario1,1,Vancomycin 0.5g Vial,Cefotaxime 0.5g Vial,"Vancomycin 0.5g Vial:내�
 Scenario1,1,Ceftazidime 0.5g Vial,Cefotaxime 0.5g Vial,"Ceftazidime 0.5g Vial:3세대 세팔로스포린계 항생제로, 주로 녹농균 등 그람음성균 감염과 중증 감염 치료에 정맥 또는 근육 주사(IV/IM)로 투여됩니다"
 Scenario1,1,Gentamicin 0.5g Vial,Cefotaxime 0.5g Vial,"Gentamicin 0.5g Vial: 아미노글리코사이드계 항생제로 요로감염, 패혈증, 복합감염에 강력한 살균작용을 보이며 정맥 또는 근육 주사(IV/IM) 로 사용합니다"
 Scenario1,1,Metronidazole 0.5g Vial,Cefotaxime 0.5g Vial,"Metronidazole 0.5g Vial: 혐기성 세균 및 일부 원충 감염에 효과적인 항생제로, 주로 복강 내 감염, 골반염, 위장관 감염 등에서 정맥주사(IV)로 투여 됩니다"
-Scenario1,1,Piperacillin 0.5g Vial,Cefotaxime 0.5g Vial,"Piperacillin 0.5g Vial:주로 그람음성균 및 녹농균에 효과 있는 광범위 페니실린계 항생제로, 패혈증·복합감염 등에서 정맥주사(IV)로 주사합니다"
-Scenario1,1,Meropenem 0.5g Vial,Cefotaxime 0.5g Vial,"Meropenem 0.5g Via:다양한 내성균에 강한 광범위 카바페넴계 항생제로, 중증 호흡기·복강내·요로감염 등에 정맥주사(IV)로 투여합니다."
+Scenario1,1,Piperacillin 0.5g Vial,Cefotaxime 0.5g Vial,"Piperacillin 0.5g Vial:주로 그람음성균 및 녹농균에 효과 있는 광범위 페니실린계 항생제로, 패혈증 및 복합감염 등에서 정맥주사(IV)로 주사합니다"
+Scenario1,1,Meropenem 0.5g Vial,Cefotaxime 0.5g Vial,"Meropenem 0.5g Via:다양한 내성균에 강한 광범위 카바페넴계 항생제로, 중증 호흡기, 복강내, 요로감염 등에 정맥주사(IV)로 투여합니다."
 Scenario1,1,Cefotaxime 1g Vial,Cefotaxime 0.5g Vial,"Cefotaxime 1g Vial: 3세대 세팔로스포린계 광범위 항생제로, 각종 세균감염에서 신속한 치료 효과 발현과 혈중농도 유지를 위해 정맥 또는 근육 주사(IV/IM)로 투여됩니다. 하지만 현재 처방된 약물 용량과 일치하지 않습니다."
 Scenario1,2,정맥투여 (IV),정맥투여 (IV),정맥투여(IV): 직접 혈관 내로 주사하여 빠른 약물 효과 발현 가능합니다.
 Scenario1,2,근육주사 (IM),정맥투여 (IV),"근육주사(IM)-근육에 주사,약물이 근육 조직을 통해 서서히 흡수됩니다."

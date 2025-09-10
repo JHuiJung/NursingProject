@@ -63,6 +63,8 @@ public class FeedBackCard : MonoBehaviour
     {
         if (videoPlayer != null && videoPath != "")
         {
+            DataManager.inst.SetMute(true);
+
             MasterAudio.PlaySound("Button_Press");
             videoPlayer.url = videoPath;
             videoPlayer.SetDirectAudioVolume(0, 1f); // Mute audio
@@ -78,6 +80,8 @@ public class FeedBackCard : MonoBehaviour
     {
         if (videoPlayer != null && videoPlayer.isPlaying)
         {
+            DataManager.inst.SetMute(false);
+
             MasterAudio.PlaySound("Button_Press");
             videoPlayer.Stop();
         }
