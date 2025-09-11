@@ -12990,7 +12990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -16339,7 +16339,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2267854649453001495
 Transform:
   m_ObjectHideFlags: 0
@@ -17866,7 +17866,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9032191752256330514
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24826,6 +24826,81 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &4509939721002236040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3857037967638289765}
+  - component: {fileID: 1182243981269029214}
+  - component: {fileID: 2304289782475239606}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3857037967638289765
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4509939721002236040}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6449359503287013610}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 299, y: 83}
+  m_SizeDelta: {x: 283, y: 276}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1182243981269029214
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4509939721002236040}
+  m_CullTransparentMesh: 1
+--- !u!114 &2304289782475239606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4509939721002236040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 6ffa45506971e1144a796f0908dfda70, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4512615869795952560
 GameObject:
   m_ObjectHideFlags: 0
@@ -29663,8 +29738,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 12.5}
-  m_SizeDelta: {x: -70, y: -225}
+  m_AnchoredPosition: {x: 8.223511, y: -48.236572}
+  m_SizeDelta: {x: -86.447, y: -183.5268}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2022291471778247115
 CanvasRenderer:
@@ -29694,12 +29769,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u25CF \uD658\uC544 \uAD00\uCC30 \uC911 \uBAA8\uB2C8\uD130\uC0C1 SBP 50mmHg
-    check \uB418\uC5C8\uC2B5\uB2C8\uB2E4.\n\u25CF V/S checked BP:55/34mmHg, P: 120\uD68C/\uBD84,
-    R: 30\uD68C/\uBD84, T: 36.5C\n\n                                         <color=#AFEFFF>---
-    Inotropic ---</color>\n\n\u25CF Dopamine inj 200mg/5mL (Dopamine HCI) \r\n\u25CF
-    N/S 50ml(Bag)(Sodium chloride) 1bag\r\n<color=yellow>comment</color> : Dopamine
-    5mcg/kg/min\uC73C\uB85C \uC99D\uB7C9\uD574\uC8FC\uC138\uC694. "
+  m_text: "\u25CF \uD658\uC544 \uAD00\uCC30 \uC911 \uBAA8\uB2C8\uD130\uC0C1 \n   
+    SBP 50mmHg check \uB418\uC5C8\uC2B5\uB2C8\uB2E4.\n\n\u25CF V/S checked \n    
+    BP:55/34mmHg, P: 120\uD68C/\uBD84,\n     R: 30\uD68C/\uBD84, T: 36.5C\n\n                                        
+    <color=#AFEFFF>--- Inotropic ---</color>\n\n\u25CF Dopamine inj 200mg/5mL (Dopamine
+    HCI) \r\n\u25CF N/S 50ml(Bag)(Sodium chloride) 1bag\r\n<color=yellow>comment</color>
+    : Dopamine 5mcg/kg/min\uC73C\uB85C \uC99D\uB7C9\uD574\uC8FC\uC138\uC694. "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed21f0a27c3c7114783de72406ce063e, type: 2}
   m_sharedMaterial: {fileID: 2226096250028548758, guid: ed21f0a27c3c7114783de72406ce063e,
@@ -32149,6 +32224,7 @@ RectTransform:
   - {fileID: 4571380276923295776}
   - {fileID: 8568951236457493049}
   - {fileID: 1202325464836613424}
+  - {fileID: 3857037967638289765}
   m_Father: {fileID: 9032191752256330514}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -40938,7 +41014,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 712, y: -438}
+  m_AnchoredPosition: {x: 0, y: -438}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1390960135680470550
@@ -40962,7 +41038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
