@@ -13,6 +13,8 @@ public class Title_UserInfo : MonoBehaviour
     public GameObject obj_BTN_Submit;
     public Dropdown deviceDropdown;
 
+    public GameObject Btn_Admin;
+
     private void Update()
     {
         if(string.IsNullOrEmpty(inputField_UserName.text) ||
@@ -40,6 +42,11 @@ public class Title_UserInfo : MonoBehaviour
         MasterAudio.PlaySound("Button_Press");
 
         DataManager.inst.SetupUserInfo( _name, _id );
+
+        if(_name == "admin" || name == "Admin")
+        {
+            Btn_Admin.SetActive(true);
+        }
     }
 
     public void OnDeviceListUpdated()

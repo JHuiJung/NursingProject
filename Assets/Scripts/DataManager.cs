@@ -1,3 +1,4 @@
+using SimpleJSON;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ public class DataManager : MonoBehaviour
     public JsonScoreData jsonScoreData = new JsonScoreData();
 
     //---- google sheet ----
-    const string URL = "https://script.google.com/macros/s/AKfycbw8jlHJTrJrFfFvg3IgFlkrgsvnj6zOt_WvazvhklhQwemtl1jbPhSUqY6W16FaeXM/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbyeLNCwMCBEY68J9K46LzezacLuhFRQ2rqeWHWNNMwxGIAkGSKa5IUjba3gquUO3ew/exec";
     public GoogleData GD;
 
     //---- csv data ----
@@ -79,6 +80,8 @@ public class DataManager : MonoBehaviour
 
         string scoreJson = JsonUtility.ToJson(jsonScoreData, true);
 
+        JsonScoreData scoreData = JsonUtility.FromJson<JsonScoreData>(scoreJson);
+
         string id = DataManager.inst.userID;
         string name = DataManager.inst.userName;
 
@@ -97,6 +100,18 @@ public class DataManager : MonoBehaviour
         // Æû ÃÊ±âÈ­
         jsonScoreData = new JsonScoreData();
     }
+
+    public IEnumerator CoGetUserInfo(string _id)
+    {
+
+        WWWForm form = new WWWForm();
+        form.AddField("order", "getInfo");
+        form.AddField("id", _id);
+
+        yield return StartCoroutine(Post(form));
+
+    }
+
 
     IEnumerator Post(WWWForm form)
     {
@@ -258,6 +273,43 @@ public class DataManager : MonoBehaviour
 
 
         return result;
+    }
+
+    public List<GoogleData> GetGoogleDatas()
+    {
+        List<GoogleData> dataList = new List<GoogleData>();
+
+        string[] ids = GD._id.Split('@');
+        string[] names = GD._name.Split('@');
+        string[] scenarios = GD._scenario.Split('@');
+        string[] dates = GD._date.Split('@');
+        string[] scores = GD._score.Split('@');
+        string[] totalTimes = GD._totalTime.Split('@');
+
+        for (int i = 0; i < ids.Length; i++)
+        {
+            GoogleData gd = new GoogleData();
+            gd.order = GD.order;
+            gd.result = GD.result;
+            gd.msg = GD.msg;
+
+            gd._id = ids.Length > i ? ids[i] : "";
+            gd._name = names.Length > i ? names[i] : "";
+            gd._scenario = scenarios.Length > i ? scenarios[i] : "";
+            gd._date = dates.Length > i ? dates[i] : "";
+            gd._score = scores.Length > i ? scores[i] : "";
+            gd._totalTime = totalTimes.Length > i ? totalTimes[i] : "";
+
+            dataList.Add(gd);
+        }
+
+        foreach (var d in dataList)
+        {
+            Debug.Log($"ID:{d._id}, Name:{d._name}, Scenario:{d._scenario}, Date:{d._date}, Score:{d._score}, Time:{d._totalTime}");
+        }
+
+        return dataList;
+
     }
 
 
