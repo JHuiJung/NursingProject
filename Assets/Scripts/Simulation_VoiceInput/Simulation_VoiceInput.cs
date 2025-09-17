@@ -386,7 +386,14 @@ public class Simulation_VoiceInput : SimulationBase
         Obj_Area_Wait.SetActive(true);
 
         int length;
+        
+        // 🎙️ WebGL에서는 16kHz 리샘플링 사용 (STT 최적화)
+#if UNITY_WEBGL && !UNITY_EDITOR
+        byte[] wavData = WavUtility.FromAudioClipResample16kHz(clip, out length, true);
+        Debug.Log($"🎙️ WebGL STT: {clip.frequency}Hz → 16000Hz 리샘플링 완료");
+#else
         byte[] wavData = WavUtility.FromAudioClip(clip, out length);
+#endif
 
         WWWForm form = new WWWForm();
         form.AddBinaryData("audio", wavData, "followup.wav", "audio/wav");

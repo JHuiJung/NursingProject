@@ -54,6 +54,62 @@ public static class WavUtility
         return stream.ToArray();
     }
 
+    /// <summary>
+    /// 🎙️ WebGL용: 기기 샘플레이트를 16kHz로 리샘플링
+    /// </summary>
+    public static byte[] FromAudioClipResample16kHz(AudioClip clip, out int length, bool trimSilence = false, float silenceThreshold = 0.01f)
+    {
+        var samples = new float[clip.samples * clip.channels];
+        clip.GetData(samples, 0);
+
+        if (trimSilence)
+        {
+            samples = TrimSilence(samples, silenceThreshold);
+        }
+
+        // 🔧 16kHz로 리샘플링 (STT 최적화)
+        if (clip.frequency != 16000)
+        {
+            samples = ResampleTo16kHz(samples, clip.frequency, clip.channels);
+            Debug.Log($"🎙️ 리샘플링: {clip.frequency}Hz → 16000Hz (STT 최적화)");
+        }
+
+        byte[] wav = ConvertToWav(samples, clip.channels, 16000); // 16kHz로 고정
+        length = wav.Length;
+        return wav;
+    }
+
+    /// <summary>
+    /// 샘플레이트를 16kHz로 변환 (Simple Linear Interpolation)
+    /// </summary>
+    private static float[] ResampleTo16kHz(float[] originalSamples, int originalSampleRate, int channels)
+    {
+        const int TARGET_SAMPLE_RATE = 16000;
+        
+        if (originalSampleRate == TARGET_SAMPLE_RATE)
+            return originalSamples;
+
+        float ratio = (float)originalSampleRate / TARGET_SAMPLE_RATE;
+        int newLength = Mathf.FloorToInt(originalSamples.Length / ratio);
+        
+        // 채널 수 고려한 길이 조정
+        newLength = (newLength / channels) * channels;
+        
+        float[] resampled = new float[newLength];
+
+        for (int i = 0; i < newLength; i++)
+        {
+            float originalIndex = i * ratio;
+            int index1 = Mathf.FloorToInt(originalIndex);
+            int index2 = Mathf.Min(index1 + 1, originalSamples.Length - 1);
+            
+            float fraction = originalIndex - index1;
+            resampled[i] = Mathf.Lerp(originalSamples[index1], originalSamples[index2], fraction);
+        }
+
+        return resampled;
+    }
+
     private static float[] TrimSilence(float[] samples, float threshold)
     {
         int start = 0;
