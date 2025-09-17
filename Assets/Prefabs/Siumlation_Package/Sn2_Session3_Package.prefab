@@ -22718,16 +22718,16 @@ MonoBehaviour:
   Obj_Area_TimeOut: {fileID: 7947612576155360292}
   objs_SetupForms:
   - obj_name: Player
-    obj_position: {x: 52.03, y: 0, z: 8.7}
+    obj_position: {x: 52.5, y: 0, z: 7.8}
     obj_rotation: {x: 0, y: 180, z: 0}
     is_active: 1
   - obj_name: ParentSit
-    obj_position: {x: 50.750057, y: 0.148, z: 7.6198115}
-    obj_rotation: {x: 0, y: 90, z: 0}
+    obj_position: {x: 55.076, y: 0.148, z: 7.6198115}
+    obj_rotation: {x: 0, y: -90, z: 0}
     is_active: 1
   - obj_name: Parent
-    obj_position: {x: 51.85, y: 0, z: 7.6}
-    obj_rotation: {x: 0, y: 90, z: 0}
+    obj_position: {x: 54.38, y: 0, z: 7.39}
+    obj_rotation: {x: 0, y: -90, z: 0}
     is_active: 0
 --- !u!1 &7052667210132382533
 GameObject:

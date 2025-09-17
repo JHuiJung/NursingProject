@@ -17478,23 +17478,23 @@ MonoBehaviour:
   simulation_Quiz_Index: 0
   returnIndex: 1
   playerMovePositions:
-  - {x: 52.03, y: 0, z: 10.54}
-  - {x: 52.03, y: 0, z: 8.7}
+  - {x: 52.5, y: 0, z: 9.85}
+  - {x: 52.5, y: 0, z: 7.8}
   timeThreshold: 120
   txt_TimeLeft: {fileID: 5377636742483295016}
   Obj_Area_TimeOut: {fileID: 4672078575612377215}
   objs_SetupForms:
   - obj_name: Player
-    obj_position: {x: 47.74, y: 0, z: 10.74}
+    obj_position: {x: 45, y: 0, z: 9.85}
     obj_rotation: {x: 0, y: 90, z: 0}
     is_active: 1
   - obj_name: ParentSit
-    obj_position: {x: 50.750057, y: 0.148, z: 7.6198115}
-    obj_rotation: {x: 0, y: 90, z: 0}
+    obj_position: {x: 55.076, y: 0.148, z: 7.6198115}
+    obj_rotation: {x: 0, y: -90, z: 0}
     is_active: 1
   - obj_name: Parent
-    obj_position: {x: 51.85, y: 0, z: 7.6}
-    obj_rotation: {x: 0, y: 90, z: 0}
+    obj_position: {x: 54.38, y: 0, z: 7.39}
+    obj_rotation: {x: 0, y: -90, z: 0}
     is_active: 0
 --- !u!1 &5096024449925632193
 GameObject:
@@ -22353,7 +22353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simulation_Quiz_Index: 0
   isInfinity: 0
-  DelayTime: 6
+  DelayTime: 8
 --- !u!1 &6529131526722400698
 GameObject:
   m_ObjectHideFlags: 0

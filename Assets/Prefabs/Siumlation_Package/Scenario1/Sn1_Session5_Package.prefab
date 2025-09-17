@@ -2002,7 +2002,7 @@ MonoBehaviour:
   - sprite: {fileID: 21300000, guid: c4957ffe77d6fe044a0f7288de1f57ff, type: 3}
     ls_Answers:
     - "\uC815\uC0C1, \uC57D\uBB3C \uC8FC\uC785 \uC9C4\uD589"
-  - sprite: {fileID: 21300000, guid: 54aced1d84643ae46b14a24fdb8445c0, type: 3}
+  - sprite: {fileID: 21300000, guid: 56cf493f1208f5f478642b48a4cacdd4, type: 3}
     ls_Answers:
     - "\uBE44\uC815\uC0C1, IV route \uAD50\uCCB4 \uD544\uC694"
   - sprite: {fileID: 21300000, guid: e20f99193e07b4f448f6148924c3a623, type: 3}
@@ -11158,8 +11158,8 @@ MonoBehaviour:
   Obj_BTN_Next: {fileID: 6689862001972769664}
   videoPlayer: {fileID: 4086051252274387671}
   video_Name: 1_20_ThrowAway_Syringe
-  text_Question: "Q20. \uC0AC\uC6A9\uD55C \uC8FC\uC0AC\uAE30\uC640 \uBC14\uB298\uC744
-    \uD3D0\uAE30\uD569\uB2C8\uB2E4."
+  text_Question: "[\uC601\uC0C1 \uC2DC\uCCAD] \uC0AC\uC6A9\uD55C \uC8FC\uC0AC\uAE30\uC640
+    \uBC14\uB298\uC744 \uD3D0\uAE30\uD569\uB2C8\uB2E4."
   Tmp_Question: {fileID: 7226737725890300975}
   DG_Time: 0.75
   DG_Area_EndY: -50

@@ -21709,7 +21709,7 @@ MonoBehaviour:
     ls_Answers:
     - "\uBE44\uC815\uC0C1, \uC774\uC0C1 \uBC18\uC751 \uBC1C\uC0DD"
     - "\uC8FC\uC785 \uC911\uB2E8, \uBCF4\uACE0"
-  - sprite: {fileID: 21300000, guid: 54aced1d84643ae46b14a24fdb8445c0, type: 3}
+  - sprite: {fileID: 21300000, guid: 56cf493f1208f5f478642b48a4cacdd4, type: 3}
     ls_Answers:
     - "\uBE44\uC815\uC0C1, \uC774\uC0C1 \uBC18\uC751 \uBC1C\uC0DD"
     - "\uC8FC\uC785 \uC911\uB2E8, \uBCF4\uACE0"

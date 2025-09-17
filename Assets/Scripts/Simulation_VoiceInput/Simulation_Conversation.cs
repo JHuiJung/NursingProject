@@ -97,7 +97,8 @@ public class Simulation_Conversation : SimulationBase
     {
         isSimulationEnd = false;
 
-        txt_VoiceUserInput.text = "";
+        if(txt_VoiceUserInput != null)
+            txt_VoiceUserInput.text = "";
         aiParentResponse = "";
         currentConvCount = 0;
 

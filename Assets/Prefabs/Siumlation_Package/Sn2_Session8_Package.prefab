@@ -1794,6 +1794,66 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &1707349927791561710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6514098857137730855}
+  - component: {fileID: 2422540740717377873}
+  m_Layer: 0
+  m_Name: Func_MovePlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6514098857137730855
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707349927791561710}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1634410339954906146}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2422540740717377873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707349927791561710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea4772251f3181548ad10d795622ad7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simulation_Quiz_Index: 0
+  events:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7345937268001315983}
+        m_TargetAssemblyTypeName: Simulation_SessionPackage, Assembly-CSharp
+        m_MethodName: MovePLayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Player
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &1756445499237234904
 GameObject:
   m_ObjectHideFlags: 0
@@ -4187,6 +4247,7 @@ Transform:
   - {fileID: 4404959269248083664}
   - {fileID: 3030348468436480010}
   - {fileID: 4257698635016336224}
+  - {fileID: 6514098857137730855}
   - {fileID: 8608197352782819911}
   - {fileID: 4392966046332955011}
   - {fileID: 5828296194594145759}
@@ -4213,23 +4274,22 @@ MonoBehaviour:
   simulation_Quiz_Index: 0
   returnIndex: 1
   playerMovePositions:
-  - {x: 52.03, y: 0, z: 10.74}
-  - {x: 49, y: 0, z: 10.74}
+  - {x: 52.7, y: 0, z: 7.8}
   timeThreshold: 180
   txt_TimeLeft: {fileID: 0}
   Obj_Area_TimeOut: {fileID: 0}
   objs_SetupForms:
   - obj_name: Player
-    obj_position: {x: 52.03, y: 0, z: 8.7}
+    obj_position: {x: 52.5, y: 0, z: 7.8}
     obj_rotation: {x: 0, y: 180, z: 0}
     is_active: 1
   - obj_name: ParentSit
-    obj_position: {x: 50.750057, y: 0.148, z: 7.6198115}
-    obj_rotation: {x: 0, y: 90, z: 0}
+    obj_position: {x: 55.076, y: 0.148, z: 7.6198115}
+    obj_rotation: {x: 0, y: -90, z: 0}
     is_active: 0
   - obj_name: Parent
-    obj_position: {x: 51.85, y: 0, z: 7.6}
-    obj_rotation: {x: 0, y: 0, z: 0}
+    obj_position: {x: 54.38, y: 0, z: 7.39}
+    obj_rotation: {x: 0, y: -90, z: 0}
     is_active: 1
 --- !u!1 &5671859806218931840
 GameObject:

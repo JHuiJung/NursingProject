@@ -19589,6 +19589,7 @@ MonoBehaviour:
   Tmp_Question: {fileID: 8383490148523015909}
   text_Answer: "0.9% \uC0DD\uB9AC\uC2DD\uC5FC\uC218 Normal saline(Sodium Chloride
     0.9%)"
+  isAnswerSuffle: 1
   text_Dummies:
   - "\uC99D\uB958\uC218(Water for Injection)"
   - "0.45% \uC0DD\uB9AC\uC2DD\uC5FC\uC218(Sodium Chloride 0.45%)"
@@ -21294,16 +21295,16 @@ MonoBehaviour:
   Obj_Area_TimeOut: {fileID: 7138449078977006301}
   objs_SetupForms:
   - obj_name: Player
-    obj_position: {x: 52.03, y: 0, z: 8.7}
+    obj_position: {x: 52.5, y: 0, z: 7.8}
     obj_rotation: {x: 0, y: 180, z: 0}
     is_active: 1
   - obj_name: ParentSit
-    obj_position: {x: 50.750057, y: 0.148, z: 7.6198115}
-    obj_rotation: {x: 0, y: 90, z: 0}
+    obj_position: {x: 55.076, y: 0.148, z: 7.6198115}
+    obj_rotation: {x: 0, y: -90, z: 0}
     is_active: 1
   - obj_name: Parent
-    obj_position: {x: 51.85, y: 0, z: 7.6}
-    obj_rotation: {x: 0, y: 90, z: 0}
+    obj_position: {x: 54.38, y: 0, z: 7.39}
+    obj_rotation: {x: 0, y: -90, z: 0}
     is_active: 0
 --- !u!1 &9152400585615171448
 GameObject:

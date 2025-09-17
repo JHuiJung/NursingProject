@@ -7073,16 +7073,16 @@ MonoBehaviour:
   Obj_Area_TimeOut: {fileID: 4025373248565274079}
   objs_SetupForms:
   - obj_name: Player
-    obj_position: {x: 52.03, y: 0, z: 8.7}
+    obj_position: {x: 52.5, y: 0, z: 7.8}
     obj_rotation: {x: 0, y: 180, z: 0}
     is_active: 1
   - obj_name: ParentSit
-    obj_position: {x: 50.750057, y: 0.148, z: 7.6198115}
-    obj_rotation: {x: 0, y: 90, z: 0}
+    obj_position: {x: 55.076, y: 0.148, z: 7.6198115}
+    obj_rotation: {x: 0, y: -90, z: 0}
     is_active: 1
   - obj_name: Parent
-    obj_position: {x: 51.85, y: 0, z: 7.6}
-    obj_rotation: {x: 0, y: 90, z: 0}
+    obj_position: {x: 54.38, y: 0, z: 7.39}
+    obj_rotation: {x: 0, y: -90, z: 0}
     is_active: 0
 --- !u!1 &3269189255065325351
 GameObject:
@@ -8891,7 +8891,7 @@ MonoBehaviour:
   - sprite: {fileID: 21300000, guid: c4957ffe77d6fe044a0f7288de1f57ff, type: 3}
     ls_Answers:
     - "\uC815\uC0C1, \uC57D\uBB3C \uC8FC\uC785 \uC9C4\uD589"
-  - sprite: {fileID: 21300000, guid: 54aced1d84643ae46b14a24fdb8445c0, type: 3}
+  - sprite: {fileID: 21300000, guid: 56cf493f1208f5f478642b48a4cacdd4, type: 3}
     ls_Answers:
     - "\uBE44\uC815\uC0C1, IV route \uAD50\uCCB4 \uD544\uC694"
   - sprite: {fileID: 21300000, guid: e20f99193e07b4f448f6148924c3a623, type: 3}
@@ -15180,8 +15180,8 @@ MonoBehaviour:
   Obj_BTN_Next: {fileID: 1230575976909412695}
   videoPlayer: {fileID: 2172351244512505858}
   video_Name: 2_23_ThrowAway_Syringe
-  text_Question: "Q23. \u201C\uC0AC\uC6A9\uD55C \uC8FC\uC0AC\uAE30\uC640 \uBC14\uB298\uC744
-    \uD3D0\uAE30\uD569\uB2C8\uB2E4.\u201D"
+  text_Question: "[\uC601\uC0C1 \uC2DC\uCCAD] \u201C\uC0AC\uC6A9\uD55C \uC8FC\uC0AC\uAE30\uC640
+    \uBC14\uB298\uC744 \uD3D0\uAE30\uD569\uB2C8\uB2E4.\u201D"
   Tmp_Question: {fileID: 5552793506273394656}
   DG_Time: 0.75
   DG_Area_EndY: -50
