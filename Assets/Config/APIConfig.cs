@@ -15,6 +15,7 @@ public class APIConfig : ScriptableObject
     [SerializeField] private string clovaSttEndpoint = "/clova_stt";
     [SerializeField] private string voiceChatEndpoint = "/voice_chat";
     [SerializeField] private string parentResponse = "/parent_response";
+    
 
     // 싱글톤 인스턴스
     private static APIConfig _instance;
@@ -34,7 +35,7 @@ public class APIConfig : ScriptableObject
         }
     }
 
-    // URL 프로퍼티들
+    // 📡 URL 프로퍼티들 (비동기 최적화)
     public string ChatUrl => baseUrl + chatEndpoint;
     public string ParentChatUrl => baseUrl + parentChatEndpoint;
     public string ParentChatFollowupUrl => baseUrl + parentChatFollowupEndpoint;
@@ -43,6 +44,9 @@ public class APIConfig : ScriptableObject
     public string ClovaSttUrl => baseUrl + clovaSttEndpoint;
     public string VoiceChatUrl => baseUrl + voiceChatEndpoint;
     public string ParentResponse => baseUrl + parentResponse;
+    
+    // 🌐 Base URL 접근자
+    public string BaseUrl => baseUrl;
 
     // 개발/운영 환경 전환을 위한 메서드
     public void SetBaseUrl(string newBaseUrl)
@@ -54,13 +58,14 @@ public class APIConfig : ScriptableObject
     // 현재 설정 정보 출력
     public void LogCurrentConfig()
     {
-        Debug.Log($"🌐 현재 API 설정:\n" +
+        Debug.Log($"🌐 현재 API 설정 (비동기 최적화):\n" +
                   $"Base URL: {baseUrl}\n" +
                   $"Chat: {ChatUrl}\n" +
                   $"Parent Chat: {ParentChatUrl}\n" +
                   $"TTS: {TtsUrl}\n" +
                   $"STT: {ClovaSttUrl}\n" +
-                  $"Voice Chat: {VoiceChatUrl}");
+                  $"Voice Chat: {VoiceChatUrl}\n" +
+                  $"Parent Response: {ParentResponse}");
     }
 }
 

@@ -8,7 +8,7 @@ from google.cloud import texttospeech
 import requests, base64, os, json
 from tempfile import NamedTemporaryFile
 from dotenv import load_dotenv
-from nursing_llm import get_ai_response_async, get_followup_question_async
+from nursing_llm_async_simple import get_ai_response_async, get_followup_question_async
 import time
 
 load_dotenv()

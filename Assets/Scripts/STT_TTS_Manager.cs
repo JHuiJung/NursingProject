@@ -64,7 +64,7 @@ public class STT_TTS_Manager : MonoBehaviour
                 byte[] audioBytes = Convert.FromBase64String(base64Audio);
 
                 if (audioSource.clip != null)
-                    Destroy(audioSource.clip); // ÀÌÀü Å¬¸³ ÇØÁ¦
+                    Destroy(audioSource.clip); // ì´ì „ í´ë¦½ í•´ì œ
 
                 AudioClip clip = WavToAudioClip(audioBytes, "TTS_AudioClip");
                 audioSource.clip = clip;
@@ -72,7 +72,7 @@ public class STT_TTS_Manager : MonoBehaviour
 
                 yield return new WaitWhile(() => audioSource.isPlaying);
 
-                // Àç»ıÀÌ ³¡³­ ÈÄ Å¬¸³ »èÁ¦
+                // ì¬ìƒì´ ëë‚œ í›„ í´ë¦½ ì‚­ì œ
 #if UNITY_WEBGL && !UNITY_EDITOR
             if (audioSource.clip != null)
             {
@@ -89,7 +89,7 @@ public class STT_TTS_Manager : MonoBehaviour
             }
             else
             {
-                Debug.LogError("TTS ÀÀ´ä ¿À·ù: " + request.error);
+                Debug.LogError("TTS ì‘ë‹µ ì˜¤ë¥˜: " + request.error);
             }
         }
     }
@@ -97,7 +97,7 @@ public class STT_TTS_Manager : MonoBehaviour
     // WebGl conversion from wav to AudioClip
     public static AudioClip WavToAudioClip(byte[] wavFile, string clipName = "wavClip")
     {
-        int channels = wavFile[22]; // Ã¤³Î ¼ö
+        int channels = wavFile[22]; // Ã¤ï¿½ï¿½ ï¿½ï¿½
         int sampleRate = BitConverter.ToInt32(wavFile, 24);
         int byteRate = BitConverter.ToInt32(wavFile, 28);
         int bitsPerSample = wavFile[34];
@@ -146,7 +146,7 @@ public class STT_TTS_Manager : MonoBehaviour
     [ContextMenu("Test TTS")]
     public void TestTTS()
     {
-        string testSentence = "¾È³çÇÏ¼¼¿ä, ÀÌ°ÍÀº Å×½ºÆ® À½¼ºÀÔ´Ï´Ù.";
+        string testSentence = "ì•ˆë…•í•˜ì„¸ìš”, ì´ê²ƒì€ í…ŒìŠ¤íŠ¸ ìŒì„±ì…ë‹ˆë‹¤.";
         StartCoroutine(TTS(testSentence));
     }
 
@@ -175,13 +175,13 @@ public class STT_TTS_Manager : MonoBehaviour
 
     private void Begin()
     {
-       // print($"{name} : ³ìÀ½ ½ÃÀÛ");
+       // print($"{name} : ë…¹ìŒ ì‹œì‘");
         microphoneWebGL.Begin();
     }
 
     private void End()
     {
-        //print($"{name} : ³ìÀ½ ³¡");
+        //print($"{name} : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½");
         microphoneWebGL.End();
         StartCoroutine(STT(_clip));
     }
@@ -244,7 +244,7 @@ public class STT_TTS_Manager : MonoBehaviour
     {
         if (clip == null)
         {
-            Debug.LogError("STT: AudioClipÀÌ ºñ¾îÀÖ½À´Ï´Ù.");
+            Debug.LogError("STT: AudioClipï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½Ï´ï¿½.");
             yield break;
         }
 
@@ -257,7 +257,7 @@ public class STT_TTS_Manager : MonoBehaviour
 
 #if UNITY_WEBGL && !UNITY_EDITOR
             wavData = WavUtility.FromAudioClipResample16kHz(clip, out length, true);
-            Debug.Log($"WebGL STT: {clip.frequency}Hz ¡æ 16000Hz ¸®»ùÇÃ¸µ ¿Ï·á");
+            Debug.Log($"WebGL STT: {clip.frequency}Hz â†’ 16000Hz ë¦¬ìƒ˜í”Œë§ ì™„ë£Œ");
 #else
             wavData = WavUtility.FromAudioClip(clip, out length);
 
@@ -267,19 +267,19 @@ public class STT_TTS_Manager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError("STT: WAV º¯È¯ ½ÇÆĞ - " + e.Message);
+            Debug.LogError("STT: WAV ë³€í™˜ ì‹¤íŒ¨ - " + e.Message);
             obj_Area_Wait.SetActive(false);
             yield break;
         }
 
         if (wavData == null || wavData.Length == 0)
         {
-            Debug.LogError("STT: º¯È¯µÈ ¿Àµğ¿À µ¥ÀÌÅÍ°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogError("STT: ë³€í™˜ëœ ì˜¤ë””ì˜¤ ë°ì´í„°ê°€ ì—†ìŠµë‹ˆë‹¤.");
             obj_Area_Wait.SetActive(false);
             yield break;
         }
 
-        // ¿Ã¹Ù¸£°Ô Form »ı¼º
+        // ì˜¬ë°”ë¥´ê²Œ Form ìƒì„±
         WWWForm form = new WWWForm();
         form.AddBinaryData("audio", wavData, "followup.wav", "audio/wav");
 
@@ -297,25 +297,25 @@ public class STT_TTS_Manager : MonoBehaviour
                     {
                         resultText = Regex.Replace(resultText, "<.*?>", string.Empty);
                         stt_Text = resultText;
-                        Debug.Log($"?? STT ÀÀ´ä: {resultText} / °³¼ö {resultText.Length}");
+                        Debug.Log($"?? STT ì‘ë‹µ: {resultText} / ê°œìˆ˜ {resultText.Length}");
                     }
                     else
                     {
-                        Debug.LogWarning("STT: ¼­¹ö ÀÀ´ä¿¡ text ÇÊµå°¡ ¾ø½À´Ï´Ù.");
+                        Debug.LogWarning("STT: ì„œë²„ ì‘ë‹µì— text í•„ë“œê°€ ì—†ìŠµë‹ˆë‹¤.");
                     }
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("STT: ÀÀ´ä ÆÄ½Ì ½ÇÆĞ - " + e.Message);
+                    Debug.LogError("STT: ì‘ë‹µ íŒŒì‹± ì‹¤íŒ¨ - " + e.Message);
                 }
             }
             else
             {
-                Debug.LogError($"STT: ¿äÃ» ½ÇÆĞ - {request.error}");
+                Debug.LogError($"STT: ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ - {request.error}");
             }
         }
 
-        // ¿Àµğ¿À ¸Ş¸ğ¸® Á¤¸®
+        // ì˜¤ë””ì˜¤ ë©”ëª¨ë¦¬ ì •ë¦¬
 #if UNITY_WEBGL && !UNITY_EDITOR
     if (clip != null)
     {
