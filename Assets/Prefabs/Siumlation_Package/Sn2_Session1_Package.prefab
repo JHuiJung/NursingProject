@@ -17485,7 +17485,7 @@ MonoBehaviour:
   Obj_Area_TimeOut: {fileID: 4672078575612377215}
   objs_SetupForms:
   - obj_name: Player
-    obj_position: {x: 45, y: 0, z: 9.85}
+    obj_position: {x: 42, y: 0, z: 9.85}
     obj_rotation: {x: 0, y: 90, z: 0}
     is_active: 1
   - obj_name: ParentSit
