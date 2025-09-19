@@ -19,11 +19,12 @@ public class DataManager : MonoBehaviour
 
     public string patient_Information = "";
 
-    [Header("Score Json Save Form")]
+    [Header("Score Json Save Form & ConvLogList")]
     public JsonScoreData jsonScoreData = new JsonScoreData();
+    public Conv_Log_List conv_Log_List_Json = new Conv_Log_List();
 
     //---- google sheet ----
-    const string URL = "https://script.google.com/macros/s/AKfycbyeLNCwMCBEY68J9K46LzezacLuhFRQ2rqeWHWNNMwxGIAkGSKa5IUjba3gquUO3ew/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbzMScutRsRbug1WF35KKki7sDyyffVU_jdarK-9LgyOmGkg_GGAQmY5Cp1-JUDQpf4/exec";
     public GoogleData GD;
 
     //---- csv data ----
@@ -79,8 +80,7 @@ public class DataManager : MonoBehaviour
             (float)ScenarioManager.inst.score_totalCorrect / ScenarioManager.inst.score_Totalcnt * 100 : 0f;
 
         string scoreJson = JsonUtility.ToJson(jsonScoreData, true);
-
-        JsonScoreData scoreData = JsonUtility.FromJson<JsonScoreData>(scoreJson);
+        string convlogJson = JsonUtility.ToJson(conv_Log_List_Json, true);
 
         string id = DataManager.inst.userID;
         string name = DataManager.inst.userName;
@@ -93,12 +93,14 @@ public class DataManager : MonoBehaviour
         form.AddField("date", DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss"));
         form.AddField("score", scoreJson);
         form.AddField("totalTime", ScenarioManager.inst.totalTime);
+        form.AddField("convLogList", convlogJson);
         
 
         yield return StartCoroutine(Post(form));
 
         // Æû ÃÊ±âÈ­
         jsonScoreData = new JsonScoreData();
+        conv_Log_List_Json = new Conv_Log_List();
     }
 
     public IEnumerator CoGetUserInfo(string _id)
@@ -285,6 +287,7 @@ public class DataManager : MonoBehaviour
         string[] dates = GD._date.Split('@');
         string[] scores = GD._score.Split('@');
         string[] totalTimes = GD._totalTime.Split('@');
+        string[] convLogList = GD._convLogList.Split('@');
 
         for (int i = 0; i < ids.Length; i++)
         {
@@ -299,14 +302,17 @@ public class DataManager : MonoBehaviour
             gd._date = dates.Length > i ? dates[i] : "";
             gd._score = scores.Length > i ? scores[i] : "";
             gd._totalTime = totalTimes.Length > i ? totalTimes[i] : "";
+            gd._convLogList = convLogList.Length > i ? convLogList[i] : "";
 
             dataList.Add(gd);
         }
 
-        foreach (var d in dataList)
-        {
-            Debug.Log($"ID:{d._id}, Name:{d._name}, Scenario:{d._scenario}, Date:{d._date}, Score:{d._score}, Time:{d._totalTime}");
-        }
+        //foreach (var d in dataList)
+        //{
+        //    Debug.Log($"ID:{d._id}, Name:{d._name}, Scenario:{d._scenario}, Date:{d._date}, Score:{d._score}, Time:{d._totalTime}");
+        //}
+
+        print("Data Get Success");
 
         return dataList;
 
@@ -356,6 +362,16 @@ public class DataManager : MonoBehaviour
         return "No response found.";
     }
 
+    public void AddConvLogList(Conv_Log _conv_Log)
+    {
+        conv_Log_List_Json.ls_Conv_Log.Add(_conv_Log);
+    }
+
+    public void RestConvLogList()
+    {
+        conv_Log_List_Json = new Conv_Log_List();
+    }
+
 
     [System.Serializable]
     public class GoogleData
@@ -367,6 +383,7 @@ public class DataManager : MonoBehaviour
         public string _date;
         public string _score;
         public string _totalTime;
+        public string _convLogList;
     }
 
     
@@ -411,6 +428,28 @@ public class DataManager : MonoBehaviour
         public string quizAnswer = "";
         public string response = "";
     }
+
+    [System.Serializable]
+    public class Conv_Log_Unit
+    {
+        public string name_conv = "";
+        public string isPlayer = "X";
+        public string log = "";
+    }
+
+    [System.Serializable]
+    public class Conv_Log
+    {
+        public string question = "";
+        public List<Conv_Log_Unit> ls_Conv_Log_Unit = new List<Conv_Log_Unit>();
+    }
+
+    [System.Serializable]
+    public class Conv_Log_List
+    {
+        public List<Conv_Log> ls_Conv_Log = new List<Conv_Log>();
+    }
+
 
     public void SetVolume()
     {

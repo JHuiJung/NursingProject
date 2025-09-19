@@ -114,6 +114,9 @@ public class ScenarioManager : MonoBehaviour
         // isScenarioEnd false 로 수정
         isScenarioEnd = false;
 
+        //convlog 초기화
+        DataManager.inst.RestConvLogList();
+
         //--- 전체 시간 측정 시작 ----
         TimeCntStart();
     }

@@ -56,6 +56,7 @@ public class Simulation_Conversation : SimulationBase
     // �ùķ��̼� �� bool
     bool isSimulationEnd = false;
     ScenarioManager _sm;
+    DataManager.Conv_Log conv_Log;
 
     //----ai �亯----
     string aiParentResponse = "";
@@ -102,6 +103,8 @@ public class Simulation_Conversation : SimulationBase
         aiParentResponse = "";
         currentConvCount = 0;
 
+        conv_Log = new DataManager.Conv_Log();
+
         Obj_Btn_StartRecord.SetActive(false);
         Obj_Btn_StopRecord.SetActive(false);
         Obj_Area_Wait.SetActive(false);
@@ -129,6 +132,8 @@ public class Simulation_Conversation : SimulationBase
     void Setup()
     {
         currentConvCount = 0;
+        conv_Log = new DataManager.Conv_Log();
+        conv_Log.question = text_Question;
         Tmp_Question.text = text_Question;
     }
     //----- �ùķ��̼� ���� ------
@@ -165,6 +170,14 @@ public class Simulation_Conversation : SimulationBase
 
         // Opposite Ani idle On
         CameraManager.inst.SetAnimation(opposite_Obj_Name, "idle");
+
+        // Add Log
+        DataManager.Conv_Log_Unit convUnit = new DataManager.Conv_Log_Unit();
+
+        convUnit.log = opposite_Content;
+        convUnit.isPlayer = "X";
+        convUnit.name_conv = opposite_Obj_Name;
+        conv_Log.ls_Conv_Log_Unit.Add(convUnit);
     }
 
     IEnumerator ParentResponse()
@@ -213,6 +226,14 @@ public class Simulation_Conversation : SimulationBase
 
         // Opposite Ani idle On
         CameraManager.inst.SetAnimation(opposite_Obj_Name, "idle");
+
+        // Add Log
+        DataManager.Conv_Log_Unit convUnit = new DataManager.Conv_Log_Unit();
+
+        convUnit.log = ai_responese;
+        convUnit.isPlayer = "X";
+        convUnit.name_conv = opposite_Obj_Name;
+        conv_Log.ls_Conv_Log_Unit.Add(convUnit);
     }
 
     IEnumerator MakeUserConvBox()
@@ -242,54 +263,10 @@ public class Simulation_Conversation : SimulationBase
         yield return StartCoroutine(MakeUserConvBox());
     }
 
-    //IEnumerator End_Simulation()
-    //{
-    //    // ai ���� �亯 �ޱ�
-    //    Obj_Btn_StartRecord.SetActive(false);
-    //    Obj_Btn_StopRecord.SetActive(false);
-
-    //    Obj_Area_Wait.SetActive(true);
-
-    //    yield return StartCoroutine(GetParentResponse());
-    //    string ai_responese = "";
-    //    if (!string.IsNullOrEmpty(aiParentResponse))
-    //    {
-    //        ai_responese = aiParentResponse;
-    //    }
-    //    else
-    //    {
-    //        ai_responese = "ai응답이 없습니다";
-    //    }
-
-    //    Obj_Area_Wait.SetActive(false);
-
-    //    // convBox ��ĭ �ø���
-    //    yield return StartCoroutine(AllConvBoxMoveUp());
-
-    //    // Opposite ConvBox ����
-    //    GameObject oppositeConvbox = Instantiate(pf_Opposite_ConvBox, Obj_Area_ConvBox.transform);
-    //    oppositeConvbox.transform.SetAsLastSibling();
-    //    oppositeConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-    //    oppositeConvbox.GetComponent<ConvBox>().Setup(opposite_Name, ai_responese);
-
-    //    // Opposite Cam On
-    //    CameraManager.inst.SetCamera(opposite_Cam_Name);
-
-    //    // Opposite Ani Talk On
-    //    CameraManager.inst.SetAnimation(opposite_Obj_Name, "talk");
-
-    //    //tts�� ���
-    //    //yield return StartCoroutine(PlayTTSQuestion(ai_responese));
-    //    yield return StartCoroutine(STT_TTS_Manager.inst.TTS(ai_responese));
-
-    //    // Opposite Ani idle On
-    //    CameraManager.inst.SetAnimation(opposite_Obj_Name, "idle");
-
-    //}
-
     public void Next()
     {
         isSimulationEnd = true;
+        DataManager.inst.AddConvLogList(conv_Log);
         StartCoroutine(AllUiOff());
     }
 
@@ -364,18 +341,13 @@ public class Simulation_Conversation : SimulationBase
         string answer = txt_VoiceUserInput.text;
         STT_TTS_Manager.inst.stt_Text = string.Empty;
 
+        // Add Log
+        DataManager.Conv_Log_Unit convUnit = new DataManager.Conv_Log_Unit();
 
-        /*
-        SubmitForm submitForm = new SubmitForm();
-        submitForm.txt_Question = text_Question;
-        submitForm.txt_QuestionAnswer = $"상대방 질문 : {opposite_Content} / 유저의 답변에 포함되야할 키워드 : {keywords} " +
-            $" / 상대방의 질문과 키워드를 참고해서 정답, 오답 판별";
-        submitForm.txt_userAnswer = answer;
-        submitForm.useAiAnswer = true;
-        submitForm.quiz_index = simulation_Quiz_Index;
-
-        _sm.str_Answers.Add(submitForm);
-        */
+        convUnit.log = answer;
+        convUnit.isPlayer = "O";
+        convUnit.name_conv = DataManager.inst.userName;
+        conv_Log.ls_Conv_Log_Unit.Add(convUnit);
 
         currentConvCount++;
 

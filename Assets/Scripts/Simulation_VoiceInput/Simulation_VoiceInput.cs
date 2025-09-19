@@ -83,7 +83,7 @@ public class Simulation_VoiceInput : SimulationBase
     void Setup()
     {
         Tmp_Question.text = text_Question;
-
+        STT_TTS_Manager.inst.stt_Text = "";
     }
 
     void CheckSTT_Text()
@@ -142,6 +142,18 @@ public class Simulation_VoiceInput : SimulationBase
         submitForm.quiz_index = simulation_Quiz_Index;
 
         _sm.str_Answers.Add(submitForm);
+
+        DataManager.Conv_Log_Unit convUnit = new DataManager.Conv_Log_Unit();
+        DataManager.Conv_Log conv_Log = new DataManager.Conv_Log();
+
+        convUnit.log = answer;
+        convUnit.isPlayer = "O";
+        convUnit.name_conv = DataManager.inst.userName;
+
+        conv_Log.question = text_Question;
+        conv_Log.ls_Conv_Log_Unit.Add(convUnit);
+
+        DataManager.inst.AddConvLogList(conv_Log);
 
         StartCoroutine(AllUiOff());
     }
