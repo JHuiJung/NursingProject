@@ -57,6 +57,8 @@ public class Simulation_FeedBack_Imp : SimulationBase
         _sm = SM;
         aiResponse = new ChatResponse();
 
+        _sm.GageObjSetActive(false);
+
         Obj_CanvasChoice.SetActive(true);
 
         StartCoroutine(Setup());

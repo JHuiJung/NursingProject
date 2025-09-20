@@ -79,9 +79,9 @@ public class Simulation_Choice : SimulationBase
     }
     public override void ResetSimulation()
     {
-        
+        _sm.GageObjSetActive(false);
 
-        foreach(BTN_Choice button in BTN_Choices)
+        foreach (BTN_Choice button in BTN_Choices)
         {
             button.BtnOff();
         }
@@ -120,6 +120,9 @@ public class Simulation_Choice : SimulationBase
                 j++;
             }
         }
+
+        _sm.GageObjSetActive(true);
+        _sm.GageUpdate();
     }
 
     IEnumerator AllUiOn()

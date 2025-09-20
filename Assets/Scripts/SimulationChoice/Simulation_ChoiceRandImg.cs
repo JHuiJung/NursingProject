@@ -80,6 +80,8 @@ public class Simulation_ChoiceRandImg : SimulationBase
         }
 
         isSimulationEnd = false;
+
+        _sm.GageObjSetActive(false);
     }
 
     //------------------------------------------------------------------------------------------
@@ -123,6 +125,9 @@ public class Simulation_ChoiceRandImg : SimulationBase
         Tmp_Question.text = text_Question;
 
         simulation_RandImg.gameObject.SetActive(true);
+
+        _sm.GageObjSetActive(true);
+        _sm.GageUpdate();
     }
 
     public void SubmitAnswer(string answer, int choosedNum)

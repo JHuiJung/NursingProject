@@ -24,7 +24,7 @@ public class Simulation_Save : SimulationBase
     {
         Obj_CanvasChoice.SetActive(true);
         _sm = SM;
-
+        _sm.GageObjSetActive(false);
         StartCoroutine(StartSimulation());
     }
 

@@ -91,6 +91,8 @@ public class SimulationTextTimeInput : SimulationBase
         isSimulationEnd = false;
         Obj_BTN_Submit.SetActive(false);
         textInputField.text = string.Empty;
+
+        _sm.GageObjSetActive(false);
     }
 
     //------------------------------------------------------------------------------------------
@@ -107,6 +109,9 @@ public class SimulationTextTimeInput : SimulationBase
         Tmp_Question.text = text_Question + $"\n[ 현재 시간 : {slectedAnswer} ]";
 
         //print(timeInput_Answer);
+
+        _sm.GageObjSetActive(true);
+        _sm.GageUpdate();
     }
 
     public void SubmitAnswer()

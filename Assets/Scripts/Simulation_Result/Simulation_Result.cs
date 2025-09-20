@@ -63,6 +63,9 @@ public class Simulation_Result : SimulationBase
         // 버튼 활성화
         Obj_BTN_Next.SetActive(true);
 
+        // Gage off
+        _sm.GageObjSetActive(false);
+
         // 전체 점수 업데이트
         txt_Total_Questions.text = $"전체 문제 수 : {ScenarioManager.inst.score_Totalcnt}개";
         txt_Total_O.text = $"전체 정답 수 : {ScenarioManager.inst.score_totalCorrect}개";

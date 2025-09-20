@@ -82,6 +82,7 @@ public class Simulation_SyringePump : SimulationBase
     {
         isSimulationEnd = false;
         Obj_BTN_Submit.SetActive(false);
+        _sm.GageObjSetActive(false);
     }
 
     //------------------------------------------------------------------------------------------
@@ -92,6 +93,9 @@ public class Simulation_SyringePump : SimulationBase
         Tmp_Question.text = text_Question;
         txt_SyringePump_amount.text = $"{user_Answer}{Numeric_Unit}";
         isPass = false;
+
+        _sm.GageObjSetActive(true);
+        _sm.GageUpdate();
     }
 
     public void SubmitAnswer()

@@ -77,6 +77,8 @@ public class Simulation_Video : SimulationBase
         isSimulationEnd = false;
 
         Obj_BTN_Next.SetActive(false);
+
+        _sm.GageObjSetActive(false);
     }
 
     void Setup_Normal()
@@ -102,6 +104,9 @@ public class Simulation_Video : SimulationBase
         renderTexture = videoPlayer.targetTexture;
 
         ClearRenderTexture();
+
+        _sm.GageObjSetActive(true);
+        _sm.GageUpdate();
 
         // Next 버튼은 처음엔 꺼두기
         Obj_BTN_Next.SetActive(false);

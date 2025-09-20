@@ -81,6 +81,8 @@ public class Simulation_Basket : SimulationBase
 
             rect_BE.anchoredPosition = pos;
         }
+
+        _sm.GageObjSetActive(false);
     }
 
     void Check()
@@ -121,6 +123,9 @@ public class Simulation_Basket : SimulationBase
     void Setup()
     {
         Tmp_Question.text = text_Question;
+
+        _sm.GageObjSetActive(true);
+        _sm.GageUpdate();
     }
 
     public void Submit()

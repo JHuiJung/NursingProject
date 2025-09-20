@@ -186,6 +186,8 @@ public class Simulation_ImgClick : SimulationBase
         {
             item.CardReset();
         }
+
+        _sm.GageObjSetActive(false);
     }
 
     //------------------------------------------------------------------------------------------
@@ -248,6 +250,7 @@ public class Simulation_ImgClick : SimulationBase
         // 질문 텍스트 수정
         Tmp_Question.text = text_Question;
 
-
+        _sm.GageObjSetActive(true);
+        _sm.GageUpdate();
     }
 }

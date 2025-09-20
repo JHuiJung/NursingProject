@@ -47,6 +47,11 @@ public class ScenarioManager : MonoBehaviour
     private DateTime startTime;
     private DateTime endTime;
 
+    //-- 진행도
+    [Header("Gage")]
+    public GameObject Obj_Area_Gage;
+    public GameObject Obj_Img_Gage;
+
     //---- 
 
     private void Awake()
@@ -199,5 +204,31 @@ public class ScenarioManager : MonoBehaviour
         Debug.Log("총 경과 시간: " + duration.ToString(@"hh\:mm\:ss"));
 
         totalTime = duration.ToString(@"hh\:mm\:ss");
+    }
+
+
+    // 게이지 오브젝트 키고 끄기
+    public void GageObjSetActive(bool _active)
+    {
+        Obj_Area_Gage.SetActive(_active);
+    }
+
+    // 게이지 업데이트
+    public void GageUpdate()
+    {
+        Image _gageImg = Obj_Img_Gage.GetComponent<Image>();
+
+        float amount = 0f;
+
+        if (simulationBases.Count - returnPoint < 1)
+        {
+            amount = 1f;
+        }
+        else
+        {
+            amount = (float)(currentNumber - returnPoint) / (simulationBases.Count - returnPoint);
+        }
+
+        _gageImg.fillAmount = amount;
     }
 }

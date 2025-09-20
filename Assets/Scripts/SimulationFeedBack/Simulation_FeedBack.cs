@@ -62,6 +62,8 @@ public class Simulation_FeedBack : SimulationBase
 
         Obj_CanvasChoice.SetActive(true);
 
+        _sm.GageObjSetActive(false);
+
         StartCoroutine(Setup());
     }
 

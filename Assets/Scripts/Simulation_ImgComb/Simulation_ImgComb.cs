@@ -194,6 +194,9 @@ public class Simulation_ImgComb : SimulationBase
     {
         userAnswer = "";
         isSimulationEnd = false;
+
+        _sm.GageObjSetActive(false);
+        _sm.GageUpdate();
     }
 
     //------------------------------------------------------------------------------------------
@@ -280,6 +283,6 @@ public class Simulation_ImgComb : SimulationBase
         // 질문 텍스트 수정
         Tmp_Question.text = text_Question;
 
-        
+        _sm.GageObjSetActive(true);
     }
 }

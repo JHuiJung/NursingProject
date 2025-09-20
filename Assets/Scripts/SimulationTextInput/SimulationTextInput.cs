@@ -115,6 +115,8 @@ public class SimulationTextInput : SimulationBase
         {
             textInputForm.userInput.text = string.Empty; // 입력 필드 비우기
         }
+
+        _sm.GageObjSetActive(false);
     }
 
     public bool Check_All_InputField_Filled()
@@ -135,6 +137,9 @@ public class SimulationTextInput : SimulationBase
         // 질문 텍스트 수정
         Tmp_Question.text = text_Question;
         isPass = false;
+
+        _sm.GageObjSetActive(true);
+        _sm.GageUpdate();
     }
 
     public void SubmitAnswer()

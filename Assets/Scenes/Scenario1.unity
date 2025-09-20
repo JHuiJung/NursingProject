@@ -900,7 +900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7319,6 +7319,8 @@ MonoBehaviour:
   score_totalinCorrect: 0
   score_Totalcnt: 0
   totalTime: None
+  Obj_Area_Gage: {fileID: 1595395048}
+  Obj_Img_Gage: {fileID: 125392701}
 --- !u!4 &911994546
 Transform:
   m_ObjectHideFlags: 0
@@ -12847,7 +12849,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -160}
-  m_SizeDelta: {x: 1200, y: 20}
+  m_SizeDelta: {x: 1200, y: 10}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &1608692935
 GameObject:

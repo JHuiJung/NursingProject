@@ -68,6 +68,8 @@ public class Simulation_Paper : SimulationBase
     public override void ResetSimulation()
     {
         isSimulationEnd = false;
+
+        _sm.GageObjSetActive(false);
     }
 
     public void Submit()
@@ -121,6 +123,9 @@ public class Simulation_Paper : SimulationBase
         txt_Date.text = DateTime.Now.ToString("yyyy.MM.dd");
         txt_Time.text = _sm.inGameTime;
         txt_Writer.text = DataManager.inst.userName;
+
+        _sm.GageObjSetActive(true);
+        _sm.GageUpdate();
 
     }
 

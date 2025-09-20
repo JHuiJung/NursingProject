@@ -115,6 +115,7 @@ public class Simulation_Conversation : SimulationBase
             Destroy(Obj_Area_ConvBox.transform.GetChild(i).gameObject);
         }
 
+        _sm.GageObjSetActive(false);
     }
 
     void CheckSTT_Text()
@@ -135,6 +136,8 @@ public class Simulation_Conversation : SimulationBase
         conv_Log = new DataManager.Conv_Log();
         conv_Log.question = text_Question;
         Tmp_Question.text = text_Question;
+        _sm.GageObjSetActive(true);
+        _sm.GageUpdate();
     }
     //----- �ùķ��̼� ���� ------
 

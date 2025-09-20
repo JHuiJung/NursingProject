@@ -78,12 +78,16 @@ public class Simulation_VoiceInput : SimulationBase
 
         Obj_Btn_StartRecord.SetActive(true);
         Obj_Btn_StopRecord.SetActive(false);
+
+        _sm.GageObjSetActive(false);
     }
 
     void Setup()
     {
         Tmp_Question.text = text_Question;
         STT_TTS_Manager.inst.stt_Text = "";
+        _sm.GageObjSetActive(true);
+        _sm.GageUpdate();
     }
 
     void CheckSTT_Text()
