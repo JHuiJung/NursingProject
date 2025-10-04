@@ -107,7 +107,7 @@ public class Simulation_SyringePump : SimulationBase
         isSimulationEnd = true;
         Obj_BTN_Submit.SetActive(false);
 
-        string answer = $"{user_Answer}{Numeric_Unit}";
+        string answer = $"{user_Answer:F2}{Numeric_Unit}";
         string qustion_Answer = $"{Question_Answer}{Numeric_Unit}";
 
         isPass = (answer == qustion_Answer);
@@ -175,6 +175,6 @@ public class Simulation_SyringePump : SimulationBase
     {
         MasterAudio.PlaySound("Button_Press");
         user_Answer += value;
-        txt_SyringePump_amount.text = $"{user_Answer}{Numeric_Unit}";
+        txt_SyringePump_amount.text = $"{user_Answer:F2}{Numeric_Unit}";
     }
 }

@@ -149,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 477434, guid: 772997dd5370e594c901f849dc7d9111, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.592
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 477434, guid: 772997dd5370e594c901f849dc7d9111, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8432,7 +8432,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "[ \uC57D\uBB3C \uC815\uBCF4 ]\n\n \u25CF \uC57D\uBB3C\uBA85 : \uC384\uB808\uBE45\uC2A4
     \uC8FC\uC0AC\n \u25CF \uC8FC\uC131\uBD84 : Fosphenytoin Sodium\n \u25CF \uC81C\uD615
-    \uBC0F \uD568\uB7C9 : \uC8FC\uC0AC\uC81C 150mg"
+    \uBC0F \uD568\uB7C9 : \uC8FC\uC0AC\uC81C 150mg/2cc"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed21f0a27c3c7114783de72406ce063e, type: 2}
   m_sharedMaterial: {fileID: 2226096250028548758, guid: ed21f0a27c3c7114783de72406ce063e,
@@ -23654,7 +23654,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "<size=36><color=yellow>\uCD5C\uBD80\uB974 \uB0A8\uC544/3M\r</color>\r</size>\n\r\n\u25CF
-    \uD0A4: 58cm                         \r\n\u25CF \uBAB8\uBB34\uAC8C: 7.3kg                        
+    \uD0A4: 58cm                         \r\n\u25CF \uBAB8\uBB34\uAC8C: 7kg                        
     \r\n\u25CF \uC54C\uB808\uB974\uAE30: \uC5C6\uC74C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed21f0a27c3c7114783de72406ce063e, type: 2}

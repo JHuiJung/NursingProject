@@ -12429,7 +12429,12 @@ MonoBehaviour:
   - lable: "\uD22C\uC5EC \uC2DC\uAC04"
     userInput: {fileID: 7046460765596731663}
     correctAnswer: 9pm
-  ls_Extra_Answers: []
+  ls_Extra_Answers:
+  - 9PM
+  - 9Pm
+  - 9 PM
+  - 9 pm
+  - 9 Pm
   img_Answer: {fileID: 0}
   videoName: 
   DG_Time: 0.75

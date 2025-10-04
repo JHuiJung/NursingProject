@@ -45886,7 +45886,7 @@ MonoBehaviour:
   - {fileID: 6637426674761098224}
   - {fileID: 7252647321127218971}
   - {fileID: 6412988144657631974}
-  video_name: SampleVideo2
+  video_name: 
   img_Sprite: {fileID: 0}
   DG_Time: 0.75
   DG_BTN_EndX: 150
