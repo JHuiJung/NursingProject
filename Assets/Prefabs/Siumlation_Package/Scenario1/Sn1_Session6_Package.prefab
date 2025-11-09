@@ -5816,7 +5816,7 @@ MonoBehaviour:
   Obj_Btn_StartRecord: {fileID: 7719497478893629639}
   Obj_Btn_StopRecord: {fileID: 3933999237559914191}
   Obj_BTN_Submit: {fileID: 8285133025810715543}
-  minConvCount: 2
+  minConvCount: 1
   Obj_Area_ConvBox: {fileID: 147474133554792158}
   pf_User_ConvBox: {fileID: 4904659098725429404, guid: d8b86bb4e691a5049b0ee22655f3e26c,
     type: 3}

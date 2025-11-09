@@ -14940,7 +14940,7 @@ MonoBehaviour:
   playerMovePositions:
   - {x: 52.03, y: 0, z: 10.54}
   - {x: 52.03, y: 0, z: 8.7}
-  timeThreshold: 120
+  timeThreshold: 150
   txt_TimeLeft: {fileID: 8968673105082214513}
   Obj_Area_TimeOut: {fileID: 7659725983642404476}
   objs_SetupForms:
@@ -32797,22 +32797,6 @@ MonoBehaviour:
   Tmp_Question: {fileID: 1989981494600043523}
   timeInput_Offset: 20
   textInputField: {fileID: 6177589412402257495}
-  list_ExtraAnswers:
-  - 6 am
-  - 6AM
-  - 6 AM
-  - 6 Am
-  - 6Am
-  - 2 pm
-  - 2Pm
-  - 2 Pm
-  - 2PM
-  - 2 PM
-  - 10 pm
-  - 10Pm
-  - 10 Pm
-  - 10PM
-  - 10 PM
   OnBegin:
     m_PersistentCalls:
       m_Calls: []

@@ -13034,7 +13034,7 @@ MonoBehaviour:
   - "1kg \uB2F9 4mg \uD22C\uC5EC"
   - "1kg \uB2F9 150mg \uD22C\uC5EC"
   - "1kg \uB2F9 120mg 12\uC2DC\uAC04 \uD6C4\uC5D0 \uD22C\uC5EC"
-  - "1\uD68C  4mg \uD558\uB8E8 12\uC2DC\uAC04 \uAC04\uACA9 \uD22C\uC5EC"
+  - "1\uD68C 4mg \uD558\uB8E8 12\uC2DC\uAC04 \uAC04\uACA9 \uD22C\uC5EC"
   - "1\uD68C 20mg \uD558\uB8E8 12\uC2DC\uAC04 \uB3D9\uC548 \uD22C\uC5EC"
   - "1\uD68C 150mg \uD558\uB8E8 12\uC2DC\uAC04 \uAC04\uACA9 \uD22C\uC5EC"
   - "1\uD68C 20mg \uD22C\uC5EC"
@@ -16506,8 +16506,8 @@ MonoBehaviour:
     - "\uBD80\uC801\uD569, \uC570\uD50C\uC758 \uBCC0\uC0C9\uC774 \uAD00\uCC30\uB429\uB2C8\uB2E4."
   - sprite: {fileID: 21300000, guid: 2feada3aacb58634c89bcb2a5d37dac5, type: 3}
     ls_Answers:
-    - "\uBD80\uC801\uD569, \uC57D\uBB3C\uC758 \uC720\uD6A8\uAE30\uAC04\uC774 \uC815\uC0C1\uC785\uB2C8\uB2E4."
-    - "\uBD80\uC801\uD569, \uC57D\uBB3C\uC758 \uC720\uD6A8\uAE30\uAC04\uC774 \uC815\uC0C1\uC785\uB2C8\uB2E4."
+    - "\uBD80\uC801\uD569, \uC57D\uBB3C\uC758 \uC720\uD6A8\uAE30\uAC04\uC774 \uB9CC\uB8CC\uB410\uC2B5\uB2C8\uB2E4."
+    - "\uBD80\uC801\uD569, \uC57D\uBB3C\uC758 \uC720\uD6A8\uAE30\uAC04\uC774 \uB9CC\uB8CC\uB410\uC2B5\uB2C8\uB2E4."
   Obj_targetImg: {fileID: 1980063059761454751}
   obj_AreaImage: {fileID: 1158223210740591618}
   selectedTA:
@@ -17485,7 +17485,7 @@ MonoBehaviour:
   playerMovePositions:
   - {x: 52.5, y: 0, z: 9.85}
   - {x: 52.5, y: 0, z: 7.8}
-  timeThreshold: 120
+  timeThreshold: 150
   txt_TimeLeft: {fileID: 5377636742483295016}
   Obj_Area_TimeOut: {fileID: 4672078575612377215}
   objs_SetupForms:

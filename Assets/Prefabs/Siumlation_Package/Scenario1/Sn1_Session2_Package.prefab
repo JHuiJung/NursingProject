@@ -672,7 +672,7 @@ MonoBehaviour:
   simulation_Quiz_Index: 0
   returnIndex: 1
   playerMovePositions: []
-  timeThreshold: 120
+  timeThreshold: 150
   txt_TimeLeft: {fileID: 2843138087738283641}
   Obj_Area_TimeOut: {fileID: 3691115334109057734}
   objs_SetupForms:
@@ -4066,7 +4066,8 @@ MonoBehaviour:
   Obj_BTN_Submit: {fileID: 7849431559619270835}
   text_Question: "Q12: \uD22C\uC57D \uCC98\uBC29\uC5D0 \uB530\uB77C Cefotaxime\uC744
     \uD76C\uC11D \uD6C4 1\uD68C \uC8FC\uC785 \uC6A9\uB7C9\uC744 \uACC4\uC0B0\uD558\uC138\uC694.\n(
-    \uC18C\uC22B\uC810 \uB458\uC9F8 \uC790\uB9AC\uAE4C\uC9C0 \uAE30\uC785 )"
+    \uB2E8\uC704 -> ml, \uC18C\uC22B\uC810 \uB458\uC9F8 \uC790\uB9AC\uAE4C\uC9C0
+    \uAE30\uC785 )"
   Tmp_Question: {fileID: 6216345658500363180}
   ls_textInputForm:
   - lable: "1\uD68C \uC8FC\uC785 \uC6A9\uB7C9"
@@ -4567,6 +4568,7 @@ MonoBehaviour:
   Tmp_Question: {fileID: 4783223097697237757}
   text_Answer: "0.9% \uC0DD\uB9AC\uC2DD\uC5FC\uC218 Normal saline(Sodium Chloride
     0.9%)"
+  isAnswerSuffle: 1
   text_Dummies:
   - "\uC99D\uB958\uC218(Water for Injection)"
   - "0.45% \uC0DD\uB9AC\uC2DD\uC5FC\uC218(Sodium Chloride 0.45%)"

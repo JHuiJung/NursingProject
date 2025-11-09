@@ -3792,7 +3792,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC2DC\uB098\uB9AC\uC624 1 \uC885\uB8CC"
+  m_text: "\uC2DC\uB098\uB9AC\uC624 2 \uC885\uB8CC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed21f0a27c3c7114783de72406ce063e, type: 2}
   m_sharedMaterial: {fileID: 2226096250028548758, guid: ed21f0a27c3c7114783de72406ce063e,
@@ -3927,7 +3927,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC2DC\uB098\uB9AC\uC624 1 \uACB0\uACFC"
+  m_text: "\uC2DC\uB098\uB9AC\uC624 2 \uACB0\uACFC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed21f0a27c3c7114783de72406ce063e, type: 2}
   m_sharedMaterial: {fileID: 2226096250028548758, guid: ed21f0a27c3c7114783de72406ce063e,
@@ -5214,7 +5214,7 @@ MonoBehaviour:
   Obj_Btn_StartRecord: {fileID: 8249851053746932267}
   Obj_Btn_StopRecord: {fileID: 8269835099981306208}
   Obj_BTN_Submit: {fileID: 936470032497151346}
-  minConvCount: 2
+  minConvCount: 1
   Obj_Area_ConvBox: {fileID: 3598298211764017308}
   pf_User_ConvBox: {fileID: 4904659098725429404, guid: d8b86bb4e691a5049b0ee22655f3e26c,
     type: 3}
@@ -5370,7 +5370,7 @@ MonoBehaviour:
   Obj_Btn_StartRecord: {fileID: 8779038763301513743}
   Obj_Btn_StopRecord: {fileID: 1541498790598340578}
   Obj_BTN_Submit: {fileID: 2727507663701588537}
-  minConvCount: 2
+  minConvCount: 1
   Obj_Area_ConvBox: {fileID: 3943916459861592911}
   pf_User_ConvBox: {fileID: 4904659098725429404, guid: d8b86bb4e691a5049b0ee22655f3e26c,
     type: 3}
@@ -12568,7 +12568,7 @@ MonoBehaviour:
   Obj_Btn_StartRecord: {fileID: 2398791263195282845}
   Obj_Btn_StopRecord: {fileID: 1703065950174907273}
   Obj_BTN_Submit: {fileID: 867904264474689677}
-  minConvCount: 2
+  minConvCount: 1
   Obj_Area_ConvBox: {fileID: 2009695444081638318}
   pf_User_ConvBox: {fileID: 4904659098725429404, guid: d8b86bb4e691a5049b0ee22655f3e26c,
     type: 3}
@@ -12780,7 +12780,7 @@ MonoBehaviour:
   Obj_Btn_StartRecord: {fileID: 7596657254525311012}
   Obj_Btn_StopRecord: {fileID: 3928526436985025877}
   Obj_BTN_Submit: {fileID: 8707415785092977463}
-  minConvCount: 2
+  minConvCount: 1
   Obj_Area_ConvBox: {fileID: 2067977590837167904}
   pf_User_ConvBox: {fileID: 4904659098725429404, guid: d8b86bb4e691a5049b0ee22655f3e26c,
     type: 3}
@@ -15576,7 +15576,7 @@ MonoBehaviour:
   Obj_Btn_StartRecord: {fileID: 1141168652475627943}
   Obj_Btn_StopRecord: {fileID: 1063039688777663836}
   Obj_BTN_Submit: {fileID: 1256118410313490791}
-  minConvCount: 2
+  minConvCount: 1
   Obj_Area_ConvBox: {fileID: 6536390052309796111}
   pf_User_ConvBox: {fileID: 4904659098725429404, guid: d8b86bb4e691a5049b0ee22655f3e26c,
     type: 3}
@@ -16138,7 +16138,7 @@ MonoBehaviour:
   Obj_Btn_StartRecord: {fileID: 7444704848910609025}
   Obj_Btn_StopRecord: {fileID: 2539742547890927829}
   Obj_BTN_Submit: {fileID: 6502553120168709226}
-  minConvCount: 2
+  minConvCount: 1
   Obj_Area_ConvBox: {fileID: 2054001024505959572}
   pf_User_ConvBox: {fileID: 4904659098725429404, guid: d8b86bb4e691a5049b0ee22655f3e26c,
     type: 3}
@@ -21064,7 +21064,7 @@ MonoBehaviour:
   Obj_Btn_StartRecord: {fileID: 192645816378272152}
   Obj_Btn_StopRecord: {fileID: 6356508045104926653}
   Obj_BTN_Submit: {fileID: 4208916007376429959}
-  minConvCount: 2
+  minConvCount: 1
   Obj_Area_ConvBox: {fileID: 2633071403578568402}
   pf_User_ConvBox: {fileID: 4904659098725429404, guid: d8b86bb4e691a5049b0ee22655f3e26c,
     type: 3}

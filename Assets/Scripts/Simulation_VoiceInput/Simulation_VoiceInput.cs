@@ -27,7 +27,7 @@ public class Simulation_VoiceInput : SimulationBase
     public string keywords = "";
 
     [Header("Voice Input"), Space(10)]
-    public TMP_Text txt_VoiceUserInput;
+    public TMP_InputField inputField_VoiceUserInput;
     public GameObject Obj_Area_VoiceInput;
     public GameObject Obj_Btn_StartRecord;
     public GameObject Obj_Btn_StopRecord;
@@ -74,7 +74,7 @@ public class Simulation_VoiceInput : SimulationBase
     {
         isSimulationEnd = false;
 
-        txt_VoiceUserInput.text = "";
+        inputField_VoiceUserInput.text = "";
 
         Obj_Btn_StartRecord.SetActive(true);
         Obj_Btn_StopRecord.SetActive(false);
@@ -95,7 +95,7 @@ public class Simulation_VoiceInput : SimulationBase
         string sttText = STT_TTS_Manager.inst.stt_Text;
 
         if (sttText == "") return;
-        txt_VoiceUserInput.text = sttText;
+        inputField_VoiceUserInput.text = sttText;
         Obj_BTN_Submit.SetActive(true);
     }
 
@@ -107,7 +107,7 @@ public class Simulation_VoiceInput : SimulationBase
         if (!isMrocording)
         {
             // recording - begin
-            txt_VoiceUserInput.text = "";
+            inputField_VoiceUserInput.text = "";
 
             Obj_Btn_StartRecord.SetActive(false);
             Obj_Btn_StopRecord.SetActive(true);
@@ -133,13 +133,13 @@ public class Simulation_VoiceInput : SimulationBase
         isSimulationEnd = true;
         Obj_BTN_Submit.SetActive(false);
         STT_TTS_Manager.inst.stt_Text = string.Empty;
-        string answer = txt_VoiceUserInput.text;
+        string answer = inputField_VoiceUserInput.text;
 
         MasterAudio.PlaySound("Button_Press");
 
         SubmitForm submitForm = new SubmitForm();
         submitForm.txt_Question = text_Question;
-        submitForm.txt_QuestionAnswer = $"키워드 : {keywords} / 유저의 응답에 핵심 키워드가 포함 되었는지 파악 후 정답, 오답 판별";
+        submitForm.txt_QuestionAnswer = $"키워드 : {keywords} / 유저의 응답에 핵심 키워드 중 하나라도 포함 되었는지 파악 후 정답, 오답 판별후, 어떤 키워드가 포함되어있어야 하는지 함께 답변";
         submitForm.txt_userAnswer = answer;
         submitForm.useAiAnswer = true;
         submitForm.video_Name = video_name;

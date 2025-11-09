@@ -7872,7 +7872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simulation_Quiz_Index: 13
   Obj_CanvasChoice: {fileID: 5270691538282957544}
-  text_Question: "Q18. \uC190\uC18C\uB3C5\uC81C\uB97C \uC774\uC6A9\uD558\uC5EC \uD22C\uC57D\uC744
+  text_Question: "Q13. \uC190\uC18C\uB3C5\uC81C\uB97C \uC774\uC6A9\uD558\uC5EC \uD22C\uC57D\uC744
     \uC704\uD55C \uC190\uC18C\uB3C5\uC744 \uC218\uD589\uD558\uC138\uC694.\n( \uC774\uBBF8\uC9C0
     \uB4DC\uB798\uADF8 & \uB4DC\uB86D )"
   Tmp_Question: {fileID: 1242509091444927797}
@@ -13338,7 +13338,7 @@ MonoBehaviour:
   simulation_Quiz_Index: 0
   returnIndex: 1
   playerMovePositions: []
-  timeThreshold: 120
+  timeThreshold: 150
   txt_TimeLeft: {fileID: 7307080377827127296}
   Obj_Area_TimeOut: {fileID: 1109633711651182498}
   objs_SetupForms:
@@ -27988,7 +27988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a773a4f28962294d84d21a1a2fc2aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulation_Quiz_Index: 16
+  simulation_Quiz_Index: 14
   Obj_CanvasChoice: {fileID: 1735973765404992313}
   text_Question: "Q14. \uC57D\uBB3C\uC774 \uD63C\uD569\uB41C \uC8FC\uC0AC\uAE30\uC758
     \uB77C\uBCA8\uC744 \uBD80\uCC29\uD569\uB2C8\uB2E4"

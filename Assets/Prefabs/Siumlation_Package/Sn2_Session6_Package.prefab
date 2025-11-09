@@ -66,6 +66,10 @@ MonoBehaviour:
     ls_Answers:
     - "\uBE44\uC815\uC0C1, \uC774\uC0C1 \uBC18\uC751 \uBC1C\uC0DD"
     - "\uC8FC\uC785 \uC911\uB2E8, \uBCF4\uACE0"
+  - sprite: {fileID: 21300000, guid: 225303685365e1341ba0ccf793dd2187, type: 3}
+    ls_Answers:
+    - "\uBE44\uC815\uC0C1, \uC774\uC0C1 \uBC18\uC751 \uBC1C\uC0DD"
+    - "\uC8FC\uC785 \uC911\uB2E8, \uBCF4\uACE0"
   Obj_targetImg: {fileID: 4634072835308946853}
   obj_AreaImage: {fileID: 515236237846744584}
   selectedTA:
@@ -1705,7 +1709,7 @@ MonoBehaviour:
   simulation_RandImg: {fileID: 2265257680599855244}
   useButtonSetup: 0
   answerNumber: 1
-  text_Question: "Q25. \u201C\uD658\uC544\uC5D0\uAC8C \uC774\uC0C1 \uBC18\uC751 (\uD53C\uBD80\uBC1C\uC9C4)\uC774
+  text_Question: "Q25. \u201C\uD658\uC544\uC5D0\uAC8C \uC774\uC0C1 \uBC18\uC751\uC774
     \uBC1C\uC0DD\uD588\uB098\uC694?\u201D"
   Tmp_Question: {fileID: 1484444644684837205}
   BTN_Choices:

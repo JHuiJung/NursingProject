@@ -4408,7 +4408,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -7943,7 +7943,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC548\uB155\uD558\uC138\uC694! "
+  m_text: "Q8. \u201C\uCCB4\uC911 7kg\uC778 \u2018\uBD80\uB974\u2019\uC5D0\uAC8C
+    \uCC98\uBC29\uB41C Celebyx\uC758 1\uD68C 20mg/kg/dose\uC758 \n\uBD80\uD558\uC6A9\uB7C9(loading
+    dose)\uC744 \uD22C\uC5EC \uC2DC, \uD22C\uC5EC\uB7C9\uC740 \uC5BC\uB9C8\uC778\uAC00\uC694?\n(\uB2E8\uC704
+    mg)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed21f0a27c3c7114783de72406ce063e, type: 2}
   m_sharedMaterial: {fileID: 2226096250028548758, guid: ed21f0a27c3c7114783de72406ce063e,
@@ -9640,7 +9643,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4289243304
   m_fontColor: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -10756,10 +10759,11 @@ MonoBehaviour:
   Obj_CanvasChoice: {fileID: 2844110613847743523}
   Obj_AreaTextInput: {fileID: 917992015455961179}
   Obj_BTN_Submit: {fileID: 7432652560768093095}
-  text_Question: "Q9. \u201C\uCCB4\uC911 7kg\uC778 \u2018\uBD80\uB974\u2019\uC5D0\uAC8C
+  text_Question: "Q9. \uCCB4\uC911 7kg\uC778 \u2018\uBD80\uB974\u2019\uC5D0\uAC8C
     \uCD08\uAE30 \uBD80\uD558\uC6A9\uB7C9(loading dose) \uD22C\uC5EC \uD6C4, \uC720\uC9C0\uB97C
     \uC704\uD574 \uCC98\uBC29\uACFC \uAC19\uC774 4mg/kg/dose\uC744 \uD22C\uC5EC\uD560
-    \uB54C 1\uD68C \uD22C\uC5EC\uB7C9\uC740 \uC5BC\uB9C8\uC778\uAC00\uC694?\u201D"
+    \uB54C 1\uD68C \uD22C\uC5EC\uB7C9\uC740 \uC5BC\uB9C8\uC778\uAC00\uC694? (\uB2E8\uC704
+    mg)"
   Tmp_Question: {fileID: 8792231014786063880}
   ls_textInputForm:
   - lable: "\uD22C\uC5EC\uB7C9"
@@ -14536,8 +14540,8 @@ MonoBehaviour:
     1\uD68C 20mg/kg/dose\uC758 \uBD80\uD558\uC6A9\uB7C9(loading dose)\uC740 \uCD1D
     140mg\uB85C \uACC4\uC0B0\uB418\uC5C8\uC2B5\uB2C8\uB2E4. \uC774 \uC57D\uBB3C\uC5D0\uC11C
     \uC2E4\uC81C\uB85C \uC8FC\uC0AC\uAE30\uC5D0 \uB2F4\uC544\uC57C \uD560 \uC6A9\uB7C9\uC740
-    \uBA87 ml\uC778\uAC00\uC694?\u201D (\uC18C\uC218\uC810 \uCCAB\uC9F8 \uC790\uB9AC\uAE4C\uC9C0
-    \uACC4\uC0B0)"
+    \uBA87 ml\uC778\uAC00\uC694?\u201D (\uB2E8\uC704 ml, \uC18C\uC218\uC810 \uCCAB\uC9F8
+    \uC790\uB9AC\uAE4C\uC9C0 \uBC18\uC62C\uB9BC \uD558\uC5EC \uACC4\uC0B0)"
   Tmp_Question: {fileID: 5131607451610538701}
   ls_textInputForm:
   - lable: "\uC8FC\uC0AC \uC6A9\uB7C9"
@@ -18427,7 +18431,8 @@ MonoBehaviour:
   Obj_BTN_Submit: {fileID: 7731708974362483677}
   text_Question: "Q8. \u201C\uCCB4\uC911 7kg\uC778 \u2018\uBD80\uB974\u2019\uC5D0\uAC8C
     \uCC98\uBC29\uB41C Celebyx\uC758 1\uD68C 20mg/kg/dose\uC758 \n\uBD80\uD558\uC6A9\uB7C9(loading
-    dose)\uC744 \uD22C\uC5EC \uC2DC, \uD22C\uC5EC\uB7C9\uC740 \uC5BC\uB9C8\uC778\uAC00\uC694?"
+    dose)\uC744 \uD22C\uC5EC \uC2DC, \uD22C\uC5EC\uB7C9\uC740 \uC5BC\uB9C8\uC778\uAC00\uC694?\n(\uB2E8\uC704
+    mg)"
   Tmp_Question: {fileID: 5715581581691424627}
   ls_textInputForm:
   - lable: "\uD22C\uC5EC\uB7C9"
@@ -22850,7 +22855,7 @@ MonoBehaviour:
   playerMovePositions:
   - {x: 52.03, y: 0, z: 10.54}
   - {x: 52.03, y: 0, z: 8.7}
-  timeThreshold: 120
+  timeThreshold: 160
   txt_TimeLeft: {fileID: 4442998485841903533}
   Obj_Area_TimeOut: {fileID: 7138449078977006301}
   objs_SetupForms:
