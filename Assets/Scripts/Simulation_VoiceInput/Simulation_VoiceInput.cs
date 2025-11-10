@@ -46,6 +46,8 @@ public class Simulation_VoiceInput : SimulationBase
     bool isSimulationEnd = false;
     ScenarioManager _sm;
 
+    bool flag_Input = false;
+
 
     public override void Enter(ScenarioManager SM)
     {
@@ -73,6 +75,7 @@ public class Simulation_VoiceInput : SimulationBase
     public override void ResetSimulation()
     {
         isSimulationEnd = false;
+        flag_Input = false;
 
         inputField_VoiceUserInput.text = "";
 
@@ -92,11 +95,30 @@ public class Simulation_VoiceInput : SimulationBase
 
     void CheckSTT_Text()
     {
-        string sttText = STT_TTS_Manager.inst.stt_Text;
 
-        if (sttText == "") return;
-        inputField_VoiceUserInput.text = sttText;
-        Obj_BTN_Submit.SetActive(true);
+        if (!flag_Input)
+        {
+            // 텍스트 인풋 클릭 안했을때
+            string sttText = STT_TTS_Manager.inst.stt_Text;
+
+            if (sttText == "") return;
+            inputField_VoiceUserInput.text = sttText;
+            Obj_BTN_Submit.SetActive(true);
+        }
+        else
+        {
+            string _text = inputField_VoiceUserInput.text;
+
+            if (_text == "") 
+            {
+                Obj_BTN_Submit.SetActive(false);
+            }
+            else
+            {
+                Obj_BTN_Submit.SetActive(true);
+            }
+        }
+        
     }
 
     public void ToggleRecord()
@@ -108,6 +130,9 @@ public class Simulation_VoiceInput : SimulationBase
         {
             // recording - begin
             inputField_VoiceUserInput.text = "";
+            STT_TTS_Manager.inst.stt_Text = "";
+
+            flag_Input = false;
 
             Obj_Btn_StartRecord.SetActive(false);
             Obj_Btn_StopRecord.SetActive(true);
@@ -116,6 +141,11 @@ public class Simulation_VoiceInput : SimulationBase
         else
         {
             // no Recording - end
+
+            inputField_VoiceUserInput.text = "";
+            STT_TTS_Manager.inst.stt_Text = "";
+
+            flag_Input = false;
 
             Obj_Btn_StartRecord.SetActive(true);
             Obj_Btn_StopRecord.SetActive(false);
@@ -201,5 +231,10 @@ public class Simulation_VoiceInput : SimulationBase
 
         // ���� �ùķ��̼����� �̵�
         _sm.NextSimulation();
+    }
+
+    public void Flag_Input(bool flag)
+    {
+        flag_Input = flag;
     }
 }

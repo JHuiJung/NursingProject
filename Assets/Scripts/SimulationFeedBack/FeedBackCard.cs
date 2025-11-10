@@ -109,9 +109,12 @@ public class FeedBackCard : MonoBehaviour
                 STT_TTS_Manager.inst.audioSource.clip = null;
             }
         }
+        else
+        {
+            // 货肺款 TTS 内风凭 矫累
+            string onlyText = Regex.Replace(txt_AiAnswer.text, "<.*?>", string.Empty);
+            ttsCoroutine = StartCoroutine(STT_TTS_Manager.inst.TTS(onlyText));
+        }
 
-        // 货肺款 TTS 内风凭 矫累
-        string onlyText = Regex.Replace(txt_AiAnswer.text, "<.*?>", string.Empty);
-        ttsCoroutine = StartCoroutine(STT_TTS_Manager.inst.TTS(onlyText));
     }
 }
