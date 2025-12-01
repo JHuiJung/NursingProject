@@ -20125,6 +20125,7 @@ MonoBehaviour:
   obj_Pass_Package: {fileID: 0}
   obj_NonPass_Package: {fileID: 0}
   ls_NonPass_Objs: []
+  Obj_Btn_ForcePass: {fileID: 8740610417287999048}
   DG_Time: 0.75
   DG_TimeDelta: 0.1
   DG_Ease: 7
@@ -26765,7 +26766,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4279113631304668425
 RectTransform:
   m_ObjectHideFlags: 0

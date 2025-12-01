@@ -29431,6 +29431,7 @@ MonoBehaviour:
   obj_NonPass_Package: {fileID: 4838663320307910669, guid: 689e2911ed2463240afe1d11dd5a2e8a,
     type: 3}
   ls_NonPass_Objs: []
+  Obj_Btn_ForcePass: {fileID: 7172189678445729491}
   DG_Time: 0.75
   DG_TimeDelta: 0.1
   DG_Ease: 7
@@ -38103,7 +38104,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8398046092745580440
 RectTransform:
   m_ObjectHideFlags: 0

@@ -45,6 +45,7 @@ public class Simulation_FeedBack : SimulationBase
     public GameObject obj_Pass_Package;
     public GameObject obj_NonPass_Package;
     public List<GameObject> ls_NonPass_Objs = new List<GameObject>();
+    public GameObject Obj_Btn_ForcePass;
 
     [Header("Dotween"), Space(10)]
     public float DG_Time = 0.75f;
@@ -165,6 +166,11 @@ public class Simulation_FeedBack : SimulationBase
             Destroy(obj_Area_Cards.transform.GetChild(i).gameObject);
         }
 
+        if (Obj_Btn_ForcePass != null)
+        {
+            Obj_Btn_ForcePass.SetActive(false);
+        }
+
         //%%%%%%%%%%%%%%%%%%%% �ӽ÷� �ǵ�� ����� ���� ���� %%%%%%%%%%%%%%%%%%%%%%
         _sm.str_Answers.Clear();
     }
@@ -189,6 +195,11 @@ public class Simulation_FeedBack : SimulationBase
         Obj_Wait.SetActive(true);
         obj_Area_BTns.SetActive(false);
         Obj_CanvasChoice.SetActive(true);
+
+        if(Obj_Btn_ForcePass != null && DataManager.inst.userName == "admin")
+        {
+            Obj_Btn_ForcePass.SetActive(true);
+        }
 
         yield return new WaitForSeconds(0.2f);
 
