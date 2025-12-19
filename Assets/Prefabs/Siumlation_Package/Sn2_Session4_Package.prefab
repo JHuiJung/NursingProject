@@ -917,7 +917,7 @@ MonoBehaviour:
   playerMovePositions:
   - {x: 52.03, y: 0, z: 10.54}
   - {x: 52.03, y: 0, z: 8.7}
-  timeThreshold: 120
+  timeThreshold: 300
   txt_TimeLeft: {fileID: 8956463279315252088}
   Obj_Area_TimeOut: {fileID: 7518092990113108950}
   objs_SetupForms:
@@ -4523,6 +4523,7 @@ MonoBehaviour:
     \uBAA9\uC801\uACFC \uACFC\uC815\uC744 \uC124\uBA85\uD574\uC8FC\uC138\uC694.\u201D"
   Tmp_Question: {fileID: 788771896756771354}
   keywords: "[ \"\uACBD\uB828\" , \"\uAD00\", \"\uCC9C\uCC9C\uD788\" ] "
+  submitUseAiAnswer: 0
   inputField_VoiceUserInput: {fileID: 6487831503697744635}
   Obj_Area_VoiceInput: {fileID: 5408358585225075991}
   Obj_Btn_StartRecord: {fileID: 7095294029380947871}

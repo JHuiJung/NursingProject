@@ -3295,7 +3295,7 @@ MonoBehaviour:
   simulation_Quiz_Index: 0
   returnIndex: 1
   playerMovePositions: []
-  timeThreshold: 120
+  timeThreshold: 300
   txt_TimeLeft: {fileID: 3532801117174455048}
   Obj_Area_TimeOut: {fileID: 9079519547837666075}
   objs_SetupForms:
@@ -7943,8 +7943,9 @@ MonoBehaviour:
   text_Question: "Q17. \u201C\uD658\uC544\uC5D0\uAC8C \uC774\uBC88 \uC8FC\uC0AC\uC758
     \uBAA9\uC801\uACFC \uACFC\uC815\uC744 \uC124\uBA85\uD574\uC8FC\uC138\uC694.\u201D"
   Tmp_Question: {fileID: 1769540431339063079}
-  keywords: "[ \"\uC2EC\uC7A5\" ,\"\uC8FC\uC0AC\", \"\uAD00\", \"\uCC9C\uCC9C\uD788\"
-    ] "
+  keywords: "[ \"\uD56D\uC0DD\uC81C\",\"\uC2EC\uC7A5\" ,\"\uC8FC\uC0AC\", \"\uAD00\",
+    \"\uCC9C\uCC9C\uD788\" ] "
+  submitUseAiAnswer: 1
   inputField_VoiceUserInput: {fileID: 6019248813782132256}
   Obj_Area_VoiceInput: {fileID: 5917660210632494669}
   Obj_Btn_StartRecord: {fileID: 4800976671342512600}

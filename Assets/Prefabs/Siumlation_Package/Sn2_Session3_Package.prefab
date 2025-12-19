@@ -22714,7 +22714,7 @@ MonoBehaviour:
   playerMovePositions:
   - {x: 52.03, y: 0, z: 10.54}
   - {x: 52.03, y: 0, z: 8.7}
-  timeThreshold: 120
+  timeThreshold: 300
   txt_TimeLeft: {fileID: 4697521785549946660}
   Obj_Area_TimeOut: {fileID: 7947612576155360292}
   objs_SetupForms:

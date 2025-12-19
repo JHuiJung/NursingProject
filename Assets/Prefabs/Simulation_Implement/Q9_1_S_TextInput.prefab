@@ -161,9 +161,9 @@ MonoBehaviour:
     userInput: {fileID: 2112832441453994409}
     correctAnswer: 43.2mg
   ls_Extra_Answers:
-  - 43.2
   - 43.2 mg
   img_Answer: {fileID: 0}
+  videoName: 
   DG_Time: 0.75
   DG_Area_EndY: -20
   DG_Area_StartY: -450

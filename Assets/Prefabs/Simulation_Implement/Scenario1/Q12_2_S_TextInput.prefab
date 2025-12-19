@@ -307,7 +307,10 @@ MonoBehaviour:
   - lable: "1\uD68C \uC8FC\uC785 \uC6A9\uB7C9"
     userInput: {fileID: 3933298754339819167}
     correctAnswer: 4.8ml
+  ls_Extra_Answers:
+  - 4.8 ml
   img_Answer: {fileID: 0}
+  videoName: 
   DG_Time: 0.75
   DG_Area_EndY: -20
   DG_Area_StartY: -450
@@ -318,7 +321,7 @@ MonoBehaviour:
   OnEnd:
     m_PersistentCalls:
       m_Calls: []
-  OnEnd_If_Pass:
+  OnEnd_If_NonPass:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &2479030723293889903

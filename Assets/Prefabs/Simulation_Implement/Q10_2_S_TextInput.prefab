@@ -948,9 +948,9 @@ MonoBehaviour:
     userInput: {fileID: 4730789718060947858}
     correctAnswer: 2.4ml
   ls_Extra_Answers:
-  - 2.4
   - 2.4 ml
   img_Answer: {fileID: 0}
+  videoName: 
   DG_Time: 0.75
   DG_Area_EndY: -20
   DG_Area_StartY: -450

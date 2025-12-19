@@ -25,6 +25,7 @@ public class Simulation_VoiceInput : SimulationBase
     public TMP_Text Tmp_Question;
     [TextArea]
     public string keywords = "";
+    public bool submitUseAiAnswer = true;
 
     [Header("Voice Input"), Space(10)]
     public TMP_InputField inputField_VoiceUserInput;
@@ -167,27 +168,30 @@ public class Simulation_VoiceInput : SimulationBase
 
         MasterAudio.PlaySound("Button_Press");
 
-        SubmitForm submitForm = new SubmitForm();
-        submitForm.txt_Question = text_Question;
-        submitForm.txt_QuestionAnswer = $"키워드 : {keywords} / 유저의 응답에 핵심 키워드 중 하나라도 포함 되었는지 파악 후 정답, 오답 판별후, 어떤 키워드가 포함되어있어야 하는지 함께 답변";
-        submitForm.txt_userAnswer = answer;
-        submitForm.useAiAnswer = true;
-        submitForm.video_Name = video_name;
-        submitForm.quiz_index = simulation_Quiz_Index;
+        if(submitUseAiAnswer)
+        {
+            SubmitForm submitForm = new SubmitForm();
+            submitForm.txt_Question = text_Question;
+            submitForm.txt_QuestionAnswer = $"키워드 : {keywords} / 유저의 응답에 핵심 키워드 중 하나라도 포함 되었는지 파악 후 정답, 오답 판별후, 어떤 키워드가 포함되어있어야 하는지 함께 답변";
+            submitForm.txt_userAnswer = answer;
+            submitForm.useAiAnswer = true;
+            submitForm.video_Name = video_name;
+            submitForm.quiz_index = simulation_Quiz_Index;
 
-        _sm.str_Answers.Add(submitForm);
+            _sm.str_Answers.Add(submitForm);
 
-        DataManager.Conv_Log_Unit convUnit = new DataManager.Conv_Log_Unit();
-        DataManager.Conv_Log conv_Log = new DataManager.Conv_Log();
+            DataManager.Conv_Log_Unit convUnit = new DataManager.Conv_Log_Unit();
+            DataManager.Conv_Log conv_Log = new DataManager.Conv_Log();
 
-        convUnit.log = answer;
-        convUnit.isPlayer = "O";
-        convUnit.name_conv = DataManager.inst.userName;
+            convUnit.log = answer;
+            convUnit.isPlayer = "O";
+            convUnit.name_conv = DataManager.inst.userName;
 
-        conv_Log.question = text_Question;
-        conv_Log.ls_Conv_Log_Unit.Add(convUnit);
+            conv_Log.question = text_Question;
+            conv_Log.ls_Conv_Log_Unit.Add(convUnit);
 
-        DataManager.inst.AddConvLogList(conv_Log);
+            DataManager.inst.AddConvLogList(conv_Log);
+        }
 
         StartCoroutine(AllUiOff());
     }

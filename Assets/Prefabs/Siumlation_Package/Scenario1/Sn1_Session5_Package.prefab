@@ -3655,7 +3655,7 @@ MonoBehaviour:
   simulation_Quiz_Index: 0
   returnIndex: 1
   playerMovePositions: []
-  timeThreshold: 120
+  timeThreshold: 300
   txt_TimeLeft: {fileID: 8817561317653103865}
   Obj_Area_TimeOut: {fileID: 116808186239177907}
   objs_SetupForms:
