@@ -32,7 +32,7 @@ public class Simulation_Conversation : SimulationBase
     public string keywords = "";
 
     [Header("Voice Input"), Space(10)]
-    public TMP_Text txt_VoiceUserInput;
+    public TMP_InputField txt_VoiceUserInput;
     public GameObject Obj_Area_VoiceInput;
     public GameObject Obj_Btn_StartRecord;
     public GameObject Obj_Btn_StopRecord;
@@ -60,6 +60,7 @@ public class Simulation_Conversation : SimulationBase
 
     //----ai �亯----
     string aiParentResponse = "";
+    ConvBox userConvBox = null;
 
     public override void Enter(ScenarioManager SM)
     {
@@ -102,6 +103,7 @@ public class Simulation_Conversation : SimulationBase
             txt_VoiceUserInput.text = "";
         aiParentResponse = "";
         currentConvCount = 0;
+        userConvBox = null;
 
         conv_Log = new DataManager.Conv_Log();
 
@@ -120,14 +122,30 @@ public class Simulation_Conversation : SimulationBase
 
     void CheckSTT_Text()
     {
-        string sttText = STT_TTS_Manager.inst.stt_Text;
+        if (userConvBox == null) return;
 
-        if(sttText == "") return;
+        if (!userConvBox.flag_Input)
+        {
+            // 텍스트 인풋 클릭 안했을때
+            string sttText = STT_TTS_Manager.inst.stt_Text;
 
-        // set userbox text
-        //Debug.Log($"?? STT 응답: {sttText} / 개수 {sttText.Length}");
-        txt_VoiceUserInput.text = sttText;
-        Obj_BTN_Submit.SetActive(true);
+            if (sttText == "") return;
+            txt_VoiceUserInput.text = sttText;
+            Obj_BTN_Submit.SetActive(true);
+        }
+        else
+        {
+            string _text = txt_VoiceUserInput.text;
+
+            if (_text == "")
+            {
+                Obj_BTN_Submit.SetActive(false);
+            }
+            else
+            {
+                Obj_BTN_Submit.SetActive(true);
+            }
+        }
     }
 
     void Setup()
@@ -136,6 +154,7 @@ public class Simulation_Conversation : SimulationBase
         conv_Log = new DataManager.Conv_Log();
         conv_Log.question = text_Question;
         Tmp_Question.text = text_Question;
+        userConvBox = null;
         _sm.GageObjSetActive(true);
         _sm.GageUpdate();
     }
@@ -157,6 +176,7 @@ public class Simulation_Conversation : SimulationBase
         oppositeConvbox.transform.SetAsLastSibling();
         oppositeConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         oppositeConvbox.GetComponent<ConvBox>().Setup(opposite_Name, opposite_Content);
+        Obj_BTN_Submit.SetActive(false);
 
         // Opposite Cam On
         CameraManager.inst.SetCamera(opposite_Cam_Name);
@@ -212,6 +232,7 @@ public class Simulation_Conversation : SimulationBase
         oppositeConvbox.transform.SetAsLastSibling();
         oppositeConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         oppositeConvbox.GetComponent<ConvBox>().Setup(opposite_Name, ai_responese);
+        Obj_BTN_Submit.SetActive(false);
 
         // Opposite Cam On
         CameraManager.inst.SetCamera(opposite_Cam_Name);
@@ -252,11 +273,12 @@ public class Simulation_Conversation : SimulationBase
         CameraManager.inst.SetCamera(player_Cam_Name);
 
         // UserConvBox ����
-        GameObject userConvbox = Instantiate(pf_User_ConvBox, Obj_Area_ConvBox.transform);
-        userConvbox.transform.SetAsLastSibling();
-        userConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        userConvbox.GetComponent<ConvBox>().Setup($"{DataManager.inst.userName} 간호사", "");
-        txt_VoiceUserInput = userConvbox.GetComponent<ConvBox>().txt_Content;
+        GameObject _userConvbox = Instantiate(pf_User_ConvBox, Obj_Area_ConvBox.transform);
+        _userConvbox.transform.SetAsLastSibling();
+        _userConvbox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        _userConvbox.GetComponent<ConvBox>().Setup($"{DataManager.inst.userName} 간호사", "");
+        userConvBox = _userConvbox.GetComponent<ConvBox>();
+        txt_VoiceUserInput = userConvBox.GetComponent<ConvBox>().txt_InputField;
     }
 
     IEnumerator NextConv()
@@ -304,6 +326,9 @@ public class Simulation_Conversation : SimulationBase
             Obj_Btn_StartRecord.SetActive(false);
             Obj_Btn_StopRecord.SetActive(true);
 
+            if(userConvBox != null)
+                userConvBox.Flag_Input(false);
+
             // Player Ani Talk On
             DataManager.inst.SetMute(true);
             CameraManager.inst.SetAnimation(player_Obj_Name, "talk");
@@ -312,9 +337,13 @@ public class Simulation_Conversation : SimulationBase
         else
         {
             // no Recording - end
+            txt_VoiceUserInput.text = "";
 
             Obj_Btn_StartRecord.SetActive(true);
             Obj_Btn_StopRecord.SetActive(false);
+
+            if (userConvBox != null)
+                userConvBox.Flag_Input(false);
 
             // Player Ani idle On
             DataManager.inst.SetMute(false);
